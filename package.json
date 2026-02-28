@@ -2,7 +2,7 @@
   "name": "scrumdapp-web-client",
   "description": "Monorepo for all front-end applications made for Scrumdapp.",
   "repository": {
-    'type': "git",
+    "type": "git",
     "url": "git+https://github.com/Scrumdapp/web-client.git"
   },
   "author": "Team Scrumdapp",
