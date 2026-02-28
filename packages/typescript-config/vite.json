@@ -1,0 +1,7 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./config.app.json" },
+    { "path": "./config.node.json" }
+  ]
+}
