@@ -5,6 +5,7 @@
   "private": true,
   "exports": {
     ".": "./theme.css",
+    "./theme.css": "./theme.css",
     "./postcss": "./postcss.config.js"
   },
   "devDependencies": {
