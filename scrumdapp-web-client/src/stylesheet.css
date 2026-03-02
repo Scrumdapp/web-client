@@ -1,2 +1,10 @@
 @import "tailwindcss";
 
+
+.btn {
+    @apply h-auto w-1/2 transition object-center gap-2 border border-solid p-1 rounded bg-gray-300;
+}
+
+.btn:hover {
+    @apply transform scale-110 bg-blue-500;
+}
