@@ -1,10 +1,17 @@
 @import "tailwindcss";
 
+#root {
+    background-color: #1d2021;
+    font-style: italic ;
+    font-weight: 600;
+}
 
 .btn {
-    @apply h-auto w-1/2 transition object-center gap-2 border border-solid p-1 rounded bg-gray-300;
+    @apply h-10 w-1/8 flex text-center text-[#f6edc4] justify-center object-center
+    gap-1 p-2 rounded-lg duration-200
+    ;
 }
 
 .btn:hover {
-    @apply transform scale-110 bg-blue-500;
+    @apply bg-[#514a46] ease-in-out transform -translate-y-0;
 }
