@@ -1,14 +1,22 @@
-import './index.css'
-import './stylesheet.css'
-import "tailwindcss";
-import * as React from "react";
+import './App.css';
 
-export default class App extends React.Component<{}, {}> {
-    render() {
-        return (
-            <div className="flex flex-col h-screen justify-center items-center text-center bg-fg3">
-            <button className="btn">Hallo</button>
-            </div>
-        )
-    }
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/header";
+import Footer from "./components/footer";
+
+function App() {
+    return (
+        <Router>
+            <Header />
+
+            <Routes>
+                <Route path="/" element={<Footer />} />
+                <Route path="/1" element={<Header />} />
+            </Routes>
+
+            <Footer />
+        </Router>
+    );
 }
+
+export default App;
