@@ -1,23 +1,15 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./components/layout";
-import Test from "./pages/Test";
-import About from "./pages/About";
-import MainPage from "./pages/MainPage";
-import Privacy from "./pages/Privacy";
+import { BrowserRouter } from "react-router-dom";
+import Layout from "./components/Layout.tsx";
+import AppRouter from "./router/AppRouter";
+import "./css/Stylesheet.css";
 
 function App() {
     return (
-        <Router>
+        <BrowserRouter>
             <Layout>
-                <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/test" element={<Test />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/privacy" element={<Privacy />} />
-                </Routes>
+                <AppRouter />
             </Layout>
-        </Router>
+        </BrowserRouter>
     );
 }
 
