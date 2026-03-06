@@ -22,3 +22,7 @@
 .btn-extra-actions {
     @apply bg-[#458588] hover:bg-[#83a598];
 }
+
+.write {
+    @apply p-3 text-[#f6edc4] border border-[#f6edc4] rounded-lg focus:border-dashed focus:border-red-700 outline-none;
+}
