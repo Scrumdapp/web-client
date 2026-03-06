@@ -7,11 +7,18 @@
 }
 
 .btn {
-    @apply h-10 w-1/8 flex text-center text-[#f6edc4] justify-center object-center
-    gap-1 p-2 rounded-lg duration-200
-    ;
+    @apply h-10 w-fit p-2 flex text-center text-[#f6edc4] justify-center object-center
+    gap-1 p-2 rounded-lg duration-200  ease-in-out transform active:duration-100;
 }
 
-.btn:hover {
-    @apply bg-[#514a46] ease-in-out transform -translate-y-0;
+.btn-nav {
+    @apply hover:bg-[#514a46] active:bg-[#b9b49d]
+}
+
+.btn-border {
+    @apply border border-[#f6edc4];
+}
+
+.btn-extra-actions {
+    @apply bg-[#458588] hover:bg-[#83a598];
 }
