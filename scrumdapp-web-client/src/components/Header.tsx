@@ -4,7 +4,7 @@ export default function Header() {
 
     const [isOpen, setIsOpen] = useState(false);
 
-        return (<body className="bg-gray-100">
+        return (<div className="bg-gray-100">
 
         <nav className="bg-liniear-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,5 +64,5 @@ export default function Header() {
                     Log In</a>
             </div>
         </nav>
-        </body>)
+        </div>)
     }
