@@ -1,12 +1,16 @@
-import './index.css'
-import './stylesheet.css'
-import "tailwindcss";
-import * as React from "react";
+import { BrowserRouter } from "react-router-dom";
+import Layout from "./components/Layout.tsx";
+import AppRouter from "./router/AppRouter";
+import "./css/Stylesheet.css";
 
-export default class App extends React.Component {
-    render() {
-        return (
-
-        )
-    }
+function App() {
+    return (
+        <BrowserRouter>
+            <Layout>
+                <AppRouter />
+            </Layout>
+        </BrowserRouter>
+    );
 }
+
+export default App;
