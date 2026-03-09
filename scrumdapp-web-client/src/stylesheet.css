@@ -1,28 +1,40 @@
 @import "tailwindcss";
 
 #root {
-    background-color: #1d2021;
+    background-color: var(--bg-primary);
     font-style: italic ;
     font-weight: 600;
+
+    /* Background Colours */
+    --bg-primary: #1d2021;
+
+    /* Colours */
+    --colour-primary: #f6edc4;
+
+    /* Button */
+    --primary-hover: #514a46;
+    --primary-active: #b9b49d;
+    --secondary-hover: #83a598;
+    --button-secondary: #458588;
 }
 
 .btn {
-    @apply h-10 w-fit p-2 flex text-center text-[#f6edc4] justify-center object-center
-    gap-1 p-2 rounded-lg duration-200  ease-in-out transform active:duration-100;
+    @apply h-10 w-fit p-2 flex text-center text-(--colour-primary) justify-center object-center
+    gap-1 rounded-lg duration-200  ease-in-out transform active:duration-100;
 }
 
-.btn-nav {
-    @apply hover:bg-[#514a46] active:bg-[#b9b49d]
-}
-
-.btn-border {
-    @apply border border-[#f6edc4];
+.btn-main {
+    @apply hover:bg-(--primary-hover) active:bg-(--primary-active);
 }
 
 .btn-extra-actions {
-    @apply bg-[#458588] hover:bg-[#83a598];
+    @apply bg-(--button-secondary) hover:bg-(--secondary-hover);
 }
 
-.write {
-    @apply p-3 text-[#f6edc4] border border-[#f6edc4] rounded-lg focus:border-dashed focus:border-red-700 outline-none;
+.border {
+    @apply border border-(--colour-primary);
+}
+
+.write-section {
+    @apply p-3 text-(--colour-primary) border border-(--colour-primary) rounded-lg focus:border-dashed focus:border-red-700 outline-none;
 }
