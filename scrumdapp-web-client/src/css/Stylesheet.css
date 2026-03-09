@@ -38,3 +38,12 @@
 .write-section {
     @apply p-3 text-(--colour-primary) border border-(--colour-primary) rounded-lg focus:border-dashed focus:border-red-700 outline-none;
 }
+
+.write-section::-webkit-scrollbar {
+    @apply w-0;
+
+}
+.write-section::-webkit-scrollbar-track {
+   @apply bg-transparent;
+}
+

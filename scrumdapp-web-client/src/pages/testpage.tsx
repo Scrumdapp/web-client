@@ -5,10 +5,9 @@ export default class Test extends React.Component {
         return (
             <div>
                 <div className="flex flex-col h-screen justify-center items-center text-center bg-fg3">
-                    <textarea className="write-section" />
+                    <textarea className="write-section resize-none" />
                     <button className="btn btn-main border m-2">Scrumdapp</button>
                 </div>
-
             </div>
 
 
