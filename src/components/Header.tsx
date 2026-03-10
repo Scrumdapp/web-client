@@ -11,12 +11,12 @@ export default function Header() {
                 <div className="flex justify-between h-16 items-center">
 
                     <div className="shrink-0 text-(--colour-primary) text-2xl font-bold">
-                        <a href="/">Scrumdapp</a>
+                        <a href="/public">Scrumdapp</a>
                     </div>
 
 
                     <div className="hidden md:flex space-x-6 text-black font-medium">
-                        <a href="/" className="btn btn-main ">Home</a>
+                        <a href="/public" className="btn btn-main ">Home</a>
                         <a href="/about" className="btn btn-main">About</a>
                         <a href="/privacy" className="btn btn-main">Privacy</a>
                         <a href="/groups" className="btn btn-main">Groups</a>
@@ -55,7 +55,7 @@ export default function Header() {
 
 
             <div id="mobile-menu" className="md:hidden hidden px-4 pb-4 space-y-2 text-white font-medium">
-                <a href="/" className="block hover:text-yellow-300 transition">Home</a>
+                <a href="/public" className="block hover:text-yellow-300 transition">Home</a>
                 <a href="/about" className="block hover:text-yellow-300 transition">About</a>
                 <a href="/privacy" className="block hover:text-yellow-300 transition">Privacy</a>
                 <a href="/groups" className="block hover:text-yellow-300 transition">Groups</a>

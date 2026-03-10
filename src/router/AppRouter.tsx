@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
-import MainPage from "../pages/MainPage";
-import About from "../pages/About";
-import Privacy from "../pages/Privacy";
-import Test from "../pages/testpage";
+import MainPage from "../pages/MainPage.tsx";
+import About from "../pages/About.tsx";
+import Privacy from "../pages/Privacy.tsx";
+import Test from "../pages/testpage.tsx";
 
 // ^^^ Add new pages here ^^^
 
