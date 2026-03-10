@@ -2,8 +2,7 @@
 
 #root {
     background-color: var(--bg-primary);
-    font-style: italic ;
-    font-weight: 600;
+    font-weight: 400;
 
     /* Background Colours */
     --bg-primary: #1d2021;
