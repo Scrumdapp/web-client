@@ -1,41 +1,38 @@
 @import "tailwindcss";
 
 #root {
-    background-color: var(--bg-primary);
-    font-weight: 400;
+    @apply bg-gray-800 font-normal;
+}
 
-    /* Background Colours */
-    --bg-primary: #1d2021;
+@theme {
+    --color-gray-800: #1d2021;
+    --color-yellow-300: #f6edc4;
+    --color-gray-200: #514a46;
+    --color-yellow-100: #b9b49d;
+    --color-emerald-50: #83a598;
+    --color-cyan-200: #458588;
 
-    /* Colours */
-    --colour-primary: #f6edc4;
-
-    /* Button */
-    --primary-hover: #514a46;
-    --primary-active: #b9b49d;
-    --secondary-hover: #83a598;
-    --button-secondary: #458588;
 }
 
 .btn {
-    @apply h-10 w-fit p-2 flex text-center text-(--colour-primary) justify-center object-center
+    @apply h-10 w-fit p-2 flex text-center text-yellow-300 justify-center object-center
     gap-1 rounded-lg duration-200  ease-in-out transform active:duration-100;
 }
 
 .btn-main {
-    @apply hover:bg-(--primary-hover) active:bg-(--primary-active);
+    @apply hover:bg-gray-200 active:bg-yellow-100;
 }
 
 .btn-extra-actions {
-    @apply bg-(--button-secondary) hover:bg-(--secondary-hover);
+    @apply bg-cyan-200 hover:bg-emerald-50;
 }
 
 .border {
-    @apply border border-(--colour-primary);
+    @apply border border-yellow-300;
 }
 
 .write-section {
-    @apply p-3 text-(--colour-primary) border border-(--colour-primary) rounded-lg focus:border-dashed focus:border-red-700 outline-none;
+    @apply p-3 text-yellow-300 border border-yellow-300 rounded-lg focus:border-dashed focus:border-red-700 outline-none;
 }
 
 .write-section::-webkit-scrollbar {

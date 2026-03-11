@@ -10,7 +10,7 @@ export default function Header() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
 
-                    <div className="shrink-0 text-(--colour-primary) text-2xl font-bold">
+                    <div className="shrink-0 text-yellow-300 text-2xl font-bold">
                         <a href="/public">Scrumdapp</a>
                     </div>
 
