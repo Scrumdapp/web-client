@@ -3,27 +3,32 @@ export default function Footer() {
     <footer className="pt-16 pb-7 px-2">
         <div className="mx-auto px-4 lg:px-12 p-12 rounded-2xl bg-bg shadow-xl border footer">
             <div
-                className="flex flex-col min-[830px]:flex-row items-center justify-between gap-6 pb-10 border-b-2 border-gray-200">
-                <a href="/public" className="btn border">Scrumdapp</a>
-                <ul className="flex flex-col sm:flex-row items-center gap-5 sm:gap-12">
-                    <li><a href="/public" className="btn border">Scrumdapp</a>
+                className="flex flex-col items-center justify-between gap-6 pb-10">
+                <ul className="flex flex-col sm:flex-row items-center gap-5 sm:gap-16">
+                    <li><a href="/public" className="btn">Scrumdapp</a>
                     </li>
-                    <li><a href="/public" className="btn border">About</a>
+                    <li><a href="/about" className="btn">About</a>
                     </li>
-                    <li><a href="/public" className="btn border">Privacy</a>
+                    <li><a href="/privacy" className="btn">Privacy</a>
                     </li>
-                    <li><a href="/public" className="btn border">Groups</a>
+                    <li><a href="/groups" className="btn">Groups</a>
                     </li>
-                    <li><a href="/public" className="btn border">Support</a>
+                    <li><a href="/support" className="btn">Support</a>
+                    </li>
+                    <li><a href="/terms" className="btn">Terms</a>
+                    </li>
+                    <li><a href="/cookies" className="btn">Cookies</a>
                     </li>
                 </ul>
             </div>
-            <hr className="bg-(--colour-primary) h-0.5 rounded-full"></hr>
-            <div className="pt-7 flex flex-col min-[520px]:flex-row items-center justify-between gap-6">
-                <h1 className="text-(--colour-primary)">© 2026 Scrumdapp. Alle rechten voorbehouden</h1>
+
+            <div className="bg-fg h-0.5 rounded-full"></div>
+
+            <div className="pt-7 flex flex-col min-[520px]:flex-row items-center justify-between">
+                <h1 className="text-(--color-primary)">© 2026 Scrumdapp. Alle rechten voorbehouden</h1>
                 <div className="flex items-center gap-4">
                     <a href="https://x.com"
-                       className="border btn-main p-2 rounded-full aspect-square text-(--colour-primary) transition-all duration-500">
+                       className="border btn p-2 rounded-full aspect-square">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                              fill="none">
                             <path
@@ -32,7 +37,7 @@ export default function Footer() {
                         </svg>
                     </a>
                     <a href="https://instagram.com"
-                       className="border btn-main p-2 rounded-full aspect-square text-(--colour-primary) transition-all duration-500">
+                       className="border btn p-2 rounded-full aspect-square">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                              fill="none">
                             <path
@@ -41,7 +46,7 @@ export default function Footer() {
                         </svg>
                     </a>
                     <a href="https://linkedin.com"
-                       className="border btn-main p-2 rounded-full aspect-square text-(--colour-primary) transition-all duration-500">
+                       className="border btn p-2 rounded-full aspect-square">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                              fill="none">
                             <path
@@ -50,7 +55,7 @@ export default function Footer() {
                         </svg>
                     </a>
                     <a href="https://www.youtube.com/@Scrumdapp"
-                       className="border btn-main p-2 rounded-full aspect-square text-(--colour-primary) transition-all duration-500">
+                       className="border btn p-2 rounded-full aspect-square">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                              fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"
