@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
     <footer className="pt-16 pb-7 px-2">
-        <div className="mx-auto px-4 lg:px-12 p-12 rounded-2xl bg-gray-800 shadow-xl border footer">
+        <div className="mx-auto px-4 lg:px-12 p-12 rounded-2xl bg-bg shadow-xl border footer">
             <div
                 className="flex flex-col min-[830px]:flex-row items-center justify-between gap-6 pb-10 border-b-2 border-gray-200">
                 <a href="/public" className="btn border">Scrumdapp</a>
