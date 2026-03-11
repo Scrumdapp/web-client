@@ -32,6 +32,6 @@ export function useApi<Ti = [], Tr = object>(processor: RequestProcessor<Ti, Tr>
 
     return {
         data,
-        command
+        runCommand: command
     }
 }
