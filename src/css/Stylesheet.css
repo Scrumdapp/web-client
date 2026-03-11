@@ -15,15 +15,11 @@
 }
 
 .btn {
-    @apply h-10 w-fit p-2 flex text-center text-yellow-300 justify-center object-center
+    @apply hover:bg-gray-200 active:bg-yellow-100 h-10 w-fit p-2 flex text-center text-yellow-300 justify-center object-center
     gap-1 rounded-lg duration-200  ease-in-out transform active:duration-100;
 }
 
-.btn-main {
-    @apply hover:bg-gray-200 active:bg-yellow-100;
-}
-
-.btn-extra-actions {
+.btn-secondary {
     @apply bg-cyan-200 hover:bg-emerald-50;
 }
 

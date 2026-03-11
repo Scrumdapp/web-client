@@ -1,30 +1,30 @@
 export default function Footer() {
     return (
     <footer className="pt-16 pb-7 px-2">
-        <div className="mx-auto px-4 lg:px-12 p-12 rounded-2xl bg-(--bg-primary) shadow-xl border footer">
+        <div className="mx-auto px-4 lg:px-12 p-12 rounded-2xl bg-gray-800 shadow-xl border footer">
             <div
                 className="flex flex-col min-[830px]:flex-row items-center justify-between gap-6 pb-10 border-b-2 border-gray-200">
-                <a href="/public" className="btn btn-main border">Scrumdapp</a>
+                <a href="/public" className="btn border">Scrumdapp</a>
                 <ul className="flex flex-col sm:flex-row items-center gap-5 sm:gap-12">
-                    <li><a href="/public" className="btn btn-main border">Scrumdapp</a>
+                    <li><a href="/public" className="btn border">Scrumdapp</a>
                     </li>
-                    <li><a href="/public" className="btn btn-main border">About</a>
+                    <li><a href="/public" className="btn border">About</a>
                     </li>
-                    <li><a href="/public" className="btn btn-main border">Privacy</a>
+                    <li><a href="/public" className="btn border">Privacy</a>
                     </li>
-                    <li><a href="/public" className="btn btn-main border">Groups</a>
+                    <li><a href="/public" className="btn border">Groups</a>
                     </li>
-                    <li><a href="/public" className="btn btn-main border">Support</a>
+                    <li><a href="/public" className="btn border">Support</a>
                     </li>
                 </ul>
             </div>
             <div className="pt-7 flex flex-col min-[520px]:flex-row items-center justify-between gap-6">
                 <ul className="flex items-center gap-9">
-                    <li><a href="/public" className="btn border btn-extra-actions">Terms</a>
+                    <li><a href="/public" className="btn btn-secondary border">Terms</a>
                     </li>
-                    <li><a href="/public" className="btn border btn-extra-actions">Privacy</a>
+                    <li><a href="/public" className="btn btn-secondary border">Privacy</a>
                     </li>
-                    <li><a href="/public" className="btn border btn-extra-actions">Cookies</a>
+                    <li><a href="/public" className="btn btn-secondary border">Cookies</a>
                     </li>
                 </ul>
                 <div className="flex items-center gap-4">
@@ -38,7 +38,7 @@ export default function Footer() {
                         </svg>
                     </a>
                     <a href=""
-                       className="border border-gray-300 p-2 rounded-full aspect-square text-gray-700 transition-all duration-500 hover:text-indigo-600 hover:border-indigo-600 focus-within:outline-0 focus-within:text-indigo-600 focus-within:border-indigo-600">
+                       className="border p-2 rounded-full aspect-square text-gray-700 transition-all duration-500 hover:text-indigo-600 hover:border-indigo-600 focus-within:outline-0 focus-within:text-indigo-600 focus-within:border-indigo-600">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                              fill="none">
                             <path
@@ -47,7 +47,7 @@ export default function Footer() {
                         </svg>
                     </a>
                     <a href=""
-                       className="border border-gray-300 p-2 rounded-full aspect-square text-gray-700 transition-all duration-500 hover:text-indigo-600 hover:border-indigo-600 focus-within:outline-0 focus-within:text-indigo-600 focus-within:border-indigo-600">
+                       className="border p-2 rounded-full aspect-square text-gray-700 transition-all duration-500 hover:text-indigo-600 hover:border-indigo-600 focus-within:outline-0 focus-within:text-indigo-600 focus-within:border-indigo-600">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                              fill="none">
                             <path
@@ -56,7 +56,7 @@ export default function Footer() {
                         </svg>
                     </a>
                     <a href=""
-                       className="border border-gray-300 p-2 rounded-full aspect-square text-gray-700 transition-all duration-500 hover:text-indigo-600 hover:border-indigo-600 focus-within:outline-0 focus-within:text-indigo-600 focus-within:border-indigo-600">
+                       className="border p-2 rounded-full aspect-square text-gray-700 transition-all duration-500 hover:text-indigo-600 hover:border-indigo-600 focus-within:outline-0 focus-within:text-indigo-600 focus-within:border-indigo-600">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                              fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"

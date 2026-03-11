@@ -16,17 +16,17 @@ export default function Header() {
 
 
                     <div className="hidden md:flex space-x-6 text-black font-medium">
-                        <a href="/public" className="btn btn-main ">Home</a>
-                        <a href="/about" className="btn btn-main">About</a>
-                        <a href="/privacy" className="btn btn-main">Privacy</a>
-                        <a href="/groups" className="btn btn-main">Groups</a>
-                        <a href="/support" className="btn btn-main">Support</a>
+                        <a href="/public" className="btn">Home</a>
+                        <a href="/about" className="btn">About</a>
+                        <a href="/privacy" className="btn">Privacy</a>
+                        <a href="/groups" className="btn">Groups</a>
+                        <a href="/support" className="btn">Support</a>
                     </div>
 
 
                     <div className="hidden md:block">
                         <a href="/login"
-                           className="btn border btn-extra-actions">
+                           className="btn border btn-secondary">
                             Log In
                         </a>
                     </div>
