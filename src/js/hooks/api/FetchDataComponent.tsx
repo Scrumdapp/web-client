@@ -36,18 +36,3 @@ export function useApiComponent<TInput extends any[], TResult>(processor: Reques
         return children(apiRequester.data)
     }
 }
-
-export function TestFetchData() {
-    const GetGroupDataApiComponent = useApiComponent(ScrumdappApi.getGroupData())
-
-    return (<>
-        <GetGroupDataApiComponent input={[0]}>
-            {(data) =>
-                <div>
-                    <p>{data.id}</p>
-                    <p>{data.name}</p>
-                </div>
-            }
-        </GetGroupDataApiComponent>
-    </>)
-}
