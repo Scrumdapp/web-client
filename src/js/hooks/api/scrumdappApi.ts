@@ -1,6 +1,6 @@
 import {ApiError} from "./apiError.ts";
 import type {User} from "../../models/user.ts";
-import type {GroupUser} from "../../models/group.ts";
+import type {GroupData, GroupUser} from "../../models/group.ts";
 import {RequestException} from "./apiError.ts";
 import {isErrorDto} from "../../models/dto/errorDto.ts";
 
@@ -9,26 +9,26 @@ export namespace ScrumdappApi {
 
     const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replaceAll(/\/$/, "")
 
-    export type RequestProcessor<Ti = [], Tr> = (inputs: Ti) => Promise<Tr>
+    export type RequestProcessor<Ti extends any[], Tr> = (inputs: Ti) => Promise<Tr>
     export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT"
     export type RequestParams = { [key: string]: string }
 
-    export function getCurrentUser() {
+    export function getCurrentUser(): RequestProcessor<never, User> {
         return (() => {
-            return makeApiRequest<User>("GET", "/users/@me")
-        }) as RequestProcessor<[], User>
+            return makeApiRequest("GET", "/users/@me")
+        })
     }
 
-    export function getUserData() {
+    export function getUserData(): RequestProcessor<[id: number], User> {
         return (([id]) => {
-            return makeApiRequest<User>("GET", "/users/{id}", {}, { "{id}": id.toString() })
-        }) as RequestProcessor<[id: number], User>
+            return makeApiRequest("GET", "/users/{id}", {}, { "{id}": id.toString() })
+        })
     }
 
-    export function getGroupData() {
+    export function getGroupData(): RequestProcessor<[groupId: number], GroupData> {
         return (([groupId]) => {
-            return makeApiRequest<GroupUser>("GET", "/groups/{id}", {}, { "{id}": groupId.toString() })
-        }) as RequestProcessor<[groupId: number], GroupUser>
+            return makeApiRequest("GET", "/groups/{id}", {}, { "{id}": groupId.toString() })
+        })
     }
 
     async function makeApiRequest<T>(

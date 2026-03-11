@@ -3,7 +3,7 @@ import RequestProcessor = ScrumdappApi.RequestProcessor;
 import {useCallback, useState} from "react";
 import {ApiError} from "./apiError.ts";
 
-export function useApi<Ti = [], Tr = object>(processor: RequestProcessor<Ti, Tr>) {
+export function useApi<Ti extends any[], Tr>(processor: RequestProcessor<Ti, Tr>) {
     const [data, setData] = useState<Tr | null>(null)
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<ApiError | null>(null)
@@ -31,7 +31,9 @@ export function useApi<Ti = [], Tr = object>(processor: RequestProcessor<Ti, Tr>
     }, [processor])
 
     return {
+        loading,
         data,
+        error,
         runCommand: command
     }
 }
