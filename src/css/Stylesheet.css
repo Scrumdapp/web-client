@@ -1,18 +1,17 @@
 @import "tailwindcss";
 @import "./Theme.css";
 
-#root {
-    @apply bg-bg font-normal;
+:root {
+    @apply bg-bg font-normal text-fg;
 }
 
-
 .btn {
-    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 flex text-center text-fg justify-center object-center
+    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 flex text-fg text-center justify-center object-center
     gap-1 rounded-lg duration-200  ease-in-out transform active:duration-100;
 }
 
 .btn-secondary {
-    @apply bg-cyan-200 hover:bg-emerald-50;
+    @apply bg-blue-dim hover:bg-blue;
 }
 
 .border {

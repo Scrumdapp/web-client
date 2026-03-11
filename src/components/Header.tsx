@@ -4,13 +4,13 @@ export default function Header() {
 
     const [isOpen, setIsOpen] = useState(false);
 
-        return (<div className="bg-(--bg-primary) border-b border-(--colour-primary)">
+        return (<div className="bg-bg border-b">
 
         <nav className="bg-liniear-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
 
-                    <div className="shrink-0 text-yellow-300 text-2xl font-bold">
+                    <div className="shrink-0 text-2xl font-bold">
                         <a href="/public">Scrumdapp</a>
                     </div>
 
