@@ -4,29 +4,29 @@ export default function Header() {
 
     const [isOpen, setIsOpen] = useState(false);
 
-        return (<div className="bg-(--bg-primary) border-b border-(--colour-primary)">
+        return (<div className="bg-bg border-b">
 
         <nav className="bg-liniear-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
 
-                    <div className="shrink-0 text-(--colour-primary) text-2xl font-bold">
+                    <div className="shrink-0 text-2xl font-bold">
                         <a href="/public">Scrumdapp</a>
                     </div>
 
 
                     <div className="hidden md:flex space-x-6 text-black font-medium">
-                        <a href="/public" className="btn btn-main ">Home</a>
-                        <a href="/about" className="btn btn-main">About</a>
-                        <a href="/privacy" className="btn btn-main">Privacy</a>
-                        <a href="/groups" className="btn btn-main">Groups</a>
-                        <a href="/support" className="btn btn-main">Support</a>
+                        <a href="/public" className="btn">Home</a>
+                        <a href="/about" className="btn">About</a>
+                        <a href="/privacy" className="btn">Privacy</a>
+                        <a href="/groups" className="btn">Groups</a>
+                        <a href="/support" className="btn">Support</a>
                     </div>
 
 
                     <div className="hidden md:block">
                         <a href="/login"
-                           className="btn border btn-extra-actions">
+                           className="btn border btn-secondary">
                             Log In
                         </a>
                     </div>
