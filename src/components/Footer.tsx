@@ -1,21 +1,29 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter, faYoutube, faInstagram, faLinkedinIn} from "@fortawesome/free-brands-svg-icons";
 
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
+
+    const links = [
+        { to: "/public", label: "Home" },
+        { to: "/about", label: "About" },
+        { to: "/privacy", label: "Privacy" },
+        { to: "/groups", label: "Groups" },
+        { to: "/support", label: "Support" },
+        { to: "/terms", label: "Terms" },
+        { to: "/cookies", label: "Cookies" },
+    ];
+
     return (
-    <footer className="pt-16 pb-7 px-2">
-        <div className="mx-auto px-4 lg:px-12 p-12 rounded-2xl bg-bg shadow-xl border footer">
-            <div
-                className="flex flex-row items-center justify-between pb-8">
-                <Link to="/public" className="btn">Home</Link>
-                <Link to="/about" className="btn">About</Link>
-                <Link to="/privacy" className="btn">Privacy</Link>
-                <Link to="/groups" className="btn">Groups</Link>
-                <Link to="/support" className="btn">Support</Link>
-                <Link to="/terms" className="btn">Terms</Link>
-                <Link to="/cookies" className="btn">Cookies</Link>
+    <footer className="pt-16 pb-7 px-2 flex flex-col">
+        <div className="mx-auto px-4 lg:px-12 p-12 rounded-2xl bg-bg shadow-xl border footer w-11/12">
+            <div className="flex flex-row items-center justify-between pb-8">
+                {links.map(link => (
+                    <Link key={link.to} to={link.to} className="btn">
+                        {link.label}
+                    </Link>
+                ))}
             </div>
 
             <div className="bg-fg h-0.5 rounded-full"></div>
