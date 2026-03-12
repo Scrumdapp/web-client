@@ -7,7 +7,7 @@
 
 .btn {
     @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 flex text-fg text-center justify-center object-center
-    gap-1 rounded-lg duration-200  ease-in-out transform active:duration-100;
+    gap-1 rounded-lg duration-200 ease-in-out transform active:duration-100;
 }
 
 .btn-secondary {
@@ -28,4 +28,8 @@
 }
 .write-section::-webkit-scrollbar-track {
    @apply bg-transparent;
+}
+
+.btn-attendance {
+    @apply block py-1 px-2 text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer
 }
