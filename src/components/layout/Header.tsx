@@ -4,7 +4,7 @@ export default function Header() {
 
     const [isOpen, setIsOpen] = useState(false);
 
-        return (<div className="bg-bg border-b">
+    return (<div className="bg-bg border-b">
 
         <nav className="bg-liniear-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
