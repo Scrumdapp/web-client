@@ -20,7 +20,7 @@ export function UserProvider({ children, loading } : PropsWithChildren<{ loading
 
     return (
         <userContext.Provider value={state}>
-            children
+            {children}
         </userContext.Provider>
     )
 }

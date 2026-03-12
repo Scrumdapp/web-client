@@ -1,6 +1,6 @@
 import {ApiError} from "./apiError.ts";
-import type {User} from "../../models/user.ts";
-import type {GroupData, GroupUser} from "../../models/group.ts";
+import type {PartialUser, PatchUser, User} from "../../models/user.ts";
+import type {CreateGroup, Group, GroupCheckin, GroupUser, PartialGroup, PatchGroup} from "../../models/group.ts";
 import {RequestException} from "./apiError.ts";
 import {isErrorDto} from "../../models/dto/errorDto.ts";
 
@@ -10,7 +10,7 @@ export namespace ScrumdappApi {
     const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replaceAll(/\/$/, "")
 
     export type RequestProcessor<Ti extends any[], Tr> = (inputs: Ti) => Promise<Tr>
-    export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT"
+    export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
     export type RequestParams = { [key: string]: string }
 
     export function getCurrentUser(): RequestProcessor<never, User> {
@@ -19,17 +19,67 @@ export namespace ScrumdappApi {
         })
     }
 
-    export function getUserData(): RequestProcessor<[id: number], User> {
+    export function updateCurrentUser(): RequestProcessor<[PatchUser], User> {
+        return ((userBody) => {
+            return makeApiRequest("PATCH", "/users/@me", userBody)
+        })
+    }
+
+    export function getUserData(): RequestProcessor<[id: number], PartialUser> {
         return (([id]) => {
             return makeApiRequest("GET", "/users/{id}", {}, { "{id}": id.toString() })
         })
     }
 
-    export function getGroupData(): RequestProcessor<[groupId: number], GroupData> {
+    export function getGroups(): RequestProcessor<never, PartialGroup[]> {
+        return (() => {
+            return makeApiRequest("GET", "/groups")
+        })
+    }
+
+    export function createGroup(): RequestProcessor<[CreateGroup], Group> {
+        return (([group]) => {
+            return makeApiRequest("POST", "/groups", group)
+        })
+    }
+
+    export function getGroup(): RequestProcessor<[groupId: number], Group> {
         return (([groupId]) => {
             return makeApiRequest("GET", "/groups/{id}", {}, { "{id}": groupId.toString() })
         })
     }
+
+    export function updateGroup(): RequestProcessor<[groupId: number, newData: PatchGroup], Group> {
+        return (([groupId, newData]) => {
+            return makeApiRequest("PATCH", "/groups/{id}", newData, { "{id}": groupId.toString() })
+        })
+    }
+
+    export function deleteGroup(): RequestProcessor<[groupId: number], { success: true }> {
+        return (([groupId]) => {
+            return makeApiRequest("DELETE", "/groups/{id}")
+        })
+    }
+
+    export function getGroupUsers(): RequestProcessor<[groupId: number], GroupUser[]> {
+        return (([groupId]) => {
+            return makeApiRequest("GET", "/groups/{id}/users", {}, { "{id}": groupId.toString() })
+        })
+    }
+
+    export function addUser(): RequestProcessor<[groupId: number, userId: number], GroupUser> {
+        return (([groupId, userId]) => {
+            return makeApiRequest("GET", "/groups/{id}/users", { user_id: userId }, { "{id}": groupId.toString() })
+        })
+    }
+
+    export function deleteGroupUser(): RequestProcessor<[groupId: number, userId: number], { success: true }> {
+        return (([groupId, userId]) => {
+            return makeApiRequest("GET", "/groups/{id}/users/{user.id}", { user_id: userId }, { "{id}": groupId.toString() })
+        })
+    }
+
+    export function getUserCheckins(): RequestProcessor<[groupId: number, userId: number, ], GroupCheckin[]>
 
     async function makeApiRequest<T>(
         method: RequestMethod, url: String, body?: object, params?: RequestParams

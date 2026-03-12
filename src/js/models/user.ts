@@ -1,6 +1,16 @@
 
-export interface User {
+export interface User extends PartialUser{
+    theme_preference: string
+    language_preference: string
+}
+
+export interface PatchUser {
+    theme_preference?: string
+    language_preference?: string
+}
+
+export interface PartialUser {
     id: number
-    name: string
-    avatar: string
+    first_name: string
+    last_name: string
 }
