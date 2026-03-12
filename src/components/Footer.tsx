@@ -5,7 +5,7 @@ export default function Footer() {
             <div
                 className="flex flex-col items-center justify-between gap-6 pb-10">
                 <ul className="flex flex-col sm:flex-row items-center gap-5 sm:gap-16">
-                    <li><a href="/public" className="btn">Scrumdapp</a>
+                    <li><a href="/public" className="btn">Home</a>
                     </li>
                     <li><a href="/about" className="btn">About</a>
                     </li>
@@ -25,7 +25,7 @@ export default function Footer() {
             <div className="bg-fg h-0.5 rounded-full"></div>
 
             <div className="pt-7 flex flex-col min-[520px]:flex-row items-center justify-between">
-                <h1 className="text-(--color-primary)">© 2026 Scrumdapp. Alle rechten voorbehouden</h1>
+                <h1 className="text-(--color-primary)">© 2026 Scrumdapp. All rights reserved</h1>
                 <div className="flex items-center gap-4">
                     <a href="https://x.com"
                        className="border btn p-2 rounded-full aspect-square">
