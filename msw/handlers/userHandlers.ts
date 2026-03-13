@@ -1,7 +1,7 @@
 import {User} from "../../src/js/models/user";
 import {http, HttpResponse} from "msw";
 
-const users: User[] = [
+export const userData: User[] = [
     {
         id: 1,
         first_name: "Gary",
@@ -37,21 +37,6 @@ export const userHandlers = [
         await new Promise((res) => {
             setTimeout(() => res(), 2000)
         })
-        return HttpResponse.json(users[0])
+        return HttpResponse.json(userData[0])
     }),
-    http.get("/api/users/:id", ({ params }) => {
-        const user = users.find(it => it.id == params.id)
-        if (user) {
-            return HttpResponse.json(user)
-        } else {
-            return HttpResponse.json({
-                error: true,
-                status: 404,
-                message: "User not found",
-                detail: "This user does not exist"
-            }, {
-                status: 404
-            })
-        }
-    })
 ]
