@@ -4,7 +4,6 @@ import App from "./App.tsx";
 import "./css/Stylesheet.css"
 
 async function tryEnableMocking() {
-    console.log(import.meta.env)
     if (!import.meta.env.DEV) {
         return
     }
