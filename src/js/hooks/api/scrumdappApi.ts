@@ -1,8 +1,9 @@
 import {ApiError} from "./apiError.ts";
 import type {PartialUser, PatchUser, User} from "../../models/user.ts";
-import type {CreateGroup, Group, GroupCheckin, GroupUser, PartialGroup, PatchGroup} from "../../models/group.ts";
+import type {CreateGroup, Group, GroupUser, PartialGroup, PatchGroup} from "../../models/group.ts";
 import {RequestException} from "./apiError.ts";
 import {isErrorDto} from "../../models/dto/errorDto.ts";
+import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate} from "../../models/checkin.ts";
 
 
 export namespace ScrumdappApi {
@@ -12,6 +13,11 @@ export namespace ScrumdappApi {
     export type RequestProcessor<Ti extends any[], Tr> = (inputs: Ti) => Promise<Tr>
     export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
     export type RequestParams = { [key: string]: string }
+
+    export interface CheckinRangeParams {
+        "from": string
+        "to": string
+    }
 
     export function getCurrentUser(): RequestProcessor<never, User> {
         return (() => {
@@ -27,7 +33,7 @@ export namespace ScrumdappApi {
 
     export function getUserData(): RequestProcessor<[id: number], PartialUser> {
         return (([id]) => {
-            return makeApiRequest("GET", "/users/{id}", {}, { "{id}": id.toString() })
+            return makeApiRequest("GET", "/users/{id}", undefined, { "{id}": id.toString() })
         })
     }
 
@@ -45,7 +51,7 @@ export namespace ScrumdappApi {
 
     export function getGroup(): RequestProcessor<[groupId: number], Group> {
         return (([groupId]) => {
-            return makeApiRequest("GET", "/groups/{id}", {}, { "{id}": groupId.toString() })
+            return makeApiRequest("GET", "/groups/{id}", undefined, { "{id}": groupId.toString() })
         })
     }
 
@@ -63,32 +69,81 @@ export namespace ScrumdappApi {
 
     export function getGroupUsers(): RequestProcessor<[groupId: number], GroupUser[]> {
         return (([groupId]) => {
-            return makeApiRequest("GET", "/groups/{id}/users", {}, { "{id}": groupId.toString() })
+            return makeApiRequest("GET", "/groups/{id}/users", undefined, { "{id}": groupId.toString() })
         })
     }
 
     export function addUser(): RequestProcessor<[groupId: number, userId: number], GroupUser> {
         return (([groupId, userId]) => {
-            return makeApiRequest("GET", "/groups/{id}/users", { user_id: userId }, { "{id}": groupId.toString() })
+            return makeApiRequest("POST", "/groups/{id}/users", { user_id: userId }, { "{id}": groupId.toString() })
         })
     }
 
     export function deleteGroupUser(): RequestProcessor<[groupId: number, userId: number], { success: true }> {
         return (([groupId, userId]) => {
-            return makeApiRequest("GET", "/groups/{id}/users/{user.id}", { user_id: userId }, { "{id}": groupId.toString() })
+            return makeApiRequest("DELETE", "/groups/{group.id}/users/{user.id}", undefined, { "{group.id}": groupId.toString(), "{user.id}": userId.toString() })
         })
     }
 
-    export function getUserCheckins(): RequestProcessor<[groupId: number, userId: number, ], GroupCheckin[]>
+    export function getUserCheckins(): RequestProcessor<[groupId: number, userId: number, date: CheckinRangeParams ], GroupCheckin[]> {
+        return (([groupId, userId, queryParams]) => {
+            return makeApiRequest("GET", "/groups/{group.id}/users/{user.id}/checkins",
+                undefined,
+                { "{group.id}": groupId.toString(), "{user.id}": userId.toString() },
+                queryParams
+            )
+        })
+    }
+
+    export function getUserCheckin(): RequestProcessor<[groupId: number, userId: number, date: string ], GroupCheckin> {
+        return (([groupId, userId, date]) => {
+            return makeApiRequest("GET", "/groups/{group.id}/users/{user.id}/checkins/{date}",
+                undefined,
+                { "{group.id}": groupId.toString(), "{user.id}": userId.toString(), "{date}": date }
+            )
+        })
+    }
+
+    export function updateUserCheckin(): RequestProcessor<[groupId: number, userId: number, date: string, checkin: UpdateGroupCheckin], GroupCheckin> {
+        return (([groupId, userId, date, checkin]) => {
+            return makeApiRequest("PATCH", "/groups/{group.id}/users/{user.id}/checkins/{date}",
+                checkin,
+                { "{group.id}": groupId.toString(), "{user.id}": userId.toString(), "{date}": date }
+            )
+        })
+    }
+
+    export function getGroupCheckins(): RequestProcessor<[groupId: number, date: string], GroupCheckin[]> {
+        return (([groupId, date]) => {
+            return makeApiRequest("PATCH", "/groups/{group.id}/checkins/{date}",
+                undefined,
+                { "{group.id}": groupId.toString(), "{date}": date }
+            )
+        })
+    }
+
+    export function updateGroupCheckins(): RequestProcessor<[groupId: number, date: string, checkins: GroupCheckinsUpdate[]], GroupCheckin[]> {
+        return (([groupId, date, checkins]) => {
+            return makeApiRequest("PATCH", "/groups/{group.id}/checkins/{date}",
+                checkins,
+                { "{group.id}": groupId.toString(), "{date}": date }
+            )
+        })
+    }
 
     async function makeApiRequest<T>(
-        method: RequestMethod, url: String, body?: object, params?: RequestParams
+        method: RequestMethod, url: String, body?: object, params?: RequestParams, query?: object
     ): Promise<T> {
         let actualUrl = API_URL + "/" + url.replace(/^\//, "")
         if (params) {
             for (let paramsKey in params) {
                 actualUrl = actualUrl.replace(paramsKey, params[paramsKey])
             }
+        }
+
+        if (query) {
+            let urlParams = new URLSearchParams(query)
+            actualUrl = actualUrl + "?"+urlParams.toString()
         }
 
         const init: RequestInit = { method: method }
@@ -105,7 +160,7 @@ export namespace ScrumdappApi {
             init.headers = headers
         }
 
-        return fetch(url, {
+        return fetch(actualUrl, {
             method
         })
             .then(async it => {

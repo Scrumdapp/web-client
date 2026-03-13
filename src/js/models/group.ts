@@ -26,22 +26,3 @@ export interface GroupUser {
     first_name: string
     last_name: string
 }
-
-export interface GroupCheckin {
-    user_id: number
-    group_id: number
-    date: string
-
-    presence: string
-
-    checkin_stars?: number
-    checkin_comment?: string
-
-    checkup_stars?: number
-    checkup_comment? : string
-
-    checkout_stars?: number
-    checkout_comment?: string
-
-    obstacle_comment?: string
-}
