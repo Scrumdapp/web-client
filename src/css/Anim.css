@@ -1,0 +1,56 @@
+
+.fade-in {
+    animation-name: fade-in;
+    animation-duration: 1s;
+}
+
+.loading-spinner {
+    animation-name: loading-spinner;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes loading-spinner {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    10% {
+        transform: rotateZ(0deg);
+    }
+
+    25% {
+        transform: rotateZ(-45deg);
+    }
+
+    50% {
+        transform: rotateZ(180deg);
+    }
+
+    60% {
+        transform: rotateZ(180deg);
+    }
+
+    75% {
+        transform: rotateZ(135deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-spinner {
+        animation: none;
+    }
+}
