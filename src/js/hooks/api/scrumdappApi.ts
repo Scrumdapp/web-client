@@ -14,9 +14,9 @@ export namespace ScrumdappApi {
     export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
     export type RequestParams = { [key: string]: string }
 
-    export interface CheckinRangeParams {
-        "from": string
-        "to": string
+    export type CheckinRangeParams = {
+        "startDate": string,
+        "endDate": string
     }
 
     export function getCurrentUser(): RequestProcessor<never, User> {
@@ -132,7 +132,7 @@ export namespace ScrumdappApi {
     }
 
     async function makeApiRequest<T>(
-        method: RequestMethod, url: String, body?: object, params?: RequestParams, query?: object
+        method: RequestMethod, url: String, body?: object, params?: RequestParams, query?: RequestParams
     ): Promise<T> {
         let actualUrl = API_URL + "/" + url.replace(/^\//, "")
         if (params) {
