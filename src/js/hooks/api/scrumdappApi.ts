@@ -8,7 +8,7 @@ import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate} from "../../
 
 export namespace ScrumdappApi {
 
-    const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replaceAll(/\/$/, "")
+    const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replace(/\/$/, "")
 
     export type RequestProcessor<Ti extends any[], Tr> = (inputs: Ti) => Promise<Tr>
     export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"

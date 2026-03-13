@@ -18,6 +18,10 @@ export function UserProvider({ children, loading } : PropsWithChildren<{ loading
         })
     }, [getUserData.runCommand])
 
+    if (getUserData.loading) {
+        return loading
+    }
+
     return (
         <userContext.Provider value={state}>
             {children}
