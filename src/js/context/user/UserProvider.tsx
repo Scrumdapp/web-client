@@ -27,6 +27,10 @@ export function UserProvider({ children, loading, error } : PropsWithChildren<{ 
         return error(getUserData.error)
     }
 
+    if (!state.user) {
+        return loading
+    }
+
     return (
         <userContext.Provider value={state}>
             {children}
