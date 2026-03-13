@@ -10,6 +10,24 @@ interface GenerateCheckin {
     dateCount: number
 }
 
+const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
+const RANDOM_COMMENT = [
+    undefined, undefined, undefined, undefined,
+    "jrkegbayunhgjlianhbgbahngamjgnahk",
+    "Jij hebt geen drink privileges meer",
+    "...",
+    "Ewa drerrie",
+    "Ik heb goed nieuws, we zijn van een 500 error naar een 404 gegaan",
+    "Wat?",
+    "Ik ben random comments aan het schrijven",
+    "Dat zeg jij altijd",
+    "Jullie hebben al silence?",
+    "Dit is niet hoe je random zooi bedenkt",
+    "Dus, hobbies?",
+    "Ik ben Hendrik, ik ben een meter, nu ben ik leeg, maar vol smaak ik beter. Maar wat moet je nou, als je leeg bent? Dan kun je niet zuipen, als een echte Student. MVO",
+    "Lorem Ipsum"
+]
+
 const groupCheckins: GroupCheckin[] = generateGroupCheckins({
     gId: 1,
     dateCount: 10,
@@ -40,24 +58,6 @@ function generateGroupCheckins(...data: GenerateCheckin[]): GroupCheckin[] {
 
     return checkins;
 }
-
-const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
-const RANDOM_COMMENT = [
-    undefined, undefined, undefined, undefined,
-    "jrkegbayunhgjlianhbgbahngamjgnahk",
-    "Jij hebt geen drink privileges meer",
-    "...",
-    "Ewa drerrie",
-    "Ik heb goed nieuws, we zijn van een 500 error naar een 404 gegaan",
-    "Wat?",
-    "Ik ben random comments aan het schrijven",
-    "Dat zeg jij altijd",
-    "Jullie hebben al silence?",
-    "Dit is niet hoe je random zooi bedenkt",
-    "Dus, hobbies?",
-    "Ik ben Hendrik, ik ben een meter, nu ben ik leeg, maar vol smaak ik beter. Maar wat moet je nou, als je leeg bent? Dan kun je niet zuipen, als een echte Student. MVO",
-    "Lorem Ipsum"
-]
 
 function generateCheckin(userId: number, groupId: number, date: string, features: Feature[]): GroupCheckin {
     const checkin: GroupCheckin = {
