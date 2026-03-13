@@ -3,11 +3,15 @@ import Layout from "./components/Layout.tsx";
 import AppRouter from "./router/AppRouter.tsx";
 import {UserProvider} from "./js/context/user/UserProvider.tsx";
 import {LoadScreen} from "./components/generic/LoadScreen.tsx";
+import {ErrorScreen} from "./components/generic/ErrorScreen.tsx";
 
 function App() {
     return (
         <BrowserRouter>
-            <UserProvider loading={<LoadScreen/>}>
+            <UserProvider
+                loading={<LoadScreen/>}
+                error={(e) => <ErrorScreen error={e}/>}
+            >
                 <Layout>
                     <AppRouter />
                 </Layout>

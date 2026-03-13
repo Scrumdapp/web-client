@@ -3,8 +3,9 @@ import {useEffect, useState} from "react";
 import {userContext, UserContextState} from "./userContext.ts";
 import {useApi} from "../../hooks/api/useApi.ts";
 import {ScrumdappApi} from "../../hooks/api/scrumdappApi.ts";
+import type {ApiError} from "../../hooks/api/apiError.ts";
 
-export function UserProvider({ children, loading } : PropsWithChildren<{ loading: ReactNode }> ): ReactNode {
+export function UserProvider({ children, loading, error } : PropsWithChildren<{ loading: ReactNode, error: (error: ApiError) => ReactNode }> ): ReactNode {
     const [ state, setState ] = useState(new UserContextState())
 
     const getUserData = useApi(ScrumdappApi.getCurrentUser())
@@ -20,6 +21,10 @@ export function UserProvider({ children, loading } : PropsWithChildren<{ loading
 
     if (getUserData.loading) {
         return loading
+    }
+
+    if (getUserData.error) {
+        return error(getUserData.error)
     }
 
     return (
