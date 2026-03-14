@@ -2,6 +2,7 @@
 
 export interface ErrorDto {
     error: true
+    status: number
     message: string
     detail: string
     extra: object

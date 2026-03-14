@@ -7,5 +7,6 @@ export function useUser(): User {
     if (!userCtx?.user) {
         console.error("Warning! User was not set, is it provided by the UserProvider?")
     }
+    // @ts-ignore
     return userCtx?.user
 }

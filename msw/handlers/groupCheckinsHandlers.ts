@@ -1,7 +1,6 @@
 import {GroupCheckin} from "../../src/js/models/checkin";
 import {groupData} from "./groupHandlers";
 import {groupUserData} from "./groupUserHandler";
-import {userData} from "./userHandlers";
 import {Feature} from "../../src/js/models/group";
 import {http, HttpResponse} from "msw";
 
@@ -107,26 +106,32 @@ function generateCheckin(userId: number, groupId: number, date: string, features
 
 export const groupCheckinsHandlers = [
     http.get("/groups/:gid/users/:uid/checkins", ({params}) => {
+        // @ts-ignore
         const checkins = (groupCheckins.filter(it => it.user_id == params.uid && it.group_id == params.gid))
         return HttpResponse.json(checkins)
     }),
     http.get("/groups/:gid/users/:uid/checkins/:date", ({params}) => {
+        // @ts-ignore
         const checkins = (groupCheckins.find(it => it.user_id == params.uid && it.group_id == params.gid && it.date == params.date))
         return HttpResponse.json(checkins)
     }),
     http.patch("/groups/:gid/users/:uid/checkins/:date", ({params}) => {
+        // @ts-ignore
         const checkins = (groupCheckins.find(it => it.user_id == params.uid && it.group_id == params.gid && it.date == params.date))
         return HttpResponse.json(checkins)
     }),
     http.get("/groups/:gid/checkins", ({params}) => {
+        // @ts-ignore
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid))
         return HttpResponse.json(checkins)
     }),
     http.get("/groups/:gid/checkins/:date", ({params}) => {
+        // @ts-ignore
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid && it.date == params.date))
         return HttpResponse.json(checkins)
     }),
     http.patch("/groups/:gid/checkins/:date", ({params}) => {
+        // @ts-ignore
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid && it.date == params.date))
         return HttpResponse.json(checkins)
     })

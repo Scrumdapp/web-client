@@ -10,7 +10,7 @@ export namespace ScrumdappApi {
 
     const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replace(/\/$/, "")
 
-    export type RequestProcessor<Ti extends any[], Tr> = (inputs: Ti) => Promise<Tr>
+    export type RequestProcessor<Ti extends any[], Tr> = (...inputs: Ti) => Promise<Tr>
     export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
     export type RequestParams = { [key: string]: string }
 
@@ -19,7 +19,7 @@ export namespace ScrumdappApi {
         "endDate": string
     }
 
-    export function getCurrentUser(): RequestProcessor<never, User> {
+    export function getCurrentUser(): RequestProcessor<[], User> {
         return (() => {
             return makeApiRequest("GET", "/users/@me")
         })
@@ -34,21 +34,21 @@ export namespace ScrumdappApi {
     }
 
     export function getUserData(): RequestProcessor<[id: number], PartialUser> {
-        return (([id]) => {
+        return ((id) => {
             return makeApiRequest("GET", "/users/{id}", {
                 params: { "{id}": id.toString() }
             })
         })
     }
 
-    export function getGroups(): RequestProcessor<never, PartialGroup[]> {
+    export function getGroups(): RequestProcessor<[], PartialGroup[]> {
         return (() => {
             return makeApiRequest("GET", "/groups")
         })
     }
 
     export function createGroup(): RequestProcessor<[CreateGroup], Group> {
-        return (([group]) => {
+        return ((group) => {
             return makeApiRequest("POST", "/groups", {
                 body: group
             })
@@ -56,7 +56,7 @@ export namespace ScrumdappApi {
     }
 
     export function getGroup(): RequestProcessor<[groupId: number], Group> {
-        return (([groupId]) => {
+        return ((groupId) => {
             return makeApiRequest("GET", "/groups/{id}", {
                 params: { "{id}": groupId.toString() }
             })
@@ -64,7 +64,7 @@ export namespace ScrumdappApi {
     }
 
     export function updateGroup(): RequestProcessor<[groupId: number, newData: PatchGroup], Group> {
-        return (([groupId, newData]) => {
+        return ((groupId, newData) => {
             return makeApiRequest("PATCH", "/groups/{id}", {
                 body: newData,
                 params: { "{id}": groupId.toString() }
@@ -73,7 +73,7 @@ export namespace ScrumdappApi {
     }
 
     export function deleteGroup(): RequestProcessor<[groupId: number], { success: true }> {
-        return (([groupId]) => {
+        return ((groupId) => {
             return makeApiRequest("DELETE", "/groups/{id}", {
                 params: { "{id}": groupId.toString() },
             })
@@ -81,7 +81,7 @@ export namespace ScrumdappApi {
     }
 
     export function getGroupUsers(): RequestProcessor<[groupId: number], GroupUser[]> {
-        return (([groupId]) => {
+        return ((groupId) => {
             return makeApiRequest("GET", "/groups/{id}/users", {
                 params: { "{id}": groupId.toString() }
             })
@@ -89,7 +89,7 @@ export namespace ScrumdappApi {
     }
 
     export function addUser(): RequestProcessor<[groupId: number, userId: number], GroupUser> {
-        return (([groupId, userId]) => {
+        return ((groupId, userId) => {
             return makeApiRequest("POST", "/groups/{id}/users", {
                 body: { user_id: userId },
                 params: { "{id}": groupId.toString() }
@@ -98,7 +98,7 @@ export namespace ScrumdappApi {
     }
 
     export function deleteGroupUser(): RequestProcessor<[groupId: number, userId: number], { success: true }> {
-        return (([groupId, userId]) => {
+        return ((groupId, userId) => {
             return makeApiRequest("DELETE", "/groups/{group.id}/users/{user.id}", {
                 params: { "{group.id}": groupId.toString(), "{user.id}": userId.toString() }
             })
@@ -106,7 +106,7 @@ export namespace ScrumdappApi {
     }
 
     export function getUserCheckins(): RequestProcessor<[groupId: number, userId: number, date: CheckinRangeParams ], GroupCheckin[]> {
-        return (([groupId, userId, queryParams]) => {
+        return ((groupId, userId, queryParams) => {
             return makeApiRequest("GET", "/groups/{group.id}/users/{user.id}/checkins", {
                 params: { "{group.id}": groupId.toString(), "{user.id}": userId.toString() },
                 query: queryParams
@@ -115,7 +115,7 @@ export namespace ScrumdappApi {
     }
 
     export function getUserCheckin(): RequestProcessor<[groupId: number, userId: number, date: string ], GroupCheckin> {
-        return (([groupId, userId, date]) => {
+        return ((groupId, userId, date) => {
             return makeApiRequest("GET", "/groups/{group.id}/users/{user.id}/checkins/{date}", {
                 params: {"{group.id}": groupId.toString(), "{user.id}": userId.toString(), "{date}": date}
             })
@@ -123,7 +123,7 @@ export namespace ScrumdappApi {
     }
 
     export function updateUserCheckin(): RequestProcessor<[groupId: number, userId: number, date: string, checkin: UpdateGroupCheckin], GroupCheckin> {
-        return (([groupId, userId, date, checkin]) => {
+        return ((groupId, userId, date, checkin) => {
             return makeApiRequest("PATCH", "/groups/{group.id}/users/{user.id}/checkins/{date}", {
                 body: checkin,
                 params: { "{group.id}": groupId.toString(), "{user.id}": userId.toString(), "{date}": date }
@@ -132,7 +132,7 @@ export namespace ScrumdappApi {
     }
 
     export function getGroupCheckins(): RequestProcessor<[groupId: number, date: string], GroupCheckin[]> {
-        return (([groupId, date]) => {
+        return ((groupId, date) => {
             return makeApiRequest("PATCH", "/groups/{group.id}/checkins/{date}", {
                 params: { "{group.id}": groupId.toString(), "{date}": date }
             })
@@ -140,7 +140,7 @@ export namespace ScrumdappApi {
     }
 
     export function updateGroupCheckins(): RequestProcessor<[groupId: number, date: string, checkins: GroupCheckinsUpdate[]], GroupCheckin[]> {
-        return (([groupId, date, checkins]) => {
+        return ((groupId, date, checkins) => {
             return makeApiRequest("PATCH", "/groups/{group.id}/checkins/{date}", {
                 body: checkins,
                 params: { "{group.id}": groupId.toString(), "{date}": date }

@@ -12,7 +12,7 @@ export function useApi<Ti extends any[], Tr>(processor: RequestProcessor<Ti, Tr>
         setData(null)
         setError(null)
         setLoading(true)
-        return processor(params)
+        return processor(...params)
             .then((it) => {
                 setData(it)
                 return it

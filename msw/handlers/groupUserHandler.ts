@@ -36,6 +36,7 @@ function getGroupUsers(collection: GroupUserCollection): GroupUser[] {
 
 export const groupUserHandler = [
     http.get("/api/groups/:gid/users", ({params}) => {
+        // @ts-ignore
         const group = groupUserData.find(it => it.groupId == params.gid)
         if (group) {
             return HttpResponse.json(getGroupUsers(group))
@@ -50,6 +51,7 @@ export const groupUserHandler = [
         })
     }),
     http.post("/api/groups/:gid/users", ({params}) => {
+        // @ts-ignore
         const group = groupUserData.find(it => it.groupId == params.gid)
         if (group) {
             return HttpResponse.json(getGroupUsers(group))
@@ -64,6 +66,7 @@ export const groupUserHandler = [
         })
     }),
     http.get("/api/groups/:gid/users/:uid", ({params}) => {
+        // @ts-ignore
         const group = groupUserData.find(it => it.groupId == params.gid as String)
         if (!group) {
             return HttpResponse.json({
@@ -76,6 +79,7 @@ export const groupUserHandler = [
             })
         }
         const users = getGroupUsers(group)
+        // @ts-ignore
         const user = users.find(it => it.user_id == params.uid)
         if (!user) {
             return HttpResponse.json({
@@ -91,6 +95,7 @@ export const groupUserHandler = [
         return HttpResponse.json(user)
     }),
     http.delete("/api/groups/:gid/users/:uid", ({params}) => {
+        // @ts-ignore
         const group = groupUserData.find(it => it.groupId == params.gid as String)
         if (!group) {
             return HttpResponse.json({
@@ -103,6 +108,7 @@ export const groupUserHandler = [
             })
         }
         const users = getGroupUsers(group)
+        // @ts-ignore
         const user = users.find(it => it.user_id == params.uid)
         if (!user) {
             return HttpResponse.json({

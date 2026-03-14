@@ -6,8 +6,8 @@ export class RequestException extends Error {
 
 export class ApiError extends Error {
     status: number
-    detail: string
-    extra: object
+    detail?: string
+    extra?: object
 
     constructor(status: number, message: string | ErrorDto, cause?: Error) {
         if (isErrorDto(message)) {

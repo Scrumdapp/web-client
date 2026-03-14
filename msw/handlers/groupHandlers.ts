@@ -68,6 +68,7 @@ export const groupHandlers = [
         })
     }),
     http.get("/api/groups/:gid", ({ params }) => {
+        // @ts-ignore
         const group = groupData.find(it => it.id == params.gid)
         if (group) {
             return HttpResponse.json(group as object)
@@ -82,6 +83,7 @@ export const groupHandlers = [
         })
     }),
     http.patch("/api/groups/:gid", ({ params }) => {
+        // @ts-ignore
         const group = groupData.find(it => it.id == params.gid)
         if (group) {
             return HttpResponse.json(group as object)
@@ -96,6 +98,7 @@ export const groupHandlers = [
         })
     }),
     http.delete("/api/groups?:gid", ({ params }) => {
+        // @ts-ignore
         const group = groupData.find(it => it.id == params.gid)
         if (group) {
             return HttpResponse.json({ success: true })
