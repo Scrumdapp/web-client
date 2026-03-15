@@ -4,7 +4,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 export default function AttendanceDropDownMenu() {
 
     return (
-        <Menu as="div" className="relative inline-block">
+        <Menu as="div" className="relative inline-block px-5">
             <MenuButton className="inline-flex w-full justify-center btn border cursor-pointer">
                 Stars
                 <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-fg4"/>

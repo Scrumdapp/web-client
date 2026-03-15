@@ -1,10 +1,11 @@
-import AttendanceDropDownMenu from "./AttendanceDropDownMenu.tsx";
-import StarsDropDownMenu from "./StarsDropDownMenu.tsx";
+import AttendanceDropDownMenu from "./checkincomponents/AttendanceDropDownMenu.tsx";
+import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
+import AttendanceTextArea from "./checkincomponents/AttendanceTextArea.tsx";
 
 export default function ScrummasterCheckins() {
 
     return (
-        <div className="card vertical g-md">
+        <div className="card vertical g-md w-5/10">
             <h1>Checkin for <b>[today's date]</b></h1>
                 <div>
                     <form action="#" method="POST">
@@ -24,28 +25,28 @@ export default function ScrummasterCheckins() {
                                     <td><AttendanceDropDownMenu /></td>
                                     <td><StarsDropDownMenu /></td>
                                     <td><StarsDropDownMenu /></td>
-                                    <td><textarea className="write-section h-10 input checkbox-expand-content no-resize" name="comment-2" placeholder="Notes..."></textarea></td>
+                                    <td><AttendanceTextArea /></td>
                                 </tr>
                                 <tr>
                                     <td>[Student 2]</td>
                                     <td><AttendanceDropDownMenu /></td>
                                     <td><StarsDropDownMenu /></td>
                                     <td><StarsDropDownMenu /></td>
-                                    <td><textarea className="write-section h-10 input checkbox-expand-content no-resize" name="comment-2" placeholder="Notes..."></textarea></td>
+                                    <td><AttendanceTextArea /></td>
                                 </tr>
                                 <tr>
                                     <td>[Student 3]</td>
                                     <td><AttendanceDropDownMenu /></td>
                                     <td><StarsDropDownMenu /></td>
                                     <td><StarsDropDownMenu /></td>
-                                    <td><textarea className="write-section h-10 input checkbox-expand-content no-resize" name="comment-2" placeholder="Notes..."></textarea></td>
+                                    <td><AttendanceTextArea /></td>
                                 </tr>
                                 <tr>
                                     <td>[Student 4]</td>
                                     <td><AttendanceDropDownMenu /></td>
                                     <td><StarsDropDownMenu /></td>
                                     <td><StarsDropDownMenu /></td>
-                                    <td><textarea className="write-section h-10 input checkbox-expand-content no-resize" name="comment-2" placeholder="Notes..."></textarea></td>
+                                    <td><AttendanceTextArea /></td>
                                 </tr>
                             </tbody>
                         </table>
