@@ -12,6 +12,7 @@ export class ApiError extends Error {
     constructor(status: number, message: string | ErrorDto, cause?: Error) {
         if (isErrorDto(message)) {
             super(message.message)
+            this.detail = message.detail
             this.extra = message.extra
         } else {
             super(message)

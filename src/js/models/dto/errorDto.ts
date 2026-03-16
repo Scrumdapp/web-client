@@ -5,7 +5,7 @@ export interface ErrorDto {
     status: number
     message: string
     detail: string
-    extra: object
+    extra?: object
 }
 
 export function isErrorDto(obj: any): obj is ErrorDto {
