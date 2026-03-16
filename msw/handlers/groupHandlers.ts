@@ -97,7 +97,7 @@ export const groupHandlers = [
             status: 404
         })
     }),
-    http.delete("/api/groups?:gid", ({ params }) => {
+    http.delete("/api/groups/:gid", ({ params }) => {
         // @ts-ignore
         const group = groupData.find(it => it.id == params.gid)
         if (group) {
