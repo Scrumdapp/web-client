@@ -1,40 +1,31 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons+Outlined");
-@import url("https://fonts.googleapis.com/css2?family=Libertinus+Mono&family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
+@import "./Theme.css";
+@import "./Utils.css";
+@import "./Anim.css";
 
-
-
-#root {
-    @apply bg-gray-400 gap-2 font-serif font-normal;
-    font-family: "Libertinus Serif", serif;
+:root {
+    @apply bg-bg font-normal text-fg;
 }
 
-
-@theme {
-    --color-gray-800: #1d2021;
-    --color-yellow-300: #f6edc4;
-    --color-gray-200: #514a46;
-    --color-yellow-100: #b9b49d;
-    --color-emerald-50: #83a598;
-    --color-cyan-200: #458588;
-
+#root {
+    @apply min-h-screen flex flex-col
 }
 
 .btn {
-    @apply hover:bg-gray-200 active:bg-yellow-100 h-10 w-fit p-2 flex text-center text-yellow-300 justify-center object-center
+    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 flex text-fg text-center justify-center object-center
     gap-1 rounded-lg duration-200  ease-in-out transform active:duration-100;
 }
 
 .btn-secondary {
-    @apply bg-cyan-200 hover:bg-emerald-50;
+    @apply bg-blue-dim hover:bg-blue;
 }
 
 .border {
-    @apply border border-yellow-300 rounded-lg;
+    @apply border border-fg4;
 }
 
 .write-section {
-    @apply p-3 text-yellow-300 border border-yellow-300 rounded-lg focus:border-dashed focus:border-red-700 outline-none;
+    @apply p-3 text-fg4 border border-fg4 rounded-lg focus:border-dashed focus:border-red-700 outline-none;
 }
 
 .write-section::-webkit-scrollbar {
@@ -44,4 +35,3 @@
 .write-section::-webkit-scrollbar-track {
    @apply bg-transparent;
 }
-
