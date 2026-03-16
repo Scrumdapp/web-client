@@ -1,5 +1,6 @@
 import {User} from "../../src/js/models/user";
 import {http, HttpResponse} from "msw";
+import {ErrorDto} from "../../src/js/models/dto/errorDto.ts";
 
 export const userData: User[] = [
     {
@@ -34,9 +35,25 @@ export const userData: User[] = [
 
 export const userHandlers = [
     http.get("/api/users/@me", async ({}) => {
-        // await new Promise((res) => {
-        //     setTimeout(() => res(), 2000)
-        // })
-        return HttpResponse.json(userData[0])
+
+        let delayed = false
+        let error = false
+
+        if (delayed) {
+            await new Promise((res) => {
+                setTimeout(() => res(), 2000)
+            })
+        }
+
+        if (error) {
+            return HttpResponse.json({
+                error: true,
+                status: 401,
+                message: "Not Auhtorized",
+                detail: "You are not authorized to make this request",
+            } as ErrorDto) as HttpResponse<any>
+        }
+
+        return HttpResponse.json(userData[0]) as HttpResponse<any>
     }),
 ]
