@@ -1,18 +1,74 @@
 function Checkin() {
     return (
-        <main className="w-6/10 h-5/10 bg-gray-800 border">
+        <main className="w-6/10 h-5/10 bg-gray-800 border h-fit">
             <table className="text-yellow-300 w-full table-fixed">
                 <thead>
                 <tr>
-                    <th className="py-4">Naam</th>
-                    <th className="py-4">Presentie</th>
-                    <th className="py-4">Check-in</th>
-                    <th className="py-4">Check-up</th>
-                    <th className="py-4">Acties</th>
+                    <th className="py-3">Name</th>
+                    <th className="py-3">Attendance</th>
+                    <th className="py-3">Check-in</th>
+                    <th className="py-3">Check-up</th>
+                    <th className="py-3">Extra Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                {/* Your table rows go here */}
+                <tr>
+                    <td className="py-3"> [student 1] </td>
+                    <td> [present] </td>
+                    <td> [3 stars]</td>
+                    <td> [3 stars]</td>
+                    <td className="flex justify-center">
+                        <button className="btn btn-secondary border">Extra</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td className="py-3"> [student 2] </td>
+                    <td> [present] </td>
+                    <td> [3 stars]</td>
+                    <td> [3 stars]</td>
+                    <td className="flex justify-center">
+                        <button className="btn btn-secondary border">Extra</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td className="py-3"> [student 3] </td>
+                    <td> [present] </td>
+                    <td> [3 stars]</td>
+                    <td> [3 stars]</td>
+                    <td className="flex justify-center">
+                        <button className="btn btn-secondary border">Extra</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td className="py-3"> [student 4] </td>
+                    <td> [present] </td>
+                    <td> [3 stars]</td>
+                    <td> [3 stars]</td>
+                    <td className="flex justify-center">
+                        <button className="btn btn-secondary border">Extra</button>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td className="py-3"> [student 5] </td>
+                    <td> [present] </td>
+                    <td> [3 stars]</td>
+                    <td> [3 stars]</td>
+                    <td className="flex justify-center">
+                        <button className="btn btn-secondary border">Extra</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td className="py-3"> [student 6] </td>
+                    <td> [present] </td>
+                    <td> [3 stars]</td>
+                    <td> [3 stars]</td>
+                    <td className="flex justify-center">
+                        <button className="btn btn-secondary border">Extra</button>
+                    </td>
+                </tr>
+
+
                 </tbody>
             </table>
         </main>
