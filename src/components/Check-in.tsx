@@ -1,6 +1,6 @@
 function Checkin() {
     return (
-        <main className="w-6/10 h-5/10 bg-gray-800 border h-fit">
+        <main className="w-6/10 bg-gray-800 border h-fit p-2">
             <table className="text-yellow-300 w-full table-fixed">
                 <thead>
                 <tr>
@@ -8,7 +8,7 @@ function Checkin() {
                     <th className="py-3">Attendance</th>
                     <th className="py-3">Check-in</th>
                     <th className="py-3">Check-up</th>
-                    <th className="py-3">Extra Actions</th>
+                    <th className="py-3">More Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -18,7 +18,7 @@ function Checkin() {
                     <td> [3 stars]</td>
                     <td> [3 stars]</td>
                     <td className="flex justify-center">
-                        <button className="btn btn-secondary border">Extra</button>
+                        <button className="btn btn-secondary border">More</button>
                     </td>
                 </tr>
                 <tr>
@@ -27,7 +27,7 @@ function Checkin() {
                     <td> [3 stars]</td>
                     <td> [3 stars]</td>
                     <td className="flex justify-center">
-                        <button className="btn btn-secondary border">Extra</button>
+                        <button className="btn btn-secondary border">More</button>
                     </td>
                 </tr>
                 <tr>
@@ -36,7 +36,7 @@ function Checkin() {
                     <td> [3 stars]</td>
                     <td> [3 stars]</td>
                     <td className="flex justify-center">
-                        <button className="btn btn-secondary border">Extra</button>
+                        <button className="btn btn-secondary border">More</button>
                     </td>
                 </tr>
                 <tr>
@@ -45,7 +45,7 @@ function Checkin() {
                     <td> [3 stars]</td>
                     <td> [3 stars]</td>
                     <td className="flex justify-center">
-                        <button className="btn btn-secondary border">Extra</button>
+                        <button className="btn btn-secondary border">More</button>
                     </td>
 
                 </tr>
@@ -55,7 +55,7 @@ function Checkin() {
                     <td> [3 stars]</td>
                     <td> [3 stars]</td>
                     <td className="flex justify-center">
-                        <button className="btn btn-secondary border">Extra</button>
+                        <button className="btn btn-secondary border">More</button>
                     </td>
                 </tr>
                 <tr>
@@ -64,7 +64,7 @@ function Checkin() {
                     <td> [3 stars]</td>
                     <td> [3 stars]</td>
                     <td className="flex justify-center">
-                        <button className="btn btn-secondary border">Extra</button>
+                        <button className="btn btn-secondary border">More</button>
                     </td>
                 </tr>
 

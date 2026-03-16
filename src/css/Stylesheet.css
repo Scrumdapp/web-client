@@ -1,8 +1,12 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons+Outlined");
+@import url("https://fonts.googleapis.com/css2?family=Libertinus+Mono&family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
+
+
 
 #root {
-    @apply bg-gray-400 font-normal;
-}
+    @apply bg-gray-400;
+    @apply gap-md: 0.5rem font-family: "Libertinus Serif", serif font-weight: 400  font-style: normal;
 
 @theme {
     --color-gray-800: #1d2021;
