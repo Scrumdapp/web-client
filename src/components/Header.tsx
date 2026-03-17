@@ -24,7 +24,7 @@ export default function Header() {
 
                     <div className="hidden md:flex space-x-6 text-black font-medium">
                         {links.map((link, i) => (
-                            <Link key={i} to={link.to} className="btn min-w-20 max-w-20">
+                            <Link key={i} to={link.to} className="btn w-20">
                                 {link.label}
                             </Link>
                         ))}
