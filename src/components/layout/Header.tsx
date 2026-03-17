@@ -16,15 +16,15 @@ export default function Header() {
         <nav className="pt-4 pb-7 px-2 flex flex-col">
             <div className="mx-auto px-4 lg:px-12 rounded-2xl bg-bg shadow-xl border footer w-11/12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16 items-center">
+                <div className="flex justify-between h-10 items-center">
 
-                    <div className="shrink-0 text-fg text-2xl font-bold">
+                    <div className="shrink-0 text-fg text-2xl font-bold max-w-20">
                         <a href="/public">Scrumdapp</a>
                     </div>
 
                     <div className="hidden md:flex space-x-6 text-black font-medium">
                         {links.map((link, i) => (
-                            <Link key={i} to={link.to} className="btn">
+                            <Link key={i} to={link.to} className="btn w-20">
                                 {link.label}
                             </Link>
                         ))}
@@ -32,7 +32,7 @@ export default function Header() {
 
                     <div className="hidden md:block">
                         <a href="/login"
-                           className="btn border btn-secondary">
+                           className="btn border btn-secondary min-w-20 max-w-20">
                             Profile
                         </a>
                     </div>
