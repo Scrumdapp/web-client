@@ -51,9 +51,9 @@
 }
 
 table {
-    @apply table border-collapse box-border border
+    @apply table border-collapse box-border border w-full
 }
 
 .checkin-table {
-    @apply w-full border-collapse
+    @apply border-collapse
 }
