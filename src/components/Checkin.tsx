@@ -1,76 +1,39 @@
-function Checkin() {
+import {useApiComponent} from "../js/hooks/api/useApiComponent.tsx";
+import {ScrumdappApi} from "../js/hooks/api/scrumdappApi.ts";
+
+function Checkin({ groupId }: {groupId: number}) {
+    const GetGroupUsersComponent = useApiComponent(ScrumdappApi.getGroupUsers())
+
     return (
-        <main className="w-6/10 bg-gray-800 border h-fit p-2">
-            <table className="text-yellow-300 w-full table-fixed">
-                <thead>
-                <tr>
-                    <th className="py-3">Name</th>
-                    <th className="py-3">Attendance</th>
-                    <th className="py-3">Check-in</th>
-                    <th className="py-3">Check-up</th>
-                    <th className="py-3">More Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td className="py-3"> [student 1] </td>
-                    <td> [present] </td>
-                    <td> [3 stars]</td>
-                    <td> [3 stars]</td>
-                    <td className="flex justify-center">
-                        <button className="btn btn-secondary border">More</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td className="py-3"> [student 2] </td>
-                    <td> [present] </td>
-                    <td> [3 stars]</td>
-                    <td> [3 stars]</td>
-                    <td className="flex justify-center">
-                        <button className="btn btn-secondary border">More</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td className="py-3"> [student 3] </td>
-                    <td> [present] </td>
-                    <td> [3 stars]</td>
-                    <td> [3 stars]</td>
-                    <td className="flex justify-center">
-                        <button className="btn btn-secondary border">More</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td className="py-3"> [student 4] </td>
-                    <td> [present] </td>
-                    <td> [3 stars]</td>
-                    <td> [3 stars]</td>
-                    <td className="flex justify-center">
-                        <button className="btn btn-secondary border">More</button>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td className="py-3"> [student 5] </td>
-                    <td> [present] </td>
-                    <td> [3 stars]</td>
-                    <td> [3 stars]</td>
-                    <td className="flex justify-center">
-                        <button className="btn btn-secondary border">More</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td className="py-3"> [student 6] </td>
-                    <td> [present] </td>
-                    <td> [3 stars]</td>
-                    <td> [3 stars]</td>
-                    <td className="flex justify-center">
-                        <button className="btn btn-secondary border">More</button>
-                    </td>
-                </tr>
-
-
-                </tbody>
-            </table>
+        <main className="w-6/10 bg-bg border h-fit p-2 rounded-lg">
+            <GetGroupUsersComponent input={[groupId]}>
+                {users =>
+                    <table className="text-fg w-full table-fixed">
+                        <thead>
+                        <tr>
+                            <th className="py-3">Name</th>
+                            <th className="py-3">Attendance</th>
+                            <th className="py-3">Check-in</th>
+                            <th className="py-3">Check-up</th>
+                            <th className="py-3">More Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {users.map(user => (
+                            <tr key={user.user_id}>
+                                <td className="py-3">{user.first_name} {user.last_name}</td>
+                                <td> [present] </td>
+                                <td> [3 stars]</td>
+                                <td> [3 stars]</td>
+                                <td className="flex justify-center">
+                                    <button className="btn btn-secondary border">More</button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                }
+            </GetGroupUsersComponent>
         </main>
     );
 }
