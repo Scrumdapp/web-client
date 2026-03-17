@@ -8,15 +8,15 @@ export default function ScrummasterCheckins() {
     const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
     return (
-        <div className="card vertical g-md max-w-7/10">
-            <h1>Checkin for <b>{date}</b></h1>
+        <div className="card vertical max-w-7/10">
+            <h1 className="mb-3 pl-3">Checkin for <b>{date}</b></h1>
                 <div>
                     <form action="#" method="POST">
                         <table className="table">
                             <thead>
                                 <tr className="px-3">
-                                    <th className="text-left pl-3">Name</th>
-                                    <th>Attendance</th>
+                                    <th className="flex-1 text-left pl-3">Name</th>
+                                    <th className="text-left pl-3">Attendance</th>
                                     <th>Check In</th>
                                     <th>Check Up</th>
                                     <th>Notes</th>
@@ -69,7 +69,7 @@ export default function ScrummasterCheckins() {
                         </table>
                     </form>
                 </div>
-            <p className="text-gray text-sm mt-2">
+            <p className="text-gray text-sm mt-3 pl-3">
                 This menu can overwrite changes made by other students. Use the custom check-in & attendance feature when everyone does their own check-ins.
             </p>
             <div className="align-center horizontal gap-3 mt-3">

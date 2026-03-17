@@ -29,7 +29,7 @@
 }
 
 .write-section {
-    @apply p-3 text-fg4 border border-fg4 rounded-lg focus:border-dashed focus:border-red-700 outline-none;
+    @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none;
 }
 
 .write-section::-webkit-scrollbar {
@@ -57,9 +57,25 @@
 }
 
 table {
-    @apply table border-collapse box-border border w-full
+    @apply table border-collapse box-border w-full
 }
 
 .checkin-table {
-    @apply border-collapse
+    @apply border-collapse w-full
+}
+
+.checkin-table th {
+    @apply pb-3
+}
+
+.checkin-table td {
+    @apply pt-3
+}
+
+.name-field {
+    @apply  w-40 max-w-40 border-gray-dim
+}
+
+.td {
+    @apply table-cell align-baseline
 }

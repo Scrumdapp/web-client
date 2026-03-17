@@ -11,28 +11,28 @@ export default function StarsDropDownMenu() {
 
     const options = [
         { label: "---", color: "text-fg" },
-        { label: "0", color: "text-red-dim" },
-        { label: "0,5", color: "text-red" },
-        { label: "1", color: "text-orange-dim" },
-        { label: "1,5", color: "text-orange" },
-        { label: "2", color: "text-yellow-dim" },
-        { label: "2,5", color: "text-yellow" },
-        { label: "3", color: "text-green-dim" },
-        { label: "3,5", color: "text-green" },
-        { label: "4", color: "text-aqua-dim" },
-        { label: "4,5", color: "text-aqua" },
-        { label: "5", color: "text-blue" },
+        { label: "0", color: "text-red-dim", value:"0" },
+        { label: "0,5", color: "text-red", value:"1" },
+        { label: "1", color: "text-orange-dim", value:"2" },
+        { label: "1,5", color: "text-orange", value:"3" },
+        { label: "2", color: "text-yellow-dim", value:"4" },
+        { label: "2,5", color: "text-yellow", value:"5" },
+        { label: "3", color: "text-green-dim", value:"6" },
+        { label: "3,5", color: "text-green", value:"7" },
+        { label: "4", color: "text-aqua-dim", value:"8" },
+        { label: "4,5", color: "text-aqua", value:"9" },
+        { label: "5", color: "text-blue", value:"10" },
     ];
 
     const currentColor = options.find(opt => opt.label === attendance)?.color || "text-fg";
 
     return (
-        <Menu as="div" className="relative inline-block px-3 w-25 max-w-25">
+        <Menu as="div" className="relative inline-block">
             <MenuButton className="inline-flex w-full justify-between btn border cursor-pointer overflow-hidden">
-                <span className={`truncate w-20 max-w-20 text-left ${currentColor}`}>
+                <span className={`truncate w-10 max-w-10 text-left ${currentColor}`}>
                     {attendance}
                 </span>
-                <ChevronDownIcon aria-hidden="true" className="size-5 text-fg4 shrink-0"/>
+                <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
             </MenuButton>
             <MenuItems transition
                        className="absolute z-10 mt-2 w-20 max-w-20 origin-top-left border rounded-md bg-bg transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
