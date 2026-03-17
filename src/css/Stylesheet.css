@@ -1,8 +1,14 @@
 @import "tailwindcss";
 @import "./Theme.css";
+@import "./Utils.css";
+@import "./Anim.css";
 
 :root {
     @apply bg-bg font-normal text-fg;
+}
+
+#root {
+    @apply min-h-screen flex flex-col
 }
 
 .btn {
