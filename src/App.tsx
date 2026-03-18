@@ -6,7 +6,6 @@ import {LoadScreen} from "./components/generic/LoadScreen.tsx";
 import {ErrorScreen} from "./components/generic/ErrorScreen.tsx";
 
 function App() {
-
     return (
         <BrowserRouter>
             <UserProvider
