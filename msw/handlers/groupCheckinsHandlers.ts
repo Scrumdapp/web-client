@@ -70,15 +70,15 @@ function generateCheckin(userId: number, groupId: number, date: string, features
     }
 
     if (features.indexOf("checkins.checkin_stars") != -1) {
-        checkin.checkin_stars = Math.floor(Math.random() * 11)
+        checkin.checkin_stars = Math.random() > 0.7 ? undefined : Math.floor(Math.random() * 11)
     }
 
     if (features.indexOf("checkins.checkup_stars") != -1) {
-        checkin.checkup_stars = Math.floor(Math.random() * 11)
+        checkin.checkup_stars = Math.random() > 0.7 ? undefined : Math.floor(Math.random() * 11)
     }
 
     if (features.indexOf("checkins.checkout_stars") != -1) {
-        checkin.checkout_stars = Math.floor(Math.random() * 11)
+        checkin.checkout_stars = Math.random() > 0.7 ? undefined : Math.floor(Math.random() * 11)
     }
 
     if (features.indexOf("checkins.presence_comment") != -1) {
