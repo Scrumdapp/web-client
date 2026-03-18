@@ -3,7 +3,7 @@ import type {PartialUser, PatchUser, User} from "../../models/user.ts";
 import type {CreateGroup, Group, GroupUser, PartialGroup, PatchGroup} from "../../models/group.ts";
 import {RequestException} from "./apiError.ts";
 import {isErrorDto} from "../../models/dto/errorDto.ts";
-import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate, CheckinFieldFlags} from "../../models/checkin.ts";
+import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate, UserGroupCheckin, CheckinFieldFlags} from "../../models/checkin.ts";
 
 
 export namespace ScrumdappApi {
@@ -134,9 +134,28 @@ export namespace ScrumdappApi {
 
     export function getGroupCheckins(): RequestProcessor<[groupId: number, date: string, fields: CheckinFieldFlags], GroupCheckin[]> {
         return ((groupId, date, fields) => {
-            return makeApiRequest("PATCH", "/groups/{group.id}/checkins/{date}", {
+            return makeApiRequest("GET", "/groups/{group.id}/checkins/{date}", {
                 params: { "{group.id}": groupId.toString(), "{date}": date },
                 query: { "fields": fieldsToQueryParameter(fields) }
+            })
+        })
+    }
+
+    export function getGroupCheckinsWithUsers(): RequestProcessor<[groupId: number, date: string, fields: CheckinFieldFlags], UserGroupCheckin[]> {
+        const getUsers = getGroupUsers()
+        const getCheckins = getGroupCheckins()
+        return (async (groupId, date, fields) => {
+            const p1 = getUsers(groupId)
+            const p2 = getCheckins(groupId, date, fields)
+
+            const [rUsers, rCheckins] = await Promise.all([p1, p2] as Iterable<Promise<GroupUser[] | GroupCheckin[]>>) as [GroupUser[], GroupCheckin[]]
+
+            return rCheckins.map(checkin => {
+                const user = rUsers.find(it => it.user_id == checkin.user_id)
+                if (!user) {
+                    throw new ApiError(404, `User with id ${checkin.user_id} does not exist`)
+                }
+                return { ...checkin, first_name: user.first_name, last_name: user.last_name }
             })
         })
     }

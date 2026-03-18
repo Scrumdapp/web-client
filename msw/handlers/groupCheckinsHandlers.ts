@@ -165,14 +165,14 @@ export const groupCheckinsHandlers = [
         const checkins = (groupCheckins.find(it => it.user_id == params.uid && it.group_id == params.gid && it.date == params.date))
         return HttpResponse.json(checkins)
     }),
-    http.get("/api/groups/:gid/checkins", ({params}) => {
+    http.get("/api/groups/:gid/checkins", ({params, request}) => {
         // @ts-ignore
         const url = new URL(request.url)
         const fields = url.searchParams.get("fields")
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid))
         return HttpResponse.json(checkins.map(it => parseCheckinFields(fields, it)))
     }),
-    http.get("/api/groups/:gid/checkins/:date", ({params}) => {
+    http.get("/api/groups/:gid/checkins/:date", ({params, request}) => {
         // @ts-ignore
         const url = new URL(request.url)
         const fields = url.searchParams.get("fields")
