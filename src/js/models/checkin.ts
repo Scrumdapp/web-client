@@ -1,3 +1,8 @@
+export interface UserGroupCheckin extends GroupCheckin {
+    first_name: string,
+    last_name: string
+}
+
 export interface GroupCheckin {
     user_id: number
     group_id: number
@@ -16,6 +21,18 @@ export interface GroupCheckin {
     checkout_comment?: string
 
     obstacle_comment?: string
+}
+
+export interface CheckinFieldFlags {
+    presence?: boolean
+    presence_comment?: boolean
+    checkin_stars?: boolean
+    checkin_comment?: boolean
+    checkup_stars?: boolean
+    checkup_comment?: boolean
+    checkout_stars?: boolean
+    checkout_comment?: boolean
+    obstacle_comment?: boolean
 }
 
 export interface UpdateGroupCheckin {
