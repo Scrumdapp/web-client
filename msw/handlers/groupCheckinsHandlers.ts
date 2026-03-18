@@ -1,8 +1,9 @@
-import {GroupCheckin} from "../../src/js/models/checkin";
+import {CheckinFieldFlags, GroupCheckin} from "../../src/js/models/checkin";
 import {groupData} from "./groupHandlers";
 import {groupUserData} from "./groupUserHandler";
 import {Feature} from "../../src/js/models/group";
 import {http, HttpResponse} from "msw";
+import {parseScrumdappDate, toScrumdappDate} from "../../src/js/utils/scrumdappDate.ts";
 
 interface GenerateCheckin {
     gId: number,
@@ -43,14 +44,14 @@ function generateGroupCheckins(...data: GenerateCheckin[]): GroupCheckin[] {
 
     for (let checkin of data) {
         const group = groupData.find(it => it.id == checkin.gId)
-        if (!group) continue
+        if (typeof group === "undefined") continue
         const groupUsers = groupUserData.find(it => it.groupId == checkin.gId)
         if (!groupUsers) continue
         for (let uid of groupUsers.users) {
             const now = Date.now()
             for (let i = 0; i < checkin.dateCount; i++) {
                 const day = new Date(now - (1000*60*60*24) * i)
-                checkins.push(generateCheckin(uid, group.id, `${day.getFullYear()}-${day.getMonth()}-${day.getDay()}`, group.enabled_features))
+                checkins.push(generateCheckin(uid, group!.id, toScrumdappDate(day), group!.enabled_features))
             }
         }
     }
@@ -104,33 +105,81 @@ function generateCheckin(userId: number, groupId: number, date: string, features
     return checkin;
 }
 
+function parseCheckinFields(fields: string | null | undefined, checkin: GroupCheckin): object {
+    const r = {
+        user_id: checkin.user_id,
+        group_id: checkin.group_id,
+        date: checkin.date
+    }
+
+    if (typeof fields !== "string") {
+        return r;
+    }
+
+    const all = fields.split(",")
+    for (let i = 0; i < all.length; i++) {
+        switch (all[i].toLowerCase()) {
+            case "presence": r["presence"] = checkin.presence ?? null; break
+            case "presence_comment": r["presence_comment"] = checkin.presence_comment ?? null; break
+            case "checkin_stars": r["checkin_stars"] = checkin.checkin_stars ?? null; break
+            case "checkin_comment": r["checkin_comment"] = checkin.checkin_comment ?? null; break
+            case "checkup_stars": r["checkup_stars"] = checkin.checkup_stars ?? null; break
+            case "checkup_comment": r["checkup_comment"] = checkin.checkup_comment ?? null; break
+            case "checkout_stars": r["checkout_stars"] = checkin.checkout_stars ?? null; break
+            case "checkout_comment": r["checkout_comment"] = checkin.checkout_comment ?? null; break
+            case "obstacle_comment": r["obstacle_comment"] = checkin.obstacle_comment ?? null; break
+        }
+    }
+
+    return r;
+}
+
 export const groupCheckinsHandlers = [
-    http.get("/groups/:gid/users/:uid/checkins", ({params}) => {
+    http.get("/api/groups/:gid/users/:uid/checkins", ({params, request}) => {
+        const url = new URL(request.url)
+        const from = parseScrumdappDate(url.searchParams.get("start_date")!)
+        const to = parseScrumdappDate(url.searchParams.get("end_date")!)
+        const fields = url.searchParams.get("fields")
         // @ts-ignore
-        const checkins = (groupCheckins.filter(it => it.user_id == params.uid && it.group_id == params.gid))
-        return HttpResponse.json(checkins)
+        const checkins = (groupCheckins.filter(it => it.user_id == params.uid && it.group_id == params.gid && parseScrumdappDate(it.date) >= from && parseScrumdappDate(it.date) <= to))
+        return HttpResponse.json(checkins.map(it => parseCheckinFields(fields, it)))
     }),
-    http.get("/groups/:gid/users/:uid/checkins/:date", ({params}) => {
+    http.get("/api/groups/:gid/users/:uid/checkins/:date", ({params, request}) => {
+        const url = new URL(request.url)
+        const date = url.searchParams.get("date")
+        const fields = url.searchParams.get("fields")
+        // @ts-ignore
+        const checkin = (groupCheckins.find(it => it.user_id == params.uid && it.group_id == params.gid && it.date == date))
+        if (typeof checkin !== "object") {
+            return HttpResponse.json({
+                error: true,
+                status: 404,
+                message: "Not Found",
+                detail: "Checkin could not be found"
+            })
+        }
+        return HttpResponse.json(parseCheckinFields(fields, checkin))
+    }),
+    http.patch("/api/groups/:gid/users/:uid/checkins/:date", ({params}) => {
         // @ts-ignore
         const checkins = (groupCheckins.find(it => it.user_id == params.uid && it.group_id == params.gid && it.date == params.date))
         return HttpResponse.json(checkins)
     }),
-    http.patch("/groups/:gid/users/:uid/checkins/:date", ({params}) => {
+    http.get("/api/groups/:gid/checkins", ({params}) => {
         // @ts-ignore
-        const checkins = (groupCheckins.find(it => it.user_id == params.uid && it.group_id == params.gid && it.date == params.date))
-        return HttpResponse.json(checkins)
-    }),
-    http.get("/groups/:gid/checkins", ({params}) => {
-        // @ts-ignore
+        const url = new URL(request.url)
+        const fields = url.searchParams.get("fields")
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid))
-        return HttpResponse.json(checkins)
+        return HttpResponse.json(checkins.map(it => parseCheckinFields(fields, it)))
     }),
-    http.get("/groups/:gid/checkins/:date", ({params}) => {
+    http.get("/api/groups/:gid/checkins/:date", ({params}) => {
         // @ts-ignore
+        const url = new URL(request.url)
+        const fields = url.searchParams.get("fields")
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid && it.date == params.date))
-        return HttpResponse.json(checkins)
+        return HttpResponse.json(checkins.map(it => parseCheckinFields(fields, it)))
     }),
-    http.patch("/groups/:gid/checkins/:date", ({params}) => {
+    http.patch("/api/groups/:gid/checkins/:date", ({params}) => {
         // @ts-ignore
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid && it.date == params.date))
         return HttpResponse.json(checkins)
