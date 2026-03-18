@@ -22,15 +22,15 @@ export default function AttendanceDropDownMenu() {
     const currentColor = options.find(opt => opt.label === attendance)?.color || "text-fg";
 
     return (
-        <Menu as="div" className="relative inline-block">
-            <MenuButton className="inline-flex w-full justify-between btn border cursor-pointer overflow-hidden">
-                <span className={`truncate w-10 max-w-10 text-left ${currentColor}`}>
+        <Menu as="div" className="min-w-[20%]">
+            <MenuButton className="btn border cursor-pointer">
+                <span className={`text-left ${currentColor}`}>
                     {attendance}
                 </span>
                 <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
             </MenuButton>
             <MenuItems transition
-                       className="absolute z-10 mt-2 w-20 max-w-20 origin-top-left border rounded-md bg-bg transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
+                       className="absolute z-10 mt-2 border rounded-md bg-bg">
                 <div className="py-1">
                     {options.map((opt) => (
                         <MenuItem

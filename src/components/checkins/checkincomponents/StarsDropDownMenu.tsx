@@ -29,7 +29,7 @@ export default function StarsDropDownMenu() {
     return (
         <Menu as="div" className="relative inline-block">
             <MenuButton className="inline-flex w-full justify-between btn border cursor-pointer overflow-hidden">
-                <span className={`truncate w-10 max-w-10 text-left ${currentColor}`}>
+                <span className={`truncate w-[100%] text-left ${currentColor}`}>
                     {attendance}
                 </span>
                 <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>

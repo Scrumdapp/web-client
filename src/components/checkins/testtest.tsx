@@ -1,6 +1,7 @@
 import AttendanceDropDownMenu from "./checkincomponents/AttendanceDropDownMenu.tsx";
 import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
 import AttendanceTextArea from "./checkincomponents/AttendanceTextArea.tsx";
+import {userData} from "../../../msw/handlers/userHandlers.ts";
 
 export default function testtest() {
 
@@ -16,15 +17,18 @@ export default function testtest() {
                         <thead>
                             <tr  className="text-left">
                                 <th className="name-field">Name</th>
-                                <th>Attendance</th>
-                                <th>Check In</th>
-                                <th>Check Up</th>
-                                <th>Notes</th>
+                                <th className="w-[20%]">Attendance</th>
+                                <th className="w-[10%]">Check In</th>
+                                <th className="w-[10%]">Check Up</th>
+                                <th className="">Notes</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="truncate name-field">[Student 1]</td>
+                                {userData.map((user) => (
+                                    <tr key={user.id}>
+                                        <td className="truncate name-field">
+                                            {user.first_name} {user.last_name}
+                                        </td>
                                 <td className=""><AttendanceDropDownMenu /></td>
                                 <td className=""><StarsDropDownMenu /></td>
                                 <td className=""><StarsDropDownMenu/></td>
@@ -34,28 +38,7 @@ export default function testtest() {
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td className="truncate name-field">[Student 1]</td>
-                                <td className=""><AttendanceDropDownMenu /></td>
-                                <td className=""><StarsDropDownMenu /></td>
-                                <td className=""><StarsDropDownMenu/></td>
-                                <td className="horizontal justify-between align-center relative">
-                                    <div className="absolute">
-                                        <AttendanceTextArea />
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="truncate name-field">[Student 1]</td>
-                                <td className=""><AttendanceDropDownMenu /></td>
-                                <td className=""><StarsDropDownMenu /></td>
-                                <td className=""><StarsDropDownMenu/></td>
-                                <td className="horizontal justify-between align-center relative">
-                                    <div className="absolute">
-                                        <AttendanceTextArea />
-                                    </div>
-                                </td>
-                            </tr>
+                                    ))}
                         </tbody>
                     </table>
                 </form>
