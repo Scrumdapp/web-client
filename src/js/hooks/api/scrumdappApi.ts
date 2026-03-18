@@ -3,7 +3,7 @@ import type {PartialUser, PatchUser, User} from "../../models/user.ts";
 import type {CreateGroup, Group, GroupUser, PartialGroup, PatchGroup} from "../../models/group.ts";
 import {RequestException} from "./apiError.ts";
 import {isErrorDto} from "../../models/dto/errorDto.ts";
-import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate} from "../../models/checkin.ts";
+import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate, CheckinFieldFlags} from "../../models/checkin.ts";
 
 
 export namespace ScrumdappApi {
@@ -12,11 +12,11 @@ export namespace ScrumdappApi {
 
     export type RequestProcessor<Ti extends any[], Tr> = (...inputs: Ti) => Promise<Tr>
     export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
-    export type RequestParams = { [key: string]: string }
+    export type RequestParams = { [key: string]: string | undefined }
 
     export type CheckinRangeParams = {
-        "startDate": string,
-        "endDate": string
+        "start_date": string,
+        "end_date": string
     }
 
     export function getCurrentUser(): RequestProcessor<[], User> {
@@ -105,19 +105,20 @@ export namespace ScrumdappApi {
         })
     }
 
-    export function getUserCheckins(): RequestProcessor<[groupId: number, userId: number, date: CheckinRangeParams ], GroupCheckin[]> {
-        return ((groupId, userId, queryParams) => {
+    export function getUserCheckins(): RequestProcessor<[groupId: number, userId: number, date: CheckinRangeParams, fields?: CheckinFieldFlags ], GroupCheckin[]> {
+        return ((groupId, userId, queryParams, fields) => {
             return makeApiRequest("GET", "/groups/{group.id}/users/{user.id}/checkins", {
                 params: { "{group.id}": groupId.toString(), "{user.id}": userId.toString() },
-                query: queryParams
+                query: { ...queryParams, "fields": fieldsToQueryParameter(fields) }
             })
         })
     }
 
-    export function getUserCheckin(): RequestProcessor<[groupId: number, userId: number, date: string ], GroupCheckin> {
-        return ((groupId, userId, date) => {
+    export function getUserCheckin(): RequestProcessor<[groupId: number, userId: number, date: string, fields?: CheckinFieldFlags ], GroupCheckin> {
+        return ((groupId, userId, date, fields) => {
             return makeApiRequest("GET", "/groups/{group.id}/users/{user.id}/checkins/{date}", {
-                params: {"{group.id}": groupId.toString(), "{user.id}": userId.toString(), "{date}": date}
+                params: {"{group.id}": groupId.toString(), "{user.id}": userId.toString(), "{date}": date},
+                query: { "fields": fieldsToQueryParameter(fields) }
             })
         })
     }
@@ -131,10 +132,11 @@ export namespace ScrumdappApi {
         })
     }
 
-    export function getGroupCheckins(): RequestProcessor<[groupId: number, date: string], GroupCheckin[]> {
-        return ((groupId, date) => {
+    export function getGroupCheckins(): RequestProcessor<[groupId: number, date: string, fields: CheckinFieldFlags], GroupCheckin[]> {
+        return ((groupId, date, fields) => {
             return makeApiRequest("PATCH", "/groups/{group.id}/checkins/{date}", {
-                params: { "{group.id}": groupId.toString(), "{date}": date }
+                params: { "{group.id}": groupId.toString(), "{date}": date },
+                query: { "fields": fieldsToQueryParameter(fields) }
             })
         })
     }
@@ -154,12 +156,18 @@ export namespace ScrumdappApi {
         let actualUrl = API_URL + "/" + url.replace(/^\//, "")
         if (params) {
             for (let paramsKey in params) {
-                actualUrl = actualUrl.replace(paramsKey, params[paramsKey])
+                if (typeof params[paramsKey] !== "string") { continue }
+                actualUrl = actualUrl.replace(paramsKey, params[paramsKey] as string)
             }
         }
 
         if (query) {
-            let urlParams = new URLSearchParams(query)
+            const q = {}
+            for (let queryKey in query) {
+                if (typeof query[queryKey] !== "string") { continue }
+                q[queryKey] = query[queryKey]
+            }
+            let urlParams = new URLSearchParams(q)
             actualUrl = actualUrl + "?"+urlParams.toString()
         }
 
@@ -203,5 +211,20 @@ export namespace ScrumdappApi {
                 }
                 throw new ApiError(999, "Unkown error", it)
             })
+    }
+
+    function fieldsToQueryParameter(fields?: CheckinFieldFlags): string | undefined {
+        if (!fields) { return undefined }
+        const enabledFields: string[] = []
+        if (fields.presence === true) { enabledFields.push("presence") }
+        if (fields.presence_comment === true) { enabledFields.push("presence_comment") }
+        if (fields.checkin_stars === true) { enabledFields.push("checkin_stars") }
+        if (fields.checkin_comment === true) { enabledFields.push("checkin_comment") }
+        if (fields.checkup_stars === true) { enabledFields.push("checkup_stars") }
+        if (fields.checkup_comment === true) { enabledFields.push("checkup_comment") }
+        if (fields.checkout_stars === true) { enabledFields.push("checkout_stars") }
+        if (fields.checkup_comment === true) { enabledFields.push("checkup_comment") }
+        if (fields.obstacle_comment === true) { enabledFields.push("obstacle_comment") }
+        return enabledFields.length == 0 ? undefined : enabledFields.join(",")
     }
 }
