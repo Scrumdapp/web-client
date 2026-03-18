@@ -1,3 +1,8 @@
+export interface UserGroupCheckin extends GroupCheckin {
+    first_name: string,
+    last_name: string
+}
+
 export interface GroupCheckin {
     user_id: number
     group_id: number
