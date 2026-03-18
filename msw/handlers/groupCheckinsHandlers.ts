@@ -50,7 +50,6 @@ function generateGroupCheckins(...data: GenerateCheckin[]): GroupCheckin[] {
             const now = Date.now()
             for (let i = 0; i < checkin.dateCount; i++) {
                 const day = new Date(now - (1000*60*60*24) * i)
-                console.log(day)
                 checkins.push(generateCheckin(uid, group!.id, `${day.getFullYear()}-${parseInt(day.getMonth()+1)}-${parseInt(day.getDate())}`, group!.enabled_features))
             }
         }
@@ -120,7 +119,6 @@ function parseCheckinFields(fields: string | null | undefined, checkin: GroupChe
         date: checkin.date
     }
 
-    console.log(fields)
     if (typeof fields !== "string") {
         return r;
     }
