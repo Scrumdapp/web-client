@@ -3,6 +3,7 @@ import {groupData} from "./groupHandlers";
 import {groupUserData} from "./groupUserHandler";
 import {Feature} from "../../src/js/models/group";
 import {http, HttpResponse} from "msw";
+import {parseScrumdappDate, toScrumdappDate} from "../../src/js/utils/scrumdappDate.ts";
 
 interface GenerateCheckin {
     gId: number,
@@ -50,20 +51,12 @@ function generateGroupCheckins(...data: GenerateCheckin[]): GroupCheckin[] {
             const now = Date.now()
             for (let i = 0; i < checkin.dateCount; i++) {
                 const day = new Date(now - (1000*60*60*24) * i)
-                checkins.push(generateCheckin(uid, group!.id, `${day.getFullYear()}-${parseInt(day.getMonth()+1)}-${parseInt(day.getDate())}`, group!.enabled_features))
+                checkins.push(generateCheckin(uid, group!.id, toScrumdappDate(day), group!.enabled_features))
             }
         }
     }
 
     return checkins;
-}
-
-function parseInt(i: number): string {
-    let s = i.toString()
-    while (s.length < 2) {
-        s = "0"+s
-    }
-    return s
 }
 
 function generateCheckin(userId: number, groupId: number, date: string, features: Feature[]): GroupCheckin {
@@ -144,9 +137,11 @@ function parseCheckinFields(fields: string | null | undefined, checkin: GroupChe
 export const groupCheckinsHandlers = [
     http.get("/api/groups/:gid/users/:uid/checkins", ({params, request}) => {
         const url = new URL(request.url)
+        const from = parseScrumdappDate(url.searchParams.get("start_date")!)
+        const to = parseScrumdappDate(url.searchParams.get("end_date")!)
         const fields = url.searchParams.get("fields")
         // @ts-ignore
-        const checkins = (groupCheckins.filter(it => it.user_id == params.uid && it.group_id == params.gid))
+        const checkins = (groupCheckins.filter(it => it.user_id == params.uid && it.group_id == params.gid && parseScrumdappDate(it.date) >= from && parseScrumdappDate(it.date) <= to))
         return HttpResponse.json(checkins.map(it => parseCheckinFields(fields, it)))
     }),
     http.get("/api/groups/:gid/users/:uid/checkins/:date", ({params, request}) => {
