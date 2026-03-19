@@ -37,6 +37,13 @@ export const userData: User[] = [
         last_name: "Kaaskop",
         language_preference: "EN",
         theme_preference: "dark"
+    } as User,
+    {
+        id: 6,
+        first_name: "Bob",
+        last_name: "de Bouwer",
+        language_preference: "NL",
+        theme_preference: "light"
     } as User
 ]
 

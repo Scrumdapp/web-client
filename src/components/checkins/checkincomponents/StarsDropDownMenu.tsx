@@ -27,15 +27,14 @@ export default function StarsDropDownMenu() {
     const currentColor = options.find(opt => opt.label === attendance)?.color || "text-fg";
 
     return (
-        <Menu as="div" className="relative inline-block">
-            <MenuButton className="inline-flex w-full justify-between btn border cursor-pointer overflow-hidden">
-                <span className={`truncate w-[100%] text-left ${currentColor}`}>
+        <Menu as="div" className="relative w-full min-w-[10%]">
+            <MenuButton className="btn-attendance border cursor-pointer">
+                <span className={`text-left ${currentColor}`}>
                     {attendance}
                 </span>
                 <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
             </MenuButton>
-            <MenuItems transition
-                       className="absolute z-10 mt-2 w-20 max-w-20 origin-top-left border rounded-md bg-bg transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
+            <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 <div className="py-1">
                     {options.map((opt) => (
                         <MenuItem
@@ -43,7 +42,7 @@ export default function StarsDropDownMenu() {
                             as="button"
                             type="button"
                             onClick={() => setAttendance(opt.label)}
-                            className={`btn-attendance ${opt.color} w-full text-left`}>
+                            className={`btn-attendance-dropdown ${opt.color}`}>
                             {opt.label}
                         </MenuItem>
                     ))}

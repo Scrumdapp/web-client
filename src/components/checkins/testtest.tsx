@@ -13,29 +13,27 @@ export default function testtest() {
             <div className="card vertical gap-3">
                 <h1 className="mb-3">Checkin for <b>{date}</b></h1>
                 <form method="post" className="vertical flex-1 gap-3">
-                    <table className="checkin-table">
+                    <table className="checkin-table table-fixed w-full">
                         <thead>
-                            <tr  className="text-left">
-                                <th className="name-field">Name</th>
-                                <th className="w-[20%]">Attendance</th>
-                                <th className="w-[10%]">Check In</th>
-                                <th className="w-[10%]">Check Up</th>
-                                <th className="">Notes</th>
+                            <tr  className="text-left ">
+                                <th className="w-[20%] pr-3">Name</th>
+                                <th className="w-[20%] pr-3">Attendance</th>
+                                <th className="w-[10%] pr-3">Check In</th>
+                                <th className="w-[10%] pr-3">Check Up</th>
+                                <th className="w-[25%]">Notes</th>
                             </tr>
                         </thead>
                         <tbody>
-                                {userData.map((user) => (
-                                    <tr key={user.id}>
-                                        <td className="truncate name-field">
-                                            {user.first_name} {user.last_name}
-                                        </td>
-                                <td className=""><AttendanceDropDownMenu /></td>
-                                <td className=""><StarsDropDownMenu /></td>
-                                <td className=""><StarsDropDownMenu/></td>
-                                <td className="horizontal justify-between align-center relative">
-                                    <div className="absolute">
-                                        <AttendanceTextArea />
-                                    </div>
+                            {userData.map((user) => (
+                            <tr key={user.id}>
+                                <td className="truncate name-field pr-3">
+                                    {user.first_name} {user.last_name}
+                                </td>
+                                <td className="pr-3"><AttendanceDropDownMenu /></td>
+                                <td className="pr-3"><StarsDropDownMenu /></td>
+                                <td className="pr-3"><StarsDropDownMenu/></td>
+                                <td className="pr-3">
+                                    <AttendanceTextArea />
                                 </td>
                             </tr>
                                     ))}

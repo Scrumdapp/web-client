@@ -32,6 +32,10 @@
     @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-[calc(100%(--gap-3)*2(--gap-3))];
 }
 
+.write-section-attendance {
+    @apply p-1 pl-3 text-fg4 border h-[40px] border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-full;
+}
+
 .write-section::-webkit-scrollbar {
     @apply w-0;
 
@@ -41,7 +45,13 @@
 }
 
 .btn-attendance {
-    @apply block py-1 px-2 text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer
+    @apply block flex items-center justify-between h-10 p-2 text-fg text-left gap-1
+    rounded-lg cursor-pointer duration-200 ease-in-out transform
+    hover:bg-bg2 active:bg-bg3 data-focus:bg-bg2 data-focus:text-white w-full;
+}
+
+.btn-attendance-dropdown {
+    @apply block py-1 px-2 text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer w-full text-left
 }
 
 .card {
