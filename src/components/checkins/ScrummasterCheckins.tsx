@@ -1,75 +1,43 @@
 import AttendanceDropDownMenu from "./checkincomponents/AttendanceDropDownMenu.tsx";
 import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
 import AttendanceTextArea from "./checkincomponents/AttendanceTextArea.tsx";
+import {userData} from "../../../msw/handlers/userHandlers.ts";
 
-export default function ScrummasterCheckins() {
+export default function testtest() {
 
     const current = new Date();
-    const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+    const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
 
     return (
-        <div className="card vertical max-w-7/10">
-            <h1 className="mb-3 pl-3">Checkin for <b>{date}</b></h1>
-                <div>
-                    <form action="#" method="POST">
-                        <table className="table">
-                            <thead>
-                                <tr className="px-3">
-                                    <th className="flex-1 text-left pl-3">Name</th>
-                                    <th className="text-left pl-3">Attendance</th>
-                                    <th>Check In</th>
-                                    <th>Check Up</th>
-                                    <th>Notes</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="pl-3">[Student 1]</td>
-                                    <td><AttendanceDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><AttendanceTextArea /></td>
-                                </tr>
-                                <tr>
-                                    <td className="pl-3">[Student 2]</td>
-                                    <td><AttendanceDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><AttendanceTextArea /></td>
-                                </tr>
-                                <tr>
-                                    <td className="pl-3">[Student 3]</td>
-                                    <td><AttendanceDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><AttendanceTextArea /></td>
-                                </tr>
-                                <tr>
-                                    <td className="pl-3">[Student 4]</td>
-                                    <td><AttendanceDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><AttendanceTextArea /></td>
-                                </tr>
-                                <tr>
-                                    <td className="pl-3">[Student 5]</td>
-                                    <td><AttendanceDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><AttendanceTextArea /></td>
-                                </tr>
-                                <tr>
-                                    <td className="pl-3">[Student 6]</td>
-                                    <td><AttendanceDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><StarsDropDownMenu /></td>
-                                    <td><AttendanceTextArea /></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-            <p className="text-gray text-sm mt-3 pl-3">
+        <form method="post" className="card flex-1 mx-auto vertical flex-1 gap-3 w-4/7">
+            <h1 className="mb-3">Checkin for <b>{date}</b></h1>
+                <table className="checkin-table table-fixed w-full">
+                    <thead>
+                    <tr  className="">
+                        <th className="w-[20%] pr-3 text-left">Name</th>
+                        <th className="w-[20%] pr-3 text-left">Attendance</th>
+                        <th className="w-[10%] pr-3">Check In</th>
+                        <th className="w-[10%] pr-3">Check Up</th>
+                        <th className="w-[25%] pr-3 text-right">Notes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {userData.map((user) => (
+                        <tr key={user.id}>
+                            <td className="truncate name-field pr-3">
+                                {user.first_name} {user.last_name}
+                            </td>
+                            <td className="pr-3"><AttendanceDropDownMenu /></td>
+                            <td className="pr-3"><StarsDropDownMenu /></td>
+                            <td className="pr-3"><StarsDropDownMenu/></td>
+                            <td className="pr-3">
+                                <AttendanceTextArea />
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            <p className="text-gray text-sm mt-3">
                 This menu can overwrite changes made by other students. Use the custom check-in & attendance feature when everyone does their own check-ins.
             </p>
             <div className="align-center horizontal gap-3 mt-3">
@@ -87,6 +55,6 @@ export default function ScrummasterCheckins() {
                     Delete
                 </a>
             </div>
-        </div>
+        </form>
     )
 }
