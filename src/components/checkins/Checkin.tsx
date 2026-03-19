@@ -1,18 +1,17 @@
 import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
-import {timelineItem} from "@material-tailwind/react";
-
 
 
 function Checkin({ groupId }: {groupId: number, userId: number} ) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
     const today = new Date().toISOString().split("T")[0];
+    console.log(GetGroupCheckinsComponent)
 
 
     return <main className="w-6/10 bg-bg border h-fit p-2 rounded-lg">
 
-                <GetGroupCheckinsComponent input={[groupId, today]}>
+                <GetGroupCheckinsComponent input={groupId, today}>
                     {checkin =>
                 <table className="text-fg w-full table-fixed">
                     <thead>
@@ -26,9 +25,9 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                     </thead>
                     <tbody>
                     {checkin.map(item => (
-                        <tr key={item.user_id} {...item.presence?}>
-                            <td className="py-3">{user.last_name} {user.last_name}</td>
-                            <td>{checkin.map(item.presence) ?? "Unknown"}</td>
+                        <tr key={item.user_id} >
+                            <td className="py-3">{item.first_name} {item.last_name}</td>
+                            <td>(item.presence) ?? "Unknown"</td>
                             <td><StarsDropDownMenu /></td>
                             <td><StarsDropDownMenu /></td>
                             <td className="flex justify-center">
