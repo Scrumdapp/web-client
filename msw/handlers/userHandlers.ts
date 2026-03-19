@@ -54,7 +54,7 @@ export const userHandlers = [
         let error = false
 
         if (delayed) {
-            await new Promise((res) => {
+            await new Promise<void>((res) => {
                 setTimeout(() => res(), 2000)
             })
         }
