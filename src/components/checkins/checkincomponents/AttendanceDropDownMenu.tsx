@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-
+import { getAttendanceColor} from "./CheckinColor.tsx";
 import { useState } from "react";
 
 "use client";
@@ -19,7 +19,7 @@ export default function AttendanceDropDownMenu() {
         { label: "Sick", color: "text-blue"},
     ];
 
-    const currentColor = options.find(opt => opt.label === attendance)?.color || "text-fg";
+    const currentColor = getAttendanceColor(attendance);
 
     return (
         <Menu as="div" className="relative inline-block">
