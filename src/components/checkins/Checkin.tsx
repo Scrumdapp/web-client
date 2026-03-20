@@ -2,6 +2,40 @@ import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import Stars from "./checkincomponents/Stars.tsx";
+import {useEffect} from "react";
+
+const options = [
+    { label: "---", color: "text-fg", value: null },
+    { label: "0", color: "text-red-dim", value: 0 },
+    { label: "0,5", color: "text-red", value: 1 },
+    { label: "1", color: "text-orange-dim", value: 2 },
+    { label: "1,5", color: "text-orange", value: 3 },
+    { label: "2", color: "text-yellow-dim", value: 4 },
+    { label: "2,5", color: "text-yellow", value: 5 },
+    { label: "3", color: "text-green-dim", value: 6 },
+    { label: "3,5", color: "text-green", value: 7 },
+    { label: "4", color: "text-aqua-dim", value: 8 },
+    { label: "4,5", color: "text-aqua", value: 9 },
+    { label: "5", color: "text-blue", value: 10 }, { label: "---", color: "text-fg"},
+    { label: "Present", color: "text-green"},
+    { label: "Late", color: "text-orange"},
+    { label: "Absent", color: "text-red"},
+    { label: "Verified Absent", color: "text-aqua"},
+    { label: "Online", color: "text-purple"},
+    { label: "Sick", color: "text-blue"},
+
+];
+
+useEffect(() => {
+    if (value !== undefined) {
+        setLocalValue(value ?? null);
+    }
+}, [value]);
+
+const resolvedValue = value !== undefined ? (value ?? null) : localValue;
+const currentOption =
+    options.find((opt) => opt.value === resolvedValue) ?? options[0];
+const currentColor = currentOption.color || "text-fg";
 
 
 function Checkin({ groupId }: {groupId: number, userId: number} ) {
@@ -32,7 +66,7 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                         <tr key={item.user_id} >
                             <td className="py-3">{item.first_name} {item.last_name}</td>
                             <td>{item.presence ?? "Unknown"} </td>
-                            <td><Stars amount={item.checkin_stars} /></td>
+                            <td><Stars amount={item.checkin_stars}  /></td>
                             <td><Stars amount={item.checkin_stars} /></td>
                             <td className="flex justify-center">
                                 <button className="btn btn-secondary border">More</button>
