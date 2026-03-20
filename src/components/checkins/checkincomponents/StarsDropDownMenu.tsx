@@ -1,7 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
-import {starsOptions, getStarsColor} from "./CheckinColor.tsx";
+import { starsOptions, getStarsColor } from "./CheckinColor.tsx";
 
 ("use client");
 
@@ -25,7 +25,7 @@ export default function StarsDropDownMenu({
   const resolvedValue = value !== undefined ? (value ?? null) : localValue;
   const currentOption =
     starsOptions.find((opt) => opt.value === resolvedValue) ?? starsOptions[0];
-  const currentColor = getStarsColor(starsOptions);
+  const currentColor = getStarsColor(resolvedValue);
 
   return (
     <Menu as="div" className="relative inline-block">
@@ -43,7 +43,7 @@ export default function StarsDropDownMenu({
         className="absolute z-10 mt-2 w-20 max-w-20 origin-top-left border rounded-md bg-bg transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
       >
         <div className="py-1">
-          {options.map((opt) => (
+          {starsOptions.map((opt) => (
             <MenuItem
               key={opt.label}
               as="button"
