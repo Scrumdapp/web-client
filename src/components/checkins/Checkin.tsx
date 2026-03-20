@@ -1,6 +1,7 @@
 import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
+import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 // import getGroupCheckins = ScrumdappApi.getGroupCheckins;
 
 
@@ -11,8 +12,12 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
 
     return <main className="w-6/10 bg-bg border h-fit p-2 rounded-lg">
 
-                <GetGroupCheckinsComponent input={[groupId, new Date().toISOString().split("T")[0] ]} />
-                    {checkin =>
+                <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
+                    presence: true,
+                    checkin_stars: true,
+                    checkup_stars: true
+                }]} >
+                    {checkin => (
                 <table className="text-fg w-full table-fixed">
                     <thead>
                     <tr>
@@ -27,7 +32,7 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                     {checkin.map(item => (
                         <tr key={item.user_id} >
                             <td className="py-3">{item.first_name} {item.last_name}</td>
-                            <td>(item.presence) ?? "Unknown"</td>
+                            <td>{item.presence ?? "Unknown"} </td>
                             <td><StarsDropDownMenu /></td>
                             <td><StarsDropDownMenu /></td>
                             <td className="flex justify-center">
@@ -36,7 +41,7 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                         </tr>))}
                     </tbody>
                 </table>
-            }
+                    )}
             </GetGroupCheckinsComponent>
     </main>
 }
