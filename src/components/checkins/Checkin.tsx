@@ -1,8 +1,7 @@
 import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
-import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
-// import getGroupCheckins = ScrumdappApi.getGroupCheckins;
+import Stars from "./checkincomponents/Stars.tsx";
 
 
 function Checkin({ groupId }: {groupId: number, userId: number} ) {
@@ -33,8 +32,8 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                         <tr key={item.user_id} >
                             <td className="py-3">{item.first_name} {item.last_name}</td>
                             <td>{item.presence ?? "Unknown"} </td>
-                            <td> {item.checkin_stars} </td>
-                            <td> {item.checkin_stars} </td>
+                            <td><Stars amount={item.checkin_stars} /></td>
+                            <td><Stars amount={item.checkin_stars} /></td>
                             <td className="flex justify-center">
                                 <button className="btn btn-secondary border">More</button>
                             </td>
