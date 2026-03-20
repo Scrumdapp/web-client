@@ -4,7 +4,7 @@
 @import "./Anim.css";
 
 :root {
-    @apply bg-bg font-normal text-fg;
+    @apply bg-bg font-libertinus font-normal text-fg;
 }
 
 #root {
