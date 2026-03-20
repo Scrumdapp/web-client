@@ -4,6 +4,7 @@ export const attendanceOptions = [
     { label: "---", color: "text-fg" },
     { label: "Present", color: "text-green" },
     { label: "Late", color: "text-orange" },
+    {label: "Verified Late", color: "text-green" },
     { label: "Absent", color: "text-red" },
     { label: "Verified Absent", color: "text-aqua" },
     { label: "Online", color: "text-purple" },
