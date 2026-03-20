@@ -2,13 +2,16 @@ import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import Stars from "./checkincomponents/Stars.tsx";
+import {getStarsColor} from "./checkincomponents/CheckinColor.tsx";
+
 
 function Checkin({ groupId }: {groupId: number, userId: number} ) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
     console.log(GetGroupCheckinsComponent)
-
-
     return <main className="w-6/10 bg-bg border h-fit p-2 rounded-lg">
+
+
+
 
                 <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
                     presence: true,
@@ -31,8 +34,8 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                         <tr key={item.user_id} >
                             <td className="py-3">{item.first_name} {item.last_name}</td>
                             <td>{item.presence ?? "Unknown"} </td>
-                            <td><Stars amount={item.checkin_stars}  /></td>
-                            <td><Stars amount={item.checkin_stars} /></td>
+                            <td className={getStarsColor(item.checkin_stars)}><Stars amount={item.checkin_stars}  /></td>
+                            <td className={getStarsColor(item.checkup_stars)}><Stars amount={item.checkup_stars}/></td>
                             <td className="flex justify-center">
                                 <button className="btn btn-secondary border">More</button>
                             </td>
