@@ -33,8 +33,8 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                         <tr key={item.user_id} >
                             <td className="py-3">{item.first_name} {item.last_name}</td>
                             <td>{item.presence ?? "Unknown"} </td>
-                            <td><StarsDropDownMenu value={item.checkin_stars} /></td>
-                            <td><StarsDropDownMenu value={item.checkup_stars} /></td>
+                            <td> {item.checkin_stars} </td>
+                            <td> {item.checkin_stars} </td>
                             <td className="flex justify-center">
                                 <button className="btn btn-secondary border">More</button>
                             </td>
