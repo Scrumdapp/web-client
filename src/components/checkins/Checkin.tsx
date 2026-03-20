@@ -2,12 +2,15 @@ import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import Stars from "./checkincomponents/Stars.tsx";
-import {getStarsColor} from "./checkincomponents/CheckinColor.tsx";
+import {getStarsColor, getAttendanceColor} from "./checkincomponents/CheckinColor.tsx";
 
 
 function Checkin({ groupId }: {groupId: number, userId: number} ) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
     console.log(GetGroupCheckinsComponent)
+    const formatPresence = (val: string) =>
+        val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+
     return <main className="w-6/10 bg-bg border h-fit p-2 rounded-lg">
 
 
@@ -33,7 +36,9 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                     {checkin.map(item => (
                         <tr key={item.user_id} >
                             <td className="py-3">{item.first_name} {item.last_name}</td>
-                            <td>{item.presence ?? "Unknown"} </td>
+                            <td className={`py-3 ${getAttendanceColor(formatPresence(item.presence))}`}>
+                                {formatPresence(item.presence) ?? "---"}
+                            </td>
                             <td className={getStarsColor(item.checkin_stars)}><Stars amount={item.checkin_stars}  /></td>
                             <td className={getStarsColor(item.checkup_stars)}><Stars amount={item.checkup_stars}/></td>
                             <td className="flex justify-center">
