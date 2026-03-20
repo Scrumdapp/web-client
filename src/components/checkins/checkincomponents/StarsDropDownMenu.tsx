@@ -27,7 +27,7 @@ export default function StarsDropDownMenu() {
     const currentColor = options.find(opt => opt.label === attendance)?.color || "text-fg";
 
     return (
-        <Menu as="div" className="relative w-full min-w-[10%]">
+        <Menu as="div" className="relative w-full w-[10%]">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
                     {attendance}
@@ -35,7 +35,7 @@ export default function StarsDropDownMenu() {
                 <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
-                <div className="py-1">
+                <div>
                     {options.map((opt) => (
                         <MenuItem
                             key={opt.label}
