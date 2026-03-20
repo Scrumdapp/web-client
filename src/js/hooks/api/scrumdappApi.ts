@@ -178,10 +178,10 @@ export namespace ScrumdappApi {
         }
 
         if (query) {
-            const q = {}
+            const q: { [key: string]: string } = {}
             for (let queryKey in query) {
                 if (typeof query[queryKey] !== "string") { continue }
-                q[queryKey] = query[queryKey]
+                q[queryKey] = query[queryKey]!
             }
             let urlParams = new URLSearchParams(q)
             actualUrl = actualUrl + "?"+urlParams.toString()
