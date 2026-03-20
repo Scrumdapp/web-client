@@ -1,17 +1,17 @@
 import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
+// import getGroupCheckins = ScrumdappApi.getGroupCheckins;
 
 
 function Checkin({ groupId }: {groupId: number, userId: number} ) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
-    const today = new Date().toISOString().split("T")[0];
     console.log(GetGroupCheckinsComponent)
 
 
     return <main className="w-6/10 bg-bg border h-fit p-2 rounded-lg">
 
-                <GetGroupCheckinsComponent input={groupId, today}>
+                <GetGroupCheckinsComponent input={[groupId, new Date().toISOString().split("T")[0] ]} />
                     {checkin =>
                 <table className="text-fg w-full table-fixed">
                     <thead>
