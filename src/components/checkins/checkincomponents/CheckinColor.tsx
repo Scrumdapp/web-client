@@ -2,7 +2,7 @@
 
 export const attendanceOptions = [
     { label: "---", color: "text-fg" },
-    { label: "Present", color: "text-green" },
+    { label: "On Time", color: "text-green" },
     { label: "Late", color: "text-orange" },
     {label: "Verified Late", color: "text-green" },
     { label: "Absent", color: "text-red" },
