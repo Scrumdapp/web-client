@@ -48,7 +48,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
         <div className="align-center horizontal gap-3 mt-2">
             <div className="flex-1"></div>
             <a href="/scrummastercheckin" className="btn border m-auto">
-                <FontAwesomeIcon icon={faPencil} className="icon blue" />
+                <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
                 Scrummaster Check-in
             </a>
         </div>
