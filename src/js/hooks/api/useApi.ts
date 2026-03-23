@@ -28,7 +28,7 @@ export function useApi<Ti extends any[], Tr>(processor: RequestProcessor<Ti, Tr>
             .finally(() => {
                 setLoading(false)
             })
-    }, [processor])
+    }, [processor.id])
 
     return {
         loading,
