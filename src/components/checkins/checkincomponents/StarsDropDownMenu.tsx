@@ -1,5 +1,4 @@
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {useEffect, useState} from "react";
 import {starsOptions, getStarsColor} from "./CheckinColor.tsx";
 
@@ -19,9 +18,7 @@ export default function StarsDropDownMenu({ value, onChange, }: StarsDropDownMen
     }
 
     useEffect(() => {
-        if (value !== undefined) {
-            setLocalValue(value ?? null);
-        }
+        setLocalValue(value ?? null);
     }, [value]);
 
     const resolvedValue = value !== undefined ? (value ?? null) : localValue;
