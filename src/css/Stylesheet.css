@@ -90,7 +90,6 @@ table {
     @apply table-cell align-baseline
 }
 
-
-/*.icon {*/
-/*    @apply text-lg;*/
-/*}*/
+.stars > .icon {
+    @apply text-lg;
+}

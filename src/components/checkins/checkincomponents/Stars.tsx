@@ -1,11 +1,11 @@
-import React from "react";
+import {FC} from "react";
 
 type StarsProps = {
   amount?: number | null;
   className?: string;
 };
 
-const Stars: React.FC<StarsProps> = ({ amount, className }) => {
+const Stars: FC<StarsProps> = ({ amount, className }) => {
   if (amount == null) {
     return (
       <span className={className}>

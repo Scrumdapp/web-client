@@ -36,7 +36,7 @@ export default function StarsDropDownMenu({ value, onChange, }: StarsDropDownMen
                 </span>
                 <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
             </MenuButton>
-            <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
+            <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-fulleckin">
                 <div>
                     {starsOptions.map((opt) => (
                         <MenuItem
