@@ -4,7 +4,7 @@ import MainPage from "../pages/MainPage.tsx";
 import About from "../pages/About.tsx";
 import Privacy from "../pages/Privacy.tsx";
 import Testpage from "../pages/testpage.tsx";
-import ScrummasterCheckin from "../components/checkins/Testpage.tsx";
+import ScrummasterCheckin from "../components/checkins/ScrummasterCheckins.tsx";
 
 // ^^^ Add new pages here ^^^
 

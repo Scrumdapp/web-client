@@ -6,20 +6,22 @@ import { useState } from "react";
 "use client";
 
 export default function AttendanceDropDownMenu({currentAttendance} : {currentAttendance?: string | null}) {
+    const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
-    const [attendance, setAttendance] = useState(currentAttendance ?? "---");
+    const [attendance, setAttendance] = useState(formatPresence(currentAttendance ?? "---"));
 
     const options = [
-        { label: "---", color: "text-fg"},
-        { label: "Present", color: "text-green"},
+        { label: "---", color: "text-gray"},
+        { label: "On Time", color: "text-green"},
         { label: "Late", color: "text-orange"},
+        { label: "Verified Late", color: "text-orange-dim"},
         { label: "Absent", color: "text-red"},
         { label: "Verified Absent", color: "text-aqua"},
         { label: "Online", color: "text-purple"},
         { label: "Sick", color: "text-blue"},
     ];
 
-    const currentColor = options.find(opt => opt.label === attendance)?.color || "text-fg";
+    const currentColor = options.find(opt => opt.label === attendance)?.color || "text-gray";
 
     return (
         <Menu as="div" className="relative w-full w-[20%]">
