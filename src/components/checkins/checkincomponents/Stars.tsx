@@ -1,4 +1,8 @@
 import {FC} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons/faStar";
+import {faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons/faStar";
+import {faStarHalfStroke} from "@fortawesome/free-solid-svg-icons";
 
 type StarsProps = {
   amount?: number | null;
@@ -19,15 +23,13 @@ const Stars: FC<StarsProps> = ({ amount, className }) => {
       {[1, 2, 3, 4, 5].map((i) => {
         const iconName =
           (i - 1) * 2 + 1 > amount
-            ? "star_outline"
+            ? faStarOutline
             : i * 2 > amount
-              ? "star_half"
-              : "star";
+              ? faStarHalfStroke
+              : faStarSolid;
 
         return (
-          <span key={i} className="icon material-icons-outlined">
-            {iconName}
-          </span>
+            <FontAwesomeIcon icon={iconName} className="icon" />
         );
       })}
     </span>

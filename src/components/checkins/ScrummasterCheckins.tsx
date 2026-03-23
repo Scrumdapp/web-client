@@ -6,6 +6,8 @@ import {useApi} from "../../js/hooks/api/useApi.ts"
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import {LoadScreen} from "../generic/LoadScreen.tsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheck, faRotateLeft, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function ScrummasterCheckinsTable() {
@@ -79,18 +81,18 @@ export default function ScrummasterCheckinsTable() {
             <div className="align-center horizontal gap-3 mt-2">
                 <div className="flex-1"></div>
                 <button type="button" className="btn border" onClick={() => getCheckins()}>
-                    <span className="icon material-icons-outlined text-gray">cancel</span>
+                    <FontAwesomeIcon icon={faRotateLeft} className="text-gray icon" />
                     Undo
                 </button>
                 <a href="/test">
                 <button type="button" className="btn border" onClick={() => {}}>
-                    <span className="icon material-icons-outlined text-blue">check</span>
+                    <FontAwesomeIcon icon={faCheck} className="text-blue icon" />
                     Submit
                 </button>
                 </a>
                 <button
                     type="button" className="btn border btn-red" >
-                    <span className="icon material-icons-outlined text-bg">delete_forever</span>
+                    <FontAwesomeIcon icon={faTrashCan} className="text-bg icon" />
                     Clear
                 </button>
             </div>

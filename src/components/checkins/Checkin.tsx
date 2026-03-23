@@ -3,6 +3,8 @@ import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import Stars from "./checkincomponents/Stars.tsx";
 import {getStarsColor, getAttendanceColor} from "./checkincomponents/CheckinColor.tsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPencil} from "@fortawesome/free-solid-svg-icons";
 
 
 function Checkin({groupId}: { groupId: number, userId: number }) {
@@ -46,7 +48,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
         <div className="align-center horizontal gap-3 mt-2">
             <div className="flex-1"></div>
             <a href="/scrummastercheckin" className="btn border m-auto">
-                <span className="icon material-icons-outlined blue">edit</span>
+                <FontAwesomeIcon icon={faPencil} className="icon blue" />
                 Scrummaster Check-in
             </a>
         </div>
