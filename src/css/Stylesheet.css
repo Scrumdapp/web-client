@@ -13,7 +13,7 @@
 }
 
 .btn {
-    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 text-fg text-center justify-center object-center
+    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 text-fg text-center flex justify-center
     gap-1 rounded-lg duration-200 ease-in-out transform active:duration-100 cursor-pointer;
 }
 
@@ -90,6 +90,7 @@ table {
     @apply table-cell align-baseline
 }
 
-.icon {
-    @apply text-lg;
-}
+
+/*.icon {*/
+/*    @apply text-lg;*/
+/*}*/
