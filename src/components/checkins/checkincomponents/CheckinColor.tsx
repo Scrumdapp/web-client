@@ -1,7 +1,7 @@
 // checkincomponents/CheckinColors.ts
 
 export const attendanceOptions = [
-    { label: "---", color: "text-fg" },
+    { label: "---", color: "text-gray" },
     { label: "On Time", color: "text-green" },
     { label: "Late", color: "text-orange" },
     {label: "Verified Late", color: "text-green" },
@@ -12,11 +12,11 @@ export const attendanceOptions = [
 ];
 
 export function getAttendanceColor(value: string | null | undefined): string {
-    return attendanceOptions.find(opt => opt.label === value)?.color ?? "text-fg";
+    return attendanceOptions.find(opt => opt.label === value)?.color ?? "text-gray";
 }
 
 export const starsOptions = [
-    { label: "---", color: "text-fg", value: null },
+    { label: "---", color: "text-gray", value: null },
     { label: "0", color: "text-red-dim", value: 0 },
     { label: "0,5", color: "text-red", value: 1 },
     { label: "1", color: "text-orange-dim", value: 2 },
@@ -31,5 +31,5 @@ export const starsOptions = [
 ];
 
 export function getStarsColor(value: number | null | undefined): string {
-    return starsOptions.find(opt => opt.value === value)?.color ?? "text-fg";
+    return starsOptions.find(opt => opt.value === value)?.color ?? "text-gray";
 }

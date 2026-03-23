@@ -34,10 +34,10 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                     </thead>
                     <tbody>
                     {checkin.map(item => (
-                        <tr key={item.user_id} >
+                        <tr key={item.user_id}>
                             <td className="py-3">{item.first_name} {item.last_name}</td>
-                            <td className={`py-3 ${getAttendanceColor(formatPresence(item.presence))}`}>
-                                {formatPresence(item.presence) ?? "---"}
+                            <td className={`py-3 ${getAttendanceColor(formatPresence(item.presence ?? "---"))}`}>
+                                {formatPresence(item.presence ?? "---")}
                             </td>
                             <td className={getStarsColor(item.checkin_stars)}><Stars amount={item.checkin_stars}  /></td>
                             <td className={getStarsColor(item.checkup_stars)}><Stars amount={item.checkup_stars}/></td>
