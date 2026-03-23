@@ -67,7 +67,7 @@ function generateCheckin(userId: number, groupId: number, date: string, features
     }
 
     if (features.indexOf("checkins.presence") != -1) {
-        checkin.presence = PRESENCE_FIELDS[Math.floor(Math.random() * PRESENCE_FIELDS.length)]
+        checkin.presence = Math.random() > 0.7 ? undefined : PRESENCE_FIELDS[Math.floor(Math.random() * PRESENCE_FIELDS.length)]
     }
 
     if (features.indexOf("checkins.checkin_stars") != -1) {
