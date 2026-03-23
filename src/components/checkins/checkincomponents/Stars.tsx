@@ -9,7 +9,7 @@ const Stars: React.FC<StarsProps> = ({ amount, className }) => {
   if (amount == null) {
     return (
       <span className={className}>
-        <span className="gray">---</span>
+        <span className="text-gray">---</span>
       </span>
     );
   }

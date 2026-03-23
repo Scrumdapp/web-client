@@ -39,7 +39,7 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                             <td className={`py-3 text-left pl-2 ${getAttendanceColor(formatPresence(item.presence ?? "---"))}`}>
                                 {formatPresence(item.presence ?? "---")}
                             </td>
-                            <td className={getStarsColor(item.checkin_stars)}><Stars amount={item.checkin_stars}  /></td>
+                            <td className={getStarsColor(item.checkin_stars)}><Stars amount={item.checkin_stars}/></td>
                             <td className={getStarsColor(item.checkup_stars)}><Stars amount={item.checkup_stars}/></td>
                             <td className="text-right pr-2">
                                 <button className="btn btn-secondary border">More</button>

@@ -80,3 +80,7 @@ table {
 .td {
     @apply table-cell align-baseline
 }
+
+.icon {
+    @apply text-lg;
+}
