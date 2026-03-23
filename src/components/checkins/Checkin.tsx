@@ -36,14 +36,22 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
                             <td className={getStarsColor(item.checkin_stars)}><Stars amount={item.checkin_stars}/></td>
                             <td className={getStarsColor(item.checkup_stars)}><Stars amount={item.checkup_stars}/></td>
                             <td className="text-right pr-2">
-                                <button className="btn btn-secondary border">More</button>
+                                <button className="btn btn-secondary border float-right">More</button>
                             </td>
                         </tr>))}
                     </tbody>
                 </table>
             )}
         </GetGroupCheckinsComponent>
+        <div className="align-center horizontal gap-3 mt-2">
+            <div className="flex-1"></div>
+            <a href="/scrummastercheckin" className="btn border m-auto">
+                <span className="icon material-icons-outlined blue">edit</span>
+                Scrummaster Check-in
+            </a>
+        </div>
     </main>
+
 }
 
 export default Checkin;

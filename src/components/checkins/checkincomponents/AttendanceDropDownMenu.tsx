@@ -13,8 +13,8 @@ export default function AttendanceDropDownMenu({currentAttendance} : {currentAtt
     const options = [
         { label: "---", color: "text-gray"},
         { label: "On Time", color: "text-green"},
+        { label: "Verified Late", color: "text-green"},
         { label: "Late", color: "text-orange"},
-        { label: "Verified Late", color: "text-orange-dim"},
         { label: "Absent", color: "text-red"},
         { label: "Verified Absent", color: "text-aqua"},
         { label: "Online", color: "text-purple"},

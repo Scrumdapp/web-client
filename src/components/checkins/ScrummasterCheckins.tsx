@@ -82,10 +82,12 @@ export default function ScrummasterCheckinsTable() {
                     <span className="icon material-icons-outlined text-gray">cancel</span>
                     Undo
                 </button>
+                <a href="/test">
                 <button type="button" className="btn border" onClick={() => {}}>
                     <span className="icon material-icons-outlined text-blue">check</span>
                     Submit
                 </button>
+                </a>
                 <button
                     type="button" className="btn border btn-red" >
                     <span className="icon material-icons-outlined text-bg">delete_forever</span>
