@@ -64,12 +64,10 @@ export default function ScrummasterCheckinsTable() {
                             <td className="truncate name-field pr-2">
                                 {checkin.first_name} {checkin.last_name}
                             </td>
-                            <td className="pr-2"><AttendanceDropDownMenu /></td>
-                            <td className="pr-2"><StarsDropDownMenu /></td>
-                            <td className="pr-2"><StarsDropDownMenu/></td>
-                            <td className="pr-2">
-                                <AttendanceTextArea />
-                            </td>
+                            <td className="pr-2"><AttendanceDropDownMenu currentAttendance={checkin.presence}/></td>
+                            <td className="pr-2"><StarsDropDownMenu stars={checkin.checkin_stars}/></td>
+                            <td className="pr-2"><StarsDropDownMenu stars={checkin.checkup_stars}/></td>
+                            <td className="pr-2"><AttendanceTextArea comment={checkin.checkin_comment}/></td>
                         </tr>
                     ))}
                     </tbody>
