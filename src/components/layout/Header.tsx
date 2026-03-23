@@ -14,7 +14,7 @@ export default function Header() {
         return (
     <div className="bg-bg">
         <nav className="pt-4 pb-7 px-2 flex flex-col">
-            <div className="mx-auto px-4 lg:px-12 rounded-2xl bg-bg shadow-xl border footer w-11/12">
+            <div className="mx-auto py-3 px-4 lg:px-12 rounded-2xl bg-bg shadow-xl border footer w-11/12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-10 items-center">
 

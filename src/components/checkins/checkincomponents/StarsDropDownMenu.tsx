@@ -1,47 +1,49 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
+import {ChevronDownIcon} from "@heroicons/react/20/solid";
+import {useEffect, useState} from "react";
+import {starsOptions, getStarsColor} from "./CheckinColor.tsx";
 
-import { useState } from "react";
+type StarsDropDownMenuProps = {
+    value?: number;
+    onChange?: (value: number | null) => void;
+};
 
-"use client";
+export default function StarsDropDownMenu({ value, onChange, }: StarsDropDownMenuProps) {
+    const [localValue, setLocalValue] = useState<number | null>(value ?? null);
 
-export default function StarsDropDownMenu() {
+    const updateValue = (value: number | null) => {
+        setLocalValue(value ?? null)
+        if (onChange != null) {
+            onChange(value ?? null)
+        }
+    }
 
-    const [attendance, setAttendance] = useState("---");
+    useEffect(() => {
+        if (value !== undefined) {
+            setLocalValue(value ?? null);
+        }
+    }, [value]);
 
-    const options = [
-        { label: "---", color: "text-fg" },
-        { label: "0", color: "text-red-dim", value:"0" },
-        { label: "0,5", color: "text-red", value:"1" },
-        { label: "1", color: "text-orange-dim", value:"2" },
-        { label: "1,5", color: "text-orange", value:"3" },
-        { label: "2", color: "text-yellow-dim", value:"4" },
-        { label: "2,5", color: "text-yellow", value:"5" },
-        { label: "3", color: "text-green-dim", value:"6" },
-        { label: "3,5", color: "text-green", value:"7" },
-        { label: "4", color: "text-aqua-dim", value:"8" },
-        { label: "4,5", color: "text-aqua", value:"9" },
-        { label: "5", color: "text-blue", value:"10" },
-    ];
-
-    const currentColor = options.find(opt => opt.label === attendance)?.color || "text-fg";
+    const resolvedValue = value !== undefined ? (value ?? null) : localValue;
+    const currentOption = starsOptions.find((opt) => opt.value === resolvedValue) ?? starsOptions[0];
+    const currentColor = getStarsColor(resolvedValue);
 
     return (
         <Menu as="div" className="relative w-full w-[10%]">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
-                    {attendance}
+                    {resolvedValue}
                 </span>
                 <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 <div>
-                    {options.map((opt) => (
+                    {starsOptions.map((opt) => (
                         <MenuItem
                             key={opt.label}
                             as="button"
                             type="button"
-                            onClick={() => setAttendance(opt.label)}
+                            onClick={() => updateValue(opt.value)}
                             className={`btn-attendance-dropdown ${opt.color}`}>
                             {opt.label}
                         </MenuItem>

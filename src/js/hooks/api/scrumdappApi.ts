@@ -150,12 +150,9 @@ export namespace ScrumdappApi {
 
             const [rUsers, rCheckins] = await Promise.all([p1, p2] as Iterable<Promise<GroupUser[] | GroupCheckin[]>>) as [GroupUser[], GroupCheckin[]]
 
-            return rCheckins.map(checkin => {
-                const user = rUsers.find(it => it.user_id == checkin.user_id)
-                if (!user) {
-                    throw new ApiError(404, `User with id ${checkin.user_id} does not exist`)
-                }
-                return { ...checkin, first_name: user.first_name, last_name: user.last_name }
+            return rUsers.map(user => {
+                const checkin = rCheckins.find(it => it.user_id == user.user_id) ?? {}
+                return { ...user, ...checkin, date: date }
             })
         })
     }
@@ -181,10 +178,10 @@ export namespace ScrumdappApi {
         }
 
         if (query) {
-            const q = {}
+            const q: { [key: string]: string } = {}
             for (let queryKey in query) {
                 if (typeof query[queryKey] !== "string") { continue }
-                q[queryKey] = query[queryKey]
+                q[queryKey] = query[queryKey]!
             }
             let urlParams = new URLSearchParams(q)
             actualUrl = actualUrl + "?"+urlParams.toString()
