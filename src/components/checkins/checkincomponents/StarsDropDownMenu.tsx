@@ -5,9 +5,11 @@ import { useState } from "react";
 
 "use client";
 
-export default function StarsDropDownMenu() {
+export default function StarsDropDownMenu({stars} : {stars ?: number}) {
 
-    const [attendance, setAttendance] = useState("---");
+    const processed_stars = (typeof stars === "undefined"  || stars == null) ? "---" : (stars / 2).toString().replace(".", ",")
+
+    const [attendance, setAttendance] = useState(processed_stars);
 
     const options = [
         { label: "---", color: "text-fg" },
@@ -24,7 +26,7 @@ export default function StarsDropDownMenu() {
         { label: "5", color: "text-blue", value:"10" },
     ];
 
-    const currentColor = options.find(opt => opt.label === attendance)?.color || "text-fg";
+    const currentColor = options.find(opt => opt.label == attendance)?.color || "text-fg";
 
     return (
         <Menu as="div" className="relative w-full w-[10%]">
