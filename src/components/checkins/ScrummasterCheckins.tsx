@@ -1,5 +1,5 @@
 import AttendanceDropDownMenu from "./checkincomponents/AttendanceDropDownMenu.tsx";
-import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
+import {StarsDropDownMenu} from "./checkincomponents/StarsDropDownMenu.tsx";
 import AttendanceTextArea from "./checkincomponents/AttendanceTextArea.tsx";
 import {useCallback, useEffect} from "react";
 import {useApi} from "../../js/hooks/api/useApi.ts"

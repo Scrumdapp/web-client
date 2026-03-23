@@ -1,9 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-
 import { useState } from "react";
-
-"use client";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
 export default function AttendanceDropDownMenu({currentAttendance} : {currentAttendance?: string | null}) {
     const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
@@ -29,7 +27,7 @@ export default function AttendanceDropDownMenu({currentAttendance} : {currentAtt
                 <span className={`text-left ${currentColor}`}>
                     {attendance}
                 </span>
-                <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
+                <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`} />
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 <div>

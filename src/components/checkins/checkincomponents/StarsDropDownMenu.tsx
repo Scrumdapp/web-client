@@ -1,13 +1,15 @@
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 import {useEffect, useState} from "react";
 import {starsOptions, getStarsColor} from "./CheckinColor.tsx";
+import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 type StarsDropDownMenuProps = {
     value?: number | null;
     onChange?: (value: number | null) => void;
 };
 
-export default function StarsDropDownMenu({ value, onChange, }: StarsDropDownMenuProps) {
+export function StarsDropDownMenu({value, onChange,}: StarsDropDownMenuProps) {
     const [localValue, setLocalValue] = useState<number | null>(value ?? null);
 
     const updateValue = (value: number | null) => {
@@ -31,7 +33,7 @@ export default function StarsDropDownMenu({ value, onChange, }: StarsDropDownMen
                 <span className={`text-left ${currentColor}`}>
                     {currentOption.label}
                 </span>
-                <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
+                <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`}/>
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 <div>
