@@ -32,7 +32,7 @@ export default function StarsDropDownMenu({ value, onChange, }: StarsDropDownMen
         <Menu as="div" className="relative w-full w-[10%]">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
-                    {resolvedValue}
+                    {currentOption.label}
                 </span>
                 <ChevronDownIcon aria-hidden="true" className={`size-5 ${currentColor} shrink-0`}/>
             </MenuButton>
