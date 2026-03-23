@@ -5,9 +5,7 @@ import { useState } from "react";
 
 "use client";
 
-export default function AttendanceDropDownMenu({currentAttendance} : {currentAttendance?: string}) {
-
-    const formatAttendace = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+export default function AttendanceDropDownMenu({currentAttendance} : {currentAttendance?: string | null}) {
 
     const [attendance, setAttendance] = useState(currentAttendance ?? "---");
 

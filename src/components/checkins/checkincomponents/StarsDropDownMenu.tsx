@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {starsOptions, getStarsColor} from "./CheckinColor.tsx";
 
 type StarsDropDownMenuProps = {
-    value?: number;
+    value?: number | null;
     onChange?: (value: number | null) => void;
 };
 
