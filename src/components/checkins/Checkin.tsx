@@ -42,7 +42,7 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                             <td className={getStarsColor(item.checkin_stars)}><Stars amount={item.checkin_stars}/></td>
                             <td className={getStarsColor(item.checkup_stars)}><Stars amount={item.checkup_stars}/></td>
                             <td className="text-right pr-2">
-                                <button className="btn btn-secondary border">More</button>
+                                <button className="btn btn-secondary border float-right">More</button>
                             </td>
                         </tr>))}
                     </tbody>

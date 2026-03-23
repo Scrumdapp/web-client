@@ -13,7 +13,7 @@
 }
 
 .btn {
-    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 text-fg text-center justify-center object-center
+    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 text-fg text-center justify-center flex object-center
     gap-1 rounded-lg duration-200 ease-in-out transform active:duration-100 cursor-pointer;
 }
 
