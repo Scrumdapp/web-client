@@ -14,8 +14,8 @@
 }
 
 .btn {
-    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 text-fg text-center flex justify-center items-center
-    gap-1 rounded-lg duration-200 ease-in-out transform active:duration-100 cursor-pointer;
+    @apply hover:bg-bg2 active:bg-bg3 p-2 text-fg text-center flex justify-center items-center
+    gap-1 rounded-lg duration-200 ease-in-out active:duration-100 cursor-pointer;
 }
 
 .btn-secondary {
