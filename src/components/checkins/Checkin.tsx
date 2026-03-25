@@ -38,7 +38,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
                             <td className={`px-3 ${getStarsColor(item.checkin_stars)}`}><Stars amount={item.checkin_stars}/></td>
                             <td className={`px-3 ${getStarsColor(item.checkup_stars)}`}><Stars amount={item.checkup_stars}/></td>
                             <td className="text-right pr-2">
-                                <button className="btn btn-secondary border float-right">More</button>
+                                <button className="btn btn-secondary border float-right my-2">More</button>
                             </td>
                         </tr>))}
                     </tbody>
@@ -47,7 +47,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
         </GetGroupCheckinsComponent>
         <div className="align-center horizontal gap-3 mt-2">
             <div className="flex-1"></div>
-            <a href="/scrummastercheckin" className="btn border m-auto">
+            <a href="/scrummastercheckin" className="btn border m-auto mx-2">
                 <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
                 Scrummaster Check-in
             </a>
