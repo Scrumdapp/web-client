@@ -12,6 +12,9 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
     const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
     return <main className="lg:w-2xl md:w-xl sm:w-sm bg-bg border h-fit p-2 rounded-lg">
+        <h2 className="text-fg text-2xl p-2 float-left font-bold">
+            Check-in voor: {toScrumdappDate(new Date())}
+        </h2>
         <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
             presence: true,
             checkin_stars: true,
@@ -19,6 +22,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
         }]}>
             {checkin => (
                 <table className="text-fg w-full text-xs md:text-xl lg:text-xl">
+
                     <thead>
                     <tr>
                         <th className="py-3 text-left pl-2">Name</th>
