@@ -1,5 +1,7 @@
 import {useParams} from "react-router-dom";
 import {GroupProvider} from "../../js/context/group/GroupProvider.tsx";
+import {GroupSidebar} from "./GroupSidebar.tsx";
+import {groupContext} from "../../js/context/group/groupContext.ts";
 
 export function GroupLayout() {
     const params = useParams()
@@ -11,19 +13,25 @@ export function GroupLayout() {
         )
     }
 
+    const GroupConsumer = groupContext.Consumer
+
     return (
         <GroupProvider groupId={groupId}>
-            <div className="flex h-full app-container">
-                <div className="flex flex-col gap-2">
-                    <div className="card">
-                        <p>Pages</p>
+            <GroupConsumer>
+                {ctx => (
+                    <div className="h-full app-container">
+                        <h1> {ctx?.group.name} </h1>
+                        <div className="flex flex-1">
+                            <div className="flex flex-col gap-2">
+                                <GroupSidebar />
+                                <div className="card">
+                                    <p>Today</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="card">
-                        <p>Today</p>
-                    </div>
-                </div>
-                <div></div>
-            </div>
+                )}
+            </GroupConsumer>
         </GroupProvider>
     )
 }
