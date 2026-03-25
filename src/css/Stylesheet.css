@@ -91,5 +91,5 @@ table {
 }
 
 .stars > .icon {
-    @apply text-sm;
+    @apply text-xs;
 }
