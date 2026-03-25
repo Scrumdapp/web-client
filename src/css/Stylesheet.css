@@ -39,3 +39,7 @@
 .card {
     @apply border rounded-lg p-4 bg-bg_h;
 }
+
+.app-container {
+    @apply max-w-5xl w-full mx-auto p-4;
+}
