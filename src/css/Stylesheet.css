@@ -25,6 +25,15 @@
     @apply bg-red-dim hover:bg-red;
 }
 
+.btn-attendance {
+    @apply block flex items-center justify-between h-10 p-2 text-fg text-left
+    rounded-lg cursor-pointer hover:bg-bg2 active:bg-bg3 data-focus:bg-bg2 data-focus:text-white w-full
+}
+
+.btn-attendance-dropdown {
+    @apply block px-2 focus:border-dashed focus:border-red-dim text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer w-full text-left
+}
+
 .border {
     @apply border border-fg4;
 }
@@ -41,29 +50,13 @@
     @apply w-0;
 
 }
+
 .write-section::-webkit-scrollbar-track {
    @apply bg-transparent;
 }
 
-.btn-attendance {
-    @apply block flex items-center justify-between h-10 p-2 text-fg text-left
-    rounded-lg cursor-pointer hover:bg-bg2 active:bg-bg3 data-focus:bg-bg2 data-focus:text-white w-full
-}
-
-.btn-attendance-dropdown {
-    @apply block px-2 focus:border-dashed focus:border-red-dim text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer w-full text-left
-}
-
 .card {
-    @apply bg-bg border divide-solid border-fg4 p-4 rounded-2xl
-}
-
-.horizontal {
-    @apply flex flex-row
-}
-
-.vertical {
-    @apply flex flex-col
+    @apply bg-bg_h border border-fg4 p-4 rounded-lg
 }
 
 table {
