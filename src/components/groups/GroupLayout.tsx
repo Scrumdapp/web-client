@@ -13,6 +13,10 @@ export function GroupLayout() {
 
     return (
         <GroupProvider groupId={groupId}>
+            <div className="flex h-full">
+                <div></div>
+                <div></div>
+            </div>
         </GroupProvider>
     )
 }

@@ -1,5 +1,6 @@
-
 @theme {
+    --font-libertinus: "Libertinus Serif", sans-serif;
+
     --color-bg_h: #1d2021;
     --color-bg:   #282828;
     --color-bg_s: #32302f;
