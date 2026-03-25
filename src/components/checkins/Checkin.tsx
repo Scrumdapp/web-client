@@ -11,7 +11,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
     const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
-    return <main className="lg:w-2xl md:w-lg sm:w-sm bg-bg border h-fit p-2 rounded-lg">
+    return <main className="lg:w-2xl md:w-xl sm:w-sm bg-bg border h-fit p-2 rounded-lg">
         <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
             presence: true,
             checkin_stars: true,
@@ -35,8 +35,8 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
                             <td className={`py-3 text-left pl-2 ${getAttendanceColor(formatPresence(item.presence ?? "---"))}`}>
                                 {formatPresence(item.presence ?? "---")}
                             </td>
-                            <td className={getStarsColor(item.checkin_stars)}><Stars amount={item.checkin_stars}/></td>
-                            <td className={getStarsColor(item.checkup_stars)}><Stars amount={item.checkup_stars}/></td>
+                            <td className={`px-3 ${getStarsColor(item.checkin_stars)}`}><Stars amount={item.checkin_stars}/></td>
+                            <td className={`px-3 ${getStarsColor(item.checkup_stars)}`}><Stars amount={item.checkup_stars}/></td>
                             <td className="text-right pr-2">
                                 <button className="btn btn-secondary border float-right">More</button>
                             </td>
