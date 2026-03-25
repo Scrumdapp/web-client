@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./Theme.css";
+@import "./Typography.css";
 @import "./Utils.css";
 @import "./Anim.css";
 
@@ -40,6 +41,7 @@
     @apply w-0;
 
 }
+
 .write-section::-webkit-scrollbar-track {
    @apply bg-transparent;
 }
@@ -54,7 +56,7 @@
 }
 
 .card {
-    @apply bg-bg border divide-solid border-fg4 p-4 rounded-2xl
+    @apply bg-bg_h border border-fg4 p-4 rounded-lg
 }
 
 .horizontal {
