@@ -11,7 +11,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
     const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
-    return <main className="w-6/10 bg-bg border h-fit p-2 rounded-lg">
+    return <main className="lg:w-lg md:w-lg sm:w-sm bg-bg border h-fit p-2 rounded-lg">
         <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
             presence: true,
             checkin_stars: true,
