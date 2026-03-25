@@ -4,26 +4,26 @@ import {useGroup} from "../../js/context/group/useGroup.ts";
 import {Link} from "react-router"
 import {faChartSimple, faGear} from "@fortawesome/free-solid-svg-icons";
 
+const links = [
+    { path: "calendar", icon: faCalendarDays, color: "text-green", text: "Calendar" },
+    { path: "trends", icon: faChartSimple, color: "text-yellow", text: "Trends" },
+    { path: "settings", icon: faGear, color: "text-red", text: "Settings" },
+]
+
 
 export function GroupSidebar() {
     const group = useGroup()
 
     return (
-        <div className="card vertical gap-2">
+        <div className="card vertical gap-1">
             <p className="text-center">Pages</p>
             <hr className="text-gray" />
-            <Link to={`/groups/${group.id}/calendar`} className="btn justify-start!">
-                <FontAwesomeIcon icon={faCalendarDays} className="text-green" />
-                Calendar
-            </Link>
-            <Link to={`/groups/${group.id}/trends`} className="btn justify-start!">
-                <FontAwesomeIcon icon={faChartSimple} className="text-yellow" />
-                Trends
-            </Link>
-            <Link to={`/groups/${group.id}/settings`} className="btn justify-start!">
-                <FontAwesomeIcon icon={faGear} className="text-red" />
-                Settings
-            </Link>
+            {links.map((link, i) => (
+                <Link key={i} to={`/groups/${group.id}/${link.path}`} className="btn justify-start!">
+                    <FontAwesomeIcon icon={link.icon} className={link.color} />
+                    {link.text}
+                </Link>
+            ))}
         </div>
     )
 }
