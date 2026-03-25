@@ -32,6 +32,11 @@
     @apply w-0;
 
 }
+
 .write-section::-webkit-scrollbar-track {
    @apply bg-transparent;
+}
+
+.card {
+    @apply bg-bg_h border border-fg4 p-4 rounded-lg
 }
