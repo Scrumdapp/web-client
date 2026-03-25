@@ -3,6 +3,7 @@ import {GroupProvider} from "../../js/context/group/GroupProvider.tsx";
 import {GroupSidebar} from "./GroupSidebar.tsx";
 import {groupContext} from "../../js/context/group/groupContext.ts";
 import {GroupRouter} from "../../router/GroupRouter.tsx";
+import {GroupSidebarDates} from "./GroupSidebarDates.tsx";
 
 export function GroupLayout() {
     const params = useParams()
@@ -25,9 +26,7 @@ export function GroupLayout() {
                         <div className="flex gap-2">
                             <div className="vertical gap-2">
                                 <GroupSidebar />
-                                <div className="card">
-                                    <p>Today</p>
-                                </div>
+                                <GroupSidebarDates />
                             </div>
                             <div className="flex-1 flex flex-col">
                                 <GroupRouter />
