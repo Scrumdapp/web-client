@@ -3,25 +3,21 @@ import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import Stars from "./checkincomponents/Stars.tsx";
 import {getStarsColor, getAttendanceColor} from "./checkincomponents/CheckinColor.tsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPencil} from "@fortawesome/free-solid-svg-icons";
 
 
-function Checkin({ groupId }: {groupId: number, userId: number} ) {
+function Checkin({groupId}: { groupId: number, userId: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
-    console.log(GetGroupCheckinsComponent)
-    const formatPresence = (val: string) =>
-        val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+    const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
     return <main className="w-6/10 bg-bg border h-fit p-2 rounded-lg">
-
-
-
-
-                <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
-                    presence: true,
-                    checkin_stars: true,
-                    checkup_stars: true
-                }]} >
-                    {checkin => (
+        <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
+            presence: true,
+            checkin_stars: true,
+            checkup_stars: true
+        }]}>
+            {checkin => (
                 <table className="text-fg w-full">
                     <thead>
                     <tr>
@@ -47,9 +43,17 @@ function Checkin({ groupId }: {groupId: number, userId: number} ) {
                         </tr>))}
                     </tbody>
                 </table>
-                    )}
-            </GetGroupCheckinsComponent>
+            )}
+        </GetGroupCheckinsComponent>
+        <div className="align-center horizontal gap-3 mt-2">
+            <div className="flex-1"></div>
+            <a href="/scrummastercheckin" className="btn border m-auto">
+                <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+                Scrummaster Check-in
+            </a>
+        </div>
     </main>
+
 }
 
 export default Checkin;

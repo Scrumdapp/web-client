@@ -13,7 +13,7 @@
 }
 
 .btn {
-    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 text-fg text-center justify-center flex object-center
+    @apply hover:bg-bg2 active:bg-bg3 h-10 w-fit p-2 text-fg text-center flex justify-center items-center
     gap-1 rounded-lg duration-200 ease-in-out transform active:duration-100 cursor-pointer;
 }
 
@@ -30,7 +30,11 @@
 }
 
 .write-section {
-    @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none;
+    @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-[calc(100%(--gap-3)*2(--gap-3))];
+}
+
+.write-section-attendance {
+    @apply p-1 pl-3 text-fg4 border h-10 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-full;
 }
 
 .write-section::-webkit-scrollbar {
@@ -42,7 +46,12 @@
 }
 
 .btn-attendance {
-    @apply block py-1 px-2 text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer
+    @apply block flex items-center justify-between h-10 p-2 text-fg text-left
+    rounded-lg cursor-pointer hover:bg-bg2 active:bg-bg3 data-focus:bg-bg2 data-focus:text-white w-full
+}
+
+.btn-attendance-dropdown {
+    @apply block px-2 focus:border-dashed focus:border-red-dim text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer w-full text-left
 }
 
 .card {
@@ -70,7 +79,7 @@ table {
 }
 
 .checkin-table td {
-    @apply pt-3
+    @apply pt-2
 }
 
 .name-field {
@@ -81,6 +90,6 @@ table {
     @apply table-cell align-baseline
 }
 
-.icon {
-    @apply text-lg;
+.stars > .icon {
+    @apply text-sm;
 }
