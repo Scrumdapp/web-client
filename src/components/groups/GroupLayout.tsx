@@ -13,8 +13,15 @@ export function GroupLayout() {
 
     return (
         <GroupProvider groupId={groupId}>
-            <div className="flex h-full">
-                <div></div>
+            <div className="flex h-full app-container">
+                <div className="flex flex-col gap-2">
+                    <div className="card">
+                        <p>Pages</p>
+                    </div>
+                    <div className="card">
+                        <p>Today</p>
+                    </div>
+                </div>
                 <div></div>
             </div>
         </GroupProvider>
