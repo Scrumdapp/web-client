@@ -1,52 +1,81 @@
 import AttendanceDropDownMenu from "./checkincomponents/AttendanceDropDownMenu.tsx";
 import StarsDropDownMenu from "./checkincomponents/StarsDropDownMenu.tsx";
 import AttendanceTextArea from "./checkincomponents/AttendanceTextArea.tsx";
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useApi} from "../../js/hooks/api/useApi.ts"
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import {LoadScreen} from "../generic/LoadScreen.tsx";
+import {UpdateGroupCheckin} from "../../js/models/checkin.ts";
+import { useNavigate } from "react-router-dom";
 
+
+type EditableCheckin = UpdateGroupCheckin & {
+    user_id: number;
+    first_name: string;
+    last_name: string;
+};
 
 export default function ScrummasterCheckinsTable() {
 
+    const getGroupCheckins = useApi(ScrumdappApi.getGroupCheckinsWithUsers());
+    const updateCheckinsApi = useApi(ScrumdappApi.updateGroupCheckins());
 
-    const getGroupCheckins = useApi(ScrumdappApi.getGroupCheckinsWithUsers())
+
+    const [checkins, setCheckins] = useState<EditableCheckin[]>([]);
+
+    const getCheckins = useCallback(() => {
+        return getGroupCheckins.runCommand(
+            1,
+            toScrumdappDate(current),
+            { checkin_stars: true, checkup_stars: true, presence: true, presence_comment: true }
+        );
+    }, [getGroupCheckins]);
 
     const current = new Date();
     const date = `${current.getDate()} / ${current.getMonth() + 1} / ${current.getFullYear()}`;
 
-    const getCheckins = useCallback(() => {
-        return getGroupCheckins.runCommand(1, toScrumdappDate(current), {checkin_stars:true, checkup_stars:true, presence:true, presence_comment:true})
-    }, [getGroupCheckins.runCommand])
+    const navigate = useNavigate();
 
     useEffect(() => {
-        getCheckins()
-    }, [getCheckins]);
+        void getGroupCheckins.runCommand(
+            1,
+            toScrumdappDate(current),
+            { checkin_stars: true, checkup_stars: true, presence: true, presence_comment: true }
+        );
+    }, []);
+
+    useEffect(() => {
+        if (getGroupCheckins.data) {
+            setCheckins(getGroupCheckins.data.map(c => ({
+                user_id: c.user_id,
+                first_name: c.first_name,
+                last_name: c.last_name,
+
+                presence: c.presence,
+                presence_comment: c.presence_comment,
+                checkin_stars: c.checkin_stars,
+                checkup_stars: c.checkup_stars
+            })));
+        }
+    }, [getGroupCheckins.data]);
 
     if (getGroupCheckins.loading || getGroupCheckins.data == null) {
-        return (
-            <LoadScreen />
-        )
+        return <LoadScreen />;
     }
-    const checkins = getGroupCheckins.data
 
     return (
         <form
             onSubmit={(e) => {
                 e.preventDefault();
 
-                const groupId = 1;
-
-                const payload = checkins.map(c => ({
-                    user_id: c.user_id,
-                    attendance: c.presence,
-                    check_in: c.checkin_stars,
-                    check_up: c.checkup_stars,
-                    notes: c.presence_comment,
-                }));
+                updateCheckinsApi
+                    .runCommand(1, toScrumdappDate(current), checkins)
+                    .then(() => {
+                        navigate("/test");
+                    });
             }}
-            method="post" className="card flex-1 mx-auto vertical gap-3 w-4/7">
+            className="card flex-1 mx-auto vertical gap-3 w-4/7">
             <h1 className="mb-2">Checkin for <b>{date}</b></h1>
                 <table className="checkin-table table-fixed w-full">
                     <thead>
@@ -59,15 +88,43 @@ export default function ScrummasterCheckinsTable() {
                     </tr>
                     </thead>
                     <tbody>
-                    {checkins.map((checkin) => (
+                    {checkins.map((checkin, index) => (
                         <tr key={checkin.user_id}>
                             <td className="truncate name-field pr-2">
                                 {checkin.first_name} {checkin.last_name}
                             </td>
-                            <td className="pr-2"><AttendanceDropDownMenu currentAttendance={checkin.presence}/></td>
-                            <td className="pr-2"><StarsDropDownMenu stars={checkin.checkin_stars}/></td>
-                            <td className="pr-2"><StarsDropDownMenu stars={checkin.checkup_stars}/></td>
-                            <td className="pr-2"><AttendanceTextArea comment={checkin.checkin_comment}/></td>
+                            <td className="pr-2"><AttendanceDropDownMenu
+                                value={checkin.presence}
+                                onChange={(value: string) => {
+                                    const updated = [...checkins];
+                                    updated[index].presence = value;
+                                    setCheckins(updated);
+                                }}
+                            /></td>
+                            <td className="pr-2"><StarsDropDownMenu
+                                value={checkin.checkin_stars}
+                                onChange={(value: number) => {
+                                    const updated = [...checkins];
+                                    updated[index].checkin_stars = number;
+                                    setCheckins(updated);
+                                }}
+                            /></td>
+                            <td className="pr-2"><StarsDropDownMenu
+                                value={checkin.checkup_stars}
+                                onChange={(value: number) => {
+                                    const updated = [...checkins];
+                                    updated[index].checkup_stars = number;
+                                    setCheckins(updated);
+                                }}
+                            /></td>
+                            <td className="pr-2"><AttendanceTextArea
+                                value={checkin.presence_comment}
+                                onChange={(value: string) => {
+                                    const updated = [...checkins];
+                                    updated[index].presence_comment = string;
+                                    setCheckins(updated);
+                                }}
+                            /></td>
                         </tr>
                     ))}
                     </tbody>
@@ -82,7 +139,7 @@ export default function ScrummasterCheckinsTable() {
                     <span className="icon material-icons-outlined text-gray">cancel</span>
                     Undo
                 </button>
-                <button type="button" className="btn border" onClick={() => {}}>
+                <button type="submit" className="btn border">
                     <span className="icon material-icons-outlined text-blue">check</span>
                     Submit
                 </button>
