@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import {GroupProvider} from "../../js/context/group/GroupProvider.tsx";
 import {GroupSidebar} from "./GroupSidebar.tsx";
 import {groupContext} from "../../js/context/group/groupContext.ts";
+import {GroupRouter} from "../../router/GroupRouter.tsx";
 
 export function GroupLayout() {
     const params = useParams()
@@ -19,14 +20,17 @@ export function GroupLayout() {
         <GroupProvider groupId={groupId}>
             <GroupConsumer>
                 {ctx => (
-                    <div className="h-full app-container">
+                    <div className="app-container vertical gap-2">
                         <h1> {ctx?.group.name} </h1>
-                        <div className="flex flex-1">
-                            <div className="flex flex-col gap-2">
+                        <div className="flex gap-2">
+                            <div className="vertical gap-2">
                                 <GroupSidebar />
                                 <div className="card">
                                     <p>Today</p>
                                 </div>
+                            </div>
+                            <div className="flex-1 flex flex-col">
+                                <GroupRouter />
                             </div>
                         </div>
                     </div>
