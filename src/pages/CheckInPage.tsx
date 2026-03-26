@@ -1,7 +1,7 @@
 import * as React from "react";
 import Checkin from "../components/checkins/Checkin.tsx";
 
-export default class Test extends React.Component {
+export default class CheckinPage extends React.Component {
     render() {
         return (
             <div>

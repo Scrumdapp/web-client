@@ -59,7 +59,6 @@ export default function ScrummasterCheckinsTable() {
                 checkup_stars: c.checkup_stars
             })));
         }
-        console.log("UseEffect Console")
     }, [getGroupCheckins.data]);
 
     if (getGroupCheckins.loading || getGroupCheckins.data == null) {
@@ -70,7 +69,6 @@ export default function ScrummasterCheckinsTable() {
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                console.log(checkins)
 
                 updateCheckinsApi
                     .runCommand(1, toScrumdappDate(current), checkins)
@@ -79,15 +77,15 @@ export default function ScrummasterCheckinsTable() {
                     });
             }}
             className="card flex-1 mx-auto vertical gap-3 w-4/7">
-            <h1 className="mb-2">Checkin for <b>{date}</b></h1>
+            <h2 className="mb-2">Checkin for <b>{date}</b></h2>
                 <table className="checkin-table table-fixed w-full">
                     <thead>
                     <tr  className="">
-                        <th className="w-[20%] pr-2 text-left">Name</th>
-                        <th className="w-[20%] pr-2 text-left">Attendance</th>
-                        <th className="w-[10%] pr-2">Check In</th>
-                        <th className="w-[10%] pr-2">Check Up</th>
-                        <th className="w-[25%] pr-2 text-right">Notes</th>
+                        <th className="w-1/5 pr-2 text-left">Name</th>
+                        <th className="w-1/5 pr-2 text-left">Attendance</th>
+                        <th className="w-1/10 pr-2">Check In</th>
+                        <th className="w-1/10 pr-2">Check Up</th>
+                        <th className="w-1/4 pr-2 text-right">Notes</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -132,7 +130,7 @@ export default function ScrummasterCheckinsTable() {
                     ))}
                     </tbody>
                 </table>
-            <p className="text-gray text-sm mt-2">
+            <p className="muted mt-2">
                 This menu can overwrite changes made by other students.<br/>
                 Use the custom check-in & attendance feature when everyone does their own check-ins.
             </p>

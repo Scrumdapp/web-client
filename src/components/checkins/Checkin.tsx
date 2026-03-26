@@ -2,18 +2,17 @@ import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import Stars from "./checkincomponents/Stars.tsx";
-import {getStarsColor, getAttendanceColor} from "./checkincomponents/CheckinColor.tsx";
+import {getStarsColor, getAttendanceColor} from "../../js/utils/colorUtils.ts";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-
 
 function Checkin({groupId}: { groupId: number, userId: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
     const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
-    return <main className="lg:w-2xl md:w-xl sm:w-sm bg-bg border h-fit p-2 rounded-lg">
-        <h2 className="text-fg text-2xl p-2 float-left font-bold">
+    return <div className="lg:w-2xl md:w-xl sm:w-sm bg-bg border h-fit p-2 rounded-lg">
+        <h2 className="p-2">
             Check-in voor: <span className="text-fg">{toScrumdappDate(new Date())}</span>
         </h2>
         <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
@@ -22,7 +21,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
             checkup_stars: true
         }]}>
             {checkin => (
-                <table className="text-fg w-full text-xs md:text-xl lg:text-xl">
+                <table className="w-full">
 
                     <thead>
                     <tr>
@@ -54,7 +53,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
             <div className="flex-1"></div>
             <Link to="/scrummastercheckin" className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Check-in</Link>
         </div>
-    </main>
+    </div>
 
 }
 

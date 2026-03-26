@@ -1,6 +1,6 @@
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 import {useEffect, useState} from "react";
-import {attendanceOptions, getAttendanceColorScrummaster} from "./CheckinColor.tsx";
+import {attendanceOptions, getAttendanceColorScrummaster} from "../../../js/utils/colorUtils.ts";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
