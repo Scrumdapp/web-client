@@ -31,21 +31,10 @@ export default function Footer() {
             <div className="flex flex-row items-center justify-between pt-4">
                 <h1 className="sm:text-sm text-(--color-primary)">© 2026 Scrumdapp. All rights reserved</h1>
                 <div className="flex items-center gap-4">
-                    <a href="https://x.com"
-                       className="border btn aspect-square text-xl">
-                        <FontAwesomeIcon icon={faXTwitter} /></a>
-                    <a href="https://instagram.com"
-                       className="border btn aspect-square text-xl">
-                        <FontAwesomeIcon icon={faInstagram} />
-                    </a>
-                    <a href="https://linkedin.com"
-                       className="border btn aspect-square text-xl">
-                        <FontAwesomeIcon icon={faLinkedinIn} />
-                    </a>
-                    <a href="https://www.youtube.com/@Scrumdapp"
-                       className="border btn aspect-square text-xl">
-                        <FontAwesomeIcon icon={faYoutube} />
-                    </a>
+                    <Link to="https://x.com" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faXTwitter} /></Link>
+                    <Link to="https://instagram.com" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faInstagram} /></Link>
+                    <Link to="https://linkedin.com" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
+                    <Link to="https://www.youtube.com/@Scrumdapp" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faYoutube} /></Link>
                 </div>
             </div>
         </div>

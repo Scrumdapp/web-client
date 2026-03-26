@@ -5,6 +5,7 @@ import Stars from "./checkincomponents/Stars.tsx";
 import {getStarsColor, getAttendanceColor} from "./checkincomponents/CheckinColor.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 
 function Checkin({groupId}: { groupId: number, userId: number }) {
@@ -51,10 +52,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
         </GetGroupCheckinsComponent>
         <div className="align-center horizontal gap-3 mt-2">
             <div className="flex-1"></div>
-            <a href="/scrummastercheckin" className="btn border m-auto mx-2">
-                <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-                Scrummaster Check-in
-            </a>
+            <Link to="/scrummastercheckin" className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Check-in</Link>
         </div>
     </main>
 
