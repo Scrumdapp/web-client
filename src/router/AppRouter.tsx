@@ -16,7 +16,7 @@ export default function AppRouter() {
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
 
-            <Route path="/test" element={<Testpage />} />
+            <Route path="/checkin" element={<Testpage />} />
             <Route path="/scrummastercheckin" element={<ScrummasterCheckin />} />
         </Routes>
     );

@@ -75,7 +75,7 @@ export default function ScrummasterCheckinsTable() {
                 updateCheckinsApi
                     .runCommand(1, toScrumdappDate(current), checkins)
                     .then(() => {
-                        navigate("/test");
+                        navigate("/checkin");
                     });
             }}
             className="card flex-1 mx-auto vertical gap-3 w-4/7">
