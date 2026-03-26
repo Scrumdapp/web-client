@@ -13,7 +13,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
 
     return <main className="lg:w-2xl md:w-xl sm:w-sm bg-bg border h-fit p-2 rounded-lg">
         <h2 className="text-fg text-2xl p-2 float-left font-bold">
-            Check-in voor: <span className="text-fg4">{toScrumdappDate(new Date())}</span>
+            Check-in voor: <span className="text-fg">{toScrumdappDate(new Date())}</span>
         </h2>
         <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
             presence: true,
