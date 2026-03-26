@@ -9,7 +9,7 @@ type StarsProps = {
   className?: string;
 };
 
-const Stars: FC<StarsProps> = ({ amount, className }) => {
+export function Stars({ amount, className }: StarProps) {
   if (amount == null) {
     return (
       <span className={className}>
