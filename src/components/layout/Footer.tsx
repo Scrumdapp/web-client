@@ -29,7 +29,7 @@ export default function Footer() {
             <div className="bg-fg h-0.5 rounded-full"></div>
 
             <div className="flex flex-row items-center justify-between pt-4">
-                <h1 className="sm:text-sm text-(--color-primary)">© 2026 Scrumdapp. All rights reserved</h1>
+                <span>© 2026 Scrumdapp. All rights reserved</span>
                 <div className="flex items-center gap-4">
                     <Link to="https://x.com" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faXTwitter} /></Link>
                     <Link to="https://instagram.com" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faInstagram} /></Link>
