@@ -189,6 +189,7 @@ export namespace ScrumdappApi {
 
         const init: RequestInit = { method: method }
         const headers: { [key: string]: string } = {}
+
         if (body) {
             if (method == "GET") {
                 throw new RequestException("Unable to add body to 'GET' request")
@@ -201,9 +202,7 @@ export namespace ScrumdappApi {
             init.headers = headers
         }
 
-        return fetch(actualUrl, {
-            method
-        })
+        return fetch(actualUrl, init)
             .then(async it => {
                 if (it.status >= 400) {
                     const json = await it.json()
