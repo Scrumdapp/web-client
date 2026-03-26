@@ -1,6 +1,6 @@
 import {ScrumdappApi} from "./scrumdappApi.ts";
 import RequestProcessor = ScrumdappApi.RequestProcessor;
-import type {ReactNode} from "react";
+import {JSX, ReactNode} from "react";
 import {ApiError} from "./apiError.ts";
 import {useApi} from "./useApi.ts";
 import {useEffect} from "react";
@@ -12,7 +12,7 @@ export function useApiComponent<TInput extends any[], TResult>(processor: Reques
         input: TInput
         loading?: ReactNode
         error?: (error: ApiError) => ReactNode
-        children: (data: TResult) => ReactNode
+        children: (data: TResult) => ReactNode | JSX.Element
     }) => {
         const apiRequester = useApi(processor)
 
