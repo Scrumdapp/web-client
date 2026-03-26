@@ -32,7 +32,7 @@ export default function ScrummasterCheckinsTable() {
             toScrumdappDate(current),
             { checkin_stars: true, checkup_stars: true, presence: true, presence_comment: true }
         );
-    }, [getGroupCheckins]);
+    }, [getGroupCheckins.runCommand]);
 
     const current = new Date();
     const date = `${current.getDate()} / ${current.getMonth() + 1} / ${current.getFullYear()}`;
@@ -53,13 +53,13 @@ export default function ScrummasterCheckinsTable() {
                 user_id: c.user_id,
                 first_name: c.first_name,
                 last_name: c.last_name,
-
                 presence: c.presence,
                 presence_comment: c.presence_comment,
                 checkin_stars: c.checkin_stars,
                 checkup_stars: c.checkup_stars
             })));
         }
+        console.log("UseEffect Console")
     }, [getGroupCheckins.data]);
 
     if (getGroupCheckins.loading || getGroupCheckins.data == null) {
@@ -70,6 +70,7 @@ export default function ScrummasterCheckinsTable() {
         <form
             onSubmit={(e) => {
                 e.preventDefault();
+                console.log(checkins)
 
                 updateCheckinsApi
                     .runCommand(1, toScrumdappDate(current), checkins)
@@ -97,7 +98,7 @@ export default function ScrummasterCheckinsTable() {
                             </td>
                             <td className="pr-2"><AttendanceDropDownMenu
                                 value={checkin.presence}
-                                onChange={(value: string) => {
+                                onChange={(value: string | null) => {
                                     const updated = [...checkins];
                                     updated[index].presence = value;
                                     setCheckins(updated);
@@ -105,25 +106,25 @@ export default function ScrummasterCheckinsTable() {
                             /></td>
                             <td className="pr-2"><StarsDropDownMenu
                                 value={checkin.checkin_stars}
-                                onChange={(value: number) => {
+                                onChange={(value: number | null) => {
                                     const updated = [...checkins];
-                                    updated[index].checkin_stars = number;
+                                    updated[index].checkin_stars = value;
                                     setCheckins(updated);
                                 }}
                             /></td>
                             <td className="pr-2"><StarsDropDownMenu
                                 value={checkin.checkup_stars}
-                                onChange={(value: number) => {
+                                onChange={(value: number | null) => {
                                     const updated = [...checkins];
-                                    updated[index].checkup_stars = number;
+                                    updated[index].checkup_stars = value;
                                     setCheckins(updated);
                                 }}
                             /></td>
                             <td className="pr-2"><AttendanceTextArea
                                 value={checkin.presence_comment}
-                                onChange={(value: string) => {
+                                onChange={(value: string | null) => {
                                     const updated = [...checkins];
-                                    updated[index].presence_comment = string;
+                                    updated[index].presence_comment = value;
                                     setCheckins(updated);
                                 }}
                             /></td>
@@ -141,12 +142,10 @@ export default function ScrummasterCheckinsTable() {
                     <FontAwesomeIcon icon={faRotateLeft} className="text-gray icon" />
                     Undo
                 </button>
-                <a href="/test">
-                <button type="button" className="btn border" onClick={() => {}}>
+                <button type="submit" className="btn border">
                     <FontAwesomeIcon icon={faCheck} className="text-blue icon" />
                     Submit
                 </button>
-                </a>
                 <button
                     type="button" className="btn border btn-red" >
                     <FontAwesomeIcon icon={faTrashCan} className="text-bg icon" />
