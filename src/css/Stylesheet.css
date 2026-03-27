@@ -31,7 +31,7 @@
 }
 
 .write-section {
-    @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-[calc(100%(--gap-3)*2(--gap-3))];
+    @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-auto;
 }
 
 .write-section-attendance {
