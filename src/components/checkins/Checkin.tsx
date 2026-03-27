@@ -29,7 +29,6 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
                         <th className="py-3 text-left pl-2">Attendance</th>
                         <th className="py-3">Check-in</th>
                         <th className="py-3">Check-up</th>
-                        <th className="py-3 text-right pr-2">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -41,9 +40,6 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
                             </td>
                             <td className={`px-3 ${getStarsColor(item.checkin_stars)}`}><Stars amount={item.checkin_stars}/></td>
                             <td className={`px-3 ${getStarsColor(item.checkup_stars)}`}><Stars amount={item.checkup_stars}/></td>
-                            <td className="text-right pr-2">
-                                <button className="btn btn-secondary border float-right my-2">More</button>
-                            </td>
                         </tr>))}
                     </tbody>
                 </table>
