@@ -37,3 +37,9 @@ export const starsOptions = [
 export function getStarsColor(value: number | null | undefined): string {
     return starsOptions.find(opt => opt.value === value)?.color ?? "text-gray";
 }
+
+export function getformatPresence(value: string): string {
+    const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+    return formatPresence(value);
+}
+

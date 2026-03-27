@@ -6,10 +6,10 @@ import {getStarsColor, getAttendanceColor} from "../../js/utils/colorUtils.ts";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import {getformatPresence} from "../../js/utils/colorUtils.ts";
 
 function Checkin({groupId}: { groupId: number, userId: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
-    const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
     return <div className="lg:w-2xl md:w-xl sm:w-sm bg-bg border h-fit p-2 rounded-lg">
         <h2 className="p-2">
@@ -36,8 +36,8 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
                     {checkin.map(item => (
                         <tr key={item.user_id}>
                             <td className="py-3 text-left pl-2">{item.first_name} {item.last_name}</td>
-                            <td className={`py-3 text-left pl-2 ${getAttendanceColor(formatPresence(item.presence ?? "---"))}`}>
-                                {formatPresence(item.presence ?? "---")}
+                            <td className={`py-3 text-left pl-2 ${getAttendanceColor(getformatPresence(item.presence ?? "---"))}`}>
+                                {getformatPresence(item.presence ?? "---")}
                             </td>
                             <td className={`px-3 ${getStarsColor(item.checkin_stars)}`}><Stars amount={item.checkin_stars}/></td>
                             <td className={`px-3 ${getStarsColor(item.checkup_stars)}`}><Stars amount={item.checkup_stars}/></td>
