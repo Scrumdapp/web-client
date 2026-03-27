@@ -11,8 +11,8 @@ import {getformatPresence} from "../../js/utils/colorUtils.ts";
 function Checkin({groupId}: { groupId: number, userId: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
 
-    return <div className="lg:w-2xl md:w-xl sm:w-sm bg-bg border h-fit p-2 rounded-lg">
-        <h2 className="p-2">
+    return <div className="lg:w-2xl md:w-xl sm:w-sm bg-bg border p-2 rounded-lg">
+        <h2 className="p-2 text-left">
             Check-in voor: <span className="text-fg">{toScrumdappDate(new Date())}</span>
         </h2>
         <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
@@ -22,7 +22,6 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
         }]}>
             {checkin => (
                 <table className="w-full">
-
                     <thead>
                     <tr>
                         <th className="py-3 text-left pl-2">Name</th>
@@ -54,7 +53,6 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
             <Link to="/scrummastercheckin" className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Check-in</Link>
         </div>
     </div>
-
 }
 
 export default Checkin;

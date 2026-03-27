@@ -5,7 +5,7 @@ export default class CheckinPage extends React.Component {
     render() {
         return (
             <div>
-                <div className="flex flex-col h-screen items-center text-center bg-bg">
+                <div className="flex flex-col items-center text-center bg-bg">
                     <Checkin groupId={1} userId={1} />
                 </div>
             </div>

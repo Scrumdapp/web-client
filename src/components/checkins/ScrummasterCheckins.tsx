@@ -34,9 +34,15 @@ export default function ScrummasterCheckinsTable() {
         );
     }, [getGroupCheckins.runCommand]);
 
-    const current = new Date();
-    const date = `${current.getDate()} / ${current.getMonth() + 1} / ${current.getFullYear()}`;
+    const deleteCheckins = useCallback(() => {
+        return getGroupCheckins.runCommand(
+            1,
+            toScrumdappDate(current),
+            { checkin_stars: false, checkup_stars: false, presence: false, presence_comment: false }
+        );
+    }, [getGroupCheckins.runCommand]);
 
+    const current = new Date();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -70,14 +76,16 @@ export default function ScrummasterCheckinsTable() {
             onSubmit={(e) => {
                 e.preventDefault();
 
+                if (updateCheckinsApi.loading) return;
+
                 updateCheckinsApi
                     .runCommand(1, toScrumdappDate(current), checkins)
                     .then(() => {
                         navigate("/checkin");
                     });
             }}
-            className="card flex-1 mx-auto vertical gap-3 w-4/7">
-            <h2 className="mb-2">Checkin for <b>{date}</b></h2>
+            className={'card flex mx-auto vertical gap-3 w-4/7 {updateCheckinsApi.loading ? "pointer-events-none opacity-70" : ""}'}>
+            <h2 className="mb-2">Checkin for <b>{toScrumdappDate(new Date())}</b></h2>
                 <table className="checkin-table table-fixed w-full">
                     <thead>
                     <tr  className="">
@@ -140,12 +148,16 @@ export default function ScrummasterCheckinsTable() {
                     <FontAwesomeIcon icon={faRotateLeft} className="text-gray icon" />
                     Undo
                 </button>
-                <button type="submit" className="btn border">
+                <button
+                    type="submit"
+                    className="btn border"
+                    disabled={updateCheckinsApi.loading}
+                >
                     <FontAwesomeIcon icon={faCheck} className="text-blue icon" />
-                    Submit
+                    {updateCheckinsApi.loading ? <LoadScreen /> : "Submit"}
                 </button>
                 <button
-                    type="button" className="btn border btn-red" >
+                    type="button" className="btn border btn-red" onClick={() => deleteCheckins()}>
                     <FontAwesomeIcon icon={faTrashCan} className="text-bg icon" />
                     Clear
                 </button>
