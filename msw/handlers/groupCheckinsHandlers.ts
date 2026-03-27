@@ -1,4 +1,4 @@
-import {CheckinFieldFlags, GroupCheckin} from "../../src/js/models/checkin";
+import {GroupCheckin} from "../../src/js/models/checkin";
 import {groupData} from "./groupHandlers";
 import {groupUserData} from "./groupUserHandler";
 import {Feature} from "../../src/js/models/group";
@@ -67,19 +67,19 @@ function generateCheckin(userId: number, groupId: number, date: string, features
     }
 
     if (features.indexOf("checkins.presence") != -1) {
-        checkin.presence = PRESENCE_FIELDS[Math.floor(Math.random() * PRESENCE_FIELDS.length)]
+        checkin.presence = Math.random() > 0.7 ? undefined : PRESENCE_FIELDS[Math.floor(Math.random() * PRESENCE_FIELDS.length)]
     }
 
     if (features.indexOf("checkins.checkin_stars") != -1) {
-        checkin.checkin_stars = Math.floor(Math.random() * 11)
+        checkin.checkin_stars = Math.random() > 0.7 ? undefined : Math.floor(Math.random() * 11)
     }
 
     if (features.indexOf("checkins.checkup_stars") != -1) {
-        checkin.checkup_stars = Math.floor(Math.random() * 11)
+        checkin.checkup_stars = Math.random() > 0.7 ? undefined : Math.floor(Math.random() * 11)
     }
 
     if (features.indexOf("checkins.checkout_stars") != -1) {
-        checkin.checkout_stars = Math.floor(Math.random() * 11)
+        checkin.checkout_stars = Math.random() > 0.7 ? undefined : Math.floor(Math.random() * 11)
     }
 
     if (features.indexOf("checkins.presence_comment") != -1) {
@@ -110,7 +110,7 @@ function parseCheckinFields(fields: string | null | undefined, checkin: GroupChe
         user_id: checkin.user_id,
         group_id: checkin.group_id,
         date: checkin.date
-    }
+    } as GroupCheckin
 
     if (typeof fields !== "string") {
         return r;
@@ -166,16 +166,16 @@ export const groupCheckinsHandlers = [
         return HttpResponse.json(checkins)
     }),
     http.get("/api/groups/:gid/checkins", ({params, request}) => {
-        // @ts-ignore
         const url = new URL(request.url)
         const fields = url.searchParams.get("fields")
+        // @ts-ignore
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid))
         return HttpResponse.json(checkins.map(it => parseCheckinFields(fields, it)))
     }),
     http.get("/api/groups/:gid/checkins/:date", ({params, request}) => {
-        // @ts-ignore
         const url = new URL(request.url)
         const fields = url.searchParams.get("fields")
+        // @ts-ignore
         const checkins = (groupCheckins.filter(it => it.group_id == params.gid && it.date == params.date))
         return HttpResponse.json(checkins.map(it => parseCheckinFields(fields, it)))
     }),

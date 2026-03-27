@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import Layout from "./components/Layout.tsx";
+import Layout from "./components/layout/Layout.tsx";
 import AppRouter from "./router/AppRouter.tsx";
 import {UserProvider} from "./js/context/user/UserProvider.tsx";
 import {LoadScreen} from "./components/generic/LoadScreen.tsx";
