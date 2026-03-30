@@ -34,7 +34,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
                     <tbody>
                     {checkin.map(item => (
                         <tr key={item.user_id}>
-                            <td className="py-3 text-left pl-2">{item.first_name} {item.last_name}</td>
+                            <td className="py-3 text-left pl-2 name-field">{item.first_name} {item.last_name}</td>
                             <td className={`py-3 text-left pl-2 ${getAttendanceColor(getformatPresence(item.presence ?? "---"))}`}>
                                 {getformatPresence(item.presence ?? "---")}
                             </td>

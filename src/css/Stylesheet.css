@@ -85,7 +85,7 @@ table {
 }
 
 .name-field {
-    @apply  w-40 max-w-40 border-gray-dim
+    @apply  w-40 max-w-40 border-r-green
 }
 
 .td {

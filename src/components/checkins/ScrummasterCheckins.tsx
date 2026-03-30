@@ -16,6 +16,8 @@ type EditableCheckin = UpdateGroupCheckin & {
     user_id: number;
     first_name: string;
     last_name: string;
+    group_id: number;
+    date: string;
 };
 
 export default function ScrummasterCheckinsTable() {
