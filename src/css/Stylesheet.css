@@ -6,7 +6,7 @@
 
 
 :root {
-    @apply bg-bg font-libertinus font-normal text-fg;
+    @apply bg-bg font-Iosevka font-normal text-fg;
 }
 
 #root {
