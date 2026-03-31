@@ -1,18 +1,22 @@
-// checkincomponents/CheckinColors.ts
+
 
 export const attendanceOptions = [
-    { label: "---", color: "text-gray" },
-    { label: "On Time", color: "text-green" },
-    { label: "Late", color: "text-orange" },
-    {label: "Verified Late", color: "text-green" },
-    { label: "Absent", color: "text-red" },
-    { label: "Verified Absent", color: "text-aqua" },
-    { label: "Online", color: "text-purple" },
-    { label: "Sick", color: "text-blue" },
+    { label: "---", color: "text-gray", value: null},
+    { label: "On Time", color: "text-green", value: "ON_TIME" },
+    { label: "Late", color: "text-orange", value: "LATE" },
+    { label: "Verified Late", color: "text-green", value: "VERIFIED_LATE" },
+    { label: "Absent", color: "text-red", value: "ABSENT" },
+    { label: "Verified Absent", color: "text-aqua", value: "VERIFIED_ABSENT" },
+    { label: "Online", color: "text-purple", value: "ONLINE" },
+    { label: "Sick", color: "text-blue", value: "SICK" },
 ];
 
 export function getAttendanceColor(value: string | null | undefined): string {
     return attendanceOptions.find(opt => opt.label === value)?.color ?? "text-gray";
+}
+
+export function getAttendanceColorScrummaster(value: string | null | undefined): string {
+    return attendanceOptions.find(opt => opt.value === value)?.color ?? "text-gray";
 }
 
 export const starsOptions = [
@@ -33,3 +37,9 @@ export const starsOptions = [
 export function getStarsColor(value: number | null | undefined): string {
     return starsOptions.find(opt => opt.value === value)?.color ?? "text-gray";
 }
+
+export function getformatPresence(value: string): string {
+    const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+    return formatPresence(value);
+}
+

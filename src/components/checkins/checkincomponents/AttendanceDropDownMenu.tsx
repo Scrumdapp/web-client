@@ -1,42 +1,48 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { useState } from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
+import {useEffect, useState} from "react";
+import {attendanceOptions, getAttendanceColorScrummaster} from "../../../js/utils/colorUtils.ts";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-export default function AttendanceDropDownMenu({currentAttendance} : {currentAttendance?: string | null}) {
-    const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+type AttendanceDropDownMenuProps = {
+    value?: string | null;
+    onChange?: (value: string | null) => void;
+};
 
-    const [attendance, setAttendance] = useState(formatPresence(currentAttendance ?? "---"));
+export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMenuProps) {
+    const [localValue, setLocalValue] = useState<string | null>(value ?? null);
 
-    const options = [
-        { label: "---", color: "text-gray"},
-        { label: "On Time", color: "text-green"},
-        { label: "Verified Late", color: "text-green"},
-        { label: "Late", color: "text-orange"},
-        { label: "Absent", color: "text-red"},
-        { label: "Verified Absent", color: "text-aqua"},
-        { label: "Online", color: "text-purple"},
-        { label: "Sick", color: "text-blue"},
-    ];
+    const updateValue = (value: string | null) => {
+        setLocalValue(value ?? null)
+        if (onChange != null) {
+            onChange(value ?? null)
+        }
+    }
 
-    const currentColor = options.find(opt => opt.label === attendance)?.color || "text-gray";
+    useEffect(() => {
+        setLocalValue(value ?? null);
+    }, [value]);
+
+    const resolvedValue = value !== null ? (value ?? null) : localValue;
+    const currentOption = attendanceOptions.find((opt) => opt.value === resolvedValue) ?? attendanceOptions[0];
+    const currentColor = getAttendanceColorScrummaster(resolvedValue);
 
     return (
         <Menu as="div" className="relative w-full w-[20%]">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
-                    {attendance}
+                    {currentOption.label}
                 </span>
-                <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`} />
+                <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`}/>
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 <div>
-                    {options.map((opt) => (
+                    {attendanceOptions.map((opt) => (
                         <MenuItem
                             key={opt.label}
                             as="button"
                             type="button"
-                            onClick={() => setAttendance(opt.label)}
+                            onClick={() => updateValue(opt.value)}
                             className={`btn-attendance-dropdown ${opt.color}`}>
                             {opt.label}
                         </MenuItem>

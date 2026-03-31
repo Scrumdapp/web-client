@@ -2,3 +2,7 @@
 .center {
     @apply flex items-center justify-center h-full flex-1 flex-col
 }
+
+.app-container {
+    @apply max-w-5xl w-full mx-auto p-4 flex-1;
+}

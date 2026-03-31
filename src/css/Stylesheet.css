@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Iosevka+Charon:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
 @import "tailwindcss";
 @import "./Theme.css";
+@import "./Typography.css";
 @import "./Utils.css";
 @import "./Anim.css";
 
 
 :root {
-    @apply bg-bg font-libertinus font-normal text-fg;
+    @apply bg-bg font-Iosevka font-normal text-fg;
 }
 
 #root {
@@ -30,7 +33,7 @@
 }
 
 .write-section {
-    @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-[calc(100%(--gap-3)*2(--gap-3))];
+    @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-auto;
 }
 
 .write-section-attendance {
@@ -41,6 +44,7 @@
     @apply w-0;
 
 }
+
 .write-section::-webkit-scrollbar-track {
    @apply bg-transparent;
 }
@@ -55,7 +59,7 @@
 }
 
 .card {
-    @apply bg-bg border divide-solid border-fg4 p-4 rounded-2xl
+    @apply bg-bg_h border border-fg4 p-4 rounded-lg
 }
 
 .horizontal {
@@ -83,7 +87,7 @@ table {
 }
 
 .name-field {
-    @apply  w-40 max-w-40 border-gray-dim
+    @apply  w-40 max-w-40 border-r-green
 }
 
 .td {
