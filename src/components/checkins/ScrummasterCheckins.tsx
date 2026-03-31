@@ -18,7 +18,7 @@ type EditableCheckin = UpdateGroupCheckin & {
     last_name: string;
 };
 
-export default function ScrummasterCheckinsTable({groupId}: { groupId: number, date : string}) {
+export function ScrummasterCheckinsTable({ groupId, date }: { groupId: number, date : string }) {
 
     const getGroupCheckins = useApi(ScrumdappApi.getGroupCheckinsWithUsers());
     const updateCheckinsApi = useApi(ScrumdappApi.updateGroupCheckins());
@@ -29,7 +29,7 @@ export default function ScrummasterCheckinsTable({groupId}: { groupId: number, d
     const getCheckins = useCallback(() => {
         return getGroupCheckins.runCommand(
             groupId,
-            toScrumdappDate(current),
+            date,
             { checkin_stars: true, checkup_stars: true, presence: true, presence_comment: true }
         );
     }, [getGroupCheckins.runCommand]);
@@ -37,7 +37,7 @@ export default function ScrummasterCheckinsTable({groupId}: { groupId: number, d
     const deleteCheckins = useCallback(() => {
         return getGroupCheckins.runCommand(
             1,
-            toScrumdappDate(current),
+            date,
             { checkin_stars: false, checkup_stars: false, presence: false, presence_comment: false }
         );
     }, [getGroupCheckins.runCommand]);
@@ -46,11 +46,7 @@ export default function ScrummasterCheckinsTable({groupId}: { groupId: number, d
     const navigate = useNavigate();
 
     useEffect(() => {
-        void getGroupCheckins.runCommand(
-            1,
-            toScrumdappDate(current),
-            { checkin_stars: true, checkup_stars: true, presence: true, presence_comment: true }
-        );
+        getCheckins()
     }, []);
 
     useEffect(() => {
@@ -79,7 +75,7 @@ export default function ScrummasterCheckinsTable({groupId}: { groupId: number, d
                 if (updateCheckinsApi.loading) return;
 
                 updateCheckinsApi
-                    .runCommand(1, toScrumdappDate(current), checkins)
+                    .runCommand(1, date, checkins)
                     .then(() => {
                         navigate("/checkin");
                     });
