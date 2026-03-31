@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import MainPage from "../pages/MainPage.tsx";
 import About from "../pages/About.tsx";
 import Privacy from "../pages/Privacy.tsx";
-
 // ^^^ Add new pages here ^^^
 
 

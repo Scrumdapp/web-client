@@ -6,7 +6,7 @@ import {http, HttpResponse} from "msw";
 export const groupUserData: GroupUserCollection[] = [
     {
         groupId: 1,
-        users: [ 1, 2 ]
+        users: [ 1, 2, 3, 4, 5, 6 ]
     },
     {
         groupId: 2,
