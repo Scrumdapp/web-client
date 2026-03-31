@@ -36,19 +36,19 @@ export interface CheckinFieldFlags {
 }
 
 export interface UpdateGroupCheckin {
-    presence?: string
-    presence_comment?: string
+    presence?: string | null
+    presence_comment?: string | null
 
-    checkin_stars?: number
-    checkin_comment?: string
+    checkin_stars?: number | null
+    checkin_comment?: string | null
 
-    checkup_stars?: number
-    checkup_comment? : string
+    checkup_stars?: number | null
+    checkup_comment? : string | null
 
-    checkout_stars?: number
-    checkout_comment?: string
+    checkout_stars?: number | null
+    checkout_comment?: string | null
 
-    obstacle_comment?: string
+    obstacle_comment?: string | null
 }
 
 export interface GroupCheckinsUpdate {

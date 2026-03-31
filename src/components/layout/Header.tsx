@@ -19,7 +19,7 @@ export default function Header() {
                 <div className="flex justify-between h-10 items-center">
 
                     <div className="shrink-0 text-fg text-2xl font-bold max-w-20">
-                        <a href="/public">Scrumdapp</a>
+                        <Link to="/public">Scrumdapp</Link>
                     </div>
 
                     <div className="hidden md:flex space-x-6 text-black font-medium">
@@ -31,12 +31,10 @@ export default function Header() {
                     </div>
 
                     <div className="hidden md:block">
-                        <a href="/login"
-                           className="btn border btn-secondary min-w-20 max-w-20">
-                            Profile
-                        </a>
+                        <Link to="/login" className="btn border btn-secondary min-w-20 max-w-20">Profile</Link>
                     </div>
 
+                    {/*WORK IN PROGRESS, NEED TO LOOK AT THIS AT A LATER TIME, NOT AS IMPORTANT AS OF RIGHT NOW*/}
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
@@ -58,7 +56,6 @@ export default function Header() {
                 </div>
             </div>
 
-            {/*WORK IN PROGRESS, NEED TO LOOK AT THIS AT A LATER TIME, NOT AS IMPORTANT AS OF RIGHT NOW*/}
             <div id="mobile-menu" className="md:hidden hidden px-4 pb-4 space-y-2 text-white font-medium">
                 <a href="/public" className="block hover:text-yellow-300 transition">Home</a>
                 <a href="/about" className="block hover:text-yellow-300 transition">About</a>

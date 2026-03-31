@@ -9,7 +9,7 @@ type StarsProps = {
   className?: string;
 };
 
-const Stars: FC<StarsProps> = ({ amount, className }) => {
+export function Stars({ amount, className }: StarProps) {
   if (amount == null) {
     return (
       <span className={className}>
@@ -19,7 +19,7 @@ const Stars: FC<StarsProps> = ({ amount, className }) => {
   }
 
   return (
-    <span className={`stars${className ? ` ${className}` : ""}`}>
+    <span className={`stars flex-wrap${className ? ` ${className}` : ""}`}>
       {[1, 2, 3, 4, 5].map((i) => {
         const iconName =
           (i - 1) * 2 + 1 > amount
