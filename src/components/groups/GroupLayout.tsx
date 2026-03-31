@@ -21,10 +21,10 @@ export function GroupLayout() {
         <GroupProvider groupId={groupId}>
             <GroupConsumer>
                 {ctx => (
-                    <div className="app-container vertical gap-2">
+                    <div className="app-container vertical gap-4">
                         <h1> {ctx?.group.name} </h1>
-                        <div className="flex gap-2">
-                            <div className="vertical gap-2">
+                        <div className="flex gap-4">
+                            <div className="vertical gap-4">
                                 <GroupSidebar />
                                 <GroupSidebarDates />
                             </div>
