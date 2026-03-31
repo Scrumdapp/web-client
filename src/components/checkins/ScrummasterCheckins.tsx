@@ -77,7 +77,7 @@ export function ScrummasterCheckinsTable({ groupId, date }: { groupId: number, d
                 updateCheckinsApi
                     .runCommand(1, date, checkins)
                     .then(() => {
-                        navigate("/checkin");
+                        navigate(`/groups/${groupId}?date=${date}`);
                     });
             }}
             className={`card flex vertical gap-3 ${updateCheckinsApi.loading ? "pointer-events-none opacity-70" : ""}`}>
