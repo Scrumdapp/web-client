@@ -16,11 +16,9 @@ type EditableCheckin = UpdateGroupCheckin & {
     user_id: number;
     first_name: string;
     last_name: string;
-    group_id: number;
-    date: string;
 };
 
-export default function ScrummasterCheckinsTable() {
+export default function ScrummasterCheckinsTable({groupId}: { groupId: number, date : string}) {
 
     const getGroupCheckins = useApi(ScrumdappApi.getGroupCheckinsWithUsers());
     const updateCheckinsApi = useApi(ScrumdappApi.updateGroupCheckins());
@@ -30,7 +28,7 @@ export default function ScrummasterCheckinsTable() {
 
     const getCheckins = useCallback(() => {
         return getGroupCheckins.runCommand(
-            1,
+            groupId,
             toScrumdappDate(current),
             { checkin_stars: true, checkup_stars: true, presence: true, presence_comment: true }
         );
