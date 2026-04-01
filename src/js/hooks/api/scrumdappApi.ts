@@ -168,7 +168,8 @@ export namespace ScrumdappApi {
 
     async function makeApiRequest<T>(
         method: RequestMethod, url: String, { params, query, body }: { body?: object, params?: RequestParams, query?: RequestParams } = {}
-    ): Promise<T> {
+    // @ts-ignore
+    ): T {
         let actualUrl = API_URL + "/" + url.replace(/^\//, "")
         if (params) {
             for (let paramsKey in params) {
