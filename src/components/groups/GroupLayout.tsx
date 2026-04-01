@@ -22,7 +22,7 @@ export function GroupLayout() {
             <GroupConsumer>
                 {ctx => (
                     <div className="app-container vertical gap-4">
-                        <h1> {ctx?.group.name} </h1>
+                        <h1> {ctx!!.group!!.name} </h1>
                         <div className="flex gap-4">
                             <div className="vertical gap-4">
                                 <GroupSidebar />
