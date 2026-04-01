@@ -1,4 +1,3 @@
-import {FC} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons/faStar";
 import {faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons/faStar";
@@ -9,7 +8,7 @@ type StarsProps = {
   className?: string;
 };
 
-export function Stars({ amount, className }: StarProps) {
+export function Stars({ amount, className }: StarsProps) {
   if (amount == null) {
     return (
       <span className={className}>

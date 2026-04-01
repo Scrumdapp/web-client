@@ -1,6 +1,5 @@
 import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
-import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import Stars from "./checkincomponents/Stars.tsx";
 import {getStarsColor, getAttendanceColor} from "../../js/utils/colorUtils.ts";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
