@@ -10,9 +10,11 @@ export namespace ScrumdappApi {
 
     const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replace(/\/$/, "")
 
-    export type RequestProcessor<Ti extends any[], Tr> = ((...inputs: Ti) => Promise<Tr>) & { id: string }
+    export type RequestProcessor<Ti extends any[], Tr> = MRP<Ti, Promise<Tr>>
     export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
     export type RequestParams = { [key: string]: string | undefined }
+
+    type MRP<Ti extends any[], Tr> = ((...inputs: Ti) => Tr) & { id: string }
 
     export type CheckinRangeParams = {
         "start_date": string,
@@ -168,8 +170,7 @@ export namespace ScrumdappApi {
 
     async function makeApiRequest<T>(
         method: RequestMethod, url: String, { params, query, body }: { body?: object, params?: RequestParams, query?: RequestParams } = {}
-    // @ts-ignore
-    ): T {
+    ): Promise<T> {
         let actualUrl = API_URL + "/" + url.replace(/^\//, "")
         if (params) {
             for (let paramsKey in params) {
@@ -229,11 +230,10 @@ export namespace ScrumdappApi {
             })
     }
 
-    function createProcessor<TParams extends any[], TReturn>(name: String, fn: (...TParams: TParams) => TReturn): RequestProcessor<TParams, TReturn> {
-        // @ts-expect-error Property 'id' does not exist
+    function createProcessor<TParams extends any[], TReturn>(name: String, fn: (...TParams: TParams) => TReturn): MRP<TParams, TReturn> {
+        // @ts-ignore
         fn.id = name;
-        // @ts-expect-error Conversion of type
-        return fn as RequestProcessor<TParams, TReturn>;
+        return fn as MRP<TParams, TReturn>;
     }
 
     function fieldsToQueryParameter(fields?: CheckinFieldFlags): string | undefined {

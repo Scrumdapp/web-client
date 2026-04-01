@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCalendar, faCalendarDays} from "@fortawesome/free-regular-svg-icons";
+import {faCalendarDays} from "@fortawesome/free-regular-svg-icons";
 import {useGroup} from "../../js/context/group/useGroup.ts";
 import {Link} from "react-router"
 import {faChartSimple, faGear} from "@fortawesome/free-solid-svg-icons";

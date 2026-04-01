@@ -6,7 +6,7 @@ import {useApi} from "../../js/hooks/api/useApi.ts"
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import {LoadScreen} from "../generic/LoadScreen.tsx";
-import {UpdateGroupCheckin} from "../../js/models/checkin.ts";
+import {GroupCheckinsUpdate, UpdateGroupCheckin} from "../../js/models/checkin.ts";
 import { useNavigate } from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faRotateLeft, faTrashCan} from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +42,6 @@ export function ScrummasterCheckinsTable({ groupId, date }: { groupId: number, d
         );
     }, [getGroupCheckins.runCommand]);
 
-    const current = new Date();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -74,8 +73,16 @@ export function ScrummasterCheckinsTable({ groupId, date }: { groupId: number, d
 
                 if (updateCheckinsApi.loading) return;
 
+                const mappedUsers: GroupCheckinsUpdate[] = checkins.map(it => ({
+                    user_id: it.user_id,
+                    presence: it.presence,
+                    presence_comment: it.presence_comment,
+                    checkin_stars: it.checkin_stars,
+                    checkup_stars: it.checkup_stars
+                } as GroupCheckinsUpdate))
+
                 updateCheckinsApi
-                    .runCommand(1, date, checkins)
+                    .runCommand(1, date, mappedUsers)
                     .then(() => {
                         navigate(`/groups/${groupId}?date=${date}`);
                     });
