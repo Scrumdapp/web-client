@@ -6,3 +6,11 @@
 .app-container {
     @apply max-w-5xl w-full mx-auto p-4 flex-1;
 }
+
+.horizontal {
+    @apply flex flex-row
+}
+
+.vertical {
+    @apply flex flex-col
+}

@@ -8,14 +8,14 @@ import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import {getformatPresence} from "../../js/utils/colorUtils.ts";
 
-function Checkin({groupId}: { groupId: number, userId: number }) {
+function Checkin({ groupId, date }: { groupId: number, date: string }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
 
-    return <div className="lg:w-2xl md:w-xl sm:w-sm bg-bg border p-2 rounded-lg">
+    return <div className="card">
         <h2 className="p-2 text-left">
-            Check-in voor: <span className="text-fg">{toScrumdappDate(new Date())}</span>
+            Check-in voor: <span className="text-fg">{date}</span>
         </h2>
-        <GetGroupCheckinsComponent input={[groupId, toScrumdappDate(new Date()), {
+        <GetGroupCheckinsComponent input={[groupId, date, {
             presence: true,
             checkin_stars: true,
             checkup_stars: true
@@ -46,7 +46,7 @@ function Checkin({groupId}: { groupId: number, userId: number }) {
         </GetGroupCheckinsComponent>
         <div className="align-center horizontal gap-3 mt-2">
             <div className="flex-1"></div>
-            <Link to="/scrummastercheckin" className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Check-in</Link>
+            <Link to={`/groups/${groupId}/edit?date=${date}`} className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Check-in</Link>
         </div>
     </div>
 }

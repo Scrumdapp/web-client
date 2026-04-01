@@ -77,10 +77,10 @@ export function ScrummasterCheckinsTable({ groupId, date }: { groupId: number, d
                 updateCheckinsApi
                     .runCommand(1, date, checkins)
                     .then(() => {
-                        navigate("/checkin");
+                        navigate(`/groups/${groupId}?date=${date}`);
                     });
             }}
-            className={'card flex mx-auto vertical gap-3 w-4/7 {updateCheckinsApi.loading ? "pointer-events-none opacity-70" : ""}'}>
+            className={`card flex vertical gap-3 ${updateCheckinsApi.loading ? "pointer-events-none opacity-70" : ""}`}>
             <h2 className="mb-2">Checkin for <b>{toScrumdappDate(new Date())}</b></h2>
                 <table className="checkin-table table-fixed w-full">
                     <thead>
