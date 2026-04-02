@@ -25,8 +25,8 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
                     <tr>
                         <th className="py-3 text-left pl-2">Name</th>
                         <th className="py-3 text-left pl-2">Attendance</th>
-                        <th className="py-3">Check-in</th>
-                        <th className="py-3">Check-up</th>
+                        <th className="py-3 items-center">Check-in</th>
+                        <th className="py-3 items-center">Check-up</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -36,8 +36,16 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
                             <td className={`py-3 text-left pl-2 ${getAttendanceColor(getformatPresence(item.presence ?? "---"))}`}>
                                 {getformatPresence(item.presence ?? "---")}
                             </td>
-                            <td className={`px-3 ${getStarsColor(item.checkin_stars)}`}><Stars amount={item.checkin_stars}/></td>
-                            <td className={`px-3 ${getStarsColor(item.checkup_stars)}`}><Stars amount={item.checkup_stars}/></td>
+                            <td className={`p-3 ${getStarsColor(item.checkin_stars)}`}>
+                            <div className="flex justify-center items-center">
+                                <Stars amount={item.checkin_stars}/>
+                            </div>
+                            </td>
+                            <td className={`p-3 ${getStarsColor(item.checkup_stars)}`}>
+                                <div className="flex justify-center items-center">
+                                    <Stars amount={item.checkup_stars}/>
+                                </div>
+                            </td>
                         </tr>))}
                     </tbody>
                 </table>
