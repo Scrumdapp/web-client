@@ -25,8 +25,8 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
                     <tr>
                         <th className="py-3 text-left pl-2">Name</th>
                         <th className="py-3 text-left pl-2">Attendance</th>
-                        <th className="py-3">Check-in</th>
-                        <th className="py-3">Check-up</th>
+                        <th className="py-3 text-left pl-2">Check-in</th>
+                        <th className="py-3 text-left pl-2">Check-up</th>
                     </tr>
                     </thead>
                     <tbody>
