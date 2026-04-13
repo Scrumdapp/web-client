@@ -65,12 +65,12 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
 
 function CheckpointModal({ onClose }: { onClose: () => void }) {
     return (
-            <div className="flex fixed inset-0 bg-black backdrop-opacity-50 items-center" onClick={() => onClose()}>
-                <div className="bg-gray-800 rounded-lg p-6 w-96" onClick={(e) => e.stopPropagation()}>
+            <div className="flex fixed inset-0 backdrop-blur-lg justify-center items-center" onClick={() => onClose()}>
+                <div className="bg-bg_h rounded-lg p-6 w-96 border" onClick={(e) => e.stopPropagation()}>
                     <h2 className="text-fg mb-4">New Checkpoint:</h2>
                     <input type="text"
                            placeholder="Name:"
-                           className="w-full p-2 rounded-lg mb-4"
+                           className="w-full p-2 rounded-lg mb-4 outline-none border"
                            />
                     <button onClick={onClose} className="btn border">Close</button>
                 </div>
