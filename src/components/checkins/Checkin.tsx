@@ -7,16 +7,20 @@ import {faPencil} from "@fortawesome/free-solid-svg-icons"
 import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import {getformatPresence} from "../../js/utils/colorUtils.ts";
+import { useState} from "react";
 
 function Checkin({ groupId, date }: { groupId: number, date: string }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return <div className="card w-fit space-x-5">
         <div className="flex justify-between w-full">
         <h2 className="p-2 text-left">
             Check-in voor: <span className="text-fg">{date}</span>
         </h2>
-            <button className="btn border max-h-fit"><FontAwesomeIcon icon={faAdd} className="icon text-blue" />Create Checkpoint</button>
+            <button className="btn border max-h-fit"
+            onClick={() => setIsModalOpen(true)}>
+            <FontAwesomeIcon icon={faAdd} className="icon text-blue" />Create Checkpoint</button>
         </div>
         <GetGroupCheckinsComponent input={[groupId, date, {
             presence: true,
@@ -54,6 +58,23 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
             <Link to={`/groups/${groupId}/edit?date=${date}`} className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Check-in</Link>
         </div>
     </div>
+}
+
+function CheckpointMOdal({ onClose }: { onClose: () => void }) {
+    return (
+        {
+            <div className="flex fixed inset-0 bg-black opacity-50 items-center" onClick={() => onClose()}>
+                <div className="bg-gray-800 rounded-lg p-6 w-96" onClick={{(e) => e.stopPropagation()}}>
+                    <h2 className="text-fg mb-4">New Checkpoint:</h2>
+                    <input type="text"
+                           placeholder="Name:"
+                           className="w-full p-2 rounded-lg mb-4"
+                           />
+                    <button onClick={onClose} className="btn border">Close</button>
+                </div>
+            </div>
+        }
+    )
 }
 
 export default Checkin;
