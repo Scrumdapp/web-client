@@ -11,9 +11,12 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
 
     return <div className="card">
+        <div className="flex justify-between">
         <h2 className="p-2 text-left">
             Check-in voor: <span className="text-fg">{date}</span>
         </h2>
+            <button className="btn btn-secondary border">Create Checkpoint</button>
+        </div>
         <GetGroupCheckinsComponent input={[groupId, date, {
             presence: true,
             checkin_stars: true,
