@@ -88,14 +88,14 @@ export function ScrummasterCheckinsTable({ groupId, date }: { groupId: number, d
                     });
             }}
             className={`card flex vertical gap-3 ${updateCheckinsApi.loading ? "pointer-events-none opacity-70" : ""}`}>
-            <h2 className="mb-2">Checkin for <b>{toScrumdappDate(new Date())}</b></h2>
+            <h2 className="mb-2">Checkpoint for <b>{toScrumdappDate(new Date())}</b></h2>
                 <table className="checkin-table table-fixed w-full">
                     <thead>
                     <tr  className="">
                         <th className="w-1/5 pr-2 text-left">Name</th>
                         <th className="w-1/5 pr-2 text-left">Attendance</th>
-                        <th className="w-1/10 pr-2">Check In</th>
-                        <th className="w-1/10 pr-2">Check Up</th>
+                        <th className="w-1/10 pr-2">Checkpoint 1</th>
+                        <th className="w-1/10 pr-2">Checkpoint 2</th>
                         <th className="w-1/4 pr-2 text-right">Notes</th>
                     </tr>
                     </thead>

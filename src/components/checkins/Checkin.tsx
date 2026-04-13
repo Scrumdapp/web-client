@@ -25,8 +25,8 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
                     <tr>
                         <th className="py-3 text-left pl-2">Name</th>
                         <th className="py-3 text-left pl-2">Attendance</th>
-                        <th className="py-3 items-center">Check-in</th>
-                        <th className="py-3 items-center">Check-up</th>
+                        <th className="py-3 items-center">Checkpoint 1</th>
+                        <th className="py-3 items-center">Checkpoint 2</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,7 +53,7 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
         </GetGroupCheckinsComponent>
         <div className="align-center horizontal gap-3 mt-2">
             <div className="flex-1"></div>
-            <Link to={`/groups/${groupId}/edit?date=${date}`} className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Check-in</Link>
+            <Link to={`/groups/${groupId}/edit?date=${date}`} className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Checkpoint</Link>
         </div>
     </div>
 }

@@ -33,6 +33,6 @@ export function Stars({ amount, className }: StarsProps) {
       })}
     </span>
   );
-};
+}
 
 export default Stars;

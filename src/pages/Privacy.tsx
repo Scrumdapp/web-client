@@ -1,7 +1,7 @@
-export default function Test() {
+export default function Privacy() {
     return (
-            <div>
-                <h1>Privacy is not important /j</h1>
-            </div>
+        <div className="app-container card text-center">
+                <h2>Your Privacy is very important to us</h2>
+        </div>
     )
 }
