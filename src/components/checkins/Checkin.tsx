@@ -3,19 +3,20 @@ import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkincomponents/Stars.tsx";
 import {getStarsColor, getAttendanceColor} from "../../js/utils/colorUtils.ts";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPencil} from "@fortawesome/free-solid-svg-icons";
+import {faPencil} from "@fortawesome/free-solid-svg-icons"
+import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import {getformatPresence} from "../../js/utils/colorUtils.ts";
 
 function Checkin({ groupId, date }: { groupId: number, date: string }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
 
-    return <div className="card">
-        <div className="flex justify-between">
+    return <div className="card w-fit space-x-5">
+        <div className="flex justify-between w-full">
         <h2 className="p-2 text-left">
             Check-in voor: <span className="text-fg">{date}</span>
         </h2>
-            <button className="btn btn-secondary border">Create Checkpoint</button>
+            <button className="btn border max-h-fit"><FontAwesomeIcon icon={faAdd} className="icon text-blue" />Create Checkpoint</button>
         </div>
         <GetGroupCheckinsComponent input={[groupId, date, {
             presence: true,
