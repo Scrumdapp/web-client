@@ -6,6 +6,7 @@ import ErrorPage from "../pages/ErrorPage.tsx";
 import {GroupLayout} from "../components/groups/GroupLayout.tsx";
 // ^^^ Add new pages here ^^^
 
+import Test from "../pages/test.tsx";
 
 export default function AppRouter() {
     return (
@@ -14,6 +15,7 @@ export default function AppRouter() {
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="*" element={<ErrorPage />} />
+            <Route path="/test" element={<Test />} />
         </Routes>
     );
 }
