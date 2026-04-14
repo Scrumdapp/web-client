@@ -82,7 +82,7 @@ function CheckpointModal({onClose, onConfirm}:
                 />
                 <div className="flex justify-between">
                     <button onClick={() => onConfirm(name)} className="btn border">Confirm</button>
-                    <button onClick={onClose} className="btn border">Close</button>
+                    <button onClick={onClose} className="btn border btn-red">Close</button>
                 </div>
             </div>
 
