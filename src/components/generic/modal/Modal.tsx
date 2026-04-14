@@ -1,6 +1,6 @@
 import * as React from "react"
 import {useModalState} from "../../../js/hooks/useModalState.ts";
-import ModalContext from "./ModalContext.tsx";
+import ModalContext from "./components/ModalContext.tsx";
 
 type ModalProps = {
     state: ReturnType<typeof useModalState>

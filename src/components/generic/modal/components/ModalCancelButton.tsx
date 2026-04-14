@@ -1,5 +1,5 @@
 import * as React from "react"
-import ModalContext from "./ModalContext"
+import ModalContext from "./ModalContext.tsx"
 
 export default function ModalCancelButton() {
     const modal = React.useContext(ModalContext)
