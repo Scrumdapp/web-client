@@ -16,7 +16,7 @@ export default function Footer() {
     ];
 
     return (
-    <footer className="mt-7 pb-7 px-2 flex-col">
+    <footer className="mt-7 pb-4 px-2 flex-col">
         <div className="mx-auto p-2 rounded-2xl bg-bg_h shadow-xl border w-full">
             <div className="flex flex-wrap items-center justify-between pb-4">
                 {links.map(link => (
