@@ -70,7 +70,7 @@ function CheckpointModal({ onClose }: { onClose: () => void }) {
                     <h2 className="text-fg mb-4">New Checkpoint:</h2>
                     <input type="text"
                            placeholder="Name:"
-                           className="w-full p-2 rounded-lg mb-4 outline-none border"
+                           className="w-full p-3 rounded-lg mb-4 outline-none border"
                            />
                     <button onClick={onClose} className="btn border">Close</button>
                 </div>
