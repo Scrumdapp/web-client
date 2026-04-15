@@ -28,14 +28,20 @@ export function GroupCheckinPage() {
         setCheckpoints(prev => [...prev,{ id: Date.now(), date}]);
         modal.accept();
     }
+    const handleDelete = (id: number)=>  {
+        setCheckpoints(prev => prev.filter(checkpoint => checkpoint.id !== id))
+    }
     return (
         <div className="space-y-3 ">
         <div className="flex justify-between card w-7/10 h-20 bg-bg_h border rounded-lg p-2 items-center">
             <h2 className="px-2">Checkpoint {date}</h2>
             <button className="btn border" onClick={modal.open}><FontAwesomeIcon icon={faAdd} className="text-blue"/> Create Checkpoint</button>
         </div>
-            {checkpoints.map((checkpointDate, index) => (
-                <Checkin key={index} groupId={group.id} date={checkpointDate} />
+            {checkpoints.map((checkpoint) => (
+                <div key={checkpoint.id} className="w-full">
+                    <Checkin groupId={group.id } date={checkpoint.date} />
+                    <button className="btn btn-red border" onClick={() => handleDelete(checkpoint.id)}>Delete</button>
+                </div>
             ))}
             <Modal state={modal}>
                 <div className="space-y-5">
