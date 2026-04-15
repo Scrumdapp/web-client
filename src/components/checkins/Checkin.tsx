@@ -7,7 +7,7 @@ import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import {getformatPresence} from "../../js/utils/colorUtils.ts";
 
-function Checkin({ groupId, date }: { groupId: number, date: string }) {
+function Checkin({ groupId, date, onDelete }: { groupId: number, date: string, onDelete: () => void }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
 
     return <div className="card w-7/10 space-x-5">
@@ -44,6 +44,7 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
         </GetGroupCheckinsComponent>
         <div className="align-center horizontal gap-3 mt-2">
             <div className="flex-1"></div>
+            <button className="btn btn-red border" onClick={onDelete}>Delete</button>
             <Link to={`/groups/${groupId}/edit?date=${date}`} className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Checkpoint</Link>
         </div>
     </div>

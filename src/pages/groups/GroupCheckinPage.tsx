@@ -39,8 +39,12 @@ export function GroupCheckinPage() {
         </div>
             {checkpoints.map((checkpoint) => (
                 <div key={checkpoint.id} className="w-full">
-                    <Checkin groupId={group.id } date={checkpoint.date} />
-                    <button className="btn btn-red border" onClick={() => handleDelete(checkpoint.id)}>Delete</button>
+                    <Checkin
+                        groupId={group.id }
+                        date={checkpoint.date}
+                        key={checkpoint.id}
+                        onDelete={() => handleDelete(checkpoint.id)}
+                    />
                 </div>
             ))}
             <Modal state={modal}>
