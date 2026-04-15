@@ -10,10 +10,7 @@ import {getformatPresence} from "../../js/utils/colorUtils.ts";
 function Checkin({ groupId, date }: { groupId: number, date: string }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
 
-    return <div className="card w-fit space-x-5">
-        <h2 className="p-2 text-left">
-            Checkpoint <span className="text-fg3">{date}</span>
-        </h2>
+    return <div className="card w-1/2 space-x-5">
         <GetGroupCheckinsComponent input={[groupId, date, {
             presence: true,
             checkin_stars: true,
