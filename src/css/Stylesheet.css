@@ -89,3 +89,7 @@ table {
 .stars > .icon {
     @apply text-xs;
 }
+
+.hiddenbutton {
+    opacity: 20;
+}
