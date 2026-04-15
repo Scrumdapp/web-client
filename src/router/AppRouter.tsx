@@ -7,7 +7,6 @@ import Groups from "../pages/Groups.tsx";
 import {GroupLayout} from "../components/groups/GroupLayout.tsx";
 // ^^^ Add new pages here ^^^
 
-
 export default function AppRouter() {
     return (
         <Routes>
