@@ -13,7 +13,8 @@ export default function Groups() {
     const [name, setName] = useState("")
 
     return (
-        <div className="app-container">
+        <div className="app-container horizontal justify-between">
+            <h2>Scrumdapp</h2>
             <button className="btn btn-red border max-h-fit"
                 onClick={modal.open}>
                     New Group <FontAwesomeIcon icon={faPlus} />
