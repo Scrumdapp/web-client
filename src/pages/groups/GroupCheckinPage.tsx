@@ -11,7 +11,7 @@ export function GroupCheckinPage() {
 
     return (
         <div className="space-y-3 ">
-        <div className="card w-1/2 h-15 bg-bg_h border rounded-lg p-2">
+        <div className="card w-7/10 h-15 bg-bg_h border rounded-lg p-2">
             <h2 className="text-left px-2">Checkpoint {date}</h2>
         </div>
         <Checkin groupId={group.id} date={date} />
