@@ -2,20 +2,36 @@ import {useGroup} from "../../js/context/group/useGroup.ts";
 import Checkin from "../../components/checkins/Checkin.tsx";
 import {useSearchParams} from "react-router-dom";
 import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
+import Modal from "../../components/generic/modal/Modal.tsx";
+import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
+import ModalActionRow from "../../components/generic/modal/components/ModalActionRow.tsx";
+import ModalCancelButton from "../../components/generic/modal/components/ModalCancelButton.tsx";
+import {useModalState} from "../../js/hooks/useModalState.ts";
+import {faAdd} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export function GroupCheckinPage() {
     const group = useGroup()
-
+    const modal = useModalState()
     const [ searchParams ] = useSearchParams();
     const date = searchParams.get("date") ?? toScrumdappDate(new Date())
 
     return (
         <div className="space-y-3 ">
-        <div className="card w-7/10 h-15 bg-bg_h border rounded-lg p-2">
+        <div className="flex justify-between card w-7/10 h-15 bg-bg_h border rounded-lg p-2">
             <h2 className="text-left px-2">Checkpoint {date}</h2>
+            <button className="btn btn border" onClick={modal.open}><FontAwesomeIcon icon={faAdd} className="text-blue"/> Create Checkpoint</button>
         </div>
         <Checkin groupId={group.id} date={date} />
+            <Modal state={modal}>
+                <ModalHeadText>New Checkpoint</ModalHeadText>
+                <input></input>
+                <ModalActionRow>
+                    <ModalCancelButton />
+                </ModalActionRow>
+            </Modal>
         </div>
+
     )
 
 }
