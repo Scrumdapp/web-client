@@ -17,10 +17,15 @@ export function GroupCheckinPage() {
     const [ searchParams ] = useSearchParams();
     const date = searchParams.get("date") ?? toScrumdappDate(new Date())
 
-    const [checkpoints, setCheckpoints] = useState<string[]>([date]);
+    type Checkpoint = {
+        id: number;
+        date: string;
+    }
+
+    const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([{id: 1, date }]);
 
     const handleCreate = () => {
-        setCheckpoints(prev => [...prev, date]);
+        setCheckpoints(prev => [...prev,{ id: Date.now(), date}]);
         modal.accept();
     }
     return (
