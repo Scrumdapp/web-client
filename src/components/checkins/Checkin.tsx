@@ -10,7 +10,7 @@ import {getformatPresence} from "../../js/utils/colorUtils.ts";
 function Checkin({ groupId, date }: { groupId: number, date: string }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
 
-    return <div className="card">
+    return <div className="card w-fit space-x-5">
         <h2 className="p-2 text-left">
             Check-in voor: <span className="text-fg">{date}</span>
         </h2>
@@ -25,8 +25,7 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
                     <tr>
                         <th className="py-3 text-left pl-2">Name</th>
                         <th className="py-3 text-left pl-2">Attendance</th>
-                        <th className="py-3 items-center">Checkpoint 1</th>
-                        <th className="py-3 items-center">Checkpoint 2</th>
+                        <th className="py-3 items-center">How're you feeling?</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,11 +39,6 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
                             <div className="flex justify-center items-center">
                                 <Stars amount={item.checkin_stars}/>
                             </div>
-                            </td>
-                            <td className={`p-3 ${getStarsColor(item.checkup_stars)}`}>
-                                <div className="flex justify-center items-center">
-                                    <Stars amount={item.checkup_stars}/>
-                                </div>
                             </td>
                         </tr>))}
                     </tbody>
