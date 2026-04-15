@@ -12,7 +12,7 @@ function Checkin({ groupId, date }: { groupId: number, date: string }) {
 
     return <div className="card w-fit space-x-5">
         <h2 className="p-2 text-left">
-            Check-in voor: <span className="text-fg">{date}</span>
+            Checkpoint <span className="text-fg3">{date}</span>
         </h2>
         <GetGroupCheckinsComponent input={[groupId, date, {
             presence: true,
