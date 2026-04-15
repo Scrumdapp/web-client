@@ -9,12 +9,15 @@ import ModalCancelButton from "../../components/generic/modal/components/ModalCa
 import {useModalState} from "../../js/hooks/useModalState.ts";
 import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useState} from "react";
 
 export function GroupCheckinPage() {
     const group = useGroup()
     const modal = useModalState()
     const [ searchParams ] = useSearchParams();
     const date = searchParams.get("date") ?? toScrumdappDate(new Date())
+
+    const [checkpoints, setCheckpoints] = useState<string>([date]);
 
     return (
         <div className="space-y-3 ">
