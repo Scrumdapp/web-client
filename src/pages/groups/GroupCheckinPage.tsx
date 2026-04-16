@@ -9,7 +9,6 @@ import ModalCancelButton from "../../components/generic/modal/components/ModalCa
 import {useModalState} from "../../js/hooks/useModalState.ts";
 import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import
 import {useState} from "react";
 
 export function GroupCheckinPage() {
