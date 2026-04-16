@@ -9,6 +9,7 @@ import ModalCancelButton from "../../components/generic/modal/components/ModalCa
 import {useModalState} from "../../js/hooks/useModalState.ts";
 import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import
 import {useState} from "react";
 
 export function GroupCheckinPage() {
@@ -50,7 +51,7 @@ export function GroupCheckinPage() {
             <Modal state={modal}>
                 <div className="space-y-5">
                 <ModalHeadText>New Checkpoint</ModalHeadText>
-                <input className="write-section w-full!"></input>
+                <input className="write-section w-full!" placeholder="Checkpoint Name"></input>
                 <ModalActionRow>
                     <ModalCancelButton />
                     <button className="btn btn-secondary border" onClick={handleCreate}>Create</button>

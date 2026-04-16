@@ -3,7 +3,7 @@ import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkincomponents/Stars.tsx";
 import {getStarsColor, getAttendanceColor} from "../../js/utils/colorUtils.ts";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPencil} from "@fortawesome/free-solid-svg-icons";
+import {faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import {getformatPresence} from "../../js/utils/colorUtils.ts";
 
@@ -44,7 +44,7 @@ function Checkin({ groupId, date, onDelete }: { groupId: number, date: string, o
         </GetGroupCheckinsComponent>
         <div className="align-center horizontal gap-3 mt-2">
             <div className="flex-1"></div>
-            <button className="btn btn-red border" onClick={onDelete}>Delete</button>
+            <button className="btn btn-red border" onClick={onDelete}><FontAwesomeIcon icon={faTrashCan} className="icon" /> Delete</button>
             <Link to={`/groups/${groupId}/edit?date=${date}`} className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Checkpoint</Link>
         </div>
     </div>
