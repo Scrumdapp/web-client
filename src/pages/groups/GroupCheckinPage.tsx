@@ -20,17 +20,21 @@ export function GroupCheckinPage() {
     type Checkpoint = {
         id: number;
         date: string;
+        name: string;
     }
 
     const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([{id: 1, date }]);
+    const [checkpointName, setCheckpointName] = useState("");
 
     const handleCreate = () => {
-        setCheckpoints(prev => [...prev,{ id: Date.now(), date}]);
+        setCheckpoints(prev => [...prev,{ id: Date.now(), date, name: checkpointName}]);
+        setCheckpointName("");
         modal.accept();
     }
     const handleDelete = (id: number)=>  {
         setCheckpoints(prev => prev.filter(checkpoint => checkpoint.id !== id))
     }
+
     return (
         <div className="space-y-3 ">
         <div className="flex justify-between card w-7/10 h-20 bg-bg_h border rounded-lg p-2 items-center">
@@ -43,6 +47,7 @@ export function GroupCheckinPage() {
                         groupId={group.id }
                         date={checkpoint.date}
                         key={checkpoint.id}
+                        name={checkpoint.name}
                         onDelete={() => handleDelete(checkpoint.id)}
                     />
                 </div>
@@ -53,7 +58,10 @@ export function GroupCheckinPage() {
                 <input className="write-section w-full!" placeholder="Checkpoint Name"></input>
                 <ModalActionRow>
                     <ModalCancelButton />
-                    <button className="btn btn-secondary border" onClick={handleCreate}>Create</button>
+                    <button className="btn btn-secondary border"
+                            onClick={handleCreate}
+                            onChange={(e) => setCheckpointName(e.target.value)}
+                            >Create</button>
                 </ModalActionRow>
                 </div>
             </Modal>
