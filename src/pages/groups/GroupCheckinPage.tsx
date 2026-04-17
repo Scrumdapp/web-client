@@ -23,7 +23,7 @@ export function GroupCheckinPage() {
         name: string;
     }
 
-    const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([{id: 1, date }]);
+    const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
     const [checkpointName, setCheckpointName] = useState("");
 
     const handleCreate = () => {

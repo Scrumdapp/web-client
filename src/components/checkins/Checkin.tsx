@@ -11,7 +11,8 @@ function Checkin({ groupId, date, name, onDelete }: { groupId: number, date: str
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
 
     return <div className="card w-7/10 space-x-5">
-        <h3>{name}</h3>
+        <h2>{name}</h2>
+        <hr className="my-2" />
         <GetGroupCheckinsComponent input={[groupId, date, {
             presence: true,
             checkin_stars: true,
