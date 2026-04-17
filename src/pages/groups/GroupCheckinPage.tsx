@@ -55,13 +55,10 @@ export function GroupCheckinPage() {
             <Modal state={modal}>
                 <div className="space-y-5">
                 <ModalHeadText>New Checkpoint</ModalHeadText>
-                <input className="write-section w-full!" placeholder="Checkpoint Name"></input>
+                <input className="write-section w-full!" placeholder="Checkpoint Name" onChange={(e) => setCheckpointName(e.target.value)}></input>
                 <ModalActionRow>
                     <ModalCancelButton />
-                    <button className="btn btn-secondary border"
-                            onClick={handleCreate}
-                            onChange={(e) => setCheckpointName(e.target.value)}
-                            >Create</button>
+                    <button className="btn btn-secondary border" onClick={handleCreate}>Create</button>
                 </ModalActionRow>
                 </div>
             </Modal>
