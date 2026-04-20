@@ -28,6 +28,11 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
 
     const isLocked = timeLeft <= 0;
 
+    const [notes, setNotes] = useState("");
+    const [selectedStar, setSelectedStar] = useState<number | null>(null);
+
+    const hasChanged = notes.trim() !== "" || selectedStar !== null;
+
     useEffect(() => {
         if (isLocked) return;
 
@@ -40,6 +45,12 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
 
         return () => clearInterval(interval);
     }, [startTime, isLocked]);
+
+    const handleApply = async () => {
+        setNotes("");
+        setSelectedStar(null);
+        modal.close();
+    };
 
     return <div className="card w-7/10 space-x-5">
         <h2>{name}</h2>
@@ -87,10 +98,23 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
                 <ModalHeadText>Change Checkpoint</ModalHeadText>
                 <ModalActionRow>
                     <div className="flex flex-col space-y-2 w-screen">
-                    <input className="write-section" placeholder="Notes" />
-                    <StarsDropDownMenu />
+                    <input
+                       className="write-section"
+                       placeholder="Notes"
+                       value={notes}
+                       onChange={(e) => setNotes(e.target.value)}
+                    />
+                    <StarsDropDownMenu
+                        value={selectedStar}
+                        onChange={setSelectedStar}
+                    />
                     </div>
                     <ModalCancelButton />
+                    {hasChanged && (
+                        <button className="btn btn-secondary border" onClick={handleApply}>
+                            Apply
+                        </button>
+                    )}
 
                 </ModalActionRow>
             </div>
