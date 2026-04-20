@@ -110,7 +110,7 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
                     <ModalActionRow>
                     <ModalCancelButton />
                         <button
-                            className={`btn border ${!notes && selectedStar === null ? "opacity-50 cursor-not-allowed!" : ""}`}
+                            className={`btn border ${!notes && selectedStar === null ? "forbidden" : ""}`}
                             disabled={!notes && selectedStar === null}
                             onClick={handleApply}
                         >

@@ -89,3 +89,7 @@ table {
 .stars > .icon {
     @apply text-xs;
 }
+
+.forbidden {
+    @apply opacity-50 cursor-not-allowed
+}
