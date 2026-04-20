@@ -21,17 +21,19 @@ export function GroupCheckinPage() {
         id: number;
         date: string;
         name: string;
+        startTime: number;
     }
 
     const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
     const [checkpointName, setCheckpointName] = useState("");
 
     const handleCreate = () => {
-        const startTime = Date.now();
-        setCheckpoints(prev => [...prev,{ id: Date.now(), date, name: checkpointName}]);
+        if (!checkpointName.trim()) return;
+        setCheckpoints(prev => [...prev, { id: Date.now(), date, name: checkpointName.trim(), startTime: Date.now() }]);
         setCheckpointName("");
         modal.accept();
     }
+
 
     return (
         <div className="space-y-3 ">

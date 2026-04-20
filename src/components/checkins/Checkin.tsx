@@ -37,6 +37,9 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
     return <div className="card w-7/10 space-x-5">
         <h2>{name}</h2>
         <hr className="my-2" />
+        <p className="text-sm">
+            {isLocked ? "Check-in closed" : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, '0')}`}
+        </p>
         <GetGroupCheckinsComponent input={[groupId, date, {
             presence: true,
             checkin_stars: true,
