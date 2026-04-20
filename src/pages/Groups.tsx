@@ -25,7 +25,7 @@ export default function Groups() {
                     <input
                         type="text"
                         placeholder="Group Name"
-                        className="w-full p-2 rounded-lg mb-4 outline-none border"
+                        className="write-section mb-4 w-full!"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
