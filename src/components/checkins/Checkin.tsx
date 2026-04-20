@@ -8,9 +8,16 @@ import { Link } from "react-router-dom";
 import {getformatPresence} from "../../js/utils/colorUtils.ts";
 import {useEffect} from "react";
 import {useState} from "react";
+import Modal from "../../components/generic/modal/Modal.tsx";
+import {useModalState} from "../../js/hooks/useModalState.ts";
+import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
+import ModalActionRow from "../../components/generic/modal/components/ModalActionRow.tsx";
+import ModalCancelButton from "../../components/generic/modal/components/ModalCancelButton.tsx";
+import {StarsDropDownMenu} from "./checkincomponents/StarsDropDownMenu.tsx";
 
 function Checkin({ groupId, date, name, startTime }: { groupId: number, date: string, name: string, startTime: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
+    const modal = useModalState();
 
     const DURATION_MS = 15 * 60 * 1000;
 
@@ -71,10 +78,23 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
                 </table>
             )}
         </GetGroupCheckinsComponent>
-        <div className="align-center horizontal gap-3 mt-2">
-            <div className="flex-1"></div>
+        <div className="align-center horizontal gap-3 mt-2 justify-end">
             <Link to={`/groups/${groupId}/edit?date=${date}`} className="btn border m-auto mx-2"><FontAwesomeIcon icon={faPencil} className="icon text-blue" />Scrummaster Checkpoint</Link>
+            <button className="btn border" onClick={modal.open}><FontAwesomeIcon icon={faPencil} className="icon text-blue"/>Change Checkpoint</button>
         </div>
+        <Modal state={modal}>
+            <div className="space-y-5">
+                <ModalHeadText>Change Checkpoint</ModalHeadText>
+                <ModalActionRow>
+                    <div className="flex flex-col space-y-2 w-screen">
+                    <input className="write-section" placeholder="Notes" />
+                    <StarsDropDownMenu />
+                    </div>
+                    <ModalCancelButton />
+
+                </ModalActionRow>
+            </div>
+        </Modal>
     </div>
 }
 
