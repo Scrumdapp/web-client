@@ -27,6 +27,7 @@ export function GroupCheckinPage() {
     const [checkpointName, setCheckpointName] = useState("");
 
     const handleCreate = () => {
+        const startTime = Date.now();
         setCheckpoints(prev => [...prev,{ id: Date.now(), date, name: checkpointName}]);
         setCheckpointName("");
         modal.accept();
@@ -45,6 +46,7 @@ export function GroupCheckinPage() {
                         date={checkpoint.date}
                         key={checkpoint.id}
                         name={checkpoint.name}
+                        startTime={checkpoint.startTime}
                     />
                 </div>
             ))}

@@ -6,9 +6,33 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import {getformatPresence} from "../../js/utils/colorUtils.ts";
+import {useEffect} from "react";
+import {useState} from "react";
 
-function Checkin({ groupId, date, name }: { groupId: number, date: string, name: string }) {
+function Checkin({ groupId, date, name, startTime }: { groupId: number, date: string, name: string, startTime: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
+
+    const DURATION_MS = 15 * 60 * 1000;
+
+    const [timeLeft, setTimeLeft] = useState(() => {
+        const expiresAt = startTime + DURATION_MS;
+        return Math.max(0, expiresAt - Date.now());
+    });
+
+    const isLocked = timeLeft <= 0;
+
+    useEffect(() => {
+        if (isLocked) return;
+
+        const interval = setInterval(() => {
+            const expiresAt = startTime + DURATION_MS;
+            const remaining = Math.max(0, expiresAt - Date.now());
+            setTimeLeft(remaining);
+            if (remaining <= 0) clearInterval(interval);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [startTime, isLocked]);
 
     return <div className="card w-7/10 space-x-5">
         <h2>{name}</h2>
