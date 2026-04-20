@@ -31,8 +31,6 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
     const [notes, setNotes] = useState("");
     const [selectedStar, setSelectedStar] = useState<number | null>(null);
 
-    const hasChanged = notes.trim() !== "" || selectedStar !== null;
-
     useEffect(() => {
         if (isLocked) return;
 
@@ -96,27 +94,30 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
         <Modal state={modal}>
             <div className="space-y-5">
                 <ModalHeadText>Change Checkpoint</ModalHeadText>
-                <ModalActionRow>
-                    <div className="flex flex-col space-y-2 w-screen">
+                    <div className="flex flex-col space-y-2 w-full">
                     <input
                        className="write-section"
                        placeholder="Notes"
                        value={notes}
                        onChange={(e) => setNotes(e.target.value)}
+                       required
                     />
                     <StarsDropDownMenu
                         value={selectedStar}
                         onChange={setSelectedStar}
                     />
                     </div>
+                    <ModalActionRow>
                     <ModalCancelButton />
-                    {hasChanged && (
-                        <button className="btn btn-secondary border" onClick={handleApply}>
-                            Apply
+                        <button
+                            className={`btn border ${!notes && selectedStar === null ? "opacity-50 cursor-not-allowed!" : ""}`}
+                            disabled={!notes && selectedStar === null}
+                            onClick={handleApply}
+                        >
+                        Apply
                         </button>
-                    )}
 
-                </ModalActionRow>
+                    </ModalActionRow>
             </div>
         </Modal>
     </div>
