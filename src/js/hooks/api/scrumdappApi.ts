@@ -138,19 +138,19 @@ export namespace ScrumdappApi {
         })
     }
 
-    export function getGroupCheckpoints() {
-        return createProcessor("getGroupCheckpoints", (groupId: number, sessionId: number) => {
+    export function getGroupCheckpointsBySession() {
+        return createProcessor("getGroupCheckpointsBySession", (groupId: number, sessionId: number) => {
             return makeApiRequest<PartialGroupCheckpoint[]>("GET", "/groups/{group.id}/checkpoints/{session.id}", {
                 params: { "{group.id}": groupId.toString(), "{session.id}": sessionId.toString() }
             })
         })
     }
 
-    export function getGroupCheckpoint() {
-        return createProcessor("getGroupCheckpoint", (groupId: number, sessionId?: number, userId?: number) => {
+    export function getGroupCheckpoints() {
+        return createProcessor("getGroupCheckpoints", (groupId: number, session?: number, user?: number) => {
             return makeApiRequest<GroupCheckpoint[]>("GET", "/groups/{group.id}/checkpoints", {
                 params: { "{group.id}": groupId.toString() },
-                query: {  sessionId, userId }
+                query: {  session, user }
             })
         })
     }
