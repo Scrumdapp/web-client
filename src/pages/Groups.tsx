@@ -16,7 +16,6 @@ export default function Groups() {
     const [name, setName] = useState("")
     const createGroup = useApi(ScrumdappApi.createGroup());
 
-
     return (
         <div className="app-container horizontal justify-between">
             <h2>Scrumdapp</h2>
@@ -27,17 +26,16 @@ export default function Groups() {
             <Modal state={modal}>
                 <ModalHeadText>New Group</ModalHeadText>
                 <form id="create-group-form"
-                      onSubmit={(e) => {
-                          e.preventDefault();
+                    onSubmit={(e) => {e.preventDefault();
 
-                          if (createGroup.loading) return;
+                        if (createGroup.loading) return;
 
-                          createGroup
-                              .runCommand({ name })
-                              .then(() => {
-                                  modal.close();
-                              });
-                      }}>
+                        createGroup
+                            .runCommand({ name })
+                            .then(() => {
+                                modal.close();
+                        });
+                    }}>
                     <input
                         type="text"
                         placeholder="Group Name"
