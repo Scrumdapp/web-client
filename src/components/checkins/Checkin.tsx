@@ -31,6 +31,8 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
     const [notes, setNotes] = useState("");
     const [selectedStar, setSelectedStar] = useState<number | null>(null);
 
+    const [user, setUser] = useState<string | null>(null);
+
     useEffect(() => {
         if (isLocked) return;
 
@@ -47,6 +49,7 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
     const handleApply = async () => {
         setNotes("");
         setSelectedStar(null);
+        setUser("");
         modal.close();
     };
 
@@ -104,6 +107,7 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
                     />
                     <StarsDropDownMenu
                         value={selectedStar}
+                        value={user}
                         onChange={setSelectedStar}
                     />
                     </div>
