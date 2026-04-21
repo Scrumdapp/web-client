@@ -29,7 +29,10 @@ export default function Footer() {
             <div className="bg-fg h-0.5 rounded-full"></div>
 
             <div className="flex flex-row items-center justify-between pt-4 px-3">
-                <span>© 2026 Scrumdapp. All rights reserved</span>
+                <span>© 2026 Scrumdapp | All rights reserved</span>
+                <span>
+                    <Link to="https://scrumdapp.com" target="_blank" className="underline">Scrumdapp.com</Link>
+                </span>
                 <div className="flex items-center gap-4">
                     <Link to="https://www.linkedin.com/company/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
                     <Link to="https://x.com/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faXTwitter} /></Link>
@@ -39,5 +42,6 @@ export default function Footer() {
                 </div>
             </div>
         </div>
-    </footer>)
+    </footer>
+    )
 }
