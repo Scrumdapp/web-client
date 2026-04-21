@@ -4,6 +4,12 @@ import type {CreateGroup, Group, GroupUser, PartialGroup, PatchGroup} from "../.
 import {RequestException} from "./apiError.ts";
 import {isErrorDto} from "../../models/dto/errorDto.ts";
 import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate, UserGroupCheckin, CheckinFieldFlags} from "../../models/checkin.ts";
+import {
+    GroupCheckpoint,
+    GroupCheckpointSession, GroupCheckpointSessionCreate,
+    PartialGroupCheckpoint,
+    UpdateGroupCheckpoint
+} from "../../models/checkpoint.ts";
 
 
 export namespace ScrumdappApi {
@@ -12,11 +18,11 @@ export namespace ScrumdappApi {
 
     export type RequestProcessor<Ti extends any[], Tr> = MRP<Ti, Promise<Tr>>
     export type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE"
-    export type RequestParams = { [key: string]: string | undefined }
+    export type RequestParams = { [key: string]: string | number | undefined }
 
     type MRP<Ti extends any[], Tr> = ((...inputs: Ti) => Tr) & { id: string }
 
-    export type CheckinRangeParams = {
+    export type DateRangeParams = {
         "start_date": string,
         "end_date": string
     }
@@ -107,8 +113,69 @@ export namespace ScrumdappApi {
         })
     }
 
+    export function getCheckpointSessions() {
+        return createProcessor("GetCheckpointSessions", (groupId: number, dateRangeParam?: DateRangeParams, date?: string, partial?: boolean )=> {
+            return makeApiRequest<GroupCheckpointSession[]>("GET", "/groups/{group.id}/sessions", {
+                params: { "{group.id}": groupId.toString() },
+                query: { ...dateRangeParam, date }
+            })
+        })
+    }
+
+    export function getCheckpointSessionById() {
+        return createProcessor("GetCheckpointSessionById", (groupId: number, sessionId: number) => {
+            return makeApiRequest<GroupCheckpointSession>("GET", "/groups/{group.id}/session/{session.id}", {
+                params: { "{group.id}": groupId.toString(), "{session.id}": sessionId.toString() }
+            })
+        })
+    }
+
+    export function createCheckpointSessions() {
+        return createProcessor("createCheckpointSession", (groupId: number, body: GroupCheckpointSessionCreate ) => {
+            return makeApiRequest<GroupCheckpointSession>("POST", "/groups/{group.id}/sessions", {
+                body: body,
+                params: { "{group.id}": groupId.toString() }
+            })
+        })
+    }
+
+    export function getGroupCheckpointsBySession() {
+        return createProcessor("getGroupCheckpointsBySession", (groupId: number, sessionId: number) => {
+            return makeApiRequest<PartialGroupCheckpoint[]>("GET", "/groups/{group.id}/checkpoints/{session.id}", {
+                params: { "{group.id}": groupId.toString(), "{session.id}": sessionId.toString() }
+            })
+        })
+    }
+
+    export function getGroupCheckpoints() {
+        return createProcessor("getGroupCheckpoints", (groupId: number, session?: number, user?: number) => {
+            return makeApiRequest<GroupCheckpoint[]>("GET", "/groups/{group.id}/checkpoints", {
+                params: { "{group.id}": groupId.toString() },
+                query: {  session, user }
+            })
+        })
+    }
+
+    export function updateGroupCheckpoint() {
+        return createProcessor("updateGroupCheckpoint", (groupId: number, sessionId: number, checkpoint: UpdateGroupCheckpoint)=> {
+            return makeApiRequest<GroupCheckpoint>("PATCH", "/groups/{group.id}/checkpoints/{session.id}", {
+                body: checkpoint,
+                params: { "{group.id}": groupId.toString(), "{session.id}": sessionId.toString() }
+            })
+        })
+    }
+
+    export function updateGroupCheckpoints() {
+        return createProcessor("updateGroupCheckpoints", (groupId: number, sessionId: number, checkpoint: UpdateGroupCheckpoint[])=> {
+            return makeApiRequest<GroupCheckpoint[]>("PATCH", "/groups/{group.id}/checkpoints/{session.id}", {
+                body: checkpoint,
+                params: { "{group.id}": groupId.toString(), "{session.id}": sessionId.toString() }
+            })
+        })
+    }
+
     export function getUserCheckins() {
-        return createProcessor("getUserCheckins", (groupId: number, userId: number, queryParams: CheckinRangeParams, fields?: CheckinFieldFlags) => {
+        return createProcessor("getUserCheckins", (groupId: number, userId: number, queryParams: DateRangeParams, fields?: CheckinFieldFlags) => {
             return makeApiRequest<GroupCheckin[]>("GET", "/groups/{group.id}/users/{user.id}/checkins", {
                 params: { "{group.id}": groupId.toString(), "{user.id}": userId.toString() },
                 query: { ...queryParams, "fields": fieldsToQueryParameter(fields) }
@@ -182,8 +249,13 @@ export namespace ScrumdappApi {
         if (query) {
             const q: { [key: string]: string } = {}
             for (let queryKey in query) {
-                if (typeof query[queryKey] !== "string") { continue }
-                q[queryKey] = query[queryKey]!
+                const v = query[queryKey]
+
+                if (v === undefined) { continue }
+
+                if (typeof v === "string" || typeof v === "number") {
+                    q[queryKey] = String(v)
+                }
             }
             let urlParams = new URLSearchParams(q)
             actualUrl = actualUrl + "?"+urlParams.toString()
