@@ -1,7 +1,7 @@
 
 export interface GroupCheckpointSession {
     id: number,
-    startTime: string, // Check later if this should be Scrumdappdate
+    startTime: string,
     name: string,
     duration: number,
     date: string,
@@ -16,7 +16,7 @@ export interface GroupCheckpointSessionCreate {
 
 export interface PartialGroupCheckpointSession {
     id: number,
-    startTime: string // Check later if this should be Scrumdappdate
+    startTime: string
     duration: number
     remainingTime: number
 }
@@ -33,7 +33,7 @@ export interface GroupCheckpoint {
 }
 
 export interface PartialGroupCheckpoint {
-    id: number // Is this required?
+    id: number
     groupUser: number,
 
     presence?: number | null
