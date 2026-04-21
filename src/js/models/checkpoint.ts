@@ -1,8 +1,9 @@
 
 export interface GroupCheckpointSession {
     id: number,
-    startTime: string // Check later if this should be Scrumdappdate
-    duration: number
+    startTime: string, // Check later if this should be Scrumdappdate
+    name: string,
+    duration: number,
     date: string,
     groupId: number,
     ownerId: number,

@@ -2,7 +2,7 @@ import {http, HttpResponse} from "msw";
 import {GroupCheckpoint, GroupCheckpointSession} from "../../src/js/models/checkpoint";
 import {groupData} from "./groupHandlers";
 import {groupUserData} from "./groupUserHandler";
-import {parseScrumdappDate, toScrumdappDate} from "../../src/js/utils/scrumdappDate";
+import {toScrumdappDate} from "../../src/js/utils/scrumdappDate";
 
 
 const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
@@ -99,6 +99,7 @@ function generateSession(id: number, gId: number, oId: number, date: Date ): Gro
         id: id,
         groupId: gId,
         ownerId: oId,
+        name: "check-in",
         date: toScrumdappDate(date),
         startTime: generateRandomTime(date),
         duration: 15,
@@ -152,7 +153,7 @@ export const groupCheckpointHandlers = [
         return HttpResponse.json(filteredSession)
     }),
     http.post("/api/groups/:gid/sessions", ({params}) => {
-        
+
     }),
     http.get("/api/groups/:gid/sessions/:sid", ({params}) => {
 
@@ -194,7 +195,6 @@ export const groupCheckpointHandlers = [
     http.get("/api/groups/:gid/checkpoints/:cid", ({params}) => {
         // @ts-ignore
         const session = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid) && it.id == parseInt(params.cid))[0]
-
         const checkpoints = groupCheckpoints.map(it => it.checkpoints).flat().filter(it => it.sessionId == session.id)
 
         return HttpResponse.json(checkpoints)

@@ -8,11 +8,12 @@ export default function Test() {
     const getCheckpoints = useApi(ScrumdappApi.getGroupCheckpoints())
 
     useEffect(() => {
-        getGroupCheckpoints.runCommand(1, undefined, "2026-04-17" )
+        getGroupCheckpoints.runCommand(1, undefined,  )
     }, [getGroupCheckpoints.runCommand]);
 
     useEffect(() => {
-        getCheckpoints.runCommand(2, 5475)
+        const session = 69
+        getCheckpoints.runCommand(2, 251)
     }, [getCheckpoints.runCommand]);
 
     if (getGroupCheckpoints.loading) {
@@ -24,7 +25,11 @@ export default function Test() {
             <h2>Checkpoints</h2>
             <div>
                 {getGroupCheckpoints.data?.map((session, index) => (
-                    <span>{session.id} information: {session.date} + {session.startTime} </span>
+                    <div>
+                        <span>{session.id} information: {session.date} + {session.name} + {session.startTime} </span>
+                        <br/>
+                    </div>
+
                 ))}
             </div>
 
@@ -33,7 +38,7 @@ export default function Test() {
             <div>
                 {getCheckpoints.data?.map((checkpoint, index) => (
                     <div>
-                        <span>{checkpoint.id} information: {checkpoint.sessionId} + {checkpoint.impediment} </span>
+                        <span>{checkpoint.id} information: {checkpoint.sessionId}  {checkpoint.impediment} </span>
                         <br/>
                     </div>
                 ))}
