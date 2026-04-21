@@ -6,7 +6,7 @@ import {isErrorDto} from "../../models/dto/errorDto.ts";
 import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate, UserGroupCheckin, CheckinFieldFlags} from "../../models/checkin.ts";
 import {
     GroupCheckpoint,
-    GroupCheckpointSession,
+    GroupCheckpointSession, GroupCheckpointSessionCreate,
     PartialGroupCheckpoint,
     UpdateGroupCheckpoint
 } from "../../models/checkpoint.ts";
@@ -131,8 +131,9 @@ export namespace ScrumdappApi {
     }
 
     export function createCheckpointSessions() {
-        return createProcessor("createCheckpointSession", (groupId: number) => {
+        return createProcessor("createCheckpointSession", (groupId: number, body: GroupCheckpointSessionCreate ) => {
             return makeApiRequest<GroupCheckpointSession>("POST", "/groups/{group.id}/sessions", {
+                body: body,
                 params: { "{group.id}": groupId.toString() }
             })
         })

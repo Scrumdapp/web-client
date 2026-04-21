@@ -9,6 +9,11 @@ export interface GroupCheckpointSession {
     ownerId: number,
 }
 
+export interface GroupCheckpointSessionCreate {
+    name: string,
+    duration?: number
+}
+
 export interface PartialGroupCheckpointSession {
     id: number,
     startTime: string // Check later if this should be Scrumdappdate

@@ -153,7 +153,10 @@ export const groupCheckpointHandlers = [
         return HttpResponse.json(filteredSession)
     }),
     http.post("/api/groups/:gid/sessions", ({params}) => {
-
+        // @ts-ignore
+        const sessions = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid))
+        const rnd = Math.floor(Math.random() * sessions.length)
+        return HttpResponse.json(sessions[rnd])
     }),
     http.get("/api/groups/:gid/sessions/:sid", ({params}) => {
 
