@@ -153,10 +153,13 @@ export const groupCheckpointHandlers = [
         return HttpResponse.json(filteredSession)
     }),
     http.post("/api/groups/:gid/sessions", ({params}) => {
+        const today = new Date().toISOString().split('T')[0]
         // @ts-ignore
-        const sessions = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid))
+        const sessions = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid) && it.date == today)
         const rnd = Math.floor(Math.random() * sessions.length)
-        return HttpResponse.json(sessions[rnd])
+
+
+        return HttpResponse.json(sessions[rnd], { status: 201})
     }),
     http.get("/api/groups/:gid/sessions/:sid", ({params}) => {
 
