@@ -9,7 +9,7 @@ import ModalCancelButton from "../../components/generic/modal/components/ModalCa
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 
 export function GroupCheckinPage() {
@@ -32,13 +32,16 @@ export function GroupCheckinPage() {
   const [currentUser, setCurrentUser] = useState<{ id: number } | null>(null);
 
     useEffect(() => {
+        let active = true;
         Promise.all([
             ScrumdappApi.getCurrentUser()(),
             ScrumdappApi.getGroupUsers()(group.id),
         ]).then(([me, groupUsers]) => {
+            if (!active) return;
             setCurrentUser(me);
             setUsers(groupUsers);
         });
+        return () => { active = false};
     }, [group.id]);
 
   const parseStartTime = (sessionDate: string, sessionStartTime: string) => {
@@ -46,7 +49,7 @@ export function GroupCheckinPage() {
     return Number.isNaN(parsed) ? Date.now() : parsed;
   };
 
-  const loadSessions = async () => {
+  const loadSessions = useCallback(async () => {
     const sessions = await ScrumdappApi.getCheckpointSessions()(
       group.id,
       undefined,
@@ -61,7 +64,7 @@ export function GroupCheckinPage() {
         sessionId: session.id,
       })),
     );
-  };
+  }, [group.id, date]);
 
   useEffect(() => {
     void loadSessions();
