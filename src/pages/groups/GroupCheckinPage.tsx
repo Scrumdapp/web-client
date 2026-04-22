@@ -11,6 +11,16 @@ import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useState} from "react";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
+import type {GroupCheckpointSession, PartialGroupCheckpoint} from "../../js/models/checkpoint.ts";
+
+const getCheckpointSessions = ScrumdappApi.getCheckpointSessions();
+const getGroupCheckpointsBySession = ScrumdappApi.getGroupCheckpointsBySession();
+const createCheckpointSession = ScrumdappApi.createCheckpointSession();
+
+type SessionWithCheckpoint = {
+    session: GroupCheckpointSession;
+    checkpointSession: GroupCheckpointSession;
+}
 
 export function GroupCheckinPage() {
     const group = useGroup()
@@ -18,16 +28,9 @@ export function GroupCheckinPage() {
     const [ searchParams ] = useSearchParams();
     const date = searchParams.get("date") ?? toScrumdappDate(new Date())
 
-    type Checkpoint = {
-        id: number;
-        date: string;
-        name: string;
-        startTime: number;
-        sessionId: number;
-    }
+    const [sessionsWithCheckpoints, setSessionsWithCheckpoints] = useState<SessionWithCheckpoints[]>([]);
+    const [sessionName, setSessionName] = useState("");
 
-    const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
-    const [checkpointName, setCheckpointName] = useState("");
 
     const handleCreate = async () => {
         if (!checkpointName.trim()) return;
@@ -66,6 +69,7 @@ export function GroupCheckinPage() {
                         sessionId={checkpoint.sessionId}
                     />
                 </div>
+
             ))}
             <Modal state={modal}>
                 <div className="space-y-5">
