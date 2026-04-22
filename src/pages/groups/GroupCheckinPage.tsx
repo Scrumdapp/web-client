@@ -28,6 +28,18 @@ export function GroupCheckinPage() {
 
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
   const [checkpointName, setCheckpointName] = useState("");
+  const [users, setUsers] = useState<{ user_id: number; first_name: string; last_name: string }[]>([]);
+  const [currentUser, setCurrentUser] = useState<{ id: number } | null>(null);
+
+    useEffect(() => {
+        Promise.all([
+            ScrumdappApi.getCurrentUser()(),
+            ScrumdappApi.getGroupUsers()(group.id),
+        ]).then(([me, groupUsers]) => {
+            setCurrentUser(me);
+            setUsers(groupUsers);
+        });
+    }, [group.id]);
 
   const parseStartTime = (sessionDate: string, sessionStartTime: string) => {
     const parsed = new Date(`${sessionDate}T${sessionStartTime}`).getTime();
@@ -84,6 +96,8 @@ export function GroupCheckinPage() {
             name={checkpoint.name}
             startTime={checkpoint.startTime}
             sessionId={checkpoint.sessionId}
+            users={users}
+            currentUser={currentUser}
           />
         </div>
       ))}

@@ -26,12 +26,16 @@ function Checkin({
   name,
   startTime,
   sessionId,
+  users,
+  currentUser,
 }: {
   groupId: number;
   date: string;
   name: string;
   startTime: number;
   sessionId: number;
+  users: { user_id: number; first_name: string; last_name: string }[];
+  currentUser: { id: number } | null;
 }) {
   type SessionCheckpointRow = {
     id: number;
@@ -59,38 +63,33 @@ function Checkin({
   const [rowsError, setRowsError] = useState<ApiError | null>(null);
   const [rowsLoading, setRowsLoading] = useState(false);
 
-  const [myUserId, setMyUserId] = useState<number | null>(null);
-  useEffect(() => {
-    ScrumdappApi.getCurrentUser()().then((user) => setMyUserId(user.id));
-  }, []);
+  const myUserId = currentUser?.id ?? null;
 
   useEffect(() => {
     let isActive = true;
     setRowsLoading(true);
     setRowsError(null);
-    Promise.all([
-      ScrumdappApi.getGroupUsers()(groupId),
-      ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId),
-    ])
-      .then(([users, checkpoints]) => {
-        if (!isActive) return;
-        setRows(
-          users.map((user) => {
-            const checkpoint = checkpoints.find(
-              (entry) => entry.groupUser === user.user_id,
-            );
-            return {
-              id: checkpoint?.id ?? user.user_id,
-              user_id: user.user_id,
-              first_name: user.first_name,
-              last_name: user.last_name,
-              presence: checkpoint?.presence ?? null,
-              stars: checkpoint?.stars ?? null,
-            };
-          }),
-        );
-      })
-      .catch((error) => {
+    ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId)
+        .then((checkpoints) => {
+          if (!isActive) return;
+          setRows(
+              users.map((user) => {
+                const checkpoint = checkpoints.find(
+                    (entry) => entry.groupUser === user.user_id,
+                );
+                return {
+                  id: checkpoint?.id ?? user.user_id,
+                  user_id: user.user_id,
+                  first_name: user.first_name,
+                  last_name: user.last_name,
+                  presence: checkpoint?.presence ?? null,
+                  stars: checkpoint?.stars ?? null,
+                };
+              }),
+          );
+        })
+
+        .catch((error) => {
         if (!isActive) return;
         if (error instanceof ApiError) {
           setRowsError(error);
@@ -135,39 +134,36 @@ function Checkin({
     modal.close();
     setRowsLoading(true);
     setRowsError(null);
-    Promise.all([
-      ScrumdappApi.getGroupUsers()(groupId),
-      ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId),
-    ])
-      .then(([users, checkpoints]) => {
-        setRows(
-          users.map((user) => {
-            const checkpoint = checkpoints.find(
-              (entry) => entry.groupUser === user.user_id,
-            );
-            return {
-              id: checkpoint?.id ?? user.user_id,
-              user_id: user.user_id,
-              first_name: user.first_name,
-              last_name: user.last_name,
-              presence: checkpoint?.presence ?? null,
-              stars: checkpoint?.stars ?? null,
-            };
-          }),
-        );
-      })
-      .catch((error) => {
-        if (error instanceof ApiError) {
-          setRowsError(error);
-        } else if (error instanceof Error) {
-          setRowsError(new ApiError(999, "Unhandled error", error));
-        } else {
-          setRowsError(new ApiError(999, "Unhandled error", error));
-        }
-      })
-      .finally(() => {
-        setRowsLoading(false);
-      });
+    ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId)
+        .then((checkpoints) => {
+          setRows(
+              users.map((user) => {
+                const checkpoint = checkpoints.find(
+                    (entry) => entry.groupUser === user.user_id,
+                );
+                return {
+                  id: checkpoint?.id ?? user.user_id,
+                  user_id: user.user_id,
+                  first_name: user.first_name,
+                  last_name: user.last_name,
+                  presence: checkpoint?.presence ?? null,
+                  stars: checkpoint?.stars ?? null,
+                };
+              }),
+          );
+        })
+        .catch((error) => {
+          if (error instanceof ApiError) {
+            setRowsError(error);
+          } else if (error instanceof Error) {
+            setRowsError(new ApiError(999, "Unhandled error", error));
+          } else {
+            setRowsError(new ApiError(999, "Unhandled error", error));
+          }
+        })
+        .finally(() => {
+          setRowsLoading(false);
+        });
   };
 
   return (
