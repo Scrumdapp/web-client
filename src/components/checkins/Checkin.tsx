@@ -15,7 +15,7 @@ import ModalActionRow from "../../components/generic/modal/components/ModalActio
 import ModalCancelButton from "../../components/generic/modal/components/ModalCancelButton.tsx";
 import {StarsDropDownMenu} from "./checkincomponents/StarsDropDownMenu.tsx";
 
-function Checkin({ groupId, date, name, startTime }: { groupId: number, date: string, name: string, startTime: number }) {
+function Checkin({ groupId, date, name, startTime, sessionId }: { groupId: number, date: string, name: string, startTime: number, sessionId: number }) {
     const GetGroupCheckinsComponent = useApiComponent(ScrumdappApi.getGroupCheckinsWithUsers())
     const modal = useModalState();
 
@@ -31,7 +31,10 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
     const [notes, setNotes] = useState("");
     const [selectedStar, setSelectedStar] = useState<number | null>(null);
 
-    const [user, setUser] = useState<string | null>(null);
+    const [myUserId, setMyUserId] = useState<number | null>(null);
+    useEffect(() => {
+        ScrumdappApi.getCurrentUser()().then(user => setMyUserId(user.id))
+    }, []);
 
     useEffect(() => {
         if (isLocked) return;
@@ -47,9 +50,15 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
     }, [startTime, isLocked]);
 
     const handleApply = async () => {
+        if (myUserId === null) return;
+        await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
+            userId: myUserId,
+            stars: selectedStar,
+            comment: notes
+        });
+
         setNotes("");
         setSelectedStar(null);
-        setUser("");
         modal.close();
     };
 
@@ -107,7 +116,6 @@ function Checkin({ groupId, date, name, startTime }: { groupId: number, date: st
                     />
                     <StarsDropDownMenu
                         value={selectedStar}
-                        value={user}
                         onChange={setSelectedStar}
                     />
                     </div>

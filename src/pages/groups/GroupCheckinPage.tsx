@@ -10,6 +10,7 @@ import {useModalState} from "../../js/hooks/useModalState.ts";
 import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useState} from "react";
+import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 
 export function GroupCheckinPage() {
     const group = useGroup()
@@ -22,17 +23,30 @@ export function GroupCheckinPage() {
         date: string;
         name: string;
         startTime: number;
+        sessionId: number;
     }
 
     const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
     const [checkpointName, setCheckpointName] = useState("");
 
-    const handleCreate = () => {
+    const handleCreate = async () => {
         if (!checkpointName.trim()) return;
-        setCheckpoints(prev => [...prev, { id: Date.now(), date, name: checkpointName.trim(), startTime: Date.now() }]);
+
+        const created = await ScrumdappApi.createCheckpointSessions()(group.id, {
+            name: checkpointName.trim(),
+        });
+
+        setCheckpoints(prev => [...prev, {
+            id: created.id,
+            date,
+            name: checkpointName.trim(),
+            startTime: Date.now(),
+            sessionId: created.id
+        }]);
         setCheckpointName("");
         modal.accept();
     }
+
 
 
     return (
@@ -49,6 +63,7 @@ export function GroupCheckinPage() {
                         key={checkpoint.id}
                         name={checkpoint.name}
                         startTime={checkpoint.startTime}
+                        sessionId={checkpoint.sessionId}
                     />
                 </div>
             ))}
