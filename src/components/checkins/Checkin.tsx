@@ -35,7 +35,7 @@ function Checkin({
   startTime: number;
   sessionId: number;
   users: { user_id: number; first_name: string; last_name: string }[];
-  currentUser: { id: number } | null;
+  currentUser: { id: number } | null | undefined;
 }) {
   type SessionCheckpointRow = {
     id: number;

@@ -9,8 +9,9 @@ import ModalCancelButton from "../../components/generic/modal/components/ModalCa
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
+import {userContext} from "../../js/context/user/userContext.ts";
 
 export function GroupCheckinPage() {
   const group = useGroup();
@@ -29,22 +30,20 @@ export function GroupCheckinPage() {
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
   const [checkpointName, setCheckpointName] = useState("");
   const [users, setUsers] = useState<{ user_id: number; first_name: string; last_name: string }[]>([]);
-  const [currentUser, setCurrentUser] = useState<{ id: number } | null>(null);
 
-    useEffect(() => {
-        let active = true;
-        Promise.all([
-            ScrumdappApi.getCurrentUser()(),
-            ScrumdappApi.getGroupUsers()(group.id),
-        ]).then(([me, groupUsers]) => {
-            if (!active) return;
-            setCurrentUser(me);
-            setUsers(groupUsers);
-        });
-        return () => { active = false};
-    }, [group.id]);
+  const { user: currentUser } = useContext(userContext) ?? {};
 
-  const parseStartTime = (sessionDate: string, sessionStartTime: string) => {
+  useEffect(() => {
+      let active = true;
+      ScrumdappApi.getGroupUsers()(group.id).then((groupUsers) => {
+          if (!active) return;
+          setUsers(groupUsers);
+      });
+      return () => { active = false; };
+      }, [group.id]);
+
+
+    const parseStartTime = (sessionDate: string, sessionStartTime: string) => {
     const parsed = new Date(`${sessionDate}T${sessionStartTime}`).getTime();
     return Number.isNaN(parsed) ? Date.now() : parsed;
   };
