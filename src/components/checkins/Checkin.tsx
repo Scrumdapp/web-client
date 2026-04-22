@@ -225,12 +225,12 @@ function Checkin({
         </Link>
         <button className="btn border" onClick={modal.open}>
           <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-          Change Checkpoint
+          Add Entry
         </button>
       </div>
       <Modal state={modal}>
         <div className="space-y-5">
-          <ModalHeadText>Change Checkpoint</ModalHeadText>
+          <ModalHeadText>Add Entry</ModalHeadText>
           <div className="flex flex-col space-y-2 w-full">
             <input
               className="write-section"
