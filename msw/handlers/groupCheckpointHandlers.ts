@@ -99,7 +99,7 @@ function generateSession(id: number, gId: number, oId: number, date: Date ): Gro
         id: id,
         groupId: gId,
         ownerId: oId,
-        name: "check-in",
+        name: "Checkpoint",
         date: toScrumdappDate(date),
         startTime: generateRandomTime(date),
         duration: 15,
