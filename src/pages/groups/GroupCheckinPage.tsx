@@ -1,5 +1,5 @@
 import { useGroup } from "../../js/context/group/useGroup.ts";
-import Checkin from "../../components/checkins/Checkin.tsx";
+import Checkpoint from "../../components/checkins/Checkpoint.tsx";
 import { useSearchParams } from "react-router-dom";
 import { toScrumdappDate } from "../../js/utils/scrumdappDate.ts";
 import Modal from "../../components/generic/modal/Modal.tsx";
@@ -7,11 +7,14 @@ import ModalHeadText from "../../components/generic/modal/components/ModalHeadTe
 import ModalActionRow from "../../components/generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../components/generic/modal/components/ModalCancelButton.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import {faAdd, faCheck} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState, useCallback, useContext } from "react";
-import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
+import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {userContext} from "../../js/context/user/userContext.ts";
+import {LoadScreen} from "../../components/generic/LoadScreen.tsx";
+import {useApi} from "../../js/hooks/api/useApi.ts";
+
 
 export function GroupCheckinPage() {
   const group = useGroup();
@@ -19,7 +22,9 @@ export function GroupCheckinPage() {
   const [searchParams] = useSearchParams();
   const date = searchParams.get("date") ?? toScrumdappDate(new Date());
 
-  type Checkpoint = {
+    const updateGroupCheckpoints = useApi(ScrumdappApi.updateGroupCheckpoints());
+
+    type Checkpoint = {
     id: number;
     date: string;
     name: string;
@@ -91,7 +96,7 @@ export function GroupCheckinPage() {
       </div>
       {checkpoints.map((checkpoint) => (
         <div key={checkpoint.id} className="w-full">
-          <Checkin
+          <Checkpoint
             groupId={group.id}
             date={checkpoint.date}
             key={checkpoint.id}
@@ -109,13 +114,25 @@ export function GroupCheckinPage() {
           <input
             className="write-section w-full!"
             placeholder="Session Name"
+            value={checkpointName}
+            maxLength={30}
             onChange={(e) => setCheckpointName(e.target.value)}
+            required
           ></input>
           <ModalActionRow>
             <ModalCancelButton />
-            <button className="btn btn-secondary border" onClick={handleCreate}>
-              Create
-            </button>
+              <button
+                  className={`btn btn-secondary border ${!checkpointName ? "opacity-50 cursor-not-allowed!" : ""}`}
+                  disabled={!checkpointName}
+                  onClick={handleCreate}
+              >
+                  <FontAwesomeIcon icon={faCheck} className="icon" />
+                  {updateGroupCheckpoints.loading || updateGroupCheckpoints.loading ? (
+                      <LoadScreen />
+                  ) : (
+                      "Create"
+                  )}
+              </button>
           </ModalActionRow>
         </div>
       </Modal>

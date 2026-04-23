@@ -34,8 +34,7 @@ export interface GroupCheckpoint {
 
 export interface PartialGroupCheckpoint {
     id: number
-    groupUser: number,
-
+    groupUser: number
     presence?: number | null
     impediment?: string | null
     stars?: number | null
@@ -48,8 +47,7 @@ export interface CheckpointSessionFlags {
 
 export interface UpdateGroupCheckpoint {
     userId: number
-
-    presence?: number | null
+    presence?: string | null
     impediment?: string | null
     stars?: number | null
     comment?: string | null

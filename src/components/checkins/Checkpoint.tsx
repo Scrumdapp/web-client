@@ -1,9 +1,6 @@
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
-import Stars from "./checkincomponents/Stars.tsx";
-import {
-  getStarsColor,
-  getAttendanceColor,
-} from "../../js/utils/colorUtils.ts";
+import Stars from "./checkpointcomponents/Stars.tsx";
+import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -15,12 +12,12 @@ import { useModalState } from "../../js/hooks/useModalState.ts";
 import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../../components/generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../components/generic/modal/components/ModalCancelButton.tsx";
-import { StarsDropDownMenu } from "./checkincomponents/StarsDropDownMenu.tsx";
+import { StarsDropDownMenu } from "./checkpointcomponents/StarsDropDownMenu.tsx";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 
-function Checkin({
+function Checkpoint({
   groupId,
   date,
   name,
@@ -243,7 +240,7 @@ function Checkin({
           <ModalActionRow>
             <ModalCancelButton />
             <button
-              className={`btn border ${!notes && selectedStar === null ? "forbidden" : ""}`}
+              className={`btn border ${!notes && selectedStar === null ? "opacity-50 cursor-not-allowed!" : ""}`}
               disabled={!notes && selectedStar === null}
               onClick={handleApply}
             >
@@ -256,4 +253,4 @@ function Checkin({
   );
 }
 
-export default Checkin;
+export default Checkpoint;

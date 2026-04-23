@@ -1,9 +1,9 @@
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import { useSearchParams } from "react-router-dom";
 import { toScrumdappDate } from "../../js/utils/scrumdappDate.ts";
-import { ScrummasterCheckinsTable } from "../../components/checkins/ScrummasterCheckins.tsx";
+import { ScrummasterCheckpointTable } from "../../components/checkins/ScrummasterCheckpoint.tsx";
 
-export function ScrummasterCheckinPage() {
+export function ScrummasterCheckpointPage() {
   const group = useGroup();
 
   const [searchParams] = useSearchParams();
@@ -12,7 +12,7 @@ export function ScrummasterCheckinPage() {
   const sessionId = sessionParam ? Number(sessionParam) : undefined;
 
   return (
-    <ScrummasterCheckinsTable
+    <ScrummasterCheckpointTable
       groupId={group.id}
       date={date}
       sessionId={Number.isNaN(sessionId) ? undefined : sessionId}
