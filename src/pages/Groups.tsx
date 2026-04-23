@@ -41,7 +41,7 @@ export default function Groups() {
                         placeholder="Group Name"
                         className="write-section mb-4 w-full!"
                         value={name}
-                        maxLength="80" // Ignore error, shit just works fine, don't worry
+                        maxLength={30}
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
