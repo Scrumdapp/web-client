@@ -88,7 +88,7 @@ export function GroupCheckinPage() {
 
   return (
     <div className="space-y-3 ">
-      <div className="flex justify-between card w-7/10 h-20 bg-bg_h border rounded-lg p-2 items-center">
+      <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
         <h2 className="px-2">{date}</h2>
         <button className="btn border" onClick={modal.open}>
           <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Session

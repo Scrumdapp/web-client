@@ -25,7 +25,6 @@ export interface GroupCheckpoint {
     id: number
     groupUser: number
     sessionId: number
-
     presence?: string | null
     impediment?: string | null
     stars?: number | null

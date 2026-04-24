@@ -16,6 +16,7 @@ import { StarsDropDownMenu } from "./checkpointcomponents/StarsDropDownMenu.tsx"
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
+import {GroupCheckpoint} from "../../js/models/checkpoint.ts";
 
 function Checkpoint({
   groupId,
@@ -34,14 +35,12 @@ function Checkpoint({
   users: { user_id: number; first_name: string; last_name: string }[];
   currentUser: { id: number } | null | undefined;
 }) {
-  type SessionCheckpointRow = {
-    id: number;
-    user_id: number;
-    first_name: string;
-    last_name: string;
-    presence?: string | number | null;
-    stars?: number | null;
-  };
+    type SessionCheckpointRow = Omit<GroupCheckpoint, "groupUser" | "presence"> & {
+        user_id: number;
+        first_name: string;
+        last_name: string;
+        presence?: string | number | null;
+    };
 
   const modal = useModalState();
 
@@ -71,16 +70,19 @@ function Checkpoint({
           if (!isActive) return;
           setRows(
               users.map((user) => {
-                const checkpoint = checkpoints.find(
+                const checkpoint  = checkpoints.find(
                     (entry) => entry.groupUser === user.user_id,
                 );
                 return {
                   id: checkpoint?.id ?? user.user_id,
+                  sessionId: checkpoint?.sessionId ?? sessionId,
                   user_id: user.user_id,
                   first_name: user.first_name,
                   last_name: user.last_name,
                   presence: checkpoint?.presence ?? null,
                   stars: checkpoint?.stars ?? null,
+                  comment: checkpoint?.comment ?? null,
+                  impediment: checkpoint?.impediment ?? null,
                 };
               }),
           );
@@ -138,13 +140,16 @@ function Checkpoint({
                 const checkpoint = checkpoints.find(
                     (entry) => entry.groupUser === user.user_id,
                 );
-                return {
-                  id: checkpoint?.id ?? user.user_id,
-                  user_id: user.user_id,
-                  first_name: user.first_name,
-                  last_name: user.last_name,
-                  presence: checkpoint?.presence ?? null,
-                  stars: checkpoint?.stars ?? null,
+                  return {
+                      id: checkpoint?.id ?? user.user_id,
+                      sessionId: checkpoint?.sessionId ?? sessionId,
+                      user_id: user.user_id,
+                      first_name: user.first_name,
+                      last_name: user.last_name,
+                      presence: checkpoint?.presence ?? null,
+                      stars: checkpoint?.stars ?? null,
+                      comment: checkpoint?.comment ?? null,
+                      impediment: checkpoint?.impediment ?? null,
                 };
               }),
           );
@@ -164,9 +169,9 @@ function Checkpoint({
   };
 
   return (
-    <div className="card w-7/10 space-x-5">
+    <div className="card w-full space-x-5">
       <h2>{name}</h2>
-      <hr className="my-2" />
+      <hr className="my-2 mr-0" />
       <p className="text-sm">
         {isLocked
           ? "Check-in closed"
@@ -180,28 +185,40 @@ function Checkpoint({
         <table className="w-full">
           <thead>
             <tr>
-              <th className="py-3 text-left pl-2">Name</th>
-              <th className="py-3 text-left pl-2">Attendance</th>
-              <th className="py-3 items-center">How're you feeling?</th>
+              <th className="py-3 text-left  border-b border-dotted">Name</th>
+              <th className="py-3 text-left pl-2 border-l border-b border-dotted">Attendance</th>
+              <th className="py-3 items-center pl-2 border-b border-dotted">How're you feeling?</th>
+              <th className="py-3 text-center pl-2 w-[25%] border-b border-dotted">Comment</th>
+              <th className="py-3 text-center pl-2 w-[25%] border-b border-dotted">Obstacle</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((item) => (
               <tr key={item.id}>
-                <td className="py-3 text-left pl-2 name-field">
+                <td className="py-3 text-left pl-2 name-field border-r border-dotted border-current!">
                   {item.first_name} {item.last_name}
                 </td>
                 <td
-                  className={`py-3 text-left pl-2 ${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}
+                  className={`py-3 text-left p-3 ${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}
                 >
                   {getformatPresence(
                     item.presence ? String(item.presence) : "---",
                   )}
                 </td>
                 <td className={`p-3 ${getStarsColor(item.stars)}`}>
-                  <div className="flex justify-center items-center">
+                  <div className="flex justify-center items-center ">
                     <Stars amount={item.stars} />
                   </div>
+                </td>
+                <td className="p-3">
+                  <div>
+                      {item.comment}
+                  </div>
+                </td>
+                <td className="p-3">
+                    <div>
+                        {item.impediment}
+                    </div>
                 </td>
               </tr>
             ))}
