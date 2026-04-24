@@ -228,7 +228,7 @@ function Checkpoint({
       <div className="align-center horizontal gap-3 mt-2 justify-end">
         <Link
           to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-          className="btn border m-auto mx-2"
+          className="btn border m-auto mx-2 opacity-50 cursor-not-allowed!"
         >
           <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
           Scrummaster Checkpoint
