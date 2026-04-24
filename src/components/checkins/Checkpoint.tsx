@@ -210,12 +210,12 @@ function Checkpoint({
                     <Stars amount={item.stars} />
                   </div>
                 </td>
-                <td className="p-3">
+                <td className="p-3 break-all">
                   <div>
                       {item.comment}
                   </div>
                 </td>
-                <td className="p-3">
+                <td className="p-3 break-all">
                     <div>
                         {item.impediment}
                     </div>
