@@ -174,7 +174,7 @@ function Checkpoint({
       <hr className="my-2 mr-0" />
       <p className="text-sm">
         {isLocked
-          ? "Check-in closed"
+          ? "Checkpoint closed"
           : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
       </p>
       {rowsLoading || rows === null ? (
@@ -185,40 +185,38 @@ function Checkpoint({
         <table className="table-fixed w-full">
           <thead>
             <tr>
-              <th className="py-3 text-left  border-b border-dotted">Name</th>
-              <th className="py-3 text-left pl-2 border-l border-b border-dotted">Attendance</th>
-              <th className="py-3 items-center pl-2 border-b border-dotted">How're you feeling?</th>
-              <th className="py-3 text-center pl-2 w-[25%] border-b border-dotted">Comment</th>
-              <th className="py-3 text-center pl-2 w-[25%] border-b border-dotted">Obstacle</th>
+              <th className="py-3 text-left">Name</th>
+              <th className="py-3 text-left pl-2 border-l border-dotted">Attendance</th>
+              <th className="py-3 items-center pl-2">How're you feeling?</th>
+              <th className="py-3 text-center pl-2 w-[25%]">Comment</th>
+              <th className="py-3 text-center pl-2 w-[25%]">Obstacle</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((item) => (
               <tr key={item.id}>
-                <td className="py-3 text-left pl-2 name-field border-r border-dotted border-current!">
+                <td className="py-3 text-left pl-2 name-field border-r border-t border-dotted border-current!">
                   {item.first_name} {item.last_name}
                 </td>
                 <td
-                  className={`py-3 text-left p-3 ${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}
+                  className={`py-3 text-left p-3 border-t border-dotted border-current!`}
                 >
-                  {getformatPresence(
-                    item.presence ? String(item.presence) : "---",
-                  )}
-                </td>
-                <td className={`p-3 ${getStarsColor(item.stars)}`}>
-                  <div className="flex justify-center items-center ">
-                    <Stars amount={item.stars} />
-                  </div>
-                </td>
-                <td className="p-3 break-words">
-                  <div>
-                      {item.comment}
-                  </div>
-                </td>
-                <td className="p-3 break-words">
-                    <div>
-                        {item.impediment}
+                    <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
+                        {getformatPresence(
+                            item.presence ? String(item.presence) : "---",
+                        )}
                     </div>
+                </td>
+                <td className={`p-3 border-t border-dotted border-current!`}>
+                    <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
+                        <Stars amount={item.stars} />
+                    </div>
+                </td>
+                <td className="p-3 break-words border-t border-dotted">
+                    {item.comment}
+                </td>
+                <td className="p-3 break-words border-t border-dotted">
+                    {item.impediment}
                 </td>
               </tr>
             ))}
