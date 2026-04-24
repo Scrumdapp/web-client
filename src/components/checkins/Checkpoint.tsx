@@ -195,7 +195,7 @@ function Checkpoint({
           <tbody>
             {rows.map((item) => (
               <tr key={item.id}>
-                <td className="py-3 text-left pl-2 name-field border-r border-t border-dotted border-current">
+                <td className="py-3 text-left pl-2 name-field border-r border-t border-dotted border-current!">
                   {item.first_name} {item.last_name}
                 </td>
                 <td
