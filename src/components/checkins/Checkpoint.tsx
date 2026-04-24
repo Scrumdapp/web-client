@@ -182,7 +182,7 @@ function Checkpoint({
       ) : rowsError ? (
         <ErrorScreen error={rowsError} />
       ) : (
-        <table className="w-full">
+        <table className="table-fixed w-full">
           <thead>
             <tr>
               <th className="py-3 text-left  border-b border-dotted">Name</th>
@@ -210,12 +210,12 @@ function Checkpoint({
                     <Stars amount={item.stars} />
                   </div>
                 </td>
-                <td className="p-3 break-all">
+                <td className="p-3 break-words">
                   <div>
                       {item.comment}
                   </div>
                 </td>
-                <td className="p-3 break-all">
+                <td className="p-3 break-words">
                     <div>
                         {item.impediment}
                     </div>
