@@ -158,8 +158,8 @@ function Checkpoint({
               <th className="py-3 text-left">Name</th>
               <th className="py-3 text-left pl-2 border-l border-dotted">Attendance</th>
               <th className="py-3 items-center pl-2">How're you feeling?</th>
-              <th className="py-3 text-center pl-2 w-[25%]">Comment</th>
-              <th className="py-3 text-center pl-2 w-[25%]">Obstacle</th>
+              <th className="py-3 text-left pl-2 w-[25%]">Comment</th>
+              <th className="py-3 text-left pl-2 w-[25%]">Obstacle</th>
             </tr>
           </thead>
           <tbody>
