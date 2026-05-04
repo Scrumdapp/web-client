@@ -6,13 +6,15 @@ import {useApi} from "./useApi.ts";
 import {useEffect} from "react";
 import {LoadScreen} from "../../../components/generic/LoadScreen.tsx";
 import {ErrorScreen} from "../../../components/generic/ErrorScreen.tsx";
+import * as React from "react";
 
 export function useApiComponent<TInput extends any[], TResult>(processor: RequestProcessor<TInput, TResult>) {
     return useMemo(() => {
-    return ({input, loading, error, children}: {
+    return ({input, loading, error, empty, children}: {
         input: TInput
         loading?: ReactNode
         error?: (error: ApiError) => ReactNode
+        empty?: ReactNode
         children: (data: TResult) => ReactNode | JSX.Element
     }) => {
         const apiRequester = useApi(processor)
@@ -32,6 +34,10 @@ export function useApiComponent<TInput extends any[], TResult>(processor: Reques
         if (apiRequester.data == null) {
             const apiError = new ApiError(200, "No data was provided")
             return error ? error(apiError) : <ErrorScreen error={apiError}/>;
+        }
+
+        if (Array.isArray(apiRequester.data) && apiRequester.data.length === 0) {
+            return empty ?? <ErrorScreen error={new ApiError(200, "No data available")} />
         }
 
         return children(apiRequester.data)

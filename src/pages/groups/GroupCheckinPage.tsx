@@ -94,6 +94,7 @@ export function GroupCheckinPage() {
           <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Session
         </button>
       </div>
+
       {checkpoints.map((checkpoint) => (
         <div key={checkpoint.id} className="w-full">
           <Checkpoint

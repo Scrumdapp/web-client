@@ -78,6 +78,10 @@ table {
     @apply pt-2
 }
 
+.checkpoint-table-cell {
+    @apply p-3 wrap-break-word border-t border-dotted
+}
+
 .name-field {
     @apply  w-40 max-w-40 border-r-green
 }

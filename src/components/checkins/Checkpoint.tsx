@@ -112,7 +112,9 @@ function Checkpoint({
 
     const interval = setInterval(() => {
       const expiresAt = startTime + DURATION_MS;
-      const remaining = Math.max(0, expiresAt - Date.now());
+        console.log(`now: ${Date.now()} timestamp: ${expiresAt} subtracted: ${expiresAt - Date.now()}`)
+
+        const remaining = Math.max(0, expiresAt - Date.now());
       setTimeLeft(remaining);
       if (remaining <= 0) clearInterval(interval);
     }, 1000);

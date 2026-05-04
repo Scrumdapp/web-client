@@ -120,11 +120,11 @@ function generateCheckpoint(sId: number, uId: number): GroupCheckpoint  {
 }
 
 function generateRandomTime(now: Date): string {
+    const date = new Date()
+    date.setHours(Math.floor(9 + Math.random() * (17 - 9) | 9))
+    date.setMinutes(Math.floor(Math.random() * 60))
 
-    now.setHours(9 + Math.random() * (17 - 9) | 9)
-    now.setMinutes(Math.random() * 60)
-
-    const dateText = now.toTimeString()
+    const dateText = date.toTimeString()
     return dateText.split(' ')[0]
 }
 
