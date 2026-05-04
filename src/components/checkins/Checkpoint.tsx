@@ -136,41 +136,6 @@ function Checkpoint({
     setNotes("");
     setSelectedStar(null);
     modal.close();
-    // setRowsLoading(true);
-    // setRowsError(null);
-    // ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId)
-    //     .then((checkpoints) => {
-    //       setRows(
-    //           users.map((user) => {
-    //             const checkpoint = checkpoints.find(
-    //                 (entry) => entry.groupUser === user.user_id,
-    //             );
-    //               return {
-    //                   id: checkpoint?.id ?? user.user_id,
-    //                   sessionId: checkpoint?.sessionId ?? sessionId,
-    //                   user_id: user.user_id,
-    //                   first_name: user.first_name,
-    //                   last_name: user.last_name,
-    //                   presence: checkpoint?.presence ?? null,
-    //                   stars: checkpoint?.stars ?? null,
-    //                   comment: checkpoint?.comment ?? null,
-    //                   impediment: checkpoint?.impediment ?? null,
-    //             };
-    //           }),
-    //       );
-    //     })
-    //     .catch((error) => {
-    //       if (error instanceof ApiError) {
-    //         setRowsError(error);
-    //       } else if (error instanceof Error) {
-    //         setRowsError(new ApiError(999, "Unhandled error", error));
-    //       } else {
-    //         setRowsError(new ApiError(999, "Unhandled error", error));
-    //       }
-    //     })
-    //     .finally(() => {
-    //       setRowsLoading(false);
-    //     });
   };
 
   return (
