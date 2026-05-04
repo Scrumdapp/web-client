@@ -55,6 +55,7 @@ function Checkpoint({
 
   const [notes, setNotes] = useState("");
   const [selectedStar, setSelectedStar] = useState<number | null>(null);
+  const [impediment, setImpediment] = useState("");
   const [rows, setRows] = useState<SessionCheckpointRow[] | null>(null);
   const [rowsError, setRowsError] = useState<ApiError | null>(null);
   const [rowsLoading, setRowsLoading] = useState(false);
@@ -126,15 +127,17 @@ function Checkpoint({
       userId: myUserId,
       stars: selectedStar,
       comment: notes,
+      impediment: impediment || null,
     });
       setRows(prev => prev?.map(row =>
           row.user_id === myUserId
-              ? { ...row, stars: selectedStar, comment: notes }
+              ? { ...row, stars: selectedStar, comment: notes, impediment: impediment || null }
               : row
       ) ?? prev);
 
     setNotes("");
     setSelectedStar(null);
+    setImpediment("")
     modal.close();
   };
 
@@ -219,6 +222,12 @@ function Checkpoint({
               onChange={(e) => setNotes(e.target.value)}
               required
             />
+            <input
+            className="write-section"
+            placeholder="Obstacle"
+            value={impediment}
+            onChange={(e) => setImpediment(e.target.value)}
+            />
             <StarsDropDownMenu
               value={selectedStar}
               onChange={setSelectedStar}
@@ -227,15 +236,15 @@ function Checkpoint({
             </form>
           <ModalActionRow>
             <ModalCancelButton />
-            <button
-              className={`btn border ${!notes && selectedStar === null ? "opacity-50 cursor-not-allowed!" : ""}`}
-              disabled={!notes && selectedStar === null}
-              onClick={handleApply}
-              form="entry"
-              type="button"
-            >
-              Apply
-            </button>
+              <button
+                  className={`btn border ${!notes && selectedStar === null && !impediment ? "opacity-50 cursor-not-allowed!" : ""}`}
+                  disabled={!notes && selectedStar === null && !impediment}
+                  onClick={handleApply}
+                  form="entry"
+                  type="button"
+              >
+                Apply
+              </button>
           </ModalActionRow>
         </div>
       </Modal>
