@@ -127,45 +127,50 @@ function Checkpoint({
       stars: selectedStar,
       comment: notes,
     });
+      setRows(prev => prev?.map(row =>
+          row.user_id === myUserId
+              ? { ...row, stars: selectedStar, comment: notes }
+              : row
+      ) ?? prev);
 
     setNotes("");
     setSelectedStar(null);
     modal.close();
-    setRowsLoading(true);
-    setRowsError(null);
-    ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId)
-        .then((checkpoints) => {
-          setRows(
-              users.map((user) => {
-                const checkpoint = checkpoints.find(
-                    (entry) => entry.groupUser === user.user_id,
-                );
-                  return {
-                      id: checkpoint?.id ?? user.user_id,
-                      sessionId: checkpoint?.sessionId ?? sessionId,
-                      user_id: user.user_id,
-                      first_name: user.first_name,
-                      last_name: user.last_name,
-                      presence: checkpoint?.presence ?? null,
-                      stars: checkpoint?.stars ?? null,
-                      comment: checkpoint?.comment ?? null,
-                      impediment: checkpoint?.impediment ?? null,
-                };
-              }),
-          );
-        })
-        .catch((error) => {
-          if (error instanceof ApiError) {
-            setRowsError(error);
-          } else if (error instanceof Error) {
-            setRowsError(new ApiError(999, "Unhandled error", error));
-          } else {
-            setRowsError(new ApiError(999, "Unhandled error", error));
-          }
-        })
-        .finally(() => {
-          setRowsLoading(false);
-        });
+    // setRowsLoading(true);
+    // setRowsError(null);
+    // ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId)
+    //     .then((checkpoints) => {
+    //       setRows(
+    //           users.map((user) => {
+    //             const checkpoint = checkpoints.find(
+    //                 (entry) => entry.groupUser === user.user_id,
+    //             );
+    //               return {
+    //                   id: checkpoint?.id ?? user.user_id,
+    //                   sessionId: checkpoint?.sessionId ?? sessionId,
+    //                   user_id: user.user_id,
+    //                   first_name: user.first_name,
+    //                   last_name: user.last_name,
+    //                   presence: checkpoint?.presence ?? null,
+    //                   stars: checkpoint?.stars ?? null,
+    //                   comment: checkpoint?.comment ?? null,
+    //                   impediment: checkpoint?.impediment ?? null,
+    //             };
+    //           }),
+    //       );
+    //     })
+    //     .catch((error) => {
+    //       if (error instanceof ApiError) {
+    //         setRowsError(error);
+    //       } else if (error instanceof Error) {
+    //         setRowsError(new ApiError(999, "Unhandled error", error));
+    //       } else {
+    //         setRowsError(new ApiError(999, "Unhandled error", error));
+    //       }
+    //     })
+    //     .finally(() => {
+    //       setRowsLoading(false);
+    //     });
   };
 
   return (
@@ -239,6 +244,8 @@ function Checkpoint({
       <Modal state={modal}>
         <div className="space-y-5">
           <ModalHeadText>Add Entry</ModalHeadText>
+            <form id="entry">
+
           <div className="flex flex-col space-y-2 w-full">
             <input
               className="write-section"
@@ -252,12 +259,15 @@ function Checkpoint({
               onChange={setSelectedStar}
             />
           </div>
+            </form>
           <ModalActionRow>
             <ModalCancelButton />
             <button
               className={`btn border ${!notes && selectedStar === null ? "opacity-50 cursor-not-allowed!" : ""}`}
               disabled={!notes && selectedStar === null}
               onClick={handleApply}
+              form="entry"
+              type="button"
             >
               Apply
             </button>
