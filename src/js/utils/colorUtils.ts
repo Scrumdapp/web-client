@@ -35,7 +35,7 @@ export const starsOptions = [
 ];
 
 export function getStarsColor(value: number | null | undefined): string {
-    return starsOptions.find(opt => opt.value === value)?.color ?? "text-gray";
+    return starsOptions.find(opt => opt.value == value)?.color ?? "text-gray";
 }
 
 export function getformatPresence(value: string): string {

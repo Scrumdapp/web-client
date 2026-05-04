@@ -17,7 +17,7 @@ export function useSessionStateContext() {
     const [expanded, setExpanded] = useState<Set<number>>(() => new Set());
     const [onToggleCb, setOnToggleCb] = useState<(() => void) | null>(null)
 
-    const [refreshKey, setRefreshKey] = useState(0);
+    const [refreshKey, setRefreshKey] = useState(-1);
 
     const isExpanded = useCallback((id: number) => expanded.has(id), [expanded])
 
@@ -36,7 +36,7 @@ export function useSessionStateContext() {
 
     const closeAll = useCallback(() => setExpanded(new Set()), []);
 
-    const refresh = useCallback(() => setRefreshKey(k => k+1), []);
+    const refresh = useCallback((id: number) => setRefreshKey(id), []);
 
     return useMemo(() => ({
             expanded, isExpanded, toggleExpanded, closeAll, refresh, refreshKey, onToggle: setOnToggleCb

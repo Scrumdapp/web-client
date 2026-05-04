@@ -1,4 +1,4 @@
-import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
+    import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {UseSessionTimer} from "./UseSessionTimer.tsx";
 import {parseTimeStr} from "../../js/utils/timeUtils.ts";
 import {LoadScreen} from "../generic/LoadScreen.tsx";
@@ -6,6 +6,7 @@ import {useApi} from "../../js/hooks/api/useApi.ts";
 import {useEffect} from "react";
 import {SessionStateProvider, useSessionStateContext} from "./UseSessionStateContext.tsx";
 import Checkpoints from "./Checkpoints.tsx";
+    import OwnCheckpoint from "./OwnCheckpoint.tsx";
 
 export function Sessions({groupId, date}: {
     groupId: number
@@ -39,6 +40,7 @@ export function Sessions({groupId, date}: {
                             {state.expanded.has(session.id) ? "Hide": "Show"} details
                         </button>
                         <Checkpoints session={session} />
+                        <OwnCheckpoint sessionId={session.id} groupId={groupId} isLocked={false} />
                     </div>
                 ))
             }

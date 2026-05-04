@@ -1,55 +1,67 @@
 import {useUser} from "../../js/context/user/useUser.ts";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCross, faPencil} from "@fortawesome/free-solid-svg-icons";
 import {useModalState} from "../../js/hooks/useModalState.ts";
-import {GroupCheckpoint, UpdateGroupCheckpoint} from "../../js/models/checkpoint.ts";
 import Modal from "../generic/modal/Modal.tsx";
 import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
-import {StarsDropDownMenu} from "../checkins/checkpointcomponents/StarsDropDownMenu.tsx";
 import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx";
 import {useSessionState} from "./UseSessionStateContext.tsx";
 import { useForm } from "./useForm.ts";
+import {UpdateGroupCheckpoint} from "../../js/models/checkpoint.ts";
+import {getStarsColor, starsOptions} from "../../js/utils/colorUtils.ts";
 
-
-export default function OwnCheckpoint(sessionId: number, groupId: number, isLocked: boolean) {
+export default function OwnCheckpoint({sessionId, groupId, isLocked}: {
+    sessionId: number,
+    groupId: number,
+    isLocked: boolean
+}) {
     
     const user = useUser();
-    const { refresh } = useSessionState()
+    const { refresh, refreshKey } = useSessionState()
     const modal = useModalState();
 
     const getCheckpoint = useApi(ScrumdappApi.getGroupCheckpoints());
     const updateCheckpoint = useApi(ScrumdappApi.updateGroupCheckpoint())
 
-    const [checkpoint, setCheckpoint] = useState<GroupCheckpoint | null>(null)
+    const emptyCheckpoint: UpdateGroupCheckpoint = {
+        userId: user.id,
+        presence: "",
+        impediment: "",
+        comment: "",
+        stars: 0,
+    };
+
+    const { values, setValues, handleChange, handleSubmit } = useForm(emptyCheckpoint);
 
     useEffect(() => {
-        getCheckpoint.runCommand(groupId, sessionId, user.id);
-        if (getCheckpoint.data != null) {
-            setCheckpoint(getCheckpoint.data[0]);
-        }
+        if (isLocked) return
+        if (refreshKey > 0 && refreshKey != sessionId) return
+
+        getCheckpoint.runCommand(groupId, sessionId, user.id).then(r => {
+            const field = r[0];
+            const updatedFields: UpdateGroupCheckpoint = {
+                userId: user.id,
+                presence: field.presence,
+                impediment: field.impediment,
+                comment: field.comment,
+                stars: field.stars,
+            };
+            setValues(updatedFields);
+        });
     }, [getCheckpoint.runCommand, groupId, sessionId, user.id]);
 
-
-    const updatedFields: UpdateGroupCheckpoint = {
-        userId: user.id,
-        presence: checkpoint?.presence,
-        impediment: checkpoint?.impediment,
-        comment: checkpoint?.comment,
-        stars: checkpoint?.stars,
-    }
-    const { handleChange, handleSubmit } = useForm(updatedFields)
-
     const onSubmit = (data: UpdateGroupCheckpoint) => {
+
+        // TODO("Actually give something back and handle errors ):")
         updateCheckpoint.runCommand(groupId, sessionId, data)
             .then(() => {
-                    modal.close();
-                    refresh();
-                }
-            )
+                modal.close();
+                refresh(sessionId);
+            })
             .catch(() => {
 
             })
@@ -72,40 +84,64 @@ export default function OwnCheckpoint(sessionId: number, groupId: number, isLock
         <>
             <button className="btn border" onClick={modal.open}>
                 <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-                {checkpoint ? "Edit own checkpoint" : "Add own checkpoint"}
+                {values ? "Edit own checkpoint" : "Add own checkpoint"}
             </button>
             <Modal state={modal}>
                 <div className="space-y-5">
-                    <ModalHeadText>{checkpoint ? "Edit checkpoint" : "Add checkpoint"}</ModalHeadText>
+                    <ModalHeadText>{values ? "Edit checkpoint" : "Add checkpoint"}</ModalHeadText>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="flex flex-col space-y-2 w-full">
-                            {/*I don't know if this is going to work...*/}
-                            <StarsDropDownMenu value={checkpoint?.stars} />
+                        <div className="flex flex-col space-y-2 mb-3 w-full">
+                            <label>Stars:</label>
+                            <NewStarsDropdown value={values?.stars} handleChange={handleChange} />
 
                             <label>Impediments:</label>
-                            <input
+                            <textarea
                                 className="write-section"
                                 placeholder="Which tasks should be completed but have been delayed or haven't been completed yet?"
-                                value={updatedFields?.impediment ?? ""}
+                                defaultValue={values?.impediment ?? ""}
                                 onChange={handleChange("impediment")}
                             />
 
                             <label>Comment & other:</label>
-                            <input
+                            <textarea
                                 className="write-section"
                                 placeholder="What's your plan for today?"
-                                value={checkpoint?.comment ?? ""}
+                                value={values?.comment ?? ""}
+                                onChange={handleChange("comment")}
                             />
                         </div>
 
                         <ModalActionRow>
                             <ModalCancelButton />
-                            <button type="submit">Submit</button>
+                            <button className="btn border" type="submit">Submit</button>
                         </ModalActionRow>
                     </form>
                 </div>
             </Modal>
         </>
 
+    )
+}
+
+function NewStarsDropdown({value, handleChange}:{
+    value: number | undefined | null,
+    handleChange: any
+}) {
+    const currentColor = getStarsColor(value);
+
+    return (
+        <select
+            value={String(value)}
+            onChange={handleChange("stars")}
+            className={`btn-attendance border cursor-pointer text-left ${currentColor}`}
+        >
+            {starsOptions.map((opt) => (
+                <option
+                    key={opt.value}
+                    value={String(opt.value)}
+                    className={`btn-attendance-dropdown ${opt.color}`}
+                >{opt.label}</option>
+            ))}
+        </select>
     )
 }

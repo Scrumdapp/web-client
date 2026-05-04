@@ -26,6 +26,8 @@ export default function Checkpoints({ session }: {
 
     useEffect(() => {
         if (getCheckpoints.loading) return;
+        if (refreshKey > 0 && refreshKey != session.id) return;
+
         getCheckpoints.runCommand(groupUsers[0].group_id, session.id)
     }, [refreshKey, session.id, getCheckpoints.runCommand]);
 
