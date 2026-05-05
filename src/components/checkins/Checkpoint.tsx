@@ -128,7 +128,10 @@ function Checkpoint({
       userId: myUserId,
       stars: selectedStar,
       comment: notes,
-    });
+    }).then((checkpoint) => {
+        users.find(it => it.user_id == checkpoint.groupUser)
+
+    })
 
     setNotes("");
     setSelectedStar(null);

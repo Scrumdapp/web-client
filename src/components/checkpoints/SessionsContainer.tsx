@@ -4,20 +4,21 @@ import {parseTimeStr} from "../../js/utils/timeUtils.ts";
 import {LoadScreen} from "../generic/LoadScreen.tsx";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {useEffect} from "react";
-import {SessionStateProvider, useSessionStateContext} from "./UseSessionStateContext.tsx";
+import {useSessionState} from "./UseSessionStateContext.tsx";
 import Checkpoints from "./Checkpoints.tsx";
     import OwnCheckpoint from "./OwnCheckpoint.tsx";
 
-export function Sessions({groupId, date}: {
+export function SessionsContainer({groupId, date}: {
     groupId: number
     date?: string
 }) {
-    const state = useSessionStateContext();
+    const {refreshKey, toggleExpanded, expanded} = useSessionState();
     const getSessions = useApi(ScrumdappApi.getCheckpointSessions());
 
     useEffect(() => {
         getSessions.runCommand(groupId, undefined, date);
-    }, [state.refreshKey, groupId, date, getSessions.runCommand]);
+        console.log("refreshed checkpoints");
+    }, [refreshKey, groupId, date, getSessions.runCommand]);
 
     if (getSessions.loading) {
         return <LoadScreen />
@@ -28,7 +29,7 @@ export function Sessions({groupId, date}: {
     }
 
     return (
-        <SessionStateProvider state={state}>
+        <>
             {
                 getSessions.data?.map(session => (
                     <div key={session.id} className="card w-full space-x-5 my-4">
@@ -36,14 +37,14 @@ export function Sessions({groupId, date}: {
                         <UseSessionTimer
                             expiryTimeStamp={parseTimeStr(session.date, session.startTime) + (session.duration * 60_000)}
                         />
-                        <button className="btn" onClick={() => state.toggleExpanded(session.id)}>
-                            {state.expanded.has(session.id) ? "Hide": "Show"} details
+                        <button className="btn" onClick={() => toggleExpanded(session.id)}>
+                            {expanded.has(session.id) ? "Hide": "Show"} details
                         </button>
                         <Checkpoints session={session} />
                         <OwnCheckpoint sessionId={session.id} groupId={groupId} isLocked={false} />
                     </div>
                 ))
             }
-        </SessionStateProvider>
+        </>
     )
 }

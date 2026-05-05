@@ -13,7 +13,7 @@ export default function Checkpoints({ session }: {
 }) {
 
     const groupUsers = useGroupUser();
-    const { refreshKey, isExpanded } = useSessionState()
+    const {refresh, refreshCheckpointsKey, isExpanded } = useSessionState()
     const expanded = isExpanded(session.id)
 
     const getCheckpoints = useApi(ScrumdappApi.getGroupCheckpointsBySession());
@@ -26,10 +26,10 @@ export default function Checkpoints({ session }: {
 
     useEffect(() => {
         if (getCheckpoints.loading) return;
-        if (refreshKey > 0 && refreshKey != session.id) return;
+        if (refreshCheckpointsKey > 0 && refreshCheckpointsKey != session.id) return;
 
         getCheckpoints.runCommand(groupUsers[0].group_id, session.id)
-    }, [refreshKey, session.id, getCheckpoints.runCommand]);
+    }, [refresh, refreshCheckpointsKey, session.id, getCheckpoints.runCommand]);
 
     if (getCheckpoints.loading) {
         return <LoadScreen />

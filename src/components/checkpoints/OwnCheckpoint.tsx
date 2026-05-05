@@ -21,7 +21,7 @@ export default function OwnCheckpoint({sessionId, groupId, isLocked}: {
 }) {
     
     const user = useUser();
-    const { refresh, refreshKey } = useSessionState()
+    const { refreshCheckpoints, refresh, refreshCheckpointsKey } = useSessionState()
     const modal = useModalState();
 
     const getCheckpoint = useApi(ScrumdappApi.getGroupCheckpoints());
@@ -39,7 +39,7 @@ export default function OwnCheckpoint({sessionId, groupId, isLocked}: {
 
     useEffect(() => {
         if (isLocked) return
-        if (refreshKey > 0 && refreshKey != sessionId) return
+        if (refreshCheckpointsKey > 0 && refreshCheckpointsKey != sessionId) return
 
         getCheckpoint.runCommand(groupId, sessionId, user.id).then(r => {
             const field = r[0];
@@ -52,20 +52,21 @@ export default function OwnCheckpoint({sessionId, groupId, isLocked}: {
             };
             setValues(updatedFields);
         });
-    }, [getCheckpoint.runCommand, groupId, sessionId, user.id]);
+    }, [getCheckpoint.runCommand, groupId, sessionId, user.id, refresh]);
 
     const onSubmit = (data: UpdateGroupCheckpoint) => {
 
         // TODO("Actually give something back and handle errors ):")
         updateCheckpoint.runCommand(groupId, sessionId, data)
             .then(() => {
+                refresh();
+                refreshCheckpoints(sessionId);
                 modal.close();
-                refresh(sessionId);
             })
             .catch(() => {
 
-            })
-    }
+            });
+    };
 
     if (isLocked) {
         return (

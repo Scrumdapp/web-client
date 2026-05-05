@@ -17,7 +17,8 @@ export function useSessionStateContext() {
     const [expanded, setExpanded] = useState<Set<number>>(() => new Set());
     const [onToggleCb, setOnToggleCb] = useState<(() => void) | null>(null)
 
-    const [refreshKey, setRefreshKey] = useState(-1);
+    const [refreshSessionKey, setRefreshSessionKey] = useState(0);
+    const [refreshCheckpointsKey, setRefreshCheckpointsKey] = useState(-1);
 
     const isExpanded = useCallback((id: number) => expanded.has(id), [expanded])
 
@@ -36,12 +37,14 @@ export function useSessionStateContext() {
 
     const closeAll = useCallback(() => setExpanded(new Set()), []);
 
-    const refresh = useCallback((id: number) => setRefreshKey(id), []);
+    const refreshSessions = useCallback(() => setRefreshSessionKey(k => k + 1), []);
+
+    const refreshCheckpoints = useCallback((id: number) => setRefreshCheckpointsKey(id), [])
 
     return useMemo(() => ({
-            expanded, isExpanded, toggleExpanded, closeAll, refresh, refreshKey, onToggle: setOnToggleCb
+            expanded, isExpanded, toggleExpanded, closeAll, refresh: refreshSessions, refreshCheckpoints, refreshSessionKey, refreshCheckpointsKey, onToggle: setOnToggleCb
         }), [
-            expanded, isExpanded, toggleExpanded, closeAll, refresh, refreshKey, setOnToggleCb
+            expanded, isExpanded, toggleExpanded, closeAll, refreshSessions, refreshCheckpoints, refreshSessionKey, refreshCheckpointsKey, setOnToggleCb
         ]
     );
 }
