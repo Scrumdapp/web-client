@@ -1,3 +1,5 @@
+import {GroupCheckpointSession} from "../models/checkpoint.ts";
+
 export function msToHourFormat(ms: number): string {
 
     const seconds = Math.floor(ms / 1000) ;

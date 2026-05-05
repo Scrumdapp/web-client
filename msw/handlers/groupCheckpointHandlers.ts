@@ -3,7 +3,6 @@ import {GroupCheckpoint, GroupCheckpointSession} from "../../src/js/models/check
 import {groupData} from "./groupHandlers";
 import {groupUserData} from "./groupUserHandler";
 import {toScrumdappDate} from "../../src/js/utils/scrumdappDate";
-import checkpoint from "../../src/components/checkins/Checkpoint.tsx";
 
 
 const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]

@@ -6,7 +6,6 @@ import {useApi} from "./useApi.ts";
 import {useEffect} from "react";
 import {LoadScreen} from "../../../components/generic/LoadScreen.tsx";
 import {ErrorScreen} from "../../../components/generic/ErrorScreen.tsx";
-import * as React from "react";
 
 export function useApiComponent<TInput extends any[], TResult>(processor: RequestProcessor<TInput, TResult>) {
     return useMemo(() => {

@@ -14,20 +14,20 @@ import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx
 export function CreateSessionModal({groupId}: {
     groupId: number
 }) {
-    const modal = useModalState()
-    const {invalidate} = useSessionState()
+    const modal = useModalState();
+    const {invalidate} = useSessionState();
 
-    const createSession = useApi(ScrumdappApi.createCheckpointSessions())
+    const createSession = useApi(ScrumdappApi.createCheckpointSessions());
 
     const emptyBody: GroupCheckpointSessionCreate = {
         name: ""
-    }
-    const {values, handleSubmit, handleChange} = useForm(emptyBody)
+    };
+
+    const {values, handleSubmit, handleChange} = useForm(emptyBody);
 
     const onSubmit = (body: GroupCheckpointSessionCreate) => {
         createSession.runCommand(groupId, body)
             .then(() => {
-                console.log("created a checkin")
                 invalidate([
                     {type: "sessions"}
                 ]);

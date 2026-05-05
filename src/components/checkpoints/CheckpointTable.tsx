@@ -29,7 +29,7 @@ export default function CheckpointTable({ sessionId }: {
         if (!groupUsers?.length || !sessionId) return;
 
         getCheckpoints.runCommand(groupUsers[0].group_id, sessionId);
-    }, [checkpointVersion]);
+    }, [checkpointVersion, getCheckpoints.runCommand]);
 
     if (getCheckpoints.loading) {
         return <LoadScreen />
