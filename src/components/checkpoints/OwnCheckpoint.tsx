@@ -1,7 +1,7 @@
 import {useUser} from "../../js/context/user/useUser.ts";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
-import {useEffect} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCross, faPencil} from "@fortawesome/free-solid-svg-icons";
 import {useModalState} from "../../js/hooks/useModalState.ts";
@@ -9,60 +9,80 @@ import Modal from "../generic/modal/Modal.tsx";
 import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx";
-import {useSessionState} from "./UseSessionStateContext.tsx";
-import { useForm } from "./useForm.ts";
-import {UpdateGroupCheckpoint} from "../../js/models/checkpoint.ts";
+import { useForm } from "../../js/hooks/useForm.ts";
+import {GroupCheckpointSession, UpdateGroupCheckpoint} from "../../js/models/checkpoint.ts";
 import {getStarsColor, starsOptions} from "../../js/utils/colorUtils.ts";
+import {calculateExpiryTime} from "../../js/utils/timeUtils.ts";
+import {useSessionState} from "../../js/context/sessions/useSessionState.ts";
 
-export default function OwnCheckpoint({sessionId, groupId, isLocked}: {
-    sessionId: number,
+export default function OwnCheckpoint({session, groupId, lock}: {
+    session: GroupCheckpointSession,
     groupId: number,
-    isLocked: boolean
+    lock: boolean
 }) {
     
     const user = useUser();
-    const { refreshCheckpoints, refresh, refreshCheckpointsKey } = useSessionState()
     const modal = useModalState();
+    const { invalidate, useInvalidation } = useSessionState();
+
+    const sessionVersion = useInvalidation({type: "session", id: session.id});
 
     const getCheckpoint = useApi(ScrumdappApi.getGroupCheckpoints());
     const updateCheckpoint = useApi(ScrumdappApi.updateGroupCheckpoint())
 
-    const emptyCheckpoint: UpdateGroupCheckpoint = {
+    const [isLocked, setIsLocked] = useState(lock);
+    const [isEmpty, setIsEmpty] = useState(true);
+
+    const emptyCheckpoint = useMemo<UpdateGroupCheckpoint>(() => ({
         userId: user.id,
         presence: "",
         impediment: "",
         comment: "",
         stars: 0,
-    };
+    }), [user.id]);
 
     const { values, setValues, handleChange, handleSubmit } = useForm(emptyCheckpoint);
 
     useEffect(() => {
-        if (isLocked) return
-        if (refreshCheckpointsKey > 0 && refreshCheckpointsKey != sessionId) return
+        if (isLocked) return;
+        if (getCheckpoint.loading) return;
 
-        getCheckpoint.runCommand(groupId, sessionId, user.id).then(r => {
+        getCheckpoint.runCommand(groupId, session.id, user.id).then(r => {
             const field = r[0];
-            const updatedFields: UpdateGroupCheckpoint = {
-                userId: user.id,
-                presence: field.presence,
-                impediment: field.impediment,
-                comment: field.comment,
-                stars: field.stars,
-            };
-            setValues(updatedFields);
+            if (field == undefined) {
+                setIsEmpty(true);
+            } else {
+                const updatedFields: UpdateGroupCheckpoint = {
+                    userId: user.id,
+                    presence: field?.presence,
+                    impediment: field?.impediment,
+                    comment: field?.comment,
+                    stars: field?.stars,
+                };
+                setValues(updatedFields);
+                setIsEmpty(false);
+            }
         });
-    }, [getCheckpoint.runCommand, groupId, sessionId, user.id, refresh]);
+    }, [sessionVersion, getCheckpoint.runCommand, groupId, session.id]);
+    
+    const onModalOpen = () => {
+        if (calculateExpiryTime(session) <= 0) {
+            setIsLocked(true);
+        } else {
+            modal.open();
+        }
+    }
 
     const onSubmit = (data: UpdateGroupCheckpoint) => {
-
-        // TODO("Actually give something back and handle errors ):")
-        updateCheckpoint.runCommand(groupId, sessionId, data)
+        updateCheckpoint.runCommand(groupId, session.id, data)
             .then(() => {
-                refresh();
-                refreshCheckpoints(sessionId);
+                invalidate([
+                    { type: "session", id: session.id},
+                    { type: "checkpoints", sessionId: session.id}
+                ]);
                 modal.close();
             })
+            // TODO("Actually give something back and handle errors ):")
             .catch(() => {
 
             });
@@ -83,13 +103,13 @@ export default function OwnCheckpoint({sessionId, groupId, isLocked}: {
 
     return (
         <>
-            <button className="btn border" onClick={modal.open}>
+            <button className="btn border" onClick={onModalOpen}>
                 <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-                {values ? "Edit own checkpoint" : "Add own checkpoint"}
+                {!isEmpty ? "Edit own checkpoint" : "Add own checkpoint"}
             </button>
             <Modal state={modal}>
                 <div className="space-y-5">
-                    <ModalHeadText>{values ? "Edit checkpoint" : "Add checkpoint"}</ModalHeadText>
+                    <ModalHeadText>{!isEmpty ? "Edit checkpoint" : "Add checkpoint"}</ModalHeadText>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col space-y-2 mb-3 w-full">
                             <label>Stars:</label>
@@ -99,7 +119,7 @@ export default function OwnCheckpoint({sessionId, groupId, isLocked}: {
                             <textarea
                                 className="write-section"
                                 placeholder="Which tasks should be completed but have been delayed or haven't been completed yet?"
-                                defaultValue={values?.impediment ?? ""}
+                                value={values?.impediment ?? ""}
                                 onChange={handleChange("impediment")}
                             />
 

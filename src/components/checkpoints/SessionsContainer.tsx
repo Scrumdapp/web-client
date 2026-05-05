@@ -1,24 +1,36 @@
     import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
-import {UseSessionTimer} from "./UseSessionTimer.tsx";
-import {parseTimeStr} from "../../js/utils/timeUtils.ts";
+import {calculateExpiryTime} from "../../js/utils/timeUtils.ts";
 import {LoadScreen} from "../generic/LoadScreen.tsx";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {useEffect} from "react";
-import {useSessionState} from "./UseSessionStateContext.tsx";
-import Checkpoints from "./Checkpoints.tsx";
-    import OwnCheckpoint from "./OwnCheckpoint.tsx";
+import CheckpointTable from "./CheckpointTable.tsx";
+import OwnCheckpoint from "./OwnCheckpoint.tsx";
+    import {useSessionState} from "../../js/context/sessions/useSessionState.ts";
+    import {UseSessionTimer} from "./UseSessionTimer.tsx";
 
 export function SessionsContainer({groupId, date}: {
     groupId: number
     date?: string
 }) {
-    const {refreshKey, toggleExpanded, expanded} = useSessionState();
+    const {useInvalidation, toggleExpanded, expanded} = useSessionState();
+    const sessionVersion = useInvalidation({type: "sessions"});
+
     const getSessions = useApi(ScrumdappApi.getCheckpointSessions());
 
     useEffect(() => {
         getSessions.runCommand(groupId, undefined, date);
-        console.log("refreshed checkpoints");
-    }, [refreshKey, groupId, date, getSessions.runCommand]);
+    }, [sessionVersion, groupId, date, getSessions.runCommand]);
+
+
+    useEffect(() => {
+        if (getSessions.data && getSessions.data.length > 0) {
+            toggleExpanded(getSessions.data[getSessions.data.length - 1].id);
+        }
+    }, [getSessions.data, toggleExpanded]);
+
+    const filteredSessions = () => {
+        return getSessions.data ? [...getSessions.data].reverse() : [];
+    };
 
     if (getSessions.loading) {
         return <LoadScreen />
@@ -31,17 +43,17 @@ export function SessionsContainer({groupId, date}: {
     return (
         <>
             {
-                getSessions.data?.map(session => (
+                filteredSessions()?.map(session => (
                     <div key={session.id} className="card w-full space-x-5 my-4">
                         <h2 className="border-b-fg border-b-2 mb-2">{session.name}</h2>
                         <UseSessionTimer
-                            expiryTimeStamp={parseTimeStr(session.date, session.startTime) + (session.duration * 60_000)}
+                            expiryTimeStamp={calculateExpiryTime(session)}
                         />
                         <button className="btn" onClick={() => toggleExpanded(session.id)}>
                             {expanded.has(session.id) ? "Hide": "Show"} details
                         </button>
-                        <Checkpoints session={session} />
-                        <OwnCheckpoint sessionId={session.id} groupId={groupId} isLocked={false} />
+                        <CheckpointTable sessionId={session.id} />
+                        <OwnCheckpoint session={session} groupId={groupId} lock={calculateExpiryTime(session) <= 0} />
                     </div>
                 ))
             }

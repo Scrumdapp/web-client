@@ -20,3 +20,7 @@ export function msToMinuteFormat(ms: number): string {
 export function parseTimeStr(date: string, time: string): number {
     return new Date(`${date}T${time}Z`).getTime()
 }
+
+export function calculateExpiryTime(session: GroupCheckpointSession) {
+    return parseTimeStr(session.date, session.startTime) + (session.duration * 60_000);
+}

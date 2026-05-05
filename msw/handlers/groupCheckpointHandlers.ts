@@ -3,6 +3,7 @@ import {GroupCheckpoint, GroupCheckpointSession} from "../../src/js/models/check
 import {groupData} from "./groupHandlers";
 import {groupUserData} from "./groupUserHandler";
 import {toScrumdappDate} from "../../src/js/utils/scrumdappDate";
+import checkpoint from "../../src/components/checkins/Checkpoint.tsx";
 
 
 const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
@@ -217,12 +218,50 @@ export const groupCheckpointHandlers = [
 
         return HttpResponse.json(checkpoints)
     }),
-    http.patch("/api/groups/:gid/checkpoints/:cid", ({params}) => {
+    http.patch("/api/groups/:gid/checkpoints/:cid", async ({params, request}) => {
+
+        //@ts-ignore
+        const genCheckpoint = groupCheckpoints.filter(it => it.sessions.groupId == parseInt(params.gid) && it.sessions.id == parseInt(params.cid))[0]
+
+        const body = await request.json()
+
         // @ts-ignore
-        const session = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid) && it.id == parseInt(params.cid))[0]
+        const uId = body.userId as number
 
-        const checkpoints = groupCheckpoints.map(it => it.checkpoints).flat().filter(it => it.sessionId == session.id)
+        // @ts-ignore
+        const stars = body.stars as number
 
-        return HttpResponse.json(checkpoints)
+        // @ts-ignore
+        const impediment = body.impediment as string
+        // @ts-ignore
+        const comment = body.comment as string
+
+        let checkpoint = genCheckpoint.checkpoints.filter(it => it.groupUser == uId)[0]
+        if (checkpoint != null) {
+            checkpoint.stars = stars ? stars : checkpoint.stars
+            checkpoint.impediment = impediment ? impediment : checkpoint.impediment
+            checkpoint.comment = comment ? comment : checkpoint.comment
+
+            genCheckpoint.checkpoints.filter(it => it.groupUser == uId)[0] = checkpoint
+
+        } else {
+            const newCheckpoint: GroupCheckpoint = {
+                id: Math.floor(Math.random() * 696969696969),
+                groupUser: uId,
+
+                //@ts-ignore
+                sessionId: parseInt(params.cid),
+                impediment: impediment,
+                comment: comment,
+                presence: PRESENCE_FIELDS[0],
+                stars: stars
+            }
+            checkpoint = newCheckpoint
+            genCheckpoint.checkpoints.push(newCheckpoint)
+
+        }
+        groupCheckpoints.filter(it => it == genCheckpoint)[0] = genCheckpoint
+
+        return HttpResponse.json(checkpoint)
     })
 ]

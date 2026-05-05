@@ -1,28 +1,10 @@
-import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import type {ReactNode} from "react";
 import {msToMinuteFormat} from "../../js/utils/timeUtils.ts";
+import {useSessionTimer} from "../../js/hooks/sessions/useSessionTimer.ts";
 
-function useSessionTimer(expiryTimestamp: number): number {
-    const [time, setTime] = useState(() =>
-        Math.max(0, expiryTimestamp - Date.now())
-    );
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (time <= 0) return () => clearInterval(interval);
-            setTime(time - 1000)
-        }, 1000);
-        return () => clearInterval(interval)
-    }, [time])
-    return time;
-}
-
-export function UseSessionTimer({
-        expiryTimeStamp,
-        isLocked,
-    }: {
-        expiryTimeStamp: number;
-        isLocked?: ReactNode;
+export function UseSessionTimer({expiryTimeStamp, isLocked}: {
+    expiryTimeStamp: number;
+    isLocked?: ReactNode;
 }) {
     const remainingTimeSeconds = useSessionTimer(expiryTimeStamp);
     const locked = remainingTimeSeconds <= 0;

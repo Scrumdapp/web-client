@@ -1,5 +1,3 @@
-import {GroupCheckpointSession} from "../../js/models/checkpoint.ts";
-import {useSessionState} from "./UseSessionStateContext.tsx";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {useGroupUser} from "../../js/context/groupUser/useGroupUser.ts";
@@ -7,14 +5,17 @@ import {LoadScreen} from "../generic/LoadScreen.tsx";
 import {getAttendanceColor, getformatPresence, getStarsColor} from "../../js/utils/colorUtils.ts";
 import Stars from "../checkins/checkpointcomponents/Stars.tsx";
 import {useEffect} from "react";
+import {useSessionState} from "../../js/context/sessions/useSessionState.ts";
 
-export default function Checkpoints({ session }: {
-    session: GroupCheckpointSession
+export default function CheckpointTable({ sessionId }: {
+    sessionId: number
 }) {
 
     const groupUsers = useGroupUser();
-    const {refresh, refreshCheckpointsKey, isExpanded } = useSessionState()
-    const expanded = isExpanded(session.id)
+    const {useInvalidation, isExpanded } = useSessionState()
+    const checkpointVersion = useInvalidation({type: "checkpoints", sessionId: sessionId});
+
+    const expanded = isExpanded(sessionId);
 
     const getCheckpoints = useApi(ScrumdappApi.getGroupCheckpointsBySession());
 
@@ -25,11 +26,10 @@ export default function Checkpoints({ session }: {
     }
 
     useEffect(() => {
-        if (getCheckpoints.loading) return;
-        if (refreshCheckpointsKey > 0 && refreshCheckpointsKey != session.id) return;
+        if (!groupUsers?.length || !sessionId) return;
 
-        getCheckpoints.runCommand(groupUsers[0].group_id, session.id)
-    }, [refresh, refreshCheckpointsKey, session.id, getCheckpoints.runCommand]);
+        getCheckpoints.runCommand(groupUsers[0].group_id, sessionId);
+    }, [checkpointVersion]);
 
     if (getCheckpoints.loading) {
         return <LoadScreen />
