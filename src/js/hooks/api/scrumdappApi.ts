@@ -7,7 +7,6 @@ import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate, UserGroupChe
 import {
     GroupCheckpoint,
     GroupCheckpointSession, GroupCheckpointSessionCreate,
-    PartialGroupCheckpoint,
     UpdateGroupCheckpoint
 } from "../../models/checkpoint.ts";
 
