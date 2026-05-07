@@ -2,7 +2,7 @@ import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
 import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faPencil} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { getformatPresence } from "../../js/utils/colorUtils.ts";
 import { useEffect } from "react";
@@ -17,6 +17,7 @@ import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 import {GroupCheckpoint} from "../../js/models/checkpoint.ts";
+import {AttendanceDropDownMenu} from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
 
 function Checkpoint({
   groupId,
@@ -54,6 +55,7 @@ function Checkpoint({
   const isLocked = timeLeft <= 0;
 
   const [notes, setNotes] = useState("");
+  const [selectedPresence, setSelectedPresence] = useState<string | null>(null);
   const [selectedStar, setSelectedStar] = useState<number | null>(null);
   const [impediment, setImpediment] = useState("");
   const [rows, setRows] = useState<SessionCheckpointRow[] | null>(null);
@@ -125,19 +127,21 @@ function Checkpoint({
     if (myUserId === null) return;
     await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
       userId: myUserId,
+      presence: selectedPresence,
       stars: selectedStar,
       comment: notes,
-      impediment: impediment || null,
+      impediment: impediment,
     });
       setRows(prev => prev?.map(row =>
           row.user_id === myUserId
-              ? { ...row, stars: selectedStar, comment: notes, impediment: impediment || null }
+              ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: impediment }
               : row
       ) ?? prev);
 
     setNotes("");
-    setSelectedStar(null);
+    setSelectedStar(null)
     setImpediment("")
+    setSelectedPresence("")
     modal.close();
   };
 
@@ -206,44 +210,50 @@ function Checkpoint({
         </Link>
         <button className="btn border" onClick={modal.open}>
           <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-          Add Entry
+          Edit Checkpoint
         </button>
       </div>
       <Modal state={modal}>
         <div className="space-y-5">
-          <ModalHeadText>Add Entry</ModalHeadText>
+          <ModalHeadText>Edit Checkpoint</ModalHeadText>
             <form id="entry">
-
           <div className="flex flex-col space-y-2 w-full">
+            Attendance
+            <AttendanceDropDownMenu
+                value={selectedPresence}
+                onChange={setSelectedPresence}
+                  />
+            Stars
+            <StarsDropDownMenu
+                value={selectedStar}
+                onChange={setSelectedStar}
+            />
+            Notes
             <input
               className="write-section"
               placeholder="Notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              required
             />
+            Obstacle
             <input
-            className="write-section"
-            placeholder="Obstacle"
-            value={impediment}
-            onChange={(e) => setImpediment(e.target.value)}
-            />
-            <StarsDropDownMenu
-              value={selectedStar}
-              onChange={setSelectedStar}
+              className="write-section"
+              placeholder="Obstacle"
+              value={impediment}
+              onChange={(e) => setImpediment(e.target.value)}
             />
           </div>
             </form>
           <ModalActionRow>
             <ModalCancelButton />
               <button
-                  className={`btn border ${!notes && selectedStar === null && !impediment ? "opacity-50 cursor-not-allowed!" : ""}`}
-                  disabled={!notes && selectedStar === null && !impediment}
+                  className="btn border"
                   onClick={handleApply}
                   form="entry"
                   type="button"
               >
-                Apply
+                <FontAwesomeIcon icon={faCheck} className="text-blue icon" />
+                  Apply
               </button>
           </ModalActionRow>
         </div>

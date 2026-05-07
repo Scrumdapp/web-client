@@ -91,7 +91,7 @@ export function GroupCheckinPage() {
       <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
         <h2 className="px-2">{date}</h2>
         <button className="btn border" onClick={modal.open}>
-          <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Session
+          <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
         </button>
       </div>
       {checkpoints.map((checkpoint) => (
