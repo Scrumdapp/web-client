@@ -137,11 +137,6 @@ function Checkpoint({
               ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: impediment }
               : row
       ) ?? prev);
-
-    setNotes("");
-    setSelectedStar(null)
-    setImpediment("")
-    setSelectedPresence("")
     modal.close();
   };
 
@@ -149,7 +144,7 @@ function Checkpoint({
     <div className="card w-full space-x-5">
       <h2>{name}</h2>
       <hr className="my-2 mr-0" />
-      <p className="text-sm">
+      <p>
         {isLocked
           ? "Checkpoint closed"
           : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
