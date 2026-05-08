@@ -9,6 +9,7 @@ import {useState} from "react";
 import {LoadScreen} from "../components/generic/LoadScreen.tsx";
 import {useApi} from "../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../js/hooks/api/scrumdappApi.ts";
+import {GroupTile} from "../components/groups/GroupTile.tsx";
 
 export default function Groups() {
 
@@ -17,6 +18,7 @@ export default function Groups() {
     const createGroup = useApi(ScrumdappApi.createGroup());
 
     return (
+        <div>
         <div className="app-container horizontal justify-between">
             <h2>Scrumdapp</h2>
             <button className="btn btn-red border max-h-fit"
@@ -58,6 +60,10 @@ export default function Groups() {
                     </button>
                 </ModalActionRow>
             </Modal>
+        </div>
+            <div className="flex">
+                <GroupTile />
+            </div>
         </div>
     )
 }
