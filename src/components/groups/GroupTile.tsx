@@ -1,8 +1,16 @@
 export function GroupTile() {
 
     return (
-        <div>
-            hi
+        <div className="flex w-[30%] aspect-square bg-bg_h border rounded-2xl">
+            <div className="p-2 lg:p-6 space-y-5">
+            <p className="text-xs lg:text-2xl p-2">-GroupName-</p>
+            <img
+                src="https://i.sstatic.net/6M513.png"
+                alt={"Group Image"}
+                className="object-cover h-[70%] flex rounded-2xl overflow-hidden"
+            />
+
+            </div>
         </div>
     )
 }

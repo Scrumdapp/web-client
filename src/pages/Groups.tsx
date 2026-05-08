@@ -61,7 +61,7 @@ export default function Groups() {
                 </ModalActionRow>
             </Modal>
         </div>
-            <div className="flex">
+            <div className="flex app-container">
                 <GroupTile />
             </div>
         </div>
