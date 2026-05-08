@@ -102,7 +102,7 @@ function generateSession(id: number, gId: number, oId: number, date: Date, time?
         name: name != null ? name : "Checkpoint",
         date: toScrumdappDate(date),
         startTime: time != null ? time : generateRandomTime(date),
-        duration: 15,
+        duration: 0.5,
     }
 }
 

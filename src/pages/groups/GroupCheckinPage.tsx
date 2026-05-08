@@ -30,6 +30,7 @@ export function GroupCheckinPage() {
     name: string;
     startTime: number;
     sessionId: number;
+    duration: number;
   };
 
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
@@ -66,8 +67,8 @@ export function GroupCheckinPage() {
         name: session.name,
         startTime: parseStartTime(session.date, session.startTime),
         sessionId: session.id,
-      })),
-    );
+        duration: session.duration * 60_000,
+    })));
   }, [group.id, date]);
 
   useEffect(() => {
@@ -102,6 +103,7 @@ export function GroupCheckinPage() {
             key={checkpoint.id}
             name={checkpoint.name}
             startTime={checkpoint.startTime}
+            duration={checkpoint.duration}
             sessionId={checkpoint.sessionId}
             users={users}
             currentUser={currentUser}

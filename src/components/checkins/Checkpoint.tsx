@@ -16,7 +16,7 @@ import { StarsDropDownMenu } from "./checkpointcomponents/StarsDropDownMenu.tsx"
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
-import {GroupCheckpoint} from "../../js/models/checkpoint.ts";
+import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import {AttendanceDropDownMenu} from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
 
 function Checkpoint({
@@ -24,6 +24,7 @@ function Checkpoint({
   date,
   name,
   startTime,
+  duration,
   sessionId,
   users,
   currentUser,
@@ -32,6 +33,7 @@ function Checkpoint({
   date: string;
   name: string;
   startTime: number;
+  duration: number;
   sessionId: number;
   users: { user_id: number; first_name: string; last_name: string }[];
   currentUser: { id: number } | null | undefined;
@@ -45,19 +47,25 @@ function Checkpoint({
 
   const modal = useModalState();
 
-  const DURATION_MS = 15 * 60 * 1000;
+  const [timeLeft, setTimeLeft] = useState(() =>
+    Math.max(0, startTime + duration - Date.now()),
+  );
 
-  const [timeLeft, setTimeLeft] = useState(() => {
-    const expiresAt = startTime + DURATION_MS;
-    return Math.max(0, expiresAt - Date.now());
-  });
+  useEffect(() => {
+    const id = setInterval(() => {
+      const remaining = Math.max(0, startTime + duration - Date.now());
+      setTimeLeft(remaining);
+      if (remaining <= 0) clearInterval(id);
+    }, 1000);
+    return () => clearInterval(id);
+  }, [startTime, duration]);
 
   const isLocked = timeLeft <= 0;
 
   const [notes, setNotes] = useState("");
   const [selectedPresence, setSelectedPresence] = useState<string | null>(null);
   const [selectedStar, setSelectedStar] = useState<number | null>(null);
-  const [impediment, setImpediment] = useState("");
+  const [obstacle, setObstacle] = useState("");
   const [rows, setRows] = useState<SessionCheckpointRow[] | null>(null);
   const [rowsError, setRowsError] = useState<ApiError | null>(null);
   const [rowsLoading, setRowsLoading] = useState(false);
@@ -110,18 +118,6 @@ function Checkpoint({
     };
   }, [groupId, sessionId]);
 
-  useEffect(() => {
-    if (isLocked) return;
-
-    const interval = setInterval(() => {
-      const expiresAt = startTime + DURATION_MS;
-      const remaining = Math.max(0, expiresAt - Date.now());
-      setTimeLeft(remaining);
-      if (remaining <= 0) clearInterval(interval);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [startTime, isLocked]);
 
   const handleApply = async () => {
     if (myUserId === null) return;
@@ -130,11 +126,11 @@ function Checkpoint({
       presence: selectedPresence,
       stars: selectedStar,
       comment: notes,
-      impediment: impediment,
+      impediment: obstacle,
     });
       setRows(prev => prev?.map(row =>
           row.user_id === myUserId
-              ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: impediment }
+              ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
               : row
       ) ?? prev);
     modal.close();
@@ -203,7 +199,11 @@ function Checkpoint({
           <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
           Scrummaster Checkpoint
         </Link>
-        <button className="btn border" onClick={modal.open}>
+        <button
+          className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
+          onClick={modal.open}
+          disabled={isLocked}
+        >
           <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
           Edit Checkpoint
         </button>
@@ -234,8 +234,8 @@ function Checkpoint({
             <input
               className="write-section"
               placeholder="Obstacle"
-              value={impediment}
-              onChange={(e) => setImpediment(e.target.value)}
+              value={obstacle}
+              onChange={(e) => setObstacle(e.target.value)}
             />
           </div>
             </form>
