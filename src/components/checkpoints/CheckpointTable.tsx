@@ -5,14 +5,14 @@ import {LoadScreen} from "../generic/LoadScreen.tsx";
 import {getAttendanceColor, getformatPresence, getStarsColor} from "../../js/utils/colorUtils.ts";
 import Stars from "../checkins/checkpointcomponents/Stars.tsx";
 import {useEffect} from "react";
-import {useSessionState} from "../../js/context/sessions/useSessionState.ts";
+import {useSessionStateContext} from "../../js/context/sessions/useSessionStateContext.ts";
 
 export default function CheckpointTable({ sessionId }: {
     sessionId: number
 }) {
 
     const groupUsers = useGroupUser();
-    const {useInvalidation, isExpanded } = useSessionState()
+    const {useInvalidation, isExpanded } = useSessionStateContext()
     const checkpointVersion = useInvalidation({type: "checkpoints", sessionId: sessionId});
 
     const expanded = isExpanded(sessionId);

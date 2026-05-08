@@ -1,5 +1,5 @@
 import {useModalState} from "../../js/hooks/useModalState.ts";
-import {useSessionState} from "../../js/context/sessions/useSessionState.ts";
+import {useSessionStateContext} from "../../js/context/sessions/useSessionStateContext.ts";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {GroupCheckpointSessionCreate} from "../../js/models/checkpoint.ts";
@@ -15,7 +15,7 @@ export function CreateSessionModal({groupId}: {
     groupId: number
 }) {
     const modal = useModalState();
-    const {invalidate} = useSessionState();
+    const {invalidate} = useSessionStateContext();
 
     const createSession = useApi(ScrumdappApi.createCheckpointSessions());
 

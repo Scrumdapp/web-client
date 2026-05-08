@@ -3,7 +3,7 @@ import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import {SessionsContainer} from "../checkpoints/SessionsContainer.tsx";
 import {useGroup} from "../../js/context/group/useGroup.ts";
 import {GroupUserProvider} from "../../js/context/groupUser/GroupUserProvider.tsx";
-import {useSessionStateContext} from "../../js/hooks/sessions/useSessionState.ts";
+import {useSessionState} from "../../js/hooks/sessions/useSessionState.ts";
 import {SessionStateProvider} from "../../js/context/sessions/SessionStateProvider.tsx";
 import {CreateSessionModal} from "../checkpoints/CreateSessionModal.tsx";
 
@@ -13,7 +13,7 @@ export function SessionLayout() {
     const date = searchParams.get("date") ?? toScrumdappDate(new Date());
 
     const group = useGroup();
-    const sessionState = useSessionStateContext();
+    const sessionState = useSessionState();
 
     return (
         <GroupUserProvider gId={group.id}>

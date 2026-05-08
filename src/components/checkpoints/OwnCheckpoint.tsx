@@ -13,7 +13,7 @@ import { useForm } from "../../js/hooks/useForm.ts";
 import {GroupCheckpointSession, UpdateGroupCheckpoint} from "../../js/models/checkpoint.ts";
 import {getStarsColor, starsOptions} from "../../js/utils/colorUtils.ts";
 import {calculateExpiryTime} from "../../js/utils/timeUtils.ts";
-import {useSessionState} from "../../js/context/sessions/useSessionState.ts";
+import {useSessionStateContext} from "../../js/context/sessions/useSessionStateContext.ts";
 
 export default function OwnCheckpoint({session, groupId, lock}: {
     session: GroupCheckpointSession,
@@ -23,7 +23,7 @@ export default function OwnCheckpoint({session, groupId, lock}: {
     
     const user = useUser();
     const modal = useModalState();
-    const { invalidate, useInvalidation } = useSessionState();
+    const { invalidate, useInvalidation } = useSessionStateContext();
 
     const sessionVersion = useInvalidation({type: "session", id: session.id});
 

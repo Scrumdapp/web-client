@@ -5,7 +5,7 @@ type InvalidateKey =
     | { type: "session"; id: number }
     | { type: "checkpoints"; sessionId: number };
 
-export function useSessionStateContext() {
+export function useSessionState() {
 
     const [expanded, setExpanded] = useState<Set<number>>(() => new Set());
     const onToggleRef = useRef<(() => void)>(null);

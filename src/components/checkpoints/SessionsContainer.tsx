@@ -5,14 +5,14 @@ import {useApi} from "../../js/hooks/api/useApi.ts";
 import {useEffect} from "react";
 import CheckpointTable from "./CheckpointTable.tsx";
 import OwnCheckpoint from "./OwnCheckpoint.tsx";
-    import {useSessionState} from "../../js/context/sessions/useSessionState.ts";
+    import {useSessionStateContext} from "../../js/context/sessions/useSessionStateContext.ts";
     import {UseSessionTimer} from "./UseSessionTimer.tsx";
 
 export function SessionsContainer({groupId, date}: {
     groupId: number
     date?: string
 }) {
-    const {useInvalidation, toggleExpanded, expanded} = useSessionState();
+    const {useInvalidation, toggleExpanded, expanded} = useSessionStateContext();
     const sessionVersion = useInvalidation({type: "sessions"});
 
     const getSessions = useApi(ScrumdappApi.getCheckpointSessions());
@@ -20,7 +20,6 @@ export function SessionsContainer({groupId, date}: {
     useEffect(() => {
         getSessions.runCommand(groupId, undefined, date);
     }, [sessionVersion, groupId, date, getSessions.runCommand]);
-
 
     useEffect(() => {
         if (getSessions.data && getSessions.data.length > 0) {
