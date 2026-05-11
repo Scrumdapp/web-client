@@ -10,12 +10,14 @@ import {LoadScreen} from "../components/generic/LoadScreen.tsx";
 import {useApi} from "../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../js/hooks/api/scrumdappApi.ts";
 import {GroupTile} from "../components/groups/GroupTile.tsx";
+import {useApiComponent} from "../js/hooks/api/useApiComponent.tsx";
 
 export default function Groups() {
 
     const modal = useModalState();
     const [name, setName] = useState("")
     const createGroup = useApi(ScrumdappApi.createGroup());
+    const GetGroups = useApiComponent(ScrumdappApi.getGroups());
 
     return (
         <div>
@@ -61,8 +63,20 @@ export default function Groups() {
                 </ModalActionRow>
             </Modal>
         </div>
-            <div className="flex app-container">
-                <GroupTile />
+            <div className="flex flex-wrap gap-4 app-container">
+                <GetGroups input={[]}>
+                {(groups) => (
+                    <>
+                        {groups.length === 0 && (
+                            <p>geen groepen gevonden</p>
+                        )}
+                        {groups.map((group) => (
+                            <GroupTile key={group.id} group={group} />
+                        ))}
+
+                    </>
+                )}
+                </GetGroups>
             </div>
         </div>
     )
