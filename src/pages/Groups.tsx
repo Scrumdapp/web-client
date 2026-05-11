@@ -11,6 +11,7 @@ import {useApi} from "../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../js/hooks/api/scrumdappApi.ts";
 import {GroupTile} from "../components/groups/GroupTile.tsx";
 import {useApiComponent} from "../js/hooks/api/useApiComponent.tsx";
+import {Link} from "react-router-dom";
 
 export default function Groups() {
 
@@ -68,10 +69,12 @@ export default function Groups() {
                 {(groups) => (
                     <>
                         {groups.length === 0 && (
-                            <p>geen groepen gevonden</p>
+                            <p>Er zijn geen groepen gevonden...</p>
                         )}
                         {groups.map((group) => (
-                            <GroupTile key={group.id} group={group} />
+                            <Link key={group.id} to={`/groups/${group.id}`}>
+                                <GroupTile group={group} />
+                            </Link>
                         ))}
 
                     </>
