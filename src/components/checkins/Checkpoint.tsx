@@ -19,8 +19,8 @@ import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import {AttendanceDropDownMenu} from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
 
 type SessionCheckpointRow = GroupCheckpoint & {
-    first_name: string;
-    last_name: string;
+  first_name: string;
+  last_name: string;
 };
 
 function Checkpoint({
@@ -83,27 +83,29 @@ function Checkpoint({
         setRowsLoading(true);
         setRowsError(null);
         try {
-            const checkpoints = await ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId);
-            setRows(
-                currentUsers.map((user) => {
-                    const checkpoint = checkpoints.find((entry) => entry.groupUser === user.user_id);
-                    const base: GroupCheckpoint = checkpoint ?? {
-                        id: user.user_id,
-                        sessionId,
-                        groupUser: user.user_id,
-                        presence: null,
-                        stars: null,
-                        comment: null,
-                        impediment: null,
-                    };
-                    return { ...base, first_name: user.first_name, last_name: user.last_name };
-                })
-            );
-        } catch (error) {
-            if (error instanceof ApiError) setRowsError(error);
-            else setRowsError(new ApiError(999, "Unhandled error", error));
-        } finally {
-            setRowsLoading(false);
+          const checkpoints = await ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId);
+          setRows(
+            currentUsers.map((user) => {
+              const checkpoint = checkpoints.find((entry) => entry.groupUser === user.user_id);
+                const base: GroupCheckpoint = checkpoint ?? {
+                  id: user.user_id,
+                  sessionId,
+                  groupUser: user.user_id,
+                  presence: null,
+                  stars: null,
+                  comment: null,
+                  impediment: null,
+                };
+              return { ...base, first_name: user.first_name, last_name: user.last_name };
+            })
+          );
+        }
+        catch (error) {
+          if (error instanceof ApiError) setRowsError(error);
+          else setRowsError(new ApiError(999, "Unhandled error", error as Error));
+        }
+        finally {
+          setRowsLoading(false);
         }
     }, [groupId, sessionId]);
 
@@ -113,41 +115,43 @@ function Checkpoint({
 
 
     const handleApply = async () => {
-        if (myUserId == null || isLocked) return;
+      if (myUserId == null || isLocked) return;
         setApplyLoading(true);
         setApplyError(null);
         try {
-            await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
-                userId: myUserId,
-                presence: selectedPresence,
-                stars: selectedStar,
-                comment: notes,
-                impediment: obstacle,
-            });
-            setRows(prev =>
-                prev?.map(row =>
-                    row.user_id === myUserId
-                        ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
-                        : row
-                ) ?? prev
-            );
-            modal.close();
-        } catch (err) {
-            if (err instanceof ApiError) setApplyError(err);
-            else setApplyError(new ApiError(999, "Unhandled error", err));
-        } finally {
-            setApplyLoading(false);
+          await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
+            userId: myUserId,
+            presence: selectedPresence,
+            stars: selectedStar,
+            comment: notes,
+            impediment: obstacle,
+          });
+        setRows(prev =>
+          prev?.map(row =>
+            row.groupUser === myUserId
+              ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
+              : row
+            ) ?? prev
+          );
+        modal.close();
+        }
+        catch (err) {
+          if (err instanceof ApiError) setApplyError(err);
+          else setApplyError(new ApiError(999, "Unhandled error", err as Error));
+        }
+        finally {
+        setApplyLoading(false);
         }
     };
 
     const handleOpen = () => {
-        if (rows == null) return;
+      if (rows == null) return;
         setApplyError(null);
-        const myRow = rows.find(row => row.user_id === myUserId);
-        setSelectedPresence(myRow?.presence ? String(myRow.presence) : null);
-        setSelectedStar(myRow?.stars ?? null);
-        setNotes(myRow?.comment ?? "");
-        setObstacle(myRow?.impediment ?? "");
+        const myRow = rows.find(row => row.groupUser === myUserId);
+          setSelectedPresence(myRow?.presence ? String(myRow.presence) : null);
+          setSelectedStar(myRow?.stars ?? null);
+          setNotes(myRow?.comment ?? "");
+          setObstacle(myRow?.impediment ?? "");
         modal.open();
     };
 
@@ -177,29 +181,29 @@ function Checkpoint({
           </thead>
           <tbody>
             {rows.map((item) => (
-              <tr key={`${item.user_id === item.id ? 'u' : 'cp'}-${item.id}`}>
+              <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`}>
                 <td className="py-3 text-left pl-2 name-field border-r border-t border-dotted border-current!">
                   {item.first_name} {item.last_name}
                 </td>
                 <td
                   className={`py-3 text-left p-3 border-t border-dotted border-current`}
                 >
-                    <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
-                        {getformatPresence(
-                            item.presence ? String(item.presence) : "---",
-                        )}
-                    </div>
+                  <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
+                    {getformatPresence(
+                      item.presence ? String(item.presence) : "---",
+                    )}
+                  </div>
                 </td>
                 <td className={`p-3 border-t border-dotted border-current`}>
-                    <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
-                        <Stars amount={item.stars} />
-                    </div>
+                  <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
+                    <Stars amount={item.stars} />
+                  </div>
                 </td>
                 <td className="p-3 break-words border-t border-dotted">
-                    {item.comment}
+                  {item.comment}
                 </td>
                 <td className="p-3 break-words border-t border-dotted">
-                    {item.impediment}
+                  {item.impediment}
                 </td>
               </tr>
             ))}
@@ -207,13 +211,13 @@ function Checkpoint({
         </table>
       )}
       <div className="align-center horizontal gap-3 mt-2 justify-end">
-          <button
-              className="btn border"
-              onClick={() => fetchRows(users)}
-              disabled={rowsLoading}
-          >
-              {rowsLoading ? "Refreshing..." : "Refresh"}
-          </button>
+        <button
+          className="btn border"
+          onClick={() => { fetchRows(users).catch(console.error); }}
+          disabled={rowsLoading}
+        >
+          {rowsLoading ? "Refreshing..." : "Refresh"}
+        </button>
         <Link
           to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
           className="btn border m-auto mx-2 opacity-50 cursor-not-allowed!"
@@ -236,13 +240,13 @@ function Checkpoint({
           <div className="flex flex-col space-y-2 w-full">
             <label>Attendance</label>
             <AttendanceDropDownMenu
-                value={selectedPresence}
-                onChange={setSelectedPresence}
-                  />
+              value={selectedPresence}
+              onChange={setSelectedPresence}
+            />
             <label>Stars</label>
             <StarsDropDownMenu
-                value={selectedStar}
-                onChange={setSelectedStar}
+              value={selectedStar}
+              onChange={setSelectedStar}
             />
             <label>Notes</label>
             <input
@@ -263,12 +267,12 @@ function Checkpoint({
             <ModalActionRow>
             <ModalCancelButton />
               <button
-                  className="btn border"
-                  onClick={handleApply}
-                  type="button"
-                  disabled={applyLoading}
+                className="btn border"
+                onClick={handleApply}
+                type="button"
+                disabled={applyLoading}
               >
-                  {applyLoading ? "Saving..." : "Apply"}
+                {applyLoading ? "Saving..." : "Apply"}
               </button>
           </ModalActionRow>
         </div>
@@ -276,5 +280,4 @@ function Checkpoint({
     </div>
   );
 }
-
 export default Checkpoint;
