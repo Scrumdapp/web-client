@@ -95,7 +95,7 @@ export function GroupCheckinPage() {
           <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
         </button>
       </div>
-      {checkpoints.map((checkpoint) => (
+      {checkpoints.reverse().map((checkpoint) => (
         <div key={checkpoint.id} className="w-full">
           <Checkpoint
             groupId={group.id}
