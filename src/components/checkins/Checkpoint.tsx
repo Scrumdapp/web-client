@@ -2,11 +2,10 @@ import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
 import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCheck, faPencil} from "@fortawesome/free-solid-svg-icons";
+import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { getformatPresence } from "../../js/utils/colorUtils.ts";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Modal from "../../components/generic/modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
@@ -18,6 +17,11 @@ import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import {AttendanceDropDownMenu} from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
+
+type SessionCheckpointRow = GroupCheckpoint & {
+    first_name: string;
+    last_name: string;
+};
 
 function Checkpoint({
   groupId,
@@ -38,12 +42,7 @@ function Checkpoint({
   users: { user_id: number; first_name: string; last_name: string }[];
   currentUser: { id: number } | null | undefined;
 }) {
-    type SessionCheckpointRow = Omit<GroupCheckpoint, "groupUser" | "presence"> & {
-        user_id: number;
-        first_name: string;
-        last_name: string;
-        presence?: string | number | null;
-    };
+
 
   const modal = useModalState();
 
@@ -60,7 +59,12 @@ function Checkpoint({
     return () => clearInterval(id);
   }, [startTime, duration]);
 
-  const isLocked = timeLeft <= 0;
+    const isLocked = timeLeft <= 0;
+
+    useEffect(() => {
+        if (isLocked) modal.close();
+    }, [isLocked, modal]);
+
 
   const [notes, setNotes] = useState("");
   const [selectedPresence, setSelectedPresence] = useState<string | null>(null);
@@ -70,71 +74,82 @@ function Checkpoint({
   const [rowsError, setRowsError] = useState<ApiError | null>(null);
   const [rowsLoading, setRowsLoading] = useState(false);
 
+  const [applyError, setApplyError] = useState<ApiError | null>(null);
+  const [applyLoading, setApplyLoading] = useState(false);
+
   const myUserId = currentUser?.id ?? null;
 
-  useEffect(() => {
-    let isActive = true;
-    setRowsLoading(true);
-    setRowsError(null);
-    ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId)
-        .then((checkpoints) => {
-          if (!isActive) return;
-          setRows(
-              users.map((user) => {
-                const checkpoint  = checkpoints.find(
-                    (entry) => entry.groupUser === user.user_id,
-                );
-                return {
-                  id: checkpoint?.id ?? user.user_id,
-                  sessionId: checkpoint?.sessionId ?? sessionId,
-                  user_id: user.user_id,
-                  first_name: user.first_name,
-                  last_name: user.last_name,
-                  presence: checkpoint?.presence ?? null,
-                  stars: checkpoint?.stars ?? null,
-                  comment: checkpoint?.comment ?? null,
-                  impediment: checkpoint?.impediment ?? null,
-                };
-              }),
-          );
-        })
-
-        .catch((error) => {
-        if (!isActive) return;
-        if (error instanceof ApiError) {
-          setRowsError(error);
-        } else if (error instanceof Error) {
-          setRowsError(new ApiError(999, "Unhandled error", error));
-        } else {
-          setRowsError(new ApiError(999, "Unhandled error", error));
+    const fetchRows = useCallback(async (currentUsers: typeof users) => {
+        setRowsLoading(true);
+        setRowsError(null);
+        try {
+            const checkpoints = await ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId);
+            setRows(
+                currentUsers.map((user) => {
+                    const checkpoint = checkpoints.find((entry) => entry.groupUser === user.user_id);
+                    const base: GroupCheckpoint = checkpoint ?? {
+                        id: user.user_id,
+                        sessionId,
+                        groupUser: user.user_id,
+                        presence: null,
+                        stars: null,
+                        comment: null,
+                        impediment: null,
+                    };
+                    return { ...base, first_name: user.first_name, last_name: user.last_name };
+                })
+            );
+        } catch (error) {
+            if (error instanceof ApiError) setRowsError(error);
+            else setRowsError(new ApiError(999, "Unhandled error", error));
+        } finally {
+            setRowsLoading(false);
         }
-      })
-      .finally(() => {
-        if (isActive) setRowsLoading(false);
-      });
+    }, [groupId, sessionId]);
 
-    return () => {
-      isActive = false;
+    useEffect(() => {
+        fetchRows(users);
+    }, [fetchRows, users]);
+
+
+    const handleApply = async () => {
+        if (myUserId == null || isLocked) return;
+        setApplyLoading(true);
+        setApplyError(null);
+        try {
+            await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
+                userId: myUserId,
+                presence: selectedPresence,
+                stars: selectedStar,
+                comment: notes,
+                impediment: obstacle,
+            });
+            setRows(prev =>
+                prev?.map(row =>
+                    row.user_id === myUserId
+                        ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
+                        : row
+                ) ?? prev
+            );
+            modal.close();
+        } catch (err) {
+            if (err instanceof ApiError) setApplyError(err);
+            else setApplyError(new ApiError(999, "Unhandled error", err));
+        } finally {
+            setApplyLoading(false);
+        }
     };
-  }, [groupId, sessionId]);
 
-
-  const handleApply = async () => {
-    if (myUserId === null) return;
-    await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
-      userId: myUserId,
-      presence: selectedPresence,
-      stars: selectedStar,
-      comment: notes,
-      impediment: obstacle,
-    });
-      setRows(prev => prev?.map(row =>
-          row.user_id === myUserId
-              ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
-              : row
-      ) ?? prev);
-    modal.close();
-  };
+    const handleOpen = () => {
+        if (rows == null) return;
+        setApplyError(null);
+        const myRow = rows.find(row => row.user_id === myUserId);
+        setSelectedPresence(myRow?.presence ? String(myRow.presence) : null);
+        setSelectedStar(myRow?.stars ?? null);
+        setNotes(myRow?.comment ?? "");
+        setObstacle(myRow?.impediment ?? "");
+        modal.open();
+    };
 
   return (
     <div className="card w-full space-x-5">
@@ -162,7 +177,7 @@ function Checkpoint({
           </thead>
           <tbody>
             {rows.map((item) => (
-              <tr key={item.id}>
+              <tr key={`${item.user_id === item.id ? 'u' : 'cp'}-${item.id}`}>
                 <td className="py-3 text-left pl-2 name-field border-r border-t border-dotted border-current!">
                   {item.first_name} {item.last_name}
                 </td>
@@ -192,6 +207,13 @@ function Checkpoint({
         </table>
       )}
       <div className="align-center horizontal gap-3 mt-2 justify-end">
+          <button
+              className="btn border"
+              onClick={() => fetchRows(users)}
+              disabled={rowsLoading}
+          >
+              {rowsLoading ? "Refreshing..." : "Refresh"}
+          </button>
         <Link
           to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
           className="btn border m-auto mx-2 opacity-50 cursor-not-allowed!"
@@ -201,7 +223,7 @@ function Checkpoint({
         </Link>
         <button
           className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
-          onClick={modal.open}
+          onClick={handleOpen}
           disabled={isLocked}
         >
           <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
@@ -211,26 +233,25 @@ function Checkpoint({
       <Modal state={modal}>
         <div className="space-y-5">
           <ModalHeadText>Edit Checkpoint</ModalHeadText>
-            <form id="entry">
           <div className="flex flex-col space-y-2 w-full">
-            Attendance
+            <label>Attendance</label>
             <AttendanceDropDownMenu
                 value={selectedPresence}
                 onChange={setSelectedPresence}
                   />
-            Stars
+            <label>Stars</label>
             <StarsDropDownMenu
                 value={selectedStar}
                 onChange={setSelectedStar}
             />
-            Notes
+            <label>Notes</label>
             <input
               className="write-section"
               placeholder="Notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
-            Obstacle
+            <label>Obstacle</label>
             <input
               className="write-section"
               placeholder="Obstacle"
@@ -238,17 +259,16 @@ function Checkpoint({
               onChange={(e) => setObstacle(e.target.value)}
             />
           </div>
-            </form>
-          <ModalActionRow>
+            {applyError && <p className="text-red text-right">{applyError.message}</p>}
+            <ModalActionRow>
             <ModalCancelButton />
               <button
                   className="btn border"
                   onClick={handleApply}
-                  form="entry"
                   type="button"
+                  disabled={applyLoading}
               >
-                <FontAwesomeIcon icon={faCheck} className="text-blue icon" />
-                  Apply
+                  {applyLoading ? "Saving..." : "Apply"}
               </button>
           </ModalActionRow>
         </div>
