@@ -16,7 +16,7 @@ import {LoadScreen} from "../../components/generic/LoadScreen.tsx";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 
 
-export function GroupCheckinPage() {
+export function GroupCheckpointPage() {
   const group = useGroup();
   const modal = useModalState();
   const [searchParams] = useSearchParams();
