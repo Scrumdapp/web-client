@@ -64,15 +64,15 @@ export default function Groups() {
                 </ModalActionRow>
             </Modal>
         </div>
-            <div className="flex flex-wrap gap-4 app-container">
+            <div className="flex flex-wrap gap-4 app-container justify-evenly">
                 <GetGroups input={[]}>
                 {(groups) => (
                     <>
                         {groups.length === 0 && (
-                            <p>Er zijn geen groepen gevonden...</p>
+                            <p>No groups have been found...</p>
                         )}
                         {groups.map((group) => (
-                            <Link key={group.id} to={`/groups/${group.id}`}>
+                            <Link key={group.id} to={`/groups/${group.id}`} className="block w-[30%]">
                                 <GroupTile group={group} />
                             </Link>
                         ))}
