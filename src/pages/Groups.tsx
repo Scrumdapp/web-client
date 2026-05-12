@@ -29,7 +29,7 @@ export default function Groups() {
                 <div className="w-20 horizontal center align-top ">
                     <FontAwesomeIcon
                         icon={faSearch}
-                        className="p-2 text-xl"
+                        className="flex p-2 text-xl"
                     />
                 <input
                     type="text"
@@ -80,7 +80,7 @@ export default function Groups() {
                 </ModalActionRow>
             </Modal>
         </div>
-            <ul className="flex flex-wrap gap-4 app-container justify-evenly">
+            <ul className="flex flex-wrap gap-4 app-container grid-cols-3 justify-center">
                 <GetGroups input={[]}>
                 {(groups) => {
                     const filteredGroups = groups.filter((group) =>
