@@ -1,6 +1,6 @@
 import Modal from "../components/generic/modal/Modal.tsx";
 import {useModalState} from "../js/hooks/useModalState.ts";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ModalHeadText from "../components/generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../components/generic/modal/components/ModalActionRow.tsx";
@@ -19,11 +19,25 @@ export default function Groups() {
     const [name, setName] = useState("")
     const createGroup = useApi(ScrumdappApi.createGroup());
     const GetGroups = useApiComponent(ScrumdappApi.getGroups());
+    const [search, setSearch] = useState("");
 
     return (
         <div>
         <div className="app-container horizontal justify-between">
             <h2>Scrumdapp</h2>
+                <div className="w-20 horizontal center align-top ">
+                    <FontAwesomeIcon
+                        icon={faSearch}
+                        className="p-2"
+                    />
+                <input
+                    type="text"
+                    placeholder="Search for groups"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="write-section"
+                />
+                </div>
             <button className="btn btn-red border max-h-fit"
                 onClick={modal.open}>
                     New Group <FontAwesomeIcon icon={faPlus} />
@@ -69,7 +83,7 @@ export default function Groups() {
                 {(groups) => (
                     <>
                         {groups.length === 0 && (
-                            <p>No groups have been found...</p>
+                            <p className="text-fg">No groups have been found...</p>
                         )}
                         {groups.map((group) => (
                             <Link key={group.id} to={`/groups/${group.id}`} className="block w-[30%]">
