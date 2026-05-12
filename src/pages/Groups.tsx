@@ -24,18 +24,18 @@ export default function Groups() {
     return (
         <div>
         <div className="app-container horizontal justify-between">
-            <h2>Scrumdapp</h2>
+            <h1>Scrumdapp</h1>
                 <div className="w-20 horizontal center align-top ">
                     <FontAwesomeIcon
                         icon={faSearch}
-                        className="p-2"
+                        className="p-2 text-xl"
                     />
                 <input
                     type="text"
                     placeholder="Search for groups"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="write-section"
+                    className="border-2 w-[30%] aspect-10/2 px-4 rounded-xl"
                 />
                 </div>
             <button className="btn btn-red border max-h-fit"
