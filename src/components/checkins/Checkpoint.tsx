@@ -155,13 +155,38 @@ function Checkpoint({
     modal.open();
   };
 
-  // Early returns — cleaner than nested ternaries in the JSX
   if (rowsLoading || rows === null) return <LoadScreen />;
   if (rowsError) return <ErrorScreen error={rowsError} />;
 
   return (
       <div className="card w-full space-x-5">
-        <h2>{name}</h2>
+        <div className="flex flex-row items-center justify-between mr-0">
+            <h2>{name}</h2>
+            <div className="flex items-center gap-3">
+            <button
+                className="btn border"
+                onClick={refresh}
+                disabled={rowsLoading}
+            >
+              Refresh
+            </button>
+            <Link
+                to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
+                className="btn border m-auto mx-2 opacity-50 cursor-not-allowed!"
+            >
+              <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+              Scrummaster Checkpoint
+            </Link>
+            <button
+                className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
+                onClick={handleOpen}
+                disabled={isLocked}
+            >
+              <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+              Edit Checkpoint
+            </button>
+            </div>
+          </div>
         <hr className="my-2 mr-0" />
         <p>
           {isLocked
@@ -204,30 +229,6 @@ function Checkpoint({
           ))}
           </tbody>
         </table>
-        <div className="align-center horizontal gap-3 mt-2 justify-end">
-          <button
-            className="btn border"
-            onClick={refresh}
-            disabled={rowsLoading}
-          >
-            Refresh
-          </button>
-          <Link
-            to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-            className="btn border m-auto mx-2 opacity-50 cursor-not-allowed!"
-          >
-            <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-            Scrummaster Checkpoint
-          </Link>
-          <button
-            className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
-            onClick={handleOpen}
-            disabled={isLocked}
-          >
-            <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-            Edit Checkpoint
-          </button>
-        </div>
         <Modal state={modal}>
           <div className="space-y-5">
             <ModalHeadText>Edit Checkpoint</ModalHeadText>
