@@ -24,14 +24,14 @@ export default function Header() {
 
                     <div className="hidden md:flex space-x-6 text-black font-medium">
                         {links.map((link, i) => (
-                            <Link key={i} to={link.to} className="btn w-20">
+                            <Link key={i} to={link.to} className="btn w-fit">
                                 {link.label}
                             </Link>
                         ))}
                     </div>
 
                     <div className="hidden md:block">
-                        <Link to="/login" className="btn border btn-secondary min-w-20 max-w-20">Profile</Link>
+                        <Link to="/account" className="btn border btn-secondary w-fit">Account</Link>
                     </div>
 
                     {/*WORK IN PROGRESS, NEED TO LOOK AT THIS AT A LATER TIME, NOT AS IMPORTANT AS OF RIGHT NOW*/}
