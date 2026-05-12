@@ -1,6 +1,6 @@
 export default function NewAccount() {
     return (
-        <div>
+        <div className="app-container card text-center">
 
         </div>
     )

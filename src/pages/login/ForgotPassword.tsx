@@ -1,6 +1,6 @@
 export default function ForgotPassword() {
     return (
-        <div>
+        <div className="app-container card text-center">
 
         </div>
     )

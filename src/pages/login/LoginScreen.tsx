@@ -1,6 +1,6 @@
 export default function LoginScreen() {
     return (
-        <div>
+        <div className="app-container card text-center">
 
         </div>
     )

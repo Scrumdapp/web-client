@@ -9,6 +9,7 @@ import LoginPage from "../pages/login/LoginPage.tsx";
 import LoginScreen from "../pages/login/LoginScreen.tsx";
 import NewAccount from "../pages/login/NewAccount.tsx";
 import ForgotPassword from "../pages/login/ForgotPassword.tsx";
+import DiscordLogin from "../pages/login/DiscordLogin.tsx";
 // ^^^ Add new pages here ^^^
 
 export default function AppRouter() {
@@ -22,6 +23,7 @@ export default function AppRouter() {
                 <Route path="/account/login" element={<LoginScreen />} />
                 <Route path="/account/new-account" element={<NewAccount />} />
                 <Route path="/account/forgot-password" element={<ForgotPassword />} />
+                <Route path="/account/discord" element={<DiscordLogin />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     );
