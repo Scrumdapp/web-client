@@ -8,7 +8,7 @@ interface GroupTileProps {
 export function GroupTile({ group }: GroupTileProps) {
 
     return (
-            <div className="flex w-full aspect-square bg-bg_h border rounded-2xl hover:bg-bg">
+            <div className="flex w-full aspect-square bg-bg_h border rounded-2xl hover:bg-bg2">
                 <div className="p-2 lg:p-6 lg:space-y-5">
                     <p className="text-xs lg:text-2xl p-2">{group.name}</p>
                     <img
