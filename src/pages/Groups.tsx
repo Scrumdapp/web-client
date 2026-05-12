@@ -80,19 +80,23 @@ export default function Groups() {
         </div>
             <div className="flex flex-wrap gap-4 app-container justify-evenly">
                 <GetGroups input={[]}>
-                {(groups) => (
+                {(groups) => {
+                    const filteredGroups = groups.filter((group) =>
+                        group.name.toLowerCase().includes(search.toLowerCase().trim())
+                    );
+
+                    return(
                     <>
-                        {groups.length === 0 && (
+                        {filteredGroups.length === 0 && (
                             <p className="text-fg">No groups have been found...</p>
                         )}
-                        {groups.map((group) => (
+                        {filteredGroups.map((group) => (
                             <Link key={group.id} to={`/groups/${group.id}`} className="block w-[30%]">
                                 <GroupTile group={group} />
                             </Link>
                         ))}
-
                     </>
-                )}
+                )}}
                 </GetGroups>
             </div>
         </div>
