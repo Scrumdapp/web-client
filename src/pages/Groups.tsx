@@ -35,7 +35,7 @@ export default function Groups() {
                     placeholder="Search for groups"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="border-2 w-[30%] aspect-10/2 px-4 rounded-xl"
+                    className="border-2 w-[30%] aspect-10/2 px-4 rounded-xl focus:outline-none focus:border-dashed focus:border-red-dim"
                     alt="Search here for diffrent groups"
                 />
                 </div>
