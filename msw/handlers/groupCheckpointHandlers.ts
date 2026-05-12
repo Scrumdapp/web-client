@@ -94,14 +94,14 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
     return sessions
 }
 
-function generateSession(id: number, gId: number, oId: number, date: Date ): GroupCheckpointSession {
+function generateSession(id: number, gId: number, oId: number, date: Date, time?: string, name?: string ): GroupCheckpointSession {
     return {
         id: id,
         groupId: gId,
         ownerId: oId,
-        name: "check-in",
+        name: name != null ? name : "Checkpoint",
         date: toScrumdappDate(date),
-        startTime: generateRandomTime(date),
+        startTime: time != null ? time : generateRandomTime(date),
         duration: 15,
     }
 }
@@ -152,11 +152,26 @@ export const groupCheckpointHandlers = [
 
         return HttpResponse.json(filteredSession)
     }),
-    http.post("/api/groups/:gid/sessions", ({params}) => {
+    http.post("/api/groups/:gid/sessions", async ({params, request}) => {
+        const today = new Date()
+        const time = today.setMinutes(today.getMinutes() + 15)
+        const body = await request.json()
+
         // @ts-ignore
-        const sessions = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid))
-        const rnd = Math.floor(Math.random() * sessions.length)
-        return HttpResponse.json(sessions[rnd])
+        const sessionName = body.name as string
+
+        // @ts-ignore
+        const newSession = generateSession(Math.floor(Math.random() * 6969699), parseInt(params.gid), 1, today, time, sessionName)
+
+
+        const genCheckpoints: GenCheckpoints = {
+            sessions: newSession,
+            checkpoints: []
+        }
+
+        groupCheckpoints.push(genCheckpoints)
+
+        return HttpResponse.json(newSession, { status: 201})
     }),
     http.get("/api/groups/:gid/sessions/:sid", ({params}) => {
 
