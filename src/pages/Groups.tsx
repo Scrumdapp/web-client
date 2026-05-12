@@ -36,6 +36,7 @@ export default function Groups() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="border-2 w-[30%] aspect-10/2 px-4 rounded-xl"
+                    alt="Search here for diffrent groups"
                 />
                 </div>
             <button className="btn btn-red border max-h-fit"
