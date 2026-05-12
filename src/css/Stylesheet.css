@@ -66,15 +66,15 @@ table {
     @apply table border-collapse box-border w-full
 }
 
-.checkin-table {
+.checkpoint-table {
     @apply border-collapse w-full
 }
 
-.checkin-table th {
+.checkpoint-table th {
     @apply pb-3
 }
 
-.checkin-table td {
+.checkpoint-table td {
     @apply pt-2
 }
 
@@ -87,5 +87,5 @@ table {
 }
 
 .stars > .icon {
-    @apply text-xs;
+    @apply text-xs
 }

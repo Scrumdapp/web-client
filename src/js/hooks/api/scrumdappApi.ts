@@ -7,7 +7,6 @@ import type {UpdateGroupCheckin, GroupCheckin, GroupCheckinsUpdate, UserGroupChe
 import {
     GroupCheckpoint,
     GroupCheckpointSession, GroupCheckpointSessionCreate,
-    PartialGroupCheckpoint,
     UpdateGroupCheckpoint
 } from "../../models/checkpoint.ts";
 
@@ -141,7 +140,7 @@ export namespace ScrumdappApi {
 
     export function getGroupCheckpointsBySession() {
         return createProcessor("getGroupCheckpointsBySession", (groupId: number, sessionId: number) => {
-            return makeApiRequest<PartialGroupCheckpoint[]>("GET", "/groups/{group.id}/checkpoints/{session.id}", {
+            return makeApiRequest<GroupCheckpoint[]>("GET", "/groups/{group.id}/checkpoints/{session.id}", {
                 params: { "{group.id}": groupId.toString(), "{session.id}": sessionId.toString() }
             })
         })
