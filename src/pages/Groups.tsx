@@ -78,7 +78,7 @@ export default function Groups() {
                 </ModalActionRow>
             </Modal>
         </div>
-            <div className="flex flex-wrap gap-4 app-container justify-evenly">
+            <ul className="flex flex-wrap gap-4 app-container justify-evenly">
                 <GetGroups input={[]}>
                 {(groups) => {
                     const filteredGroups = groups.filter((group) =>
@@ -91,14 +91,17 @@ export default function Groups() {
                             <p className="text-fg">No groups have been found...</p>
                         )}
                         {filteredGroups.map((group) => (
-                            <Link key={group.id} to={`/groups/${group.id}`} className="block w-[30%]">
-                                <GroupTile group={group} />
-                            </Link>
+                            <li key={group.id} className="w-[30%]">
+                                <Link to={`/groups/${group.id}`} className="block">
+                                   <GroupTile group={group} />
+                                </Link>
+                            </li>
+
                         ))}
                     </>
                 )}}
                 </GetGroups>
-            </div>
+            </ul>
         </div>
     )
 }
