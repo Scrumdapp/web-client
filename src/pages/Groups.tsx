@@ -13,14 +13,13 @@ import {GroupTile} from "../components/groups/GroupTile.tsx";
 import {useApiComponent} from "../js/hooks/api/useApiComponent.tsx";
 import {Link} from "react-router-dom";
 
-const GetGroups = useApiComponent(ScrumdappApi.getGroups());
-
 export default function Groups() {
 
     const modal = useModalState();
     const [name, setName] = useState("")
     const createGroup = useApi(ScrumdappApi.createGroup());
     const [search, setSearch] = useState("");
+    const GetGroups = useApiComponent(ScrumdappApi.getGroups());
 
     return (
         <div>
