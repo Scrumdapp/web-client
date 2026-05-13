@@ -10,6 +10,7 @@ import LoginScreen from "../pages/login/LoginScreen.tsx";
 import NewAccount from "../pages/login/NewAccount.tsx";
 import ForgotPassword from "../pages/login/ForgotPassword.tsx";
 import DiscordLogin from "../pages/login/DiscordLogin.tsx";
+import DiscordLoginReturnPage from "../pages/login/DiscordLoginReturnPage.tsx";
 // ^^^ Add new pages here ^^^
 
 export default function AppRouter() {
@@ -24,6 +25,7 @@ export default function AppRouter() {
                 <Route path="/account/new-account" element={<NewAccount />} />
                 <Route path="/account/forgot-password" element={<ForgotPassword />} />
                 <Route path="/account/discord" element={<DiscordLogin />} />
+                <Route path="/account/discord/login" element={<DiscordLoginReturnPage />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     );
