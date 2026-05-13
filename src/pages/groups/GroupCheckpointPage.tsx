@@ -89,7 +89,9 @@ export function GroupCheckpointPage() {
     modal.accept();
   };
 
-  return (
+    const [showWarning, setShowWarning] = useState(false);
+
+    return (
     <div className="space-y-3 ">
       <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
         <h2 className="px-2">{date}</h2>
@@ -124,10 +126,19 @@ export function GroupCheckpointPage() {
                 maxLength={32}
                 onChange={(e) => {
                     const clean = e.target.value.replace(/[^A-Za-z0-9 ]/g, "");
+                    if (clean !== e.target.value) {
+                        setShowWarning(true);
+                        setTimeout(() => setShowWarning(false), 2000);
+                    }
                     setCheckpointName(clean);
                 }}
                 required
             />
+            {showWarning && (
+                <p className="text-red text-sm">
+                    Only letters, numbers and spaces are allowed.
+                </p>
+            )}
           <ModalActionRow>
             <ModalCancelButton />
               <button

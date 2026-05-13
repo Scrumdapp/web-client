@@ -162,6 +162,8 @@ function Checkpoint({
 
   const isSessionmaster = myUserId === ownerId;
 
+  const isInGroup = users.some(user => user.user_id === myUserId);
+
   return (
       <div className="card w-full space-x-5">
         <div className="flex flex-row items-center justify-between mr-0">
@@ -174,6 +176,7 @@ function Checkpoint({
             >
               Refresh
             </button>
+              {isInGroup && (
             <button
                 className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
                 onClick={handleOpen}
@@ -182,6 +185,7 @@ function Checkpoint({
               <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
               Edit Checkpoint
             </button>
+                  )}
             </div>
           </div>
         <hr className="my-2 mr-0" />
