@@ -27,16 +27,12 @@ export default function Groups() {
         <div className="app-container horizontal justify-between">
             <h1>Scrumdapp</h1>
                 <div className="w-20 horizontal center align-top ">
-                    <FontAwesomeIcon
-                        icon={faSearch}
-                        className="flex p-2 text-xl"
-                    />
                 <input
                     type="text"
                     placeholder="Search for groups"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="border-2 w-[30%] aspect-10/2 px-4 rounded-xl focus:outline-none focus:border-dashed focus:border-red-dim"
+                    className="border-2 w-[60%] lg:w-[30%] aspect-10/2 px-4 rounded-xl focus:outline-none focus:border-dashed focus:border-red-dim searchicon"
                     alt="Search here for diffrent groups"
                 />
                 </div>
