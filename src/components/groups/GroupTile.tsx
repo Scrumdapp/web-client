@@ -12,7 +12,7 @@ export function GroupTile({ group }: GroupTileProps) {
                 <div className="p-2 lg:p-6 lg:space-y-5">
                     <p className="text-xs lg:text-2xl p-2">{group.name}</p>
                     <img
-                        src="https://i.sstatic.net/6M513.png"
+                        src="https://http.cat/images/404.jpg"
                         alt={"Group Image"}
                         className="object-cover h-[70%] flex rounded-2xl overflow-hidden"
                     />
