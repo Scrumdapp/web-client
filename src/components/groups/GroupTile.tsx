@@ -10,7 +10,7 @@ export function GroupTile({ group }: GroupTileProps) {
     return (
             <div className="card hover:bg-bg2!">
                 <div>
-                    <p className="text-xs lg:text-2xl p-2">{group.name}</p>
+                    <p className="text-xs lg:text-2xl pb-2">{group.name}</p>
                     <img
                         src="https://http.cat/images/404.jpg"
                         alt={"Group Image"}
