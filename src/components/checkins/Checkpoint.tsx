@@ -73,6 +73,7 @@ function Checkpoint({
     sessionId,
     users,
     currentUser,
+    ownerId,
   }: {
     groupId: number;
     date: string;
@@ -82,6 +83,7 @@ function Checkpoint({
     sessionId: number;
     users: CheckpointUser[];
     currentUser: { id: number } | null | undefined;
+    ownerId: number;
   }) {
   const modal = useModalState();
 
@@ -158,6 +160,8 @@ function Checkpoint({
   if (rowsLoading || rows === null) return <LoadScreen />;
   if (rowsError) return <ErrorScreen error={rowsError} />;
 
+  const isSessionmaster = myUserId === ownerId;
+
   return (
       <div className="card w-full space-x-5">
         <div className="flex flex-row items-center justify-between mr-0">
@@ -170,13 +174,6 @@ function Checkpoint({
             >
               Refresh
             </button>
-            <Link
-                to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-                className="btn border m-auto mx-2 opacity-50 cursor-not-allowed!"
-            >
-              <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-              Scrummaster Checkpoint
-            </Link>
             <button
                 className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
                 onClick={handleOpen}
@@ -201,6 +198,7 @@ function Checkpoint({
             <th className="py-3 items-center pl-2">How're you feeling?</th>
             <th className="py-3 text-left pl-2 w-[25%]">Comment</th>
             <th className="py-3 text-left pl-2 w-[25%]">Obstacle</th>
+            {isSessionmaster && <th className="py-3 text-left pl-2 w-[5%]">Edit</th>}
           </tr>
           </thead>
           <tbody>
@@ -225,6 +223,16 @@ function Checkpoint({
                 <td className="p-3 break-words border-t border-dotted">
                   {item.impediment}
                 </td>
+                {isSessionmaster && (
+                  <td className="border-t border-dotted">
+                    <Link
+                        to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
+                        className="btn border w-fit aspect-square"
+                    >
+                      <FontAwesomeIcon icon={faPencil} className="text-blue" />
+                    </Link>
+                  </td>
+                )}
               </tr>
           ))}
           </tbody>

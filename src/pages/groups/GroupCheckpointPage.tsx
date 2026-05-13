@@ -31,6 +31,7 @@ export function GroupCheckpointPage() {
     startTime: number;
     sessionId: number;
     duration: number;
+    ownerId: number;
   };
 
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
@@ -68,6 +69,7 @@ export function GroupCheckpointPage() {
         startTime: parseStartTime(session.date, session.startTime),
         sessionId: session.id,
         duration: session.duration * 60_000,
+        ownerId: session.ownerId,
     })));
   }, [group.id, date]);
 
@@ -107,20 +109,25 @@ export function GroupCheckpointPage() {
             sessionId={checkpoint.sessionId}
             users={users}
             currentUser={currentUser}
+            ownerId={checkpoint.ownerId}
           />
         </div>
       ))}
       <Modal state={modal}>
         <div className="space-y-5">
           <ModalHeadText>New Session</ModalHeadText>
-          <input
-            className="write-section w-full!"
-            placeholder="Session Name"
-            value={checkpointName}
-            maxLength={30}
-            onChange={(e) => setCheckpointName(e.target.value)}
-            required
-          ></input>
+            <input
+                type="text"
+                className="write-section w-full!"
+                placeholder="Session Name"
+                value={checkpointName}
+                maxLength={32}
+                onChange={(e) => {
+                    const clean = e.target.value.replace(/[^A-Za-z0-9 ]/g, "");
+                    setCheckpointName(clean);
+                }}
+                required
+            />
           <ModalActionRow>
             <ModalCancelButton />
               <button
