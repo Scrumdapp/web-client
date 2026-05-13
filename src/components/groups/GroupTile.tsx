@@ -14,7 +14,7 @@ export function GroupTile({ group }: GroupTileProps) {
                     <img
                         src="https://http.cat/images/404.jpg"
                         alt={"Group Image"}
-                        className="object-cover h-[70%] flex rounded-2xl overflow-hidden"
+                        className="object-cover h-full rounded overflow-hidden"
                     />
             </div>
         </div>
