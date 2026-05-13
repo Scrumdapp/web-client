@@ -75,7 +75,7 @@ export default function Groups() {
                 </ModalActionRow>
             </Modal>
         </div>
-            <ul className="grid gap-4 app-container grid-cols-3 justify-center">
+            <ul className="flex flex-wrap gap-4 app-container grid-cols-3 justify-center">
                 <GetGroups input={[]}>
                 {(groups) => {
                     const filteredGroups = groups.filter((group) =>
