@@ -31,6 +31,7 @@ export function GroupCheckpointPage() {
     startTime: number;
     sessionId: number;
     duration: number;
+    ownerId: number;
   };
 
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
@@ -68,6 +69,7 @@ export function GroupCheckpointPage() {
         startTime: parseStartTime(session.date, session.startTime),
         sessionId: session.id,
         duration: session.duration * 60_000,
+        ownerId: session.ownerId,
     })));
   }, [group.id, date]);
 
@@ -87,7 +89,9 @@ export function GroupCheckpointPage() {
     modal.accept();
   };
 
-  return (
+    const [showWarning, setShowWarning] = useState(false);
+
+    return (
     <div className="space-y-3 ">
       <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
         <h2 className="px-2">{date}</h2>
@@ -107,20 +111,30 @@ export function GroupCheckpointPage() {
             sessionId={checkpoint.sessionId}
             users={users}
             currentUser={currentUser}
+            ownerId={checkpoint.ownerId}
           />
         </div>
       ))}
       <Modal state={modal}>
         <div className="space-y-5">
           <ModalHeadText>New Session</ModalHeadText>
-          <input
-            className="write-section w-full!"
-            placeholder="Session Name"
-            value={checkpointName}
-            maxLength={30}
-            onChange={(e) => setCheckpointName(e.target.value)}
-            required
-          ></input>
+            <input
+                type="text"
+                className="write-section w-full!"
+                placeholder="Session Name"
+                value={checkpointName}
+                maxLength={32}
+                onChange={(e) => {
+                    setShowWarning(!/^[a-zA-Z0-9 ]{1,24}$/.test(e.target.value))
+                    setCheckpointName(e.target.value);
+                }}
+                required
+            />
+            {showWarning && (
+                <p className="text-red text-sm">
+                    Only letters, numbers and spaces are allowed.
+                </p>
+            )}
           <ModalActionRow>
             <ModalCancelButton />
               <button
