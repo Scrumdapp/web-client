@@ -125,10 +125,7 @@ export function GroupCheckpointPage() {
                 value={checkpointName}
                 maxLength={32}
                 onChange={(e) => {
-                    if (/^[a-zA-Z0-9 ]{1,24}$/.test(e.target.value)) {
-                        setShowWarning(false);}
-                    else
-                        setShowWarning(true);
+                    setShowWarning(!/^[a-zA-Z0-9 ]{1,24}$/.test(e.target.value))
                     setCheckpointName(e.target.value);
                 }}
                 required
