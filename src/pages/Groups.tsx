@@ -1,5 +1,5 @@
 import { useModalState } from "../js/hooks/useModalState.ts";
-import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
@@ -7,7 +7,6 @@ import { GroupCard } from "../components/groups/GroupCard.tsx";
 import { useApiComponent } from "../js/hooks/api/useApiComponent.tsx";
 import { Link } from "react-router-dom";
 import { IconInput } from "../components/generic/IconInput.tsx";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlass";
 import { CreateGroupModal } from "../components/modals/CreateGroupModal.tsx";
 
 export default function Groups() {

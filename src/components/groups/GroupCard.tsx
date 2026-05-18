@@ -1,7 +1,7 @@
-import { Group } from "../../js/models/group.ts";
+import { PartialGroup } from "../../js/models/group.ts";
 
 interface GroupCardProps {
-  group: Group;
+  group: PartialGroup;
 }
 
 
