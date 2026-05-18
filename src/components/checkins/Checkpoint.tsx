@@ -198,20 +198,20 @@ function Checkpoint({
           <thead>
           <tr>
             <th className="py-3 text-left">Name</th>
-            <th className="py-3 text-left pl-2 border-l border-dotted">Attendance</th>
-            <th className="py-3 items-center pl-2">How're you feeling?</th>
-            <th className="py-3 text-left pl-2 w-[25%]">Comment</th>
-            <th className="py-3 text-left pl-2 w-[25%]">Obstacle</th>
-            {isSessionmaster && <th className="py-3 text-left pl-2 w-[5%]">Edit</th>}
+            <th className="py-3 text-left px-3 border-l border-dotted">Attendance</th>
+            <th className="py-3 items-center px-3">How're you feeling?</th>
+            <th className="py-3 text-left px-3 w-[25%]">Comment</th>
+            <th className="py-3 text-left px-3 w-[25%]">Obstacle</th>
+            {isSessionmaster && <th className="py-3 text-left px-3 w-[5%]">Edit</th>}
           </tr>
           </thead>
           <tbody>
           {rows.map((item) => (
-              <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`}>
-                <td className="py-3 text-left pl-2 name-field border-r border-t border-dotted border-current!">
+              <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
+                <td className="py-3 text-left px-2 pr-1 name-field border-r border-t border-dotted border-current!">
                   {item.first_name} {item.last_name}
                 </td>
-                <td className={`py-3 text-left p-3 border-t border-dotted border-current`}>
+                <td className={`text-left p-3 border-t border-dotted border-current`}>
                   <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
                     {getformatPresence(item.presence ? String(item.presence) : "---")}
                   </div>
@@ -228,10 +228,10 @@ function Checkpoint({
                   {item.impediment}
                 </td>
                 {isSessionmaster && (
-                  <td className="border-t border-dotted">
+                  <td className="border-t border-dotted py-2">
                     <Link
                         to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-                        className="btn border w-fit aspect-square"
+                        className="btn border max-w-8 aspect-square"
                     >
                       <FontAwesomeIcon icon={faPencil} className="text-blue" />
                     </Link>
