@@ -202,7 +202,7 @@ function Checkpoint({
             <th className="py-3 items-center px-3">How're you feeling?</th>
             <th className="py-3 text-left px-3 w-[25%]">Comment</th>
             <th className="py-3 text-left px-3 w-[25%]">Obstacle</th>
-            {isSessionmaster && <th className="py-3 text-left px-3 w-[5%]">Edit</th>}
+            {isSessionmaster && <th className="py-3 text-left w-[5%]">Edit</th>}
           </tr>
           </thead>
           <tbody>
@@ -231,7 +231,7 @@ function Checkpoint({
                   <td className="border-t border-dotted py-2">
                     <Link
                         to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-                        className="btn border max-w-8 aspect-square"
+                        className="btn border aspect-square max-h-8"
                     >
                       <FontAwesomeIcon icon={faPencil} className="text-blue" />
                     </Link>
