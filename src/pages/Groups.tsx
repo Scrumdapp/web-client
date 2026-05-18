@@ -8,7 +8,7 @@ import { useApiComponent } from "../js/hooks/api/useApiComponent.tsx";
 import { Link } from "react-router-dom";
 import { IconInput } from "../components/generic/IconInput.tsx";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlass";
-import { CreateGroupModal } from "../components/modals/createGroupModal.tsx";
+import { CreateGroupModal } from "../components/modals/CreateGroupModal.tsx";
 
 export default function Groups() {
 
