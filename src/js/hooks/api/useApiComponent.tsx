@@ -1,5 +1,5 @@
 import { ScrumdappApi } from "./scrumdappApi.ts";
-import { JSX, ReactNode, useEffect } from "react";
+import { JSX, ReactNode, useEffect, useCallback } from "react";
 import { ApiError } from "./apiError.ts";
 import { useApi } from "./useApi.ts";
 import { LoadScreen } from "../../../components/generic/LoadScreen.tsx";
@@ -7,7 +7,7 @@ import { ErrorScreen } from "../../../components/generic/ErrorScreen.tsx";
 import RequestProcessor = ScrumdappApi.RequestProcessor;
 
 export function useApiComponent<TInput extends any[], TResult>(processor: RequestProcessor<TInput, TResult>) {
-    return ({ input, loading, error, children }: {
+    return useCallback(({ input, loading, error, children }: {
         input: TInput
         loading?: ReactNode
         error?: (error: ApiError) => ReactNode
@@ -33,5 +33,5 @@ export function useApiComponent<TInput extends any[], TResult>(processor: Reques
         }
 
         return children(apiRequester.data)
-    }
+    }, [processor.id])
 }

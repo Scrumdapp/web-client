@@ -1,29 +1,38 @@
 import { useState, useCallback } from "react"
 
-export function useModalState() {
-    const [isOpen, setIsOpen] = useState(false)
+export interface ModalState {
+  isOpen: boolean,
+  open: () => void,
+  accept: () => void,
+  close: () => void,
+  onAccepted: (cb: () => void) => void,
+  onClosed: (cb: () => void) => void
+}
 
-    const [onAcceptCb, setOnAcceptCb] = useState<(() => void) | null>(null)
-    const [onCloseCb, setOnCloseCb] = useState<(() => void) | null>(null)
+export function useModalState(): ModalState {
+  const [isOpen, setIsOpen] = useState(false)
 
-    const open = useCallback(() => setIsOpen(true), [])
+  const [onAcceptCb, setOnAcceptCb] = useState<(() => void) | null>(null)
+  const [onCloseCb, setOnCloseCb] = useState<(() => void) | null>(null)
 
-    const close = useCallback(() => {
-        setIsOpen(false)
-        onCloseCb?.()
-    }, [onCloseCb])
+  const open = useCallback(() => setIsOpen(true), [])
 
-    const accept = useCallback(() => {
-        onAcceptCb?.()
-        setIsOpen(false)
-    }, [onAcceptCb])
+  const close = useCallback(() => {
+    setIsOpen(false)
+    onCloseCb?.()
+  }, [onCloseCb])
 
-    return {
-        isOpen,
-        open,
-        close,
-        accept,
-        onAccepted: setOnAcceptCb,
-        onClosed: setOnCloseCb,
-    }
+  const accept = useCallback(() => {
+    onAcceptCb?.()
+    setIsOpen(false)
+  }, [onAcceptCb])
+
+  return {
+    isOpen,
+    open,
+    close,
+    accept,
+    onAccepted: setOnAcceptCb,
+    onClosed: setOnCloseCb,
+  }
 }
