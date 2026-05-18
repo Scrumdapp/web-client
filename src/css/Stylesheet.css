@@ -89,9 +89,4 @@ table {
 .stars > .icon {
     @apply text-xs
 }
-
-.searchicon {
-    background: url("/Users/thomasmiddelbos/Documents/GitHub/web-client/src/assets/magnifying-glass-solid-full (1).svg");
-    background-repeat: no-repeat;
-    background-position: right;
 }
