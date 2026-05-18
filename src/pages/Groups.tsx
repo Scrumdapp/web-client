@@ -12,6 +12,8 @@ import {ScrumdappApi} from "../js/hooks/api/scrumdappApi.ts";
 import {GroupTile} from "../components/groups/GroupTile.tsx";
 import {useApiComponent} from "../js/hooks/api/useApiComponent.tsx";
 import {Link} from "react-router-dom";
+import {IconInput} from "../components/generic/IconInput.tsx";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons/faMagnifyingGlass";
 
 export default function Groups() {
 
@@ -26,12 +28,12 @@ export default function Groups() {
         <div className="app-container horizontal justify-between">
             <h1>Scrumdapp</h1>
                 <div className="w-20 horizontal center align-top ">
-                <input
+                <IconInput
+                    icon={faMagnifyingGlass}
                     type="text"
                     placeholder="Search for groups"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="write-section searchicon"
                     alt="Search here for diffrent groups"
                 />
                 </div>
