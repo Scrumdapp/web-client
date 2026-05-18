@@ -1,11 +1,11 @@
 import {Group} from "../../js/models/group.ts";
 
-interface GroupTileProps {
+interface GroupCardProps {
     group: Group;
 }
 
 
-export function GroupTile({ group }: GroupTileProps) {
+export function GroupCard({ group }: GroupCardProps) {
 
     return (
             <div className="card hover:bg-bg2!">

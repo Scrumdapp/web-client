@@ -9,7 +9,7 @@ import {useState} from "react";
 import {LoadScreen} from "../components/generic/LoadScreen.tsx";
 import {useApi} from "../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../js/hooks/api/scrumdappApi.ts";
-import {GroupTile} from "../components/groups/GroupTile.tsx";
+import {GroupCard} from "../components/groups/GroupCard.tsx";
 import {useApiComponent} from "../js/hooks/api/useApiComponent.tsx";
 import {Link} from "react-router-dom";
 import {IconInput} from "../components/generic/IconInput.tsx";
@@ -92,7 +92,7 @@ export default function Groups() {
                         {filteredGroups.map((group) => (
                             <li key={group.id}>
                                 <Link to={`/groups/${group.id}`} className="block">
-                                   <GroupTile group={group} />
+                                   <GroupCard group={group} />
                                 </Link>
                             </li>
 
