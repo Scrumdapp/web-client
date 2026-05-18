@@ -197,41 +197,41 @@ function Checkpoint({
         <table className="table-fixed w-full">
           <thead>
           <tr>
-            <th className="py-3 text-left">Name</th>
-            <th className="py-3 text-left px-3 border-l border-dotted">Attendance</th>
-            <th className="py-3 items-center px-3">How're you feeling?</th>
-            <th className="py-3 text-left px-3 w-[25%]">Comment</th>
-            <th className="py-3 text-left px-3 w-[25%]">Obstacle</th>
-            {isSessionmaster && <th className="py-3 text-left w-[5%]">Edit</th>}
+            <th className="p-3.5 text-left">Name</th>
+            <th className="p-3.5 text-left border-l border-dotted">Attendance</th>
+            <th className="p-3.5 items-center">How're you feeling?</th>
+            <th className="p-3.5 text-left w-[25%]">Comment</th>
+            <th className="p-3.5 text-left w-[25%]">Obstacle</th>
+            {isSessionmaster && <th className="py-3.5 pr-3.5 text-left w-[5%]">Edit</th>}
           </tr>
           </thead>
           <tbody>
           {rows.map((item) => (
               <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
-                <td className="py-3 text-left px-2 pr-1 name-field border-r border-t border-dotted border-current!">
+                <td className="p-3.5 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
                   {item.first_name} {item.last_name}
                 </td>
-                <td className={`text-left p-3 border-t border-dotted border-current`}>
+                <td className={`text-left p-3.5 border-t border-dotted border-current`}>
                   <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
                     {getformatPresence(item.presence ? String(item.presence) : "---")}
                   </div>
                 </td>
-                <td className={`p-3 border-t border-dotted border-current`}>
+                <td className={`p-3.5 border-t border-dotted border-current`}>
                   <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
                     <Stars amount={item.stars} />
                   </div>
                 </td>
-                <td className="p-3 break-words border-t border-dotted">
+                <td className="p-3.5 break-words border-t border-dotted">
                   {item.comment}
                 </td>
-                <td className="p-3 break-words border-t border-dotted">
+                <td className="p-3.5 break-words border-t border-dotted">
                   {item.impediment}
                 </td>
                 {isSessionmaster && (
-                  <td className="border-t border-dotted py-2">
+                  <td className="border-t border-dotted py-3 pr-3.5">
                     <Link
                         to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-                        className="btn border aspect-square max-h-8"
+                        className="btn border aspect-square max-h-7.5"
                     >
                       <FontAwesomeIcon icon={faPencil} className="text-blue" />
                     </Link>
