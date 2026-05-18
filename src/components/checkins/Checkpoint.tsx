@@ -73,6 +73,7 @@ function Checkpoint({
     sessionId,
     users,
     currentUser,
+    ownerId,
   }: {
     groupId: number;
     date: string;
@@ -82,6 +83,7 @@ function Checkpoint({
     sessionId: number;
     users: CheckpointUser[];
     currentUser: { id: number } | null | undefined;
+    ownerId: number;
   }) {
   const modal = useModalState();
 
@@ -155,13 +157,37 @@ function Checkpoint({
     modal.open();
   };
 
-  // Early returns — cleaner than nested ternaries in the JSX
   if (rowsLoading || rows === null) return <LoadScreen />;
   if (rowsError) return <ErrorScreen error={rowsError} />;
 
+  const isSessionmaster = myUserId === ownerId;
+
+  const isInGroup = users.some(user => user.user_id === myUserId);
+
   return (
       <div className="card w-full space-x-5">
-        <h2>{name}</h2>
+        <div className="flex flex-row items-center justify-between mr-0">
+            <h2>{name}</h2>
+            <div className="flex items-center gap-3">
+            <button
+                className="btn border"
+                onClick={refresh}
+                disabled={rowsLoading}
+            >
+              Refresh
+            </button>
+              {isInGroup && (
+            <button
+                className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
+                onClick={handleOpen}
+                disabled={isLocked}
+            >
+              <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+              Edit Checkpoint
+            </button>
+                  )}
+            </div>
+          </div>
         <hr className="my-2 mr-0" />
         <p>
           {isLocked
@@ -171,63 +197,50 @@ function Checkpoint({
         <table className="table-fixed w-full">
           <thead>
           <tr>
-            <th className="py-3 text-left">Name</th>
-            <th className="py-3 text-left pl-2 border-l border-dotted">Attendance</th>
-            <th className="py-3 items-center pl-2">How're you feeling?</th>
-            <th className="py-3 text-left pl-2 w-[25%]">Comment</th>
-            <th className="py-3 text-left pl-2 w-[25%]">Obstacle</th>
+            <th className="p-4 text-left">Name</th>
+            <th className="p-4 text-left border-l border-dotted">Attendance</th>
+            <th className="p-4 items-center">How're you feeling?</th>
+            <th className="p-4 text-left w-[25%]">Comment</th>
+            <th className="p-4 text-left w-[25%]">Obstacle</th>
+            {isSessionmaster && <th className="py-4 pr-4 text-left w-[5%]">Edit</th>}
           </tr>
           </thead>
           <tbody>
           {rows.map((item) => (
-              <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`}>
-                <td className="py-3 text-left pl-2 name-field border-r border-t border-dotted border-current!">
+              <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
+                <td className="p-4 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
                   {item.first_name} {item.last_name}
                 </td>
-                <td className={`py-3 text-left p-3 border-t border-dotted border-current`}>
+                <td className={`text-left p-4 border-t border-dotted border-current`}>
                   <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
                     {getformatPresence(item.presence ? String(item.presence) : "---")}
                   </div>
                 </td>
-                <td className={`p-3 border-t border-dotted border-current`}>
+                <td className={`p-4 border-t border-dotted border-current`}>
                   <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
                     <Stars amount={item.stars} />
                   </div>
                 </td>
-                <td className="p-3 break-words border-t border-dotted">
+                <td className="p-4 break-words border-t border-dotted">
                   {item.comment}
                 </td>
-                <td className="p-3 break-words border-t border-dotted">
+                <td className="p-4 break-words border-t border-dotted">
                   {item.impediment}
                 </td>
+                {isSessionmaster && (
+                  <td className="border-t border-dotted py-3 pr-2">
+                    <Link
+                        to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
+                        className="btn border aspect-square"
+                    >
+                      <FontAwesomeIcon icon={faPencil} className="text-blue" />
+                    </Link>
+                  </td>
+                )}
               </tr>
           ))}
           </tbody>
         </table>
-        <div className="align-center horizontal gap-3 mt-2 justify-end">
-          <button
-            className="btn border"
-            onClick={refresh}
-            disabled={rowsLoading}
-          >
-            Refresh
-          </button>
-          <Link
-            to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-            className="btn border m-auto mx-2 opacity-50 cursor-not-allowed!"
-          >
-            <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-            Scrummaster Checkpoint
-          </Link>
-          <button
-            className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
-            onClick={handleOpen}
-            disabled={isLocked}
-          >
-            <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-            Edit Checkpoint
-          </button>
-        </div>
         <Modal state={modal}>
           <div className="space-y-5">
             <ModalHeadText>Edit Checkpoint</ModalHeadText>
