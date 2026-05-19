@@ -1,11 +1,10 @@
-export const handleLogout = (event) => {
-    event.preventDefault();
-    location.href='/api/logout'
+export const handleLogout= () => {
+    location.href='/oauth2/logout'
 }
 
 export function LogoutButton() {
     return (
-        <button className="btn btn-red border" onClick={handleLogout}>
+        <button className="btn btn-red border" type="button" onClick={handleLogout}>
             Logout
         </button>
     )
