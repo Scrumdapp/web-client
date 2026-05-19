@@ -25,7 +25,7 @@ export default function AppRouter() {
                 <Route path="/account/new-account" element={<NewAccount />} />
                 <Route path="/account/forgot-password" element={<ForgotPassword />} />
                 <Route path="/account/discord" element={<DiscordLogin />} />
-                <Route path="/account/discord/login" element={<DiscordLoginReturnPage />} />
+                <Route path="/account/discord/auth" element={<DiscordLoginReturnPage />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     );

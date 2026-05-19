@@ -7,7 +7,7 @@ export default function DiscordLogin() {
         <div className="app-container card text-center vertical justify-evenly">
             <div className="app-container vertical justify-center">
                 <h2 className="mb-4">Log in with your Discord account</h2>
-                <Link to="login" className="btn border btn-secondary mx-auto w-fit ">
+                <Link to="auth" className="btn border btn-secondary mx-auto w-fit ">
                     <FontAwesomeIcon icon={faDiscord} />
                     Login
                 </Link>
