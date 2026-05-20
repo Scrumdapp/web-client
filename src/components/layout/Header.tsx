@@ -27,9 +27,11 @@ export default function Header() {
                         ))}
                     </div>
                     <div className="dropdown">
-                        Hover me
+                        <p className="text-right">Hover me</p>
                         <div className="dropdown-content">
-                            Hello
+                            <div className="p-5">
+                                hello
+                            </div>
                         </div>
                     </div>
 
