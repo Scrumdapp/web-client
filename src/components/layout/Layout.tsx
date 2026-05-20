@@ -3,7 +3,7 @@ import Footer from "./Footer.tsx";
 import Header from "./Header.tsx";
 
 export default function Layout({ children }: PropsWithChildren) {    return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col mx-2">
             <Header />
             <main className="flex-1 flex flex-col">{children}</main>
             <Footer />

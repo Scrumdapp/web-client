@@ -12,11 +12,8 @@ export default function Header() {
     ];
 
         return (
-    <div className="bg-bg">
-        <nav className="pt-4 pb-7 px-2 flex flex-col">
-            <div className="mx-auto p-2 rounded-2xl bg-bg_h shadow-xl border footer w-full">
-                <div className="mx-auto">
-                <div className="flex justify-between h-10 items-center">
+        <nav className="bg-bg_h mt-4 mb-7 flex px-1.75 rounded-2xl border shadow-xl w-full justify-between items-center z-50">
+
 
                     <div className="shrink-0 text-fg text-2xl font-bold max-w-20">
                         <Link to="/public">Scrumdapp</Link>
@@ -29,43 +26,19 @@ export default function Header() {
                             </Link>
                         ))}
                     </div>
-
-                    <div className="hidden md:block">
-                        <Link to="/login" className="btn border btn-secondary min-w-20 max-w-20">Profile</Link>
-                    </div>
-
-                    {/*WORK IN PROGRESS, NEED TO LOOK AT THIS AT A LATER TIME, NOT AS IMPORTANT AS OF RIGHT NOW*/}
-                    <div className="md:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="md:hidden"
-                        >
-                            ☰
-                        </button>
-
-                        <div className={`${isOpen ? "block" : "hidden"} md:block`}>
-                            <ul className="flex flex-col md:flex-row gap-4 mt-4">
-                                <li>Home</li>
-                                <li>About</li>
-                                <li>Privacy</li>
-                                <li>Groups</li>
-                                <li>Support</li>
-                            </ul>
+                    <div className="dropdown">
+                        Hover me
+                        <div className="dropdown-content">
+                            Hello
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div id="mobile-menu" className="md:hidden hidden px-4 pb-4 space-y-2 text-white font-medium">
-                <a href="/public" className="block hover:text-yellow-300 transition">Home</a>
-                <a href="/about" className="block hover:text-yellow-300 transition">About</a>
-                <a href="/privacy" className="block hover:text-yellow-300 transition">Privacy</a>
-                <a href="/groups" className="block hover:text-yellow-300 transition">Groups</a>
-                <a href="/support" className="block hover:text-yellow-300 transition">Support</a>
-                <a href="/login" className="block bg-white text-indigo-700 text-center px-4 py-2 rounded-xl hover:bg-yellow-300 transition-all font-semibold mt-2">
-                    Log In</a>
-            </div>
-            </div>
+                        {/*<Link to="/login" className="btn border btn-secondary min-w-20 max-w-20">Profile</Link>*/}
+
+
+
+
+
         </nav>
-        </div>)
+        )
     }
