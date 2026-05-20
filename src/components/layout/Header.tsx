@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 export default function Header() {
-
-    const [isOpen, setIsOpen] = useState(false);
 
     const links = [
         { to: "/public", label: "Home" },
@@ -30,12 +27,17 @@ export default function Header() {
                         <p className="text-right">Hover me</p>
                         <div className="dropdown-content">
                             <div className="p-5">
-                                hello
+                                <Link to="/login" className="btn-mobile">Profile</Link>
+                                <a href="/public" className="btn-mobile">Home</a>
+                                <a href="/about" className="btn-mobile">About</a>
+                                <a href="/privacy" className="btn-mobile">Privacy</a>
+                                <a href="/groups" className="btn-mobile">Groups</a>
+                                <a href="/support" className="btn-mobile">Support</a>
                             </div>
                         </div>
                     </div>
 
-                        {/*<Link to="/login" className="btn border btn-secondary min-w-20 max-w-20">Profile</Link>*/}
+
 
 
 
