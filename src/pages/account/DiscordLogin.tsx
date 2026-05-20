@@ -1,16 +1,18 @@
-import {Link} from "react-router-dom";
 import {faDiscord} from "@fortawesome/free-brands-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replace(/\/$/, "")
+const DISCORD_AUTH_URL = `${API_URL}/oauth2/authorization/discord`
 
 export default function DiscordLogin() {
     return (
         <div className="app-container card text-center vertical justify-evenly">
             <div className="app-container vertical justify-center">
                 <h2 className="mb-4">Log in with your Discord account</h2>
-                <Link to="auth" className="btn border btn-secondary mx-auto w-fit ">
+                <a href={DISCORD_AUTH_URL} className="btn border btn-secondary mx-auto w-fit ">
                     <FontAwesomeIcon icon={faDiscord} />
                     Login
-                </Link>
+                </a>
             </div>
         </div>
     )
