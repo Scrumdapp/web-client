@@ -93,10 +93,11 @@ table {
 .dropdown {
     @apply relative w-60  bg-bg_h rounded-xl py-2
 }
-.dropdown:hover .dropdown-content {
-    @apply block
+.dropdown:hover .dropdown-content, .dropdown-content:focus {
+    @apply block scale-100 opacity-100
 }
 
 .dropdown-content {
-    @apply hidden absolute bg-bg_h w-60 h-40 border border-fg4 border-t-transparent rounded-b-2xl -mr-2 -z-1 top-5 right-0
+    @apply absolute bg-bg_h w-60 h-40 border border-fg4 border-t-transparent rounded-b-2xl -mr-2 -z-1 top-5 right-0 origin-top-right
+    scale-25 transition-all ease-in-out duration-200 opacity-0
 }
