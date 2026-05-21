@@ -1,3 +1,11 @@
+
+//DO NOT USE IN PRODUCTION!!!!
+//DO NOT USE IN PRODUCTION!!!!
+//DO NOT USE IN PRODUCTION!!!!
+//DO NOT USE IN PRODUCTION!!!!
+//DO NOT USE IN PRODUCTION!!!!
+//DO NOT USE IN PRODUCTION!!!!
+
 import { useState } from "react";
 
 const COOKIE_NAME = "site_access";
