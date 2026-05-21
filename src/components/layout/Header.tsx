@@ -24,7 +24,7 @@ export default function Header() {
                         ))}
                     </div>
                     <div className="dropdown">
-                        <p className="text-right">Hover me</p>
+                        <p className="text-right">UserName123</p>
                         <div className="dropdown-content">
                             <div className="p-5">
                                 <Link to="/login" className="btn-mobile">Profile</Link>
