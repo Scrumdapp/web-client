@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import {LogoutButton} from "../generic/LogoutButton.tsx";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPortrait} from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
 
@@ -27,18 +28,14 @@ export default function Header() {
                             <p className="text-right">UserName123</p>
                             <div className="dropdown-content">
                                 <div className="p-5">
-                                    <Link to="/login" className="btn-mobile">Profile</Link>
+                                    <Link to="/login" className="btn-mobile">
+                                        <FontAwesomeIcon icon={faPortrait} />
+                                        Profile
+                                    </Link>
                                     <LogoutButton />
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
             </nav>
             </header>
         )
