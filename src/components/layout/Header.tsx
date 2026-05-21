@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import {LogoutButton} from "../generic/LogoutButton.tsx";
 
 
 export default function Header() {
@@ -33,6 +34,7 @@ export default function Header() {
                                 <a href="/privacy" className="btn-mobile">Privacy</a>
                                 <a href="/groups" className="btn-mobile">Groups</a>
                                 <a href="/support" className="btn-mobile">Support</a>
+                                <LogoutButton />
                             </div>
                         </div>
                     </div>
