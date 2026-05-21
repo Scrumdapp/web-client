@@ -6,7 +6,7 @@ const DISCORD_AUTH_URL = `${API_URL}/oauth2/authorization/discord`
 
 export default function DiscordLogin() {
     return (
-        <div className="app-container card text-center vertical justify-evenly">
+        <div className="card m-auto">
             <div className="app-container vertical justify-center">
                 <h2 className="mb-4">Log in with your Discord account</h2>
                 <a href={DISCORD_AUTH_URL} className="btn border btn-secondary mx-auto w-fit ">
