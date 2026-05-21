@@ -9,13 +9,14 @@ export default function DiscordLogin({ onAccept }: { onAccept: () => void }) {
         <div className="card m-auto">
             <div className="app-container vertical justify-center">
                 <h2 className="mb-4">Log in with your Discord account</h2>
-                <button
+                <a
                     onClick={onAccept}
+                    href={DISCORD_AUTH_URL}
                     className="btn border btn-secondary mx-auto w-fit"
                 >
                     <FontAwesomeIcon icon={faDiscord} />
                     Login
-                </button>
+                </a>
             </div>
         </div>
     )
