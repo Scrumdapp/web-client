@@ -28,11 +28,6 @@ export default function Header() {
                             <div className="dropdown-content">
                                 <div className="p-5">
                                     <Link to="/login" className="btn-mobile">Profile</Link>
-                                    <a href="/public" className="btn-mobile">Home</a>
-                                    <a href="/about" className="btn-mobile">About</a>
-                                    <a href="/privacy" className="btn-mobile">Privacy</a>
-                                    <a href="/groups" className="btn-mobile">Groups</a>
-                                    <a href="/support" className="btn-mobile">Support</a>
                                     <LogoutButton />
                                 </div>
                             </div>
