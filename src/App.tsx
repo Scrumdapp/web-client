@@ -5,8 +5,13 @@ import {UserProvider} from "./js/context/user/UserProvider.tsx";
 import {LoadScreen} from "./components/generic/LoadScreen.tsx";
 import {ErrorScreen} from "./components/generic/ErrorScreen.tsx";
 
+import {useLoginCookie} from "./js/hooks/useLoginCookie.ts";
+import DiscordLogin from "./pages/account/DiscordLogin.tsx";
+
 function App() {
-    return (
+    const { granted, accept } = useLoginCookie();
+    if (!granted) return <DiscordLogin onAccept={accept} />;
+    else return (
         <BrowserRouter>
             <UserProvider
                 loading={<LoadScreen/>}
