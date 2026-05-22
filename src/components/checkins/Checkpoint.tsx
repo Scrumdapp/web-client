@@ -176,16 +176,6 @@ function Checkpoint({
             >
               Refresh
             </button>
-              {isInGroup && !isLocked && (
-            <button
-                className={`btn border`}
-                onClick={handleOpen}
-                disabled={isLocked}
-            >
-              <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-              Edit Checkpoint
-            </button>
-                  )}
             </div>
           </div>
         <hr className="my-2 mr-0" />
@@ -202,7 +192,9 @@ function Checkpoint({
             <th className="p-4 items-center">How're you feeling?</th>
             <th className="p-4 text-left w-[25%]">Comment</th>
             <th className="p-4 text-left w-[25%]">Obstacle</th>
-            {isSessionmaster && <th className="py-4 pr-4 text-left w-[5%]">Edit</th>}
+            {(isSessionmaster || (isInGroup && !isLocked)) && (
+                <th className="py-4 pr-4 text-left w-[5%]">Edit</th>
+            )}
           </tr>
           </thead>
           <tbody>
@@ -227,15 +219,26 @@ function Checkpoint({
                 <td className="p-4 break-words border-t border-dotted">
                   {item.impediment}
                 </td>
-                {isSessionmaster && (
-                  <td className="border-t border-dotted py-3 pr-2">
-                    <Link
-                        to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-                        className="btn border aspect-square"
-                    >
-                      <FontAwesomeIcon icon={faPencil} className="text-blue" />
-                    </Link>
-                  </td>
+                {(isSessionmaster || (isInGroup && !isLocked)) && (
+                    <td className="border-t border-dotted py-3 pr-2">
+                      {!isLocked ? (
+                          isSessionmaster ? (
+                              <Link
+                                  to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
+                                  className="btn border aspect-square"
+                              >
+                                <FontAwesomeIcon icon={faPencil} className="text-blue" />
+                              </Link>
+                          ) : (item.groupUser === myUserId || item.id === myUserId) ? (
+                              <button
+                                  className="btn border aspect-square"
+                                  onClick={handleOpen}
+                              >
+                                <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+                              </button>
+                          ) : null
+                      ) : null}
+                    </td>
                 )}
               </tr>
           ))}
