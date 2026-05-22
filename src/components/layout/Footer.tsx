@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter, faYoutube, faInstagram, faLinkedinIn, faGithub} from "@fortawesome/free-brands-svg-icons";
-
+import {faHandPointer} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+
 
 export default function Footer() {
 
@@ -28,10 +29,12 @@ export default function Footer() {
 
             <div className="bg-fg h-0.5 rounded-full"></div>
 
-            <div className="flex flex-row items-center justify-between pt-4 px-3 gap-2">
-                <span>© 2026 Scrumdapp | All rights reserved</span>
+            <div className="flex flex-row items-center justify-between pt-4 px-3 gap-2.5">
                 <span>
-                    <Link to="https://scrumdapp.com" target="_blank" className="underline">Scrumdapp.com</Link>
+                    © 2026 Scrumdapp | All rights reserved</span>
+                <span>
+
+                    <Link to="https://scrumdapp.com" target="_blank" className="hover:underline flex flex-nowrap items-center"><FontAwesomeIcon icon={faHandPointer} />Scrumdapp.com</Link>
                 </span>
                 <div className="flex flex-wrap items-center gap-4">
                     <Link to="https://www.linkedin.com/company/scrumdapp" target="_blank" className="btn btn-socials"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
