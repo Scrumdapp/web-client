@@ -1,10 +1,10 @@
 import {faDiscord} from "@fortawesome/free-brands-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replace(/\/$/, "")
-const DISCORD_AUTH_URL = `${API_URL}/oauth2/authorization/discord`
+const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/").replace(/\/$/, "")
+const DISCORD_AUTH_URL = `${API_URL}`
 
-export default function DiscordLogin({ onAccept }: { onAccept: () => void }) {
+export default function DiscordLogin ({ onAccept }: { onAccept: () => boolean }) {
     return (
         <div className="card m-auto">
             <div className="app-container vertical justify-center">
