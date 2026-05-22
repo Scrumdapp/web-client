@@ -27,9 +27,9 @@ export default function Header() {
                         <div className="dropdown">
                             <p className="text-right">UserName123</p>
                             <div className="dropdown-content">
-                                <div className="p-5">
-                                    <Link to="/login" className="btn-mobile">
-                                        <FontAwesomeIcon icon={faPortrait} />
+                                <div className="py-4 px-1.5 text-left">
+                                    <Link to="/login" className="btn-mobile hover:text-yellow">
+                                        <FontAwesomeIcon icon={faPortrait} className="text-yellow"/>
                                         Profile
                                     </Link>
                                     <LogoutButton />

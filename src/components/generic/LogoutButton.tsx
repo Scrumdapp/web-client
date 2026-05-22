@@ -7,8 +7,8 @@ export const handleLogout= () => {
 
 export function LogoutButton() {
     return (
-        <button className="btn-mobile" type="button" onClick={handleLogout}>
-            <FontAwesomeIcon icon={faSignOut} />
+        <button className="btn-mobile hover:text-red" type="button" onClick={handleLogout}>
+            <FontAwesomeIcon icon={faSignOut} className="text-red "/>
             Logout
         </button>
     )
