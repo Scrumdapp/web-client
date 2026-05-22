@@ -1,23 +1,27 @@
-import {faDiscord} from "@fortawesome/free-brands-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as React from "react";
 
-const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/").replace(/\/$/, "")
-const DISCORD_AUTH_URL = `${API_URL}`
+export default function DiscordLogin({ onGranted }: { onGranted: () => void }) {
+    async function handleLogin(e: React.MouseEvent) {
+        e.preventDefault();
+        await fetch("/login", { method: "POST" });
+        onGranted();
+    }
 
-export default function DiscordLogin ({ onAccept }: { onAccept: () => boolean }) {
     return (
         <div className="card m-auto">
             <div className="app-container vertical justify-center">
                 <h2 className="mb-4">Log in with your Discord account</h2>
-                <a
-                    onClick={onAccept}
-                    href={DISCORD_AUTH_URL}
-                    className="btn border btn-secondary mx-auto w-fit"
-                >
-                    <FontAwesomeIcon icon={faDiscord} />
-                    Login
-                </a>
-            </div>
+            <a
+                onClick={handleLogin}
+                href="#"
+                className="btn border btn-secondary mx-auto w-fit"
+            >
+                <FontAwesomeIcon icon={faDiscord} />
+                Login
+            </a>
         </div>
-    )
+</div>
+);
 }
