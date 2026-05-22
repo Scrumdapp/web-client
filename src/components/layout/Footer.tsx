@@ -28,17 +28,17 @@ export default function Footer() {
 
             <div className="bg-fg h-0.5 rounded-full"></div>
 
-            <div className="flex flex-row items-center justify-between pt-4 px-3">
+            <div className="flex flex-row items-center justify-between pt-4 px-3 gap-2">
                 <span>© 2026 Scrumdapp | All rights reserved</span>
                 <span>
                     <Link to="https://scrumdapp.com" target="_blank" className="underline">Scrumdapp.com</Link>
                 </span>
-                <div className="flex items-center gap-4">
-                    <Link to="https://www.linkedin.com/company/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
-                    <Link to="https://x.com/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faXTwitter} /></Link>
-                    <Link to="https://www.instagram.com/scrumdapp/" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faInstagram} /></Link>
-                    <Link to="https://www.youtube.com/@Scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faYoutube} /></Link>
-                    <Link to="https://github.com/Scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faGithub} /></Link>
+                <div className="flex flex-wrap items-center gap-4">
+                    <Link to="https://www.linkedin.com/company/scrumdapp" target="_blank" className="btn btn-socials"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
+                    <Link to="https://x.com/scrumdapp" target="_blank" className="btn btn-socials"><FontAwesomeIcon icon={faXTwitter} /></Link>
+                    <Link to="https://www.instagram.com/scrumdapp/" target="_blank" className="btn btn-socials"><FontAwesomeIcon icon={faInstagram} /></Link>
+                    <Link to="https://www.youtube.com/@Scrumdapp" target="_blank" className="btn btn-socials"><FontAwesomeIcon icon={faYoutube} /></Link>
+                    <Link to="https://github.com/Scrumdapp" target="_blank" className="btn btn-socials"><FontAwesomeIcon icon={faGithub} /></Link>
                 </div>
             </div>
         </div>
