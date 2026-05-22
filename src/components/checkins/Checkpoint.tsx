@@ -176,9 +176,9 @@ function Checkpoint({
             >
               Refresh
             </button>
-              {isInGroup && (
+              {isInGroup && !isLocked && (
             <button
-                className={`btn border ${isLocked ? "opacity-50 cursor-not-allowed!" : ""}`}
+                className={`btn border`}
                 onClick={handleOpen}
                 disabled={isLocked}
             >
