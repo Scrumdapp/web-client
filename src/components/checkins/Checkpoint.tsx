@@ -3,7 +3,6 @@ import Stars from "./checkpointcomponents/Stars.tsx";
 import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 import { getformatPresence } from "../../js/utils/colorUtils.ts";
 import { useEffect, useState, useCallback } from "react";
 import Modal from "../../components/generic/modal/Modal.tsx";
@@ -66,7 +65,6 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
 
 function Checkpoint({
     groupId,
-    date,
     name,
     startTime,
     duration,
@@ -118,7 +116,9 @@ function Checkpoint({
 
   const myUserId = currentUser?.id ?? null;
 
-  const handleApply = async () => {
+  const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(null);
+
+  const handleOwnModalApply = async () => {
     if (myUserId == null || isLocked) return;
     setApplyLoading(true);
     setApplyError(null);
@@ -131,11 +131,11 @@ function Checkpoint({
         impediment: obstacle,
       });
       setRows(prev =>
-          prev?.map(row =>
-            row.groupUser === myUserId
-              ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
-              : row
-          ) ?? prev
+        prev?.map(row =>
+          row.groupUser === myUserId
+            ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
+            : row
+        ) ?? prev
       );
       modal.close();
     } catch (err) {
@@ -146,7 +146,34 @@ function Checkpoint({
     }
   };
 
-  const handleOpen = () => {
+  const handleModalApply = async () => {
+    if (isLocked || selectedUser == null) return;
+    setApplyLoading(true);
+    setApplyError(null);
+    try {
+      await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
+        userId: selectedUser.groupUser,
+        presence: selectedPresence,
+        stars: selectedStar,
+        comment: notes,
+        impediment: obstacle,
+      });
+      setRows(prev =>
+        prev?.map(row =>
+          row.groupUser === selectedUser.groupUser
+            ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
+            : row
+        ) ?? prev
+      );
+      modal.close();
+    } catch (err) {
+      setApplyError(err instanceof ApiError ? err : new ApiError(999, "Unhandled error", err as Error));
+    } finally {
+      setApplyLoading(false);
+    }
+  };
+
+  const handleOwnModalOpen = () => {
     if (rows == null) return;
     setApplyError(null);
     const myRow = rows.find(row => row.groupUser === myUserId);
@@ -157,6 +184,18 @@ function Checkpoint({
     modal.open();
   };
 
+  const handleModalOpen = (row: SessionCheckpointRow) => {
+    if (rows == null) return;
+    setApplyError(null);
+    setSelectedUser(row);
+    setSelectedPresence(row.presence ? String(row.presence) : null);
+    setSelectedStar(row.stars ?? null);
+    setNotes(row.comment ?? "");
+    setObstacle(row.impediment ?? "");
+    modal.open();
+  };
+
+
   if (rowsLoading || rows === null) return <LoadScreen />;
   if (rowsError) return <ErrorScreen error={rowsError} />;
 
@@ -165,27 +204,27 @@ function Checkpoint({
   const isInGroup = users.some(user => user.user_id === myUserId);
 
   return (
-      <div className="card w-full space-x-5">
-        <div className="flex flex-row items-center justify-between mr-0">
-            <h2>{name}</h2>
-            <div className="flex items-center gap-3">
-            <button
-                className="btn border"
-                onClick={refresh}
-                disabled={rowsLoading}
-            >
-              Refresh
-            </button>
-            </div>
-          </div>
-        <hr className="my-2 mr-0" />
-        <p>
-          {isLocked
-            ? "Checkpoint closed"
-            : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
-        </p>
-        <table className="table-fixed w-full">
-          <thead>
+    <div className="card w-full space-x-5">
+      <div className="flex flex-row items-center justify-between mr-0">
+        <h2>{name}</h2>
+        <div className="flex items-center gap-3">
+          <button
+            className="btn border"
+            onClick={refresh}
+            disabled={rowsLoading}
+          >
+            Refresh
+          </button>
+        </div>
+      </div>
+      <hr className="my-2 mr-0" />
+      <p>
+        {isLocked
+          ? "Checkpoint closed"
+          : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
+      </p>
+      <table className="table-fixed w-full">
+        <thead>
           <tr>
             <th className="p-4 text-left">Name</th>
             <th className="p-4 text-left border-l border-dotted">Attendance</th>
@@ -193,101 +232,100 @@ function Checkpoint({
             <th className="p-4 text-left w-[25%]">Comment</th>
             <th className="p-4 text-left w-[25%]">Obstacle</th>
             {(isSessionmaster || (isInGroup && !isLocked)) && (
-                <th className="py-4 pr-4 text-left w-[5%]">Edit</th>
+            <th className="py-4 pr-4 text-left w-[5%]">Edit</th>
             )}
           </tr>
-          </thead>
-          <tbody>
+        </thead>
+        <tbody>
           {rows.map((item) => (
-              <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
-                <td className="p-4 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
-                  {item.first_name} {item.last_name}
-                </td>
-                <td className={`text-left p-4 border-t border-dotted border-current`}>
-                  <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
-                    {getformatPresence(item.presence ? String(item.presence) : "---")}
-                  </div>
-                </td>
-                <td className={`p-4 border-t border-dotted border-current`}>
-                  <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
-                    <Stars amount={item.stars} />
-                  </div>
-                </td>
-                <td className="p-4 break-words border-t border-dotted">
-                  {item.comment}
-                </td>
-                <td className="p-4 break-words border-t border-dotted">
-                  {item.impediment}
-                </td>
-                {(isSessionmaster || (isInGroup && !isLocked)) && (
-                    <td className="border-t border-dotted py-3 pr-2">
-                      {!isLocked ? (
-                          isSessionmaster ? (
-                              <Link
-                                  to={`/groups/${groupId}/edit?date=${date}&session=${sessionId}`}
-                                  className="btn border aspect-square"
-                              >
-                                <FontAwesomeIcon icon={faPencil} className="text-blue" />
-                              </Link>
-                          ) : (item.groupUser === myUserId || item.id === myUserId) ? (
-                              <button
-                                  className="btn border aspect-square"
-                                  onClick={handleOpen}
-                              >
-                                <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-                              </button>
-                          ) : null
-                      ) : null}
-                    </td>
-                )}
-              </tr>
+            <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
+              <td className="p-4 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
+                {item.first_name} {item.last_name}
+              </td>
+              <td className={`text-left p-4 border-t border-dotted border-current`}>
+                <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
+                  {getformatPresence(item.presence ? String(item.presence) : "---")}
+                </div>
+              </td>
+              <td className={`p-4 border-t border-dotted border-current`}>
+                <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
+                  <Stars amount={item.stars} />
+                </div>
+              </td>
+              <td className="p-4 break-words border-t border-dotted">
+                {item.comment}
+              </td>
+              <td className="p-4 break-words border-t border-dotted">
+                {item.impediment}
+              </td>
+              {(isSessionmaster || (isInGroup && !isLocked)) && (
+              <td className="border-t border-dotted py-3 pr-2">
+                {!isLocked ? (isSessionmaster ? (
+                  <button
+                    className="btn border aspect-square"
+                    onClick={() => handleModalOpen(item)}
+                  >
+                    <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+                  </button>
+                  ) : (item.groupUser === myUserId || item.id === myUserId) ? (
+                    <button
+                      className="btn border aspect-square"
+                      onClick={handleOwnModalOpen}
+                    >
+                      <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+                    </button>
+                  ) : null
+                ) : null}
+              </td>
+              )}
+            </tr>
           ))}
-          </tbody>
-        </table>
-        <Modal state={modal}>
-          <div className="space-y-5">
-            <ModalHeadText>Edit Checkpoint</ModalHeadText>
-            <div className="flex flex-col space-y-2 w-full">
-              <label>Attendance</label>
-              <AttendanceDropDownMenu
-                value={selectedPresence}
-                onChange={setSelectedPresence}
-              />
-              <label>Stars</label>
-              <StarsDropDownMenu
-                value={selectedStar}
-                onChange={setSelectedStar}
-              />
-              <label>Notes</label>
-              <input
-                className="write-section"
-                placeholder="Notes"
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-              />
-              <label>Obstacle</label>
-              <input
-                className="write-section"
-                placeholder="Obstacle"
-                value={obstacle}
-                onChange={(e) => setObstacle(e.target.value)}
-              />
-            </div>
-            {applyError && <p className="text-red text-right">{applyError.message}</p>}
-            <ModalActionRow>
-              <ModalCancelButton />
-              <button
-                className="btn border"
-                onClick={handleApply}
-                type="button"
-                disabled={applyLoading}
-              >
-                {applyLoading ? "Saving..." : "Apply"}
-              </button>
-            </ModalActionRow>
+        </tbody>
+      </table>
+      <Modal state={modal}>
+        <div className="space-y-5">
+          <ModalHeadText>Edit Checkpoint {selectedUser ? `for ${selectedUser.first_name} ${selectedUser.last_name}` : ""}</ModalHeadText>
+          <div className="flex flex-col space-y-2 w-full">
+            <label>Attendance</label>
+            <AttendanceDropDownMenu
+              value={selectedPresence}
+              onChange={setSelectedPresence}
+            />
+            <label>Stars</label>
+            <StarsDropDownMenu
+              value={selectedStar}
+              onChange={setSelectedStar}
+            />
+            <label>Notes</label>
+            <input
+              className="write-section"
+              placeholder="Notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
+            <label>Obstacle</label>
+            <input
+              className="write-section"
+              placeholder="Obstacle"
+              value={obstacle}
+              onChange={(e) => setObstacle(e.target.value)}
+            />
           </div>
-        </Modal>
-      </div>
+          {applyError && <p className="text-red text-right">{applyError.message}</p>}
+          <ModalActionRow>
+            <ModalCancelButton />
+            <button
+              className="btn border"
+              onClick={isSessionmaster ? handleModalApply : handleOwnModalApply}
+              type="button"
+              disabled={applyLoading}
+            >
+              {applyLoading ? "Saving..." : "Apply"}
+            </button>
+          </ModalActionRow>
+        </div>
+      </Modal>
+    </div>
   );
 }
 
