@@ -15,6 +15,7 @@ import {LoadScreen} from "../../components/generic/LoadScreen.tsx";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {useUser} from "../../js/context/user/useUser.ts";
 import {ErrorScreen} from "../../components/generic/ErrorScreen.tsx";
+import {CreateGroupCheckpointSessionModal} from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 
 function parseStartTime(sessionDate: string, sessionStartTime: string) {
     const parsed = new Date(`${sessionDate}T${sessionStartTime}`).getTime();
@@ -29,28 +30,12 @@ export function GroupCheckpointPage() {
 
     const currentUser = useUser();
 
-    const updateGroupCheckpoints = useApi(ScrumdappApi.updateGroupCheckpoints());
     const getGroupUsers = useApi(ScrumdappApi.getGroupUsers(), {
         fetchOnCreated: [ group.id ]
     })
     const getCheckpointSessions = useApi(ScrumdappApi.getCheckpointSessions(), {
         fetchOnCreated: [ group.id, { date } ]
     });
-
-    const [checkpointName, setCheckpointName] = useState("");
-    const [showWarning, setShowWarning] = useState(false);
-
-    const handleCreate = async () => {
-        if (!checkpointName.trim()) return;
-
-        await ScrumdappApi.createCheckpointSessions()(group.id, {
-            name: checkpointName.trim(),
-        });
-
-        getCheckpointSessions.runCommand(group.id, { date })
-        setCheckpointName("");
-        modal.accept();
-    };
 
     if (getGroupUsers.loading || getCheckpointSessions.loading) {
         return <LoadScreen />
@@ -62,6 +47,10 @@ export function GroupCheckpointPage() {
 
     if (getCheckpointSessions.error != null) {
         return <ErrorScreen error={getCheckpointSessions.error} />
+    }
+
+    const groupCreated = () => {
+        getCheckpointSessions.runCommand(group.id, { date })
     }
 
     return (
@@ -88,43 +77,7 @@ export function GroupCheckpointPage() {
                     />
                 </div>
             ))}
-            <Modal state={modal}>
-                <div className="space-y-5">
-                    <ModalHeadText>New Session</ModalHeadText>
-                    <input
-                        type="text"
-                        className="write-section w-full!"
-                        placeholder="Session Name"
-                        value={checkpointName}
-                        maxLength={32}
-                        onChange={(e) => {
-                            setShowWarning(!/^[a-zA-Z0-9 ]{1,24}$/.test(e.target.value))
-                            setCheckpointName(e.target.value);
-                        }}
-                        required
-                    />
-                    {showWarning && (
-                        <p className="text-red text-sm">
-                            Only letters, numbers and spaces are allowed.
-                        </p>
-                    )}
-                    <ModalActionRow>
-                        <ModalCancelButton/>
-                        <button
-                            className={`btn btn-secondary border ${!checkpointName ? "opacity-50 cursor-not-allowed!" : ""}`}
-                            disabled={!checkpointName}
-                            onClick={handleCreate}
-                        >
-                            <FontAwesomeIcon icon={faCheck} className="icon"/>
-                            {updateGroupCheckpoints.loading || updateGroupCheckpoints.loading ? (
-                                <LoadScreen/>
-                            ) : (
-                                "Create"
-                            )}
-                        </button>
-                    </ModalActionRow>
-                </div>
-            </Modal>
+            <CreateGroupCheckpointSessionModal groupId={group.id} state={modal} onCreated={groupCreated} />
         </div>
     );
 }
