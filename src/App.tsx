@@ -1,48 +1,38 @@
-import { BrowserRouter, useNavigate } from "react-router-dom";
-import {useState} from "react";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
 import Layout from "./components/layout/Layout.tsx";
 import AppRouter from "./router/AppRouter.tsx";
 import {UserProvider} from "./js/context/user/UserProvider.tsx";
 import {LoadScreen} from "./components/generic/LoadScreen.tsx";
 import {ErrorScreen} from "./components/generic/ErrorScreen.tsx";
+import LoginPage from "./pages/account/LoginPage.tsx";
+import {useUserState} from "./js/context/user/useUser.ts";
 
-import DiscordLogin from "./pages/account/DiscordLogin.tsx";
-
-function getCookie(name: string): string | null {
-    return (
-        document.cookie
-            .split("; ")
-            .find((r) => r.startsWith(name + "="))
-            ?.split("=")[1] ?? null
-    );
-}
-
-function AppContent() {
-    const [granted, setGranted] = useState(() => getCookie("site_access") === "granted");
+function AuthorizedAppContent() {
+    const userState = useUserState()
     const navigate = useNavigate();
 
-    function handleGranted() {
-        setGranted(true);
-        navigate("/groups");
+    if (userState.user == null) {
+        // Hacky! Timeout fixes issue of navigation not working here.
+        setTimeout(() => navigate("/login"), 1)
+        return null
     }
 
-    if (!granted) return <DiscordLogin onGranted={handleGranted} />;
     return (
-        <UserProvider
-            loading={<LoadScreen />}
-            error={(e) => <ErrorScreen error={e} />}
-        >
-            <Layout>
-                <AppRouter />
-            </Layout>
-        </UserProvider>
+        <Layout>
+            <AppRouter />
+        </Layout>
     );
 }
 
 function App() {
     return (
         <BrowserRouter>
-            <AppContent />
+            <UserProvider loading={<LoadScreen />} error={(e) => <ErrorScreen error={e} />}>
+                <Routes>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="*" element={<AuthorizedAppContent />} />
+                </Routes>
+            </UserProvider>
         </BrowserRouter>
     );
 }
