@@ -21,10 +21,12 @@ export namespace ScrumdappApi {
 
     type MRP<Ti extends any[], Tr> = ((...inputs: Ti) => Tr) & { id: string }
 
-    export type DateRangeParams = {
+    export interface DateRangeParams {
         "start_date": string,
         "end_date": string
     }
+
+    export type GetCheckpointQueryOptions = { range: DateRangeParams } | { date: string }
 
     export function getCurrentUser() {
         return createProcessor("getCurrentUser", () => {
@@ -113,10 +115,15 @@ export namespace ScrumdappApi {
     }
 
     export function getCheckpointSessions() {
-        return createProcessor("GetCheckpointSessions", (groupId: number, dateRangeParam?: DateRangeParams, date?: string )=> {
+        return createProcessor("GetCheckpointSessions", (groupId: number, queryOptions: GetCheckpointQueryOptions )=> {
             return makeApiRequest<GroupCheckpointSession[]>("GET", "/groups/{group.id}/sessions", {
                 params: { "{group.id}": groupId.toString() },
-                query: { ...dateRangeParam, date }
+                query: {
+                    // @ts-ignore
+                    ...(queryOptions.hasOwnProperty("range") ? queryOptions.range : {}),
+                    // @ts-ignore
+                    ...(queryOptions.hasOwnProperty("date") ? { date: queryOptions.date } : {})
+                }
             })
         })
     }
