@@ -14,7 +14,7 @@ export default function Header() {
             <header className="flex mx-2">
             <nav className="bg-bg_h mt-4 mb-7 flex px-1.75 rounded-2xl border shadow-xl w-full justify-between items-center z-50">
                         <div className="shrink-0 text-fg text-2xl font-bold max-w-20">
-                            <Link to="/public">Scrumdapp</Link>
+                            <Link to="/groups">Scrumdapp</Link>
                         </div>
 
                         <div className="hidden md:flex space-x-6 text-black font-medium">
