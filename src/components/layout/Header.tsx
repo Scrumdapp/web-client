@@ -32,6 +32,7 @@ export default function Header() {
                                         <FontAwesomeIcon icon={faPortrait} className="text-yellow"/>
                                         Profile
                                     </Link>
+                                    <hr className="mt-2 color-gray" />
                                     <LogoutButton />
                                 </div>
                             </div>
