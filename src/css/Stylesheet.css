@@ -28,7 +28,7 @@
     @apply bg-red-dim hover:bg-red;
 }
 
-.btn-mobile {
+.btn-nav-dropdown {
     @apply block transition
 }
 

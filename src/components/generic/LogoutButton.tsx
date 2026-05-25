@@ -7,7 +7,7 @@ export const handleLogout= () => {
 
 export function LogoutButton() {
     return (
-        <button className="btn-mobile hover:text-red" type="button" onClick={handleLogout}>
+        <button className="btn-nav-dropdown hover:text-red" type="button" onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOut} className="text-red "/>
             Logout
         </button>
