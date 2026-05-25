@@ -24,9 +24,9 @@ export default function Header() {
                                 </Link>
                             ))}
                         </div>
-                        <div className="dropdown">
+                        <div className="nav-dropdown">
                             <p className="text-right">UserName123</p>
-                            <div className="dropdown-content">
+                            <div className="nav-dropdown-content">
                                 <div className="py-4 px-1.5 text-left">
                                     <Link to="/settings" className="btn-mobile hover:text-yellow">
                                         <FontAwesomeIcon icon={faPortrait} className="text-yellow"/>
