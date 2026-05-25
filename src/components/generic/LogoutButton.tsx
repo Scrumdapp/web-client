@@ -1,15 +1,11 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignOut} from "@fortawesome/free-solid-svg-icons";
 
-export const handleLogout= () => {
-    location.href='/oauth2/logout'
-}
-
 export function LogoutButton() {
     return (
-        <button className="btn-mobile hover:text-red" type="button" onClick={handleLogout}>
+        <a className="btn-mobile hover:text-red" type="button" href="/oauth2/logout">
             <FontAwesomeIcon icon={faSignOut} className="text-red "/>
             Logout
-        </button>
+        </a>
     )
 }
