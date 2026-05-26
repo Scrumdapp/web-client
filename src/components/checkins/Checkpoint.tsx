@@ -284,8 +284,7 @@ function Checkpoint({
       </table>
       <Modal state={modal}>
         <div className="space-y-5">
-          <ModalHeadText>Edit Checkpoint {selectedUser ? `for ${selectedUser.first_name} ${selectedUser.last_name}` : ""}</ModalHeadText>
-          <div className="flex flex-col space-y-2 w-full">
+          <ModalHeadText>{`Edit Checkpoint ${selectedUser ? `for ${selectedUser.first_name} ${selectedUser.last_name}` : ""}`}</ModalHeadText>          <div className="flex flex-col space-y-2 w-full">
             <label>Attendance</label>
             <AttendanceDropDownMenu
               value={selectedPresence}
