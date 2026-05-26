@@ -10,10 +10,10 @@ import {GroupLayout} from "../components/groups/GroupLayout.tsx";
 export default function AppRouter() {
     return (
         <Routes>
-            <Route path="/groups/:groupId/*" element={<GroupLayout />}/>
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/groups" element={<Groups />} />
+            <Route path="/groups/:groupId/*" element={<GroupLayout />}/>
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     );

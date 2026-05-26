@@ -6,28 +6,34 @@ import {ScrumdappApi} from "../../hooks/api/scrumdappApi.ts";
 import type {ApiError} from "../../hooks/api/apiError.ts";
 
 export function UserProvider({ children, loading, error } : PropsWithChildren<{ loading: ReactNode, error: (error: ApiError) => ReactNode }> ): ReactNode {
+    const [ didInitialLoad, setDidDoneInitialLoad ] = useState(false)
     const [ state, setState ] = useState(new UserContextState())
 
     const getUserData = useApi(ScrumdappApi.getCurrentUser())
 
     useEffect(() => {
-        getUserData.runCommand().then(user => {
-            setState(it => {
-                it.user = user
-                return it
+        getUserData.runCommand()
+            .then(user => {
+                setState(it => {
+                    it.user = user
+                    return it
+                })
             })
-        })
+            .catch(() => {})
+            .finally(() => {
+                setDidDoneInitialLoad(true)
+            })
     }, [getUserData.runCommand])
 
     if (getUserData.loading) {
         return loading
     }
 
-    if (getUserData.error) {
+    if (getUserData.error && getUserData.error.status != 401) {
         return error(getUserData.error)
     }
 
-    if (!state.user) {
+    if (!didInitialLoad) {
         return loading
     }
 

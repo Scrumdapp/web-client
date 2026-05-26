@@ -1,6 +1,7 @@
 import {User} from "../../src/js/models/user";
 import {http, HttpResponse} from "msw";
 import {ErrorDto} from "../../src/js/models/dto/errorDto.ts";
+import {COOKIE_NAME} from "./userCookieHandler.ts";
 
 export const userData: User[] = [
     {
@@ -48,10 +49,11 @@ export const userData: User[] = [
 ]
 
 export const userHandlers = [
-    http.get("/api/users/@me", async ({}) => {
+    http.get("/api/users/@me", async (req) => {
 
+        let userId: number | null = parseInt(req.cookies[COOKIE_NAME] as string ?? "-1");
+        let user = userData.find(it => it.id == userId)
         let delayed = false
-        let error = false
 
         if (delayed) {
             await new Promise<void>((res) => {
@@ -59,7 +61,7 @@ export const userHandlers = [
             })
         }
 
-        if (error) {
+        if (user == null) {
             return HttpResponse.json({
                 error: true,
                 status: 401,
@@ -68,6 +70,6 @@ export const userHandlers = [
             } as ErrorDto) as HttpResponse<any>
         }
 
-        return HttpResponse.json(userData[0]) as HttpResponse<any>
+        return HttpResponse.json(user) as HttpResponse<any>
     }),
 ]
