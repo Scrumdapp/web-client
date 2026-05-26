@@ -28,6 +28,10 @@
     @apply bg-red-dim hover:bg-red;
 }
 
+.btn-nav-dropdown {
+    @apply block transition
+}
+
 .btn-attendance {
     @apply flex items-center justify-between h-10 p-2 text-fg text-left
     rounded-lg cursor-pointer hover:bg-bg2 active:bg-bg3 data-focus:bg-bg2 data-focus:text-white w-full
@@ -90,3 +94,14 @@ table {
     @apply text-xs
 }
 
+.nav-dropdown {
+    @apply relative w-30  bg-bg_h rounded-xl py-2
+}
+.nav-dropdown:hover .nav-dropdown-content, .nav-dropdown-content:focus {
+    @apply block scale-100 opacity-100
+}
+
+.nav-dropdown-content {
+    @apply absolute bg-bg_h w-fit h-auto border border-fg4 border-t-transparent rounded-b-2xl -mr-2 -z-1 top-5 right-0 origin-top-right
+    scale-25 transition-all ease-in-out duration-200 opacity-0 px-2
+}
