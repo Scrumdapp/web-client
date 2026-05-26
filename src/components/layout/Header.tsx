@@ -2,8 +2,15 @@ import { Link } from "react-router-dom";
 import {LogoutButton} from "../generic/LogoutButton.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPortrait} from "@fortawesome/free-solid-svg-icons";
+import {userContext} from "../../js/context/user/userContext.ts";
+import {useContext} from "react";
 
 export default function Header() {
+
+    const { user: currentUser} = useContext(userContext) ?? {};
+    const ShowHeaderName = currentUser
+    ?`${currentUser.first_name} ${currentUser.last_name}`.trim()
+        :"";
 
     const links = [
         { to: "/public", label: "Home" },
@@ -25,7 +32,7 @@ export default function Header() {
                             ))}
                         </div>
                         <div className="nav-dropdown">
-                            <p className="text-right">UserName123</p>
+                            <p className="text-right">{ ShowHeaderName || ""}</p>
                             <div className="nav-dropdown-content">
                                 <div className="py-4 px-1.5 text-left">
                                     <Link to="/settings" className="btn-nav-dropdown hover:text-yellow">
