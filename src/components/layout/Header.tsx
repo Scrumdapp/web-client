@@ -31,7 +31,7 @@ export default function Header() {
                                 </Link>
                             ))}
                         </div>
-                        <div className="nav-dropdown">
+                        <div className="nav-dropdown cursor-default">
                             <p className="text-right">{ ShowHeaderName || ""}</p>
                             <div className="nav-dropdown-content">
                                 <div className="py-4 px-1.5 text-left">
