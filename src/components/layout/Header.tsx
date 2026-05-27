@@ -16,10 +16,10 @@ export default function Header() {
 
     return (
         <header className="flex mx-2">
-            <nav className="bg-bg_h mt-2 mb-7 flex px-1.75 rounded-2xl border shadow-xl w-full justify-between items-center z-50">
+            <nav className="bg-bg_h mt-2 mb-7 flex px-1 rounded-full border shadow-xl w-full justify-between items-center z-50">
                 <div className="flex-1 text-fg text-2xl font-bold">
                     <Link to="/groups" className="horizontal gap-1 items-center">
-                        <img alt="scrumdapp-logo" src={ScrumdappLogoTransparant} width="32" height="32" />
+                        <img alt="scrumdapp-logo" src={ScrumdappLogoTransparant} className="nav-icon" />
                         Scrumdapp
                     </Link>
                 </div>
@@ -32,8 +32,11 @@ export default function Header() {
                     ))}
                 </div>
                 <div className="flex-1 nav-dropdown cursor-default">
-                    <p className="text-right">{`${user.first_name} ${user.last_name}`}</p>
-                    <div className="nav-dropdown-content right-[0.4px]!">
+                    <div className="horizontal justify-end items-center gap-1">
+                        <span>{`${user.first_name} ${user.last_name}`}</span>
+                        <img alt="user-profile-picture" src={user.avatar ?? "/public/Scrumdaddy.png"} className="nav-icon" />
+                    </div>
+                    <div className="nav-dropdown-content -right-[0.5px]!">
                         <div className="py-4 px-1.5 text-left">
                             <Link to="/settings" className="btn-nav-dropdown hover:text-yellow">
                                 <FontAwesomeIcon icon={faPortrait} className="text-yellow" />
