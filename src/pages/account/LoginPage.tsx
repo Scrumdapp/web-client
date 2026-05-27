@@ -1,9 +1,8 @@
-import {faDiscord} from "@fortawesome/free-brands-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useUserState} from "../../js/context/user/useUser.ts";
-import {useNavigate} from "react-router-dom";
-
-const discordLoginUrl: string = import.meta.env.VITE_DISCORD_LOGIN_URL ?? "/api/oauth2/authorization/discord"
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useUserState } from "../../js/context/user/useUser.ts";
+import { useNavigate } from "react-router-dom";
+import { WebConfig } from "../../config.ts";
 
 export default function LoginPage() {
 
@@ -18,10 +17,9 @@ export default function LoginPage() {
     // Unfortunately, there is no other way to handle the request
     const handleLogin = () => {
         if (import.meta.env.DEV) {
-            fetch(discordLoginUrl)
-                .then(() => location.href = "/")
+            fetch(WebConfig.discordLoginUrl).then(() => location.href = "/")
         } else {
-            location.href = discordLoginUrl;
+            location.href = WebConfig.discordLoginUrl;
         }
     }
 
@@ -33,7 +31,7 @@ export default function LoginPage() {
                     onClick={handleLogin}
                     className="btn border btn-secondary mx-auto w-fit"
                 >
-                    <FontAwesomeIcon icon={faDiscord}/>
+                    <FontAwesomeIcon icon={faDiscord} />
                     Login
                 </button>
             </div>
