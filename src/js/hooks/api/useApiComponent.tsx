@@ -1,10 +1,9 @@
-import { ScrumdappApi } from "./scrumdappApi.ts";
 import { JSX, ReactNode, useEffect, useCallback } from "react";
 import { ApiError } from "./apiError.ts";
 import { useApi } from "./useApi.ts";
 import { LoadScreen } from "../../../components/generic/LoadScreen.tsx";
 import { ErrorScreen } from "../../../components/generic/ErrorScreen.tsx";
-import RequestProcessor = ScrumdappApi.RequestProcessor;
+import {RequestProcessor} from "./apiUtils.ts";
 
 export function useApiComponent<TInput extends any[], TResult>(processor: RequestProcessor<TInput, TResult>) {
     return useCallback(({ input, loading, error, children }: {

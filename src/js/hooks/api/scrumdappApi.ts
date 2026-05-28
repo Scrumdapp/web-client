@@ -1,7 +1,13 @@
-export namespace ScrumdappApi {
-    export * from "./routes/userRoutes.tsx";
-    export * from "./routes/groupRoutes.tsx";
-    export * from "./routes/groupUserRoutes.tsx";
-    export * from "./routes/getGroupSessions.tsx";
-    export * from "./routes/getGroupCheckpointRoutes.tsx";
+import * as UserRoutes from "./routes/userRoutes.tsx"
+import * as GroupRoutes from "./routes/groupRoutes.tsx"
+import * as GroupUserRoutes from "./routes/groupUserRoutes.tsx"
+import * as GroupSessionRoutes from "./routes/groupSessions.tsx"
+import * as GroupCheckpointRoutes from "./routes/groupCheckpointRoutes.tsx"
+
+export const ScrumdappApi = {
+    ...UserRoutes,
+    ...GroupRoutes,
+    ...GroupUserRoutes,
+    ...GroupSessionRoutes,
+    ...GroupCheckpointRoutes
 }
