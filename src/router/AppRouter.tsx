@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-
+import Invites from "../pages/AddUser.tsx";
 import About from "../pages/About.tsx";
 import Privacy from "../pages/Privacy.tsx";
 import ErrorPage from "../pages/ErrorPage.tsx";
@@ -15,6 +15,7 @@ export default function AppRouter() {
             <Route path="/groups" element={<Groups />} />
             <Route path="/groups/:groupId/*" element={<GroupLayout />}/>
             <Route path="*" element={<ErrorPage />} />
+            <Route path="/invites" element={<Invites />} />
         </Routes>
     );
 }
