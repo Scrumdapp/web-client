@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import Testpage from "../pages/testpage.tsx";
 import About from "../pages/About.tsx";
 import Privacy from "../pages/Privacy.tsx";
 import ErrorPage from "../pages/ErrorPage.tsx";
@@ -15,7 +14,6 @@ export default function AppRouter() {
             <Route path="/groups" element={<Groups />} />
             <Route path="/groups/:groupId/*" element={<GroupLayout />}/>
             <Route path="*" element={<ErrorPage />} />
-            <Route path="/test" element={<Testpage />} />
         </Routes>
     );
 }

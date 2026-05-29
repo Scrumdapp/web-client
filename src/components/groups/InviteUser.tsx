@@ -12,7 +12,7 @@ export default function InviteUser() {
                     Copy
                 </button>
                 <button className="btn border">
-                    Done?
+                    Done
                 </button>
             </div>
         </div>
