@@ -7,5 +7,15 @@ export interface GroupPresenceTrends {
 
 export interface PresenceTrendItem {
     userId: number
-    presences: string[]
+    presences: PresenceTrendDay[]
+}
+
+export interface PresenceTrendDay {
+    date: string
+    presences: PresenceTrendDayItem[]
+}
+
+export interface PresenceTrendDayItem {
+    presence: string | null
+    sessionId: number
 }
