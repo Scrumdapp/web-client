@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Testpage from "../components/groups/testpage.tsx";
+import Testpage from "../pages/testpage.tsx";
 import About from "../pages/About.tsx";
 import Privacy from "../pages/Privacy.tsx";
 import ErrorPage from "../pages/ErrorPage.tsx";
