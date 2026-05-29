@@ -15,7 +15,7 @@ export function CreateInvite() {
 
 export function GetGroupInvites() {
     return createProcessor("getGroupInvites", (groupId: number) => {
-        return makeApiRequest<InviteResponse>("GET", "/invites", {
+        return makeApiRequest<InviteResponse[]>("GET", "/invites", {
             query: { group: groupId },
         })
     })
