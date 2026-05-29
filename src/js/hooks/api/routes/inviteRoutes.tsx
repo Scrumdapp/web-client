@@ -38,7 +38,7 @@ export function DeleteInvite() {
 }
 
 export function AcceptInvite() {
-    return createProcessor("createInvite", (inviteId: number, userId: number, token: number, password: string) => {
+    return createProcessor("acceptInvite", (inviteId: number, userId: number, token: number, password: string) => {
         return makeApiRequest("POST", "/invites/{inviteId}/accept", {
             params: { inviteId },
             body: { userId, token, password }
