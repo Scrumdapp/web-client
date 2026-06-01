@@ -2,9 +2,10 @@ import { GroupPresenceTrends, PresenceTrendDay, PresenceTrendDayItem } from "../
 import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
 import { GroupUserCollection, groupUserData } from "./groupUserHandler";
 import { PRESENCE_FIELDS } from "./groupCheckpointHandlers.tsx";
+import { http, HttpResponse } from "msw";
 
 
-const trendData: { [groupId: number]: GroupPresenceTrends }
+const trendData: { [groupId: number]: GroupPresenceTrends } = {}
 
 for (const group of groupUserData) {
     createFakeTrendsData(group);
@@ -51,10 +52,12 @@ function createFakeTrendsData(group: GroupUserCollection) {
         })
     }
 
-    return data;
+    trendData[group.groupId] = data
 }
 
 
 export const trendsHandlers = [
-
+    http.get("/trends/grouptimeline/:gid", ({ params }) => {
+        return HttpResponse.json(trendData[parseInt(params["gid"] as string)])
+    })
 ]
