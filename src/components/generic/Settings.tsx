@@ -37,11 +37,6 @@ export default function Settings({ groupId }: SettingsProps) {
         modal.open();
     }
 
-    function handleCurrentLink() {
-        setStep(2);
-        modal.open();
-    }
-
     function handleDone() {
         modal.close();
         setStep(1);
@@ -50,9 +45,6 @@ export default function Settings({ groupId }: SettingsProps) {
         <main>
             <div className="card">
                 <div className="flex float-right gap-3">
-                    <button onClick={handleCurrentLink} className="btn border">
-                        Current Link
-                    </button>
                     <button onClick={handleOpenModal} className="flex float-right btn btn-secondary border">
                         Create Invite
                     </button>
