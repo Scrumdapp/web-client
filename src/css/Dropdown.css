@@ -3,7 +3,10 @@
 }
 
 .dropdown-content {
-    @apply hidden absolute border top-full z-1 border border-fg4 p-4 rounded-lg bg-bg_h shadow-lg
+    @apply hidden absolute border top-full z-1 border border-fg4 p-4 rounded-lg bg-bg_h shadow-lg;
+
+    position-area: bottom;
+    position-try: top right left bottom;
 }
 
 .dropdown:hover .dropdown-content {
