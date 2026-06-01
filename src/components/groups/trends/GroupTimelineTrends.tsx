@@ -69,7 +69,7 @@ function RenderTimelineTrend({ trend }: { trend: PresenceTrendItem }) {
     return (
         <div className="horizontal gap-0.5 w-full flex-1">
             {trend.days.map((trend, i) => (
-                <div className={`timeline-item flex-1 dropdown ${getAttendanceBackgroundColor(trend.presences[0].presence)}`} key={i}>
+                <div className={`timeline-item flex-1 dropdown ${getAttendanceBackgroundColor(trend.presences[0].presence)} hover:outline`} key={i}>
                     <div className="dropdown-content">
                         <p>{trend.date}</p>
                         <hr className="mt-1 mb-2 text-gray" />
