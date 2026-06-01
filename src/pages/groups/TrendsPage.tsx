@@ -2,6 +2,7 @@ import { GroupTimelineTrends } from "../../components/groups/trends/GroupTimelin
 import { useGroup } from "../../js/context/group/useGroup"
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi"
 import { useApiComponent } from "../../js/hooks/api/useApiComponent"
+import {GroupTimelineTrendsWeather} from "../../components/groups/trends/GroupTimelineTrendsWeather.tsx";
 
 export function TrendsPage() {
 
@@ -18,6 +19,10 @@ export function TrendsPage() {
                     <div className="card">
                         <h2>Presence</h2>
                         <GroupTimelineTrends users={users} />
+                    </div>
+                    <div className="card">
+                        <h2>Weather</h2>
+                        <GroupTimelineTrendsWeather />
                     </div>
                 </div>
             )}

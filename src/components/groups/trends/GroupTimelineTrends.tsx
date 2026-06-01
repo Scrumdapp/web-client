@@ -5,7 +5,7 @@ import { useApi } from "../../../js/hooks/api/useApi"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../js/models/trends"
 import { LoadScreen } from "../../generic/LoadScreen"
 import { ErrorScreen } from "../../generic/ErrorScreen"
-import { getAttendanceBackgroundColor, getAttendanceColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../js/utils/colorUtils"
+import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../js/utils/colorUtils"
 import { GroupUser } from "../../../js/models/group"
 
 export interface GroupTimelineTrendsProps {
