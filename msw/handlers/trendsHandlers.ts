@@ -1,11 +1,14 @@
 import { GroupPresenceTrends, PresenceTrendDay, PresenceTrendDayItem } from "../../src/js/models/trends";
 import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
 import { GroupUserCollection, groupUserData } from "./groupUserHandler";
-import { PRESENCE_FIELDS } from "./groupCheckpointHandlers";
+import { PRESENCE_FIELDS as groupPresence } from "./groupCheckpointHandlers";
 import { http, HttpResponse } from "msw";
 
+const PRESENCE_FIELDS = [...groupPresence, "ON_TIME", "ON_TIME", "ON_TIME", "ON_TIME", "ON_TIME", null]
 
 const trendData: { [groupId: number]: GroupPresenceTrends } = {}
+
+const name = ["Check-in", "Check-up", "Check-out", "Check-night"]
 
 for (const group of groupUserData) {
     createFakeTrendsData(group);
@@ -35,6 +38,7 @@ function createFakeTrendsData(group: GroupUserCollection) {
 
             for (let p = 0; p < maxCheckins; p++) {
                 presences.push({
+                    name: name[p],
                     sessionId: Math.floor(Math.random() * 999999),
                     presence: PRESENCE_FIELDS[Math.floor(Math.random() * PRESENCE_FIELDS.length)]
                 })

@@ -18,4 +18,5 @@ export interface PresenceTrendDay {
 export interface PresenceTrendDayItem {
     presence: string | null
     sessionId: number
+    name: string
 }

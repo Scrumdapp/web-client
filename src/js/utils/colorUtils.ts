@@ -11,12 +11,16 @@ export const attendanceOptions = [
     { label: "Sick", color: "text-blue", background: "bg-blue", value: "SICK" },
 ];
 
+export function getAttendanceLabel(value: string | null | undefined): string {
+    return attendanceOptions.find(opt => opt.value === value)?.label ?? "---";
+}
+
 export function getAttendanceColor(value: string | null | undefined): string {
     return attendanceOptions.find(opt => opt.label === value)?.color ?? "text-gray";
 }
 
 export function getAttendanceBackgroundColor(value: string | null | undefined): string {
-    return attendanceOptions.find(opt => opt.label === value)?.background ?? "bg-gray";
+    return attendanceOptions.find(opt => opt.value === value)?.background ?? "bg-gray";
 }
 
 export function getAttendanceColorScrummaster(value: string | null | undefined): string {

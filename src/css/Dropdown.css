@@ -1,0 +1,11 @@
+.dropdown {
+    @apply relative
+}
+
+.dropdown-content {
+    @apply hidden absolute border top-full z-1 border border-fg4 p-4 rounded-lg bg-bg_h shadow-lg
+}
+
+.dropdown:hover .dropdown-content {
+    @apply block
+}

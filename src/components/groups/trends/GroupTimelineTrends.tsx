@@ -5,7 +5,7 @@ import { useApi } from "../../../js/hooks/api/useApi"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../js/models/trends"
 import { LoadScreen } from "../../generic/LoadScreen"
 import { ErrorScreen } from "../../generic/ErrorScreen"
-import { getAttendanceBackgroundColor } from "../../../js/utils/colorUtils"
+import { getAttendanceBackgroundColor, getAttendanceColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../js/utils/colorUtils"
 import { GroupUser } from "../../../js/models/group"
 
 export interface GroupTimelineTrendsProps {
@@ -57,7 +57,7 @@ function RenderTimelineGraph({ users, data }: { users: GroupUser[], data: GroupP
                 {users.map((user) => (
                     <tr key={user.user_id}>
                         <td className="w-48 pr-2">{user.first_name} {user.last_name}</td>
-                        <td className="py-2"><RenderTimelineTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
+                        <td className="py-1"><RenderTimelineTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
                     </tr>
                 ))}
             </tbody>
@@ -67,13 +67,22 @@ function RenderTimelineGraph({ users, data }: { users: GroupUser[], data: GroupP
 
 function RenderTimelineTrend({ trend }: { trend: PresenceTrendItem }) {
     return (
-        <div className="horizontal gap-0.5 w-full rounded-md flex-1 overflow-hidden">
+        <div className="horizontal gap-0.5 w-full flex-1">
             {trend.days.map((trend, i) => (
-                <div className="vertical flex-1 gap-0.5" key={i}>
-                    {trend.presences.map((presence) => (
-                        <div key={presence.sessionId} className={`min-h-3 h-full flex-1 ${getAttendanceBackgroundColor(presence.presence)}`}>
-                        </div>
-                    ))}
+                <div className={`timeline-item flex-1 dropdown ${getAttendanceBackgroundColor(trend.presences[0].presence)}`} key={i}>
+                    <div className="dropdown-content">
+                        <p>{trend.date}</p>
+                        <hr className="mt-1 mb-2 text-gray" />
+                        <table>
+                            {trend.presences.map(it => (
+                                <tr>
+                                    <td className="text-nowrap pr-2">{it.name}</td>
+                                    <td className={`text-nowrap ${getAttendanceColorScrummaster(it.presence)}`}>{getAttendanceLabel(it.presence)}</td>
+                                </tr>
+                            ))}
+                        </table>
+                    </div>
+
                 </div>
             ))}
         </div >
