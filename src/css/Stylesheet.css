@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Iosevka+Charon:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
-@import "tailwindcss";
 @import "./Theme.css";
 @import "./Typography.css";
 @import "./Utils.css";
 @import "./Anim.css";
-
+@import "./Nav.css";
 
 :root {
     @apply bg-bg font-Iosevka font-normal text-fg;
@@ -16,8 +15,7 @@
 }
 
 .btn {
-    @apply hover:bg-bg2 active:bg-bg3 p-2 text-fg text-center flex justify-center items-center
-    gap-1 rounded-lg duration-200 ease-in-out active:duration-100 cursor-pointer;
+    @apply hover:bg-bg2 active:bg-bg3 p-2 text-fg text-center flex justify-center items-center gap-1 rounded-lg duration-200 ease-in-out active:duration-100 cursor-pointer;
 }
 
 .btn-secondary {
@@ -33,8 +31,7 @@
 }
 
 .btn-attendance {
-    @apply flex items-center justify-between h-10 p-2 text-fg text-left
-    rounded-lg cursor-pointer hover:bg-bg2 active:bg-bg3 data-focus:bg-bg2 data-focus:text-white w-full
+    @apply flex items-center justify-between h-10 p-2 text-fg text-left rounded-lg cursor-pointer hover:bg-bg2 active:bg-bg3 data-focus:bg-bg2 data-focus:text-white w-full
 }
 
 .btn-attendance-dropdown {
@@ -59,7 +56,7 @@
 }
 
 .write-section::-webkit-scrollbar-track {
-   @apply bg-transparent;
+    @apply bg-transparent;
 }
 
 .card {
@@ -83,25 +80,15 @@ table {
 }
 
 .name-field {
-    @apply  w-40 max-w-40 border-r-green
+    @apply w-40 max-w-40 border-r-green
 }
 
 .td {
     @apply table-cell align-baseline
 }
 
-.stars > .icon {
+.stars>.icon {
     @apply text-xs
 }
 
-.nav-dropdown {
-    @apply relative w-30  bg-bg_h rounded-xl py-2
-}
-.nav-dropdown:hover .nav-dropdown-content, .nav-dropdown-content:focus {
-    @apply block scale-100 opacity-100
-}
-
-.nav-dropdown-content {
-    @apply absolute bg-bg_h w-fit h-auto border border-fg4 border-t-transparent rounded-b-2xl -mr-2 -z-1 top-5 right-0 origin-top-right
-    scale-25 transition-all ease-in-out duration-200 opacity-0 px-2
-}
+@import "tailwindcss";

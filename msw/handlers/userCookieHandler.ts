@@ -1,12 +1,11 @@
 import { http, HttpResponse } from "msw";
+import { WebConfig } from "../../src/config";
 
 export const COOKIE_NAME = "ALLINDADDY";
 const COOKIE_DAYS = 30;
 
-const discordLoginUrl: string = import.meta.env.VITE_DISCORD_LOGIN_URL ?? "/api/oauth2/authorization/discord"
-
 export const userCookieHandler = [
-    http.get(discordLoginUrl, (req) => {
+    http.get(WebConfig.discordLoginUrl, (req) => {
         const expires = new Date(Date.now() + COOKIE_DAYS * 864e5).toUTCString();
         const userId = req.params["userId"] as string ?? "1"
 
@@ -17,4 +16,12 @@ export const userCookieHandler = [
             },
         });
     }),
+    http.get(WebConfig.logoutUrl, () => {
+        return new HttpResponse(null, {
+            status: 200,
+            headers: {
+                "Set-Cookie": `${COOKIE_NAME}=${0}; expires=${Date.now()}; path=/; SameSite=Strict;`,
+            },
+        });
+    })
 ];

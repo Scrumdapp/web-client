@@ -1,7 +1,6 @@
-import {ScrumdappApi} from "./scrumdappApi.ts";
-import RequestProcessor = ScrumdappApi.RequestProcessor;
 import {useCallback, useEffect, useState} from "react";
 import {ApiError} from "./apiError.ts";
+import {RequestProcessor} from "./apiUtils.ts";
 
 export interface UseApiReturnType<TInput extends any[], Tm> {
     loading: boolean,

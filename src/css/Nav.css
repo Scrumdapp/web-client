@@ -1,0 +1,17 @@
+.nav-dropdown {
+    @apply relative w-30 bg-bg_h rounded-full py-1
+}
+
+.nav-dropdown:hover .nav-dropdown-content, .nav-dropdown-content:focus {
+    @apply block scale-100 opacity-100
+}
+
+.nav-dropdown-content {
+    @apply absolute bg-bg_h w-fit h-auto border border-fg4 border-t-transparent rounded-b-2xl -mr-1 -z-1 top-1/2 right-0 origin-top-right scale-25 transition-all ease-in-out duration-200 opacity-0 px-2 pt-2
+}
+
+.nav-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+}
