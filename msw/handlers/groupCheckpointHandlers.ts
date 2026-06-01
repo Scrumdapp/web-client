@@ -5,7 +5,7 @@ import {groupUserData} from "./groupUserHandler";
 import {toScrumdappDate} from "../../src/js/utils/scrumdappDate";
 
 
-const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
+export const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
 const RANDOM_COMMENT = [
     undefined, undefined, undefined, undefined,
     "jrkegbayunhgjlianhbgbahngamjgnahk",
