@@ -2,6 +2,8 @@ import Modal from "./modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import { useState } from "react";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
+import ModalActionRow from "./modal/components/ModalActionRow.tsx";
+import ModalCancelButton from "./modal/components/ModalCancelButton.tsx";
 
 interface SettingsProps {
     groupId: number;
@@ -23,6 +25,13 @@ export default function Settings({ groupId }: SettingsProps) {
     const [generatedLink, setGeneratedLink] = useState("");
     const createInvite = ScrumdappApi.CreateInvite();
 
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(generatedLink);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+    };
 
     async function handleCreateInvite() {
         const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000);
@@ -43,15 +52,11 @@ export default function Settings({ groupId }: SettingsProps) {
     }
     return (
         <main>
-            <div className="card">
-                <div className="flex float-right gap-3">
-                    <button onClick={handleOpenModal} className="flex float-right btn btn-secondary border">
-                        Create Invite
-                    </button>
-                </div>
-                <div>
-                    <h3>...All Invites</h3>
-                </div>
+            <div className="card flex justify-between items-center">
+                <h3>All Invites</h3>
+                <button onClick={handleOpenModal} className="btn btn-secondary border">
+                   Create Invite
+                </button>
             </div>
             <Modal state={modal}>
                 {step === 1 && (
@@ -73,9 +78,12 @@ export default function Settings({ groupId }: SettingsProps) {
                                 </option>
                             ))}
                         </select>
+                        <ModalActionRow>
+                            <ModalCancelButton></ModalCancelButton>
                         <button onClick={handleCreateInvite} className="btn btn-secondary border">
                             Create
                         </button>
+                        </ModalActionRow>
                     </>
                 )}
                 {step === 2 && (
@@ -88,14 +96,15 @@ export default function Settings({ groupId }: SettingsProps) {
                                 <p>{generatedLink}</p>
                                 <input className="write-section !w-7/10" />
                             </div>
-                            <div className="flex flex-nowrap float-right space-x-3">
-                                <button onClick={() => navigator.clipboard.writeText(generatedLink)} className="btn btn-secondary border">
-                                    Copy
+                            <ModalActionRow>
+                                {copied && <p className="text-green-dim my-auto">Link copied to clipboard!</p>}
+                                <button onClick={handleCopy} className="btn btn-secondary border">
+                                    Copy link
                                 </button>
                                 <button onClick={handleDone} className="btn border">
                                     Done
                                 </button>
-                            </div>
+                            </ModalActionRow>
                         </div>
                     </>
                 )}
