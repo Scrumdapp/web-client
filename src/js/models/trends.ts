@@ -7,7 +7,7 @@ export interface GroupPresenceTrends {
 
 export interface PresenceTrendItem {
     userId: number
-    presences: PresenceTrendDay[]
+    days: PresenceTrendDay[]
 }
 
 export interface PresenceTrendDay {
