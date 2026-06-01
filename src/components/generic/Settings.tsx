@@ -15,20 +15,28 @@ export default function Settings() {
         setStep(2);
     }
 
+    function handleCurrentLink() {
+        setStep(2);
+        modal.open();
+    }
+
     function handleDone() {
         modal.close();
         setStep(1);
     }
     return (
         <main>
-            <div className="flex flex-col border">
-                <div>
+            <div className="border rounded-2xl p-3 min-h-20">
+                <div className="flex float-right gap-3">
+                    <button onClick={handleCurrentLink} className="btn border">
+                        Current Link
+                    </button>
                     <button onClick={handleOpenModal} className="flex float-right btn btn-secondary border">
                         Create Invite
                     </button>
                 </div>
                 <div>
-                    ...All Invites
+                    <h3>...All Invites</h3>
                 </div>
             </div>
             {step === 1 && (
