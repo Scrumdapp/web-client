@@ -1,30 +1,34 @@
 import Modal from "./modal/Modal.tsx";
 import {useModalState} from "../../js/hooks/useModalState.ts";
 import {useState} from "react";
-import {InviteResponse} from "../../js/models/invites.tsx";
+import {CreateInvite} from "../../js/hooks/api/routes/inviteRoutes.tsx";
 
 interface SettingsProps {
     groupId: number;
 }
 
+const EXPIRE_OPTIONS = [
+    { label: "12 hours", hours: 12 },
+    { label: "24 hours", hours: 24 },
+    { label: "2 days", hours: 48 },
+    { label: "3 days", hours: 72 },
+    { label: "1 week", hours: 168 },
+];
+
 export default function Settings({ groupId }: SettingsProps) {
     const modal = useModalState();
     const [step, setStep] = useState<1 | 2>(1);
     const [password, setPassword] = useState("");
+    const [expireHours, setExpireHours] = useState(12);
     const [generatedLink, setGeneratedLink] = useState("");
+    const createInvite = CreateInvite();
+
 
     async function handleCreateInvite() {
-        const response = await fetch("/invites", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ groupId, password })
-        });
-
-        const invite: InviteResponse = await response.json();
-
+        const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000);
+        const invite = await createInvite(groupId, expiresAt, password);
         const link = `${window.location.origin}/invite/${invite.id}?token=${invite.token}`;
         setGeneratedLink(link);
-
         setStep(2);
     }
 
@@ -57,21 +61,33 @@ export default function Settings({ groupId }: SettingsProps) {
                     <h3>...All Invites</h3>
                 </div>
             </div>
-            {step === 1 && (
             <Modal state={modal}>
+            {step === 1 && (
+                <>
                 <h1>Create a Password</h1>
                 <input
                     className="write-section"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
+                <select
+                className="write-section"
+                value={expireHours}
+                onChange={e => setExpireHours(Number(e.target.value))}
+                >
+                {EXPIRE_OPTIONS.map(opt => (
+                    <option key={opt.hours} value={opt.hours}>
+                        {opt.label}
+                    </option>
+                ))}
+                </select>
                 <button onClick={handleCreateInvite} className="btn btn-secondary border">
                     Create
                 </button>
-            </Modal>
+                </>
             )}
             {step === 2 && (
-            <Modal state={modal}>
+                <>
                 <div>
                     <h1>Invite others to group</h1>
                     <p>Copy and share the generated link with your team.</p>
@@ -89,8 +105,9 @@ export default function Settings({ groupId }: SettingsProps) {
                         </button>
                     </div>
                 </div>
+                </>
+                )}
             </Modal>
-            )}
         </main>
 
     )
