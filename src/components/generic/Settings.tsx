@@ -1,7 +1,7 @@
 import Modal from "./modal/Modal.tsx";
-import {useModalState} from "../../js/hooks/useModalState.ts";
-import {useState} from "react";
-import {CreateInvite} from "../../js/hooks/api/routes/inviteRoutes.tsx";
+import { useModalState } from "../../js/hooks/useModalState.ts";
+import { useState } from "react";
+import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 
 interface SettingsProps {
     groupId: number;
@@ -21,7 +21,7 @@ export default function Settings({ groupId }: SettingsProps) {
     const [password, setPassword] = useState("");
     const [expireHours, setExpireHours] = useState(12);
     const [generatedLink, setGeneratedLink] = useState("");
-    const createInvite = CreateInvite();
+    const createInvite = ScrumdappApi.CreateInvite();
 
 
     async function handleCreateInvite() {
@@ -54,50 +54,50 @@ export default function Settings({ groupId }: SettingsProps) {
                 </div>
             </div>
             <Modal state={modal}>
-            {step === 1 && (
-                <>
-                <h1>Create a Password</h1>
-                <input
-                    className="write-section"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-                <select
-                className="write-section"
-                value={expireHours}
-                onChange={e => setExpireHours(Number(e.target.value))}
-                >
-                {EXPIRE_OPTIONS.map(opt => (
-                    <option key={opt.hours} value={opt.hours}>
-                        {opt.label}
-                    </option>
-                ))}
-                </select>
-                <button onClick={handleCreateInvite} className="btn btn-secondary border">
-                    Create
-                </button>
-                </>
-            )}
-            {step === 2 && (
-                <>
-                <div>
-                    <h1>Invite others to group</h1>
-                    <p>Copy and share the generated link with your team.</p>
-                    <div className="py-5 flex flex-nowrap justify-between items-center">
-                        <p>Link:</p>
-                        <p>{generatedLink}</p>
-                        <input className="write-section !w-7/10" />
-                    </div>
-                    <div className="flex flex-nowrap float-right space-x-3">
-                        <button onClick={() => navigator.clipboard.writeText(generatedLink)} className="btn btn-secondary border">
-                            Copy
+                {step === 1 && (
+                    <>
+                        <h1>Create a Password</h1>
+                        <input
+                            className="write-section"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                        <select
+                            className="write-section"
+                            value={expireHours}
+                            onChange={e => setExpireHours(Number(e.target.value))}
+                        >
+                            {EXPIRE_OPTIONS.map(opt => (
+                                <option key={opt.hours} value={opt.hours}>
+                                    {opt.label}
+                                </option>
+                            ))}
+                        </select>
+                        <button onClick={handleCreateInvite} className="btn btn-secondary border">
+                            Create
                         </button>
-                        <button onClick={handleDone} className="btn border">
-                            Done
-                        </button>
-                    </div>
-                </div>
-                </>
+                    </>
+                )}
+                {step === 2 && (
+                    <>
+                        <div>
+                            <h1>Invite others to group</h1>
+                            <p>Copy and share the generated link with your team.</p>
+                            <div className="py-5 flex flex-nowrap justify-between items-center">
+                                <p>Link:</p>
+                                <p>{generatedLink}</p>
+                                <input className="write-section !w-7/10" />
+                            </div>
+                            <div className="flex flex-nowrap float-right space-x-3">
+                                <button onClick={() => navigator.clipboard.writeText(generatedLink)} className="btn btn-secondary border">
+                                    Copy
+                                </button>
+                                <button onClick={handleDone} className="btn border">
+                                    Done
+                                </button>
+                            </div>
+                        </div>
+                    </>
                 )}
             </Modal>
         </main>
