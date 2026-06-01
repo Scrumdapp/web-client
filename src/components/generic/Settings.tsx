@@ -48,7 +48,7 @@ export default function Settings({ groupId }: SettingsProps) {
     }
     return (
         <main>
-            <div className="border rounded-2xl p-3 min-h-20">
+            <div className="card">
                 <div className="flex float-right gap-3">
                     <button onClick={handleCurrentLink} className="btn border">
                         Current Link
