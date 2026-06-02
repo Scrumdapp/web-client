@@ -69,7 +69,7 @@ export default function Settings({ groupId }: SettingsProps) {
                                 onChange={e => setPassword(e.target.value)}
                             />
                             <select
-                                className="text-center border rounded-lg"
+                                className="text-center border rounded-lg outline-none"
                                 value={expireHours}
                                 onChange={e => setExpireHours(Number(e.target.value))}
                             >
