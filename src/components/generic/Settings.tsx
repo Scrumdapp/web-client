@@ -62,27 +62,31 @@ export default function Settings({ groupId }: SettingsProps) {
                 {step === 1 && (
                     <>
                         <h1>Create a Password</h1>
-                        <input
-                            className="write-section"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                        <select
-                            className="write-section"
-                            value={expireHours}
-                            onChange={e => setExpireHours(Number(e.target.value))}
-                        >
-                            {EXPIRE_OPTIONS.map(opt => (
-                                <option key={opt.hours} value={opt.hours}>
-                                    {opt.label}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="flex justify-between">
+                            <input
+                                className="write-section w-full! mr-2"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                            />
+                            <select
+                                className="text-center border rounded-lg"
+                                value={expireHours}
+                                onChange={e => setExpireHours(Number(e.target.value))}
+                            >
+                                {EXPIRE_OPTIONS.map(opt => (
+                                    <option key={opt.hours} value={opt.hours}>
+                                        {opt.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                         <ModalActionRow>
-                            <ModalCancelButton></ModalCancelButton>
+                            <div className="py-2 flex gap-x-2">
+                            <ModalCancelButton />
                         <button onClick={handleCreateInvite} className="btn btn-secondary border">
                             Create
                         </button>
+                            </div>
                         </ModalActionRow>
                     </>
                 )}
@@ -93,8 +97,7 @@ export default function Settings({ groupId }: SettingsProps) {
                             <p>Copy and share the generated link with your team.</p>
                             <div className="py-5 flex flex-nowrap justify-between items-center">
                                 <p>Link:</p>
-                                <p>{generatedLink}</p>
-                                <input className="write-section !w-7/10" />
+                                <text className="write-section !w-7/10 overflow-hidden">{generatedLink}</text>
                             </div>
                             <ModalActionRow>
                                 {copied && <p className="text-green-dim my-auto">Link copied to clipboard!</p>}
