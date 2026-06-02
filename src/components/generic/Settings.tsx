@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import ModalActionRow from "./modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "./modal/components/ModalCancelButton.tsx";
+import {TimeDurationDropdownMenu} from "./TimeDuration.tsx";
 
 interface SettingsProps {
     groupId: number;
@@ -21,6 +22,7 @@ export default function Settings({ groupId }: SettingsProps) {
     const modal = useModalState();
     const [step, setStep] = useState<1 | 2>(1);
     const [password, setPassword] = useState("");
+    const [showWarning, setShowWarning] = useState(false);
     const [expireHours, setExpireHours] = useState(12);
     const [generatedLink, setGeneratedLink] = useState("");
     const createInvite = ScrumdappApi.CreateInvite();
@@ -62,30 +64,31 @@ export default function Settings({ groupId }: SettingsProps) {
                 {step === 1 && (
                     <>
                         <h1>Create a Password</h1>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between py-2">
                             <input
                                 className="write-section w-full! mr-2"
+                                placeholder="Password"
                                 value={password}
-                                onChange={e => setPassword(e.target.value)}
+                                maxLength={30}
+                                onChange={(e) => {
+                                    setShowWarning(!/^[a-zA-Z0-9 ]{1,24}$/.test(e.target.value))
+                                    setPassword(e.target.value);
+                                }}
+                                required
                             />
-                            <select
-                                className="text-center border rounded-lg outline-none"
-                                value={expireHours}
-                                onChange={e => setExpireHours(Number(e.target.value))}
-                            >
-                                {EXPIRE_OPTIONS.map(opt => (
-                                    <option key={opt.hours} value={opt.hours}>
-                                        {opt.label}
-                                    </option>
-                                ))}
-                            </select>
+                            <TimeDurationDropdownMenu />
                         </div>
                         <ModalActionRow>
                             <div className="py-2 flex gap-x-2">
-                            <ModalCancelButton />
-                        <button onClick={handleCreateInvite} className="btn btn-secondary border">
-                            Create
-                        </button>
+                                {showWarning && (
+                                    <p className="text-red text-sm">
+                                        Only letters, numbers and spaces are allowed.
+                                    </p>
+                                )}
+                                <ModalCancelButton />
+                                <button onClick={handleCreateInvite} className={`btn btn-secondary border ${!password ? "opacity-50 cursor-not-allowed!" : ""}`}>
+                                    Create
+                                </button>
                             </div>
                         </ModalActionRow>
                     </>
@@ -94,7 +97,7 @@ export default function Settings({ groupId }: SettingsProps) {
                     <>
                         <div>
                             <h1>Invite others to group</h1>
-                            <p>Copy and share the generated link with your team.</p>
+                            <p>Copy and share this generated link with your team.</p>
                             <div className="py-5 flex flex-nowrap justify-between items-center">
                                 <p>Link:</p>
                                 <text className="write-section !w-7/10 overflow-hidden">{generatedLink}</text>
