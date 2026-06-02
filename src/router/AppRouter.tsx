@@ -12,10 +12,10 @@ export default function AppRouter() {
         <Routes>
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/accept-invite/:inviteId" element={<AcceptInvite />} />
             <Route path="/groups" element={<Groups />} />
             <Route path="/groups/:groupId/*" element={<GroupLayout />}/>
             <Route path="*" element={<ErrorPage />} />
-            <Route path="/accept-invite" element={<AcceptInvite />} />
         </Routes>
     );
 }
