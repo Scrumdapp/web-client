@@ -128,10 +128,11 @@ function TimelineWeekDisplays({ trends }: { trends: PresenceTrendItem }) {
     return (
         <div className="horizontal">
             {data.map((it, i) => (
-                <hr className="text-gray h-1" key={i} style={{
+                <hr className="text-fg3" key={i} style={{
                     width: `calc(${it.size / totalSize * 100}% - 4px)`,
                     marginLeft: "2px",
-                    marginRight: "2px"
+                    marginRight: "2px",
+                    marginBottom: "2px"
                 }} />
             ))}
         </div>
