@@ -10,20 +10,12 @@ interface SettingsProps {
     groupId: number;
 }
 
-const EXPIRE_OPTIONS = [
-    { label: "12 hours", hours: 12 },
-    { label: "24 hours", hours: 24 },
-    { label: "2 days", hours: 48 },
-    { label: "3 days", hours: 72 },
-    { label: "1 week", hours: 168 },
-];
-
 export default function Settings({ groupId }: SettingsProps) {
     const modal = useModalState();
     const [step, setStep] = useState<1 | 2>(1);
     const [password, setPassword] = useState("");
     const [showWarning, setShowWarning] = useState(false);
-    const [expireHours, setExpireHours] = useState(12);
+    const [expireHours] = useState(12);
     const [generatedLink, setGeneratedLink] = useState("");
     const createInvite = ScrumdappApi.CreateInvite();
 
@@ -69,7 +61,7 @@ export default function Settings({ groupId }: SettingsProps) {
                                 className="write-section w-full! mr-2"
                                 placeholder="Password"
                                 value={password}
-                                maxLength={30}
+                                maxLength={32}
                                 onChange={(e) => {
                                     setShowWarning(!/^[a-zA-Z0-9 ]{1,24}$/.test(e.target.value))
                                     setPassword(e.target.value);
@@ -86,7 +78,9 @@ export default function Settings({ groupId }: SettingsProps) {
                                     </p>
                                 )}
                                 <ModalCancelButton />
-                                <button onClick={handleCreateInvite} className={`btn btn-secondary border ${!password ? "opacity-50 cursor-not-allowed!" : ""}`}>
+                                <button onClick={handleCreateInvite} className={`btn btn-secondary border ${!password ? "opacity-50 cursor-not-allowed!" : ""}`}
+                                        disabled={!password.trim()}
+                                >
                                     Create
                                 </button>
                             </div>

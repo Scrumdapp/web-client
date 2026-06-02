@@ -16,23 +16,19 @@ export const TimeDuration = [
     { label: "1 week", hours: 168 },
 ];
 
-export function TimeDurationDropdownMenu({value, onChange,}: TimeDurationDropdownMenuProps) {
+export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdownMenuProps) {
     const [localValue, setLocalValue] = useState<number | null>(value ?? null);
 
     const updateValue = (value: number | null) => {
-        setLocalValue(value ?? null)
-        if (onChange != null) {
-            onChange(value ?? null)
-        }
-    }
-
+        setLocalValue(value);
+        onChange?.(value);
+    };
 
     useEffect(() => {
         setLocalValue(value ?? null);
     }, [value]);
 
-    const resolvedValue = value !== null ? (value ?? null) : localValue;
-    const currentOption = TimeDuration.find((opt) => opt.hours === resolvedValue) ?? TimeDuration[0];
+    const currentOption = TimeDuration.find((opt) => opt.hours === localValue) ?? TimeDuration[0];
 
     return (
         <Menu as="div" className="relative w-full">
