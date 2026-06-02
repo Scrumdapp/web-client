@@ -43,13 +43,13 @@ export function TimeRangeSelector(
     return (
         <Menu as="div" className="relative">
             <MenuButton
-                className="btn border"
+                className="btn border min-w-32"
             >
                 {options[selectedOption].name}
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 {options.map((it, i) => (
-                    <MenuItem key={i} as="button" className="btn" onClick={() => selectOption(i)}>
+                    <MenuItem key={i} as="button" className="btn w-full" onClick={() => selectOption(i)}>
                         {it.name}
                     </MenuItem>
                 ))}
