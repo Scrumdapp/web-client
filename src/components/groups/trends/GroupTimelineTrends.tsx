@@ -139,7 +139,7 @@ function TimelineWeekDisplays({ trends }: { trends: PresenceTrendItem }) {
 }
 
 function getWeekStart(date: Date) {
-    return new Date(date.getTime() - (date.getUTCDay() * (24 * 60 * 60 * 1000)))
+    return new Date(date.getTime() - ((date.getUTCDay() + 6) % 7) * (24 * 60 * 60 * 1000))
 }
 
 function parseWeekDay(day: number) {
