@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo } from "react"
+import { memo, useEffect } from "react"
 import { useGroup } from "../../../js/context/group/useGroup"
 import { ScrumdappApi } from "../../../js/hooks/api/scrumdappApi"
 import { useApi } from "../../../js/hooks/api/useApi"
@@ -8,18 +8,25 @@ import { ErrorScreen } from "../../generic/ErrorScreen"
 import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../js/utils/colorUtils"
 import { GroupUser } from "../../../js/models/group"
 import { parseScrumdappDate, toScrumdappDate } from "../../../js/utils/scrumdappDate"
+import { getWeekStart, parseWeekDay } from "../../../js/utils/timeUtils"
 
 export interface GroupTimelineTrendsProps {
-    users: GroupUser[]
+    users: GroupUser[],
+    from: string,
+    to: string
 }
 
-export const GroupTimelineTrends = memo(({ users }: GroupTimelineTrendsProps) => {
+export function getGroupTimelineHeight(users: GroupUser[]) {
+    return (users.length * 2 + 0.5) + "rem"
+}
+
+export const GroupTimelineTrends = memo(({ users, from, to }: GroupTimelineTrendsProps) => {
     const getGroupTimelineTrends = useApi(ScrumdappApi.getGroupTimelineTrends())
     const group = useGroup()
 
     useEffect(() => {
-        getGroupTimelineTrends.runCommand(group.id)
-    }, [group.id])
+        getGroupTimelineTrends.runCommand(group.id, from, to)
+    }, [group.id, from, to])
 
     let component = null;
 
@@ -34,7 +41,7 @@ export const GroupTimelineTrends = memo(({ users }: GroupTimelineTrendsProps) =>
     }
 
     return (
-        <div className="vertical" style={{ minHeight: (users.length * 2) + "rem" }}>
+        <div className="vertical" style={{ height: getGroupTimelineHeight(users) }}>
             {component}
         </div>
     )
@@ -84,8 +91,8 @@ function RenderTimelineTrend({ trend: trends }: { trend: PresenceTrendItem }) {
                         <hr className="mt-1 mb-2 text-gray" />
                         <table>
                             <tbody>
-                                {trend.presences.map(it => (
-                                    <tr>
+                                {trend.presences.map((it, i) => (
+                                    <tr key={i}>
                                         <td className="text-nowrap pr-2">{it.name}</td>
                                         <td className={`text-nowrap ${getAttendanceColorScrummaster(it.presence)}`}>{getAttendanceLabel(it.presence)}</td>
                                     </tr>
@@ -96,7 +103,7 @@ function RenderTimelineTrend({ trend: trends }: { trend: PresenceTrendItem }) {
                 </div>
             ))
             }
-        </div >
+        </div>
     )
 }
 
@@ -116,14 +123,11 @@ function TimelineWeekDisplays({ trends }: { trends: PresenceTrendItem }) {
         } else {
             data.push({ size, date: currWeekStart })
             currWeekStart = date
-            console.log(size)
             size = 1;
         }
     }
 
-    console.log(size)
     data.push({ size, date: currWeekStart })
-
 
     return (
         <div className="horizontal">
@@ -139,18 +143,3 @@ function TimelineWeekDisplays({ trends }: { trends: PresenceTrendItem }) {
     )
 }
 
-function getWeekStart(date: Date) {
-    return new Date(date.getTime() - ((date.getUTCDay() + 6) % 7) * (24 * 60 * 60 * 1000))
-}
-
-function parseWeekDay(day: number) {
-    switch (day) {
-        case 1: return "Mon"
-        case 2: return "Tue"
-        case 3: return "Wed"
-        case 4: return "Thu"
-        case 5: return "Fri"
-        case 6: return "Sat"
-        case 0: return "Sun"
-    }
-}
