@@ -30,7 +30,7 @@ export default function Settings({ groupId }: SettingsProps) {
     async function handleCreateInvite() {
         const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000);
         const invite = await createInvite(groupId, expiresAt, password);
-        const link = `${window.location.origin}/accept-invite/${invite.id}?token=${invite.token}`;
+        const link = `${window.location.origin}/invite/${invite.id}?token=${invite.token}`;
         setGeneratedLink(link);
         setStep(2);
     }
