@@ -22,9 +22,10 @@ export function GetGroupInvites() {
 }
 
 export function GetGroupInvite() {
-    return createProcessor("getGroupInvite", (inviteId: number) => {
+    return createProcessor("getGroupInvite", (inviteId: number, token: string) => {
         return makeApiRequest<InviteResponse>("GET", "/invites/{inviteId}", {
-            params: { "{inviteId}": inviteId }
+            params: { "{inviteId}": inviteId },
+            query: { token }
         })
     })
 }
