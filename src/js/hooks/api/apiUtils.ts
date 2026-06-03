@@ -1,5 +1,5 @@
-import {isErrorDto} from "../../models/dto/errorDto.ts";
-import {ApiError, RequestException} from "./apiError.ts";
+import { isErrorDto } from "../../models/dto/errorDto.ts";
+import { ApiError, RequestException } from "./apiError.ts";
 
 
 export const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replace(/\/$/, "")
@@ -23,7 +23,6 @@ export async function makeApiRequest<T>(
     let actualUrl = API_URL + "/" + url.replace(/^\//, "")
     if (params) {
         for (let paramsKey in params) {
-            if (typeof params[paramsKey] !== "string") { continue }
             actualUrl = actualUrl.replace(paramsKey, params[paramsKey] as string)
         }
     }
@@ -40,7 +39,7 @@ export async function makeApiRequest<T>(
             }
         }
         let urlParams = new URLSearchParams(q)
-        actualUrl = actualUrl + "?"+urlParams.toString()
+        actualUrl = actualUrl + "?" + urlParams.toString()
     }
 
     const init: RequestInit = { method: method }
