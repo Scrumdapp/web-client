@@ -80,7 +80,7 @@ export const inviteHandlers = [
         return HttpResponse.json(inviteDataById[parseInt(params["inviteId"] as string)])
     }),
     http.post("/api/invites/:inviteId/accept", ({ }) => {
-        return new HttpResponse()
+        return HttpResponse.json({ status: 200 })
     }),
     http.delete("/api/invites/:inviteId", ({ }) => {
         return new HttpResponse()
