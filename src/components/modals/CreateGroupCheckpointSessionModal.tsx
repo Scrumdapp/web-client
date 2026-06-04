@@ -37,7 +37,7 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
                     value={checkpointName}
                     maxLength={32}
                     onChange={(e) => {
-                        setShowWarning(!/^[a-zA-Z0-9 ]{1,24}$/.test(e.target.value))
+                        setShowWarning(!/^[a-zA-Z0-9 \-]{1,32}$/.test(e.target.value))
                         setCheckpointName(e.target.value);
                     }}
                     required
