@@ -66,7 +66,7 @@ export default function Settings({ groupId }: SettingsProps) {
                                 value={password}
                                 maxLength={32}
                                 onChange={(e) => {
-                                    setShowWarning(!/^[a-zA-Z0-9 ]{1,24}$/.test(e.target.value))
+                                    setShowWarning(!/^[a-zA-Z0-9 !@#$%^&]{1,32}$/.test(e.target.value))
                                     setPassword(e.target.value);
                                 }}
                                 required
@@ -79,7 +79,7 @@ export default function Settings({ groupId }: SettingsProps) {
                             <div className="py-2 flex gap-x-2">
                                 {showWarning && (
                                     <p className="text-red text-sm">
-                                        Only letters, numbers and spaces are allowed.
+                                        Only letters, numbers and spaces and !@#$%^& are allowed.
                                     </p>
                                 )}
                                 <ModalCancelButton />
