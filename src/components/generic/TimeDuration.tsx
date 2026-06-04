@@ -32,13 +32,13 @@ export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdo
 
     return (
         <Menu as="div" className="relative w-full">
-            <MenuButton className="btn-attendance border cursor-pointer">
+            <MenuButton className="btn-attendance border cursor-pointer h-10.5!">
                 <span className="text-left">
                     {currentOption.label}
                 </span>
                 <FontAwesomeIcon icon={faChevronDown} className="shrink-0"/>
             </MenuButton>
-            <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
+            <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full py-1">
                 <div>
                     {TimeDuration.map(opt => (
                         <MenuItem
@@ -46,7 +46,7 @@ export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdo
                             as="button"
                             type="button"
                             onClick={() => updateValue(opt.hours)}
-                            className="btn-attendance-dropdown">
+                            className="btn-attendance-dropdown py-1">
                             {opt.label}
                         </MenuItem>
                     ))}

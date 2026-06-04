@@ -5,6 +5,9 @@ import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import ModalActionRow from "./modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "./modal/components/ModalCancelButton.tsx";
 import {TimeDurationDropdownMenu} from "./TimeDuration.tsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import {faCopy} from "@fortawesome/free-regular-svg-icons";
 
 interface SettingsProps {
     groupId: number;
@@ -58,7 +61,7 @@ export default function Settings({ groupId }: SettingsProps) {
                         <h1>Create a Password</h1>
                         <div className="flex justify-between py-2">
                             <input
-                                className="write-section w-full! mr-2"
+                                className="write-section w-full! mr-2 flex-[5]"
                                 placeholder="Password"
                                 value={password}
                                 maxLength={32}
@@ -68,7 +71,9 @@ export default function Settings({ groupId }: SettingsProps) {
                                 }}
                                 required
                             />
-                            <TimeDurationDropdownMenu />
+                            <div className="flex flex-[3]">
+                                <TimeDurationDropdownMenu />
+                            </div>
                         </div>
                         <ModalActionRow>
                             <div className="py-2 flex gap-x-2">
@@ -81,7 +86,7 @@ export default function Settings({ groupId }: SettingsProps) {
                                 <button onClick={handleCreateInvite} className={`btn btn-secondary border ${!password ? "opacity-50 cursor-not-allowed!" : ""}`}
                                         disabled={!password.trim()}
                                 >
-                                    Create
+                                    <FontAwesomeIcon icon={faCheck} /> Create
                                 </button>
                             </div>
                         </ModalActionRow>
@@ -94,17 +99,17 @@ export default function Settings({ groupId }: SettingsProps) {
                             <p>Copy and share this generated link with your team.</p>
                             <div className="py-5 flex flex-nowrap justify-between items-center">
                                 <p>Link:</p>
-                                <text className="write-section !w-7/10 overflow-hidden">{generatedLink}</text>
+                                <text className="write-section p-2! !w-7/10 overflow-hidden">{generatedLink}</text>
                             </div>
                             <ModalActionRow>
-                                {copied && <p className="text-green-dim my-auto">Link copied to clipboard!</p>}
                                 <button onClick={handleCopy} className="btn btn-secondary border">
-                                    Copy link
+                                    <FontAwesomeIcon icon={faCopy} /> Copy link
                                 </button>
                                 <button onClick={handleDone} className="btn border">
-                                    Done
+                                    <FontAwesomeIcon icon={faCheck} /> Done
                                 </button>
                             </ModalActionRow>
+                            {copied && <p className="text-right text-green-dim mt-2">Link copied to clipboard!</p>}
                         </div>
                     </>
                 )}
