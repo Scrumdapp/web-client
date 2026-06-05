@@ -31,7 +31,7 @@ export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
     const [dates, setDates] = useState({ from: "1970-01-01", to: "1970-01-01" })
 
     let component = null
-    if (dates.from == "1970-01-01") {
+    if (dates.from == "1970-01-01" || dates.to == "1970-01-01") {
         component = (
             <div className="flex" style={{ height: getGroupTimelineHeight(users) }}>
                 <LoadScreen />
