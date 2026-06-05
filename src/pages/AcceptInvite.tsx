@@ -1,11 +1,11 @@
 import { useParams, useSearchParams } from "react-router-dom";
-import {useEffect, useState } from "react";
-import {ScrumdappApi} from "../js/hooks/api/scrumdappApi.ts";
-import {InviteResponse} from "../js/models/invites.tsx";
-import {useUser} from "../js/context/user/useUser.ts";
+import { useEffect, useState } from "react";
+import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
+import { InviteResponse } from "../js/models/invites.tsx";
+import { useUser } from "../js/context/user/useUser.ts";
 
 export default function AcceptInvite() {
-    const {inviteId} = useParams()
+    const { inviteId } = useParams()
     const [searchParams] = useSearchParams()
     const token = searchParams.get("token")
 
@@ -36,8 +36,7 @@ export default function AcceptInvite() {
 
     async function handleJoinInvite() {
         try {
-            await acceptInvite(Number(inviteId), currentUser.id,
-                Number(token), password)
+            await acceptInvite(Number(inviteId), currentUser.id, token ?? "", password)
         } catch (e) {
             setError("Failed to join the group...")
         }
@@ -45,23 +44,24 @@ export default function AcceptInvite() {
 
     if (loading) return <p>Loading...</p>
     if (error) return <p>{error}</p>
-    return(
+
+    return (
         <div className="app-container">
             <h1>You're invited to {invite?.groupId}!</h1>
             <p>Enter your given password underneath.</p>
-               <div className="w-7/10">
-                    <div className="py-3">
-                        <input className="write-section w-full!"
+            <div className="w-7/10">
+                <div className="py-3">
+                    <input className="write-section w-full!"
                         value={password}
-                               onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <button onClick={handleJoinInvite}  className="btn btn-secondary border flex float-right">
-                            Join
-                        </button>
-                    </div>
-               </div>
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <button onClick={handleJoinInvite} className="btn btn-secondary border flex float-right">
+                        Join
+                    </button>
+                </div>
+            </div>
         </div>
 
     )
