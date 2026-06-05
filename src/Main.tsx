@@ -1,7 +1,8 @@
 import { StrictMode } from "react";
-import {createRoot} from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./css/Stylesheet.css"
+
 
 async function tryEnableMocking() {
     if (!import.meta.env.DEV) {

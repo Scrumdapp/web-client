@@ -5,6 +5,8 @@
 @import "./Utils.css";
 @import "./Anim.css";
 @import "./Nav.css";
+@import "./Dropdown.css";
+@import "./Trends.css";
 
 :root {
     @apply bg-bg font-Iosevka font-normal text-fg;
