@@ -1,0 +1,7 @@
+.timeline-item:first-child {
+    @apply rounded-l-md h-6
+}
+
+.timeline-item:last-child {
+    @apply rounded-r-md
+}
