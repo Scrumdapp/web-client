@@ -9,7 +9,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 const options = [
     {
         name: "Last 2 weeks",
-        from: () => getWeekStart(new Date(new Date().getTime() - (13 * 24 * 60 * 60 * 1000))),
+        from: () => getWeekStart(new Date(new Date().getTime() - (14 * 24 * 60 * 60 * 1000))),
         to: () => new Date()
     },
     {
