@@ -129,10 +129,10 @@ export const groupCheckpointHandlers = [
     http.get("/api/groups/:gid/sessions", ({ params, request }) => {
         const url = new URL(request.url)
 
-        const from = parseScrumdappDate(url.searchParams.get("start_date") as string | null ?? "1970-01-01")
-        const to = parseScrumdappDate(url.searchParams.get("end_date") as string | null ?? "1970-01-01")
-        const date = parseScrumdappDate(url.searchParams.get("date") as string | null ?? "1970-01-01")
-        const defaultDate = parseScrumdappDate("1970-01-01")
+        const from = parseScrumdappDate(url.searchParams.get("start_date") as string | null ?? "1970-01-01").getTime()
+        const to = parseScrumdappDate(url.searchParams.get("end_date") as string | null ?? "1970-01-01").getTime()
+        const date = parseScrumdappDate(url.searchParams.get("date") as string | null ?? "1970-01-01").getTime()
+        const defaultDate = parseScrumdappDate("1970-01-01").getTime()
 
 
         const sessions = groupCheckpoints.map(it => it.sessions)
@@ -141,11 +141,11 @@ export const groupCheckpointHandlers = [
             // @ts-ignore
             if (it.groupId !== parseInt(params.gid)) return false
 
-            const startDayTime = parseScrumdappDate(toScrumdappDate(new Date(it.startTime)))
+            const startDayTime = parseScrumdappDate(toScrumdappDate(new Date(it.startTime))).getTime()
 
             if (from != defaultDate && startDayTime < from) return false
             if (to != defaultDate && startDayTime > to) return false
-            if (date != defaultDate && startDayTime == defaultDate) return false
+            if (date != defaultDate && startDayTime != date) return false
 
             return true
         })
