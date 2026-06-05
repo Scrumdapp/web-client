@@ -4,7 +4,6 @@ export interface GroupCheckpointSession {
     startTime: string,
     name: string,
     duration: number,
-    date: string,
     groupId: number,
     ownerId: number,
 }
