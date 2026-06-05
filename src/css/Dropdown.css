@@ -1,0 +1,19 @@
+.dropdown {
+    anchor-scope: all;
+    anchor-name: --dropdown-anchor;
+}
+
+.dropdown-content {
+    @apply hidden fixed border z-1 border border-fg4 p-4 rounded-lg bg-bg_h shadow-lg;
+
+    position-anchor: --dropdown-anchor;
+    top: anchor(bottom);
+    left: anchor(left);
+    position-area: bottom right;
+    position-try: right;
+    position-try-fallbacks: flip-block;
+}
+
+.dropdown:hover .dropdown-content {
+    @apply block
+}
