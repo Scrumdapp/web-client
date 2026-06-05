@@ -2,6 +2,8 @@ import { Menu, MenuItems, MenuItem, MenuButton } from "@headlessui/react"
 import { useEffect, useState } from "react"
 import { toScrumdappDate } from "../../../js/utils/scrumdappDate"
 import { getWeekStart } from "../../../js/utils/timeUtils"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 
 
 const options = [
@@ -46,6 +48,7 @@ export function TimeRangeSelector(
                 className="btn border min-w-32"
             >
                 {options[selectedOption].name}
+                <FontAwesomeIcon icon={faChevronDown} className={`shrink-0`} />
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 {options.map((it, i) => (
