@@ -12,8 +12,8 @@ export function GroupRouter() {
         <Routes>
             <Route index element={<GroupCheckpointPage/>} />
             <Route path="trends" element={<TrendsPage/>} />
-            <Route path="*" element={<ErrorScreen error={new ApiError(404, "Page Not Found")} />} />
             <Route path="/settings" element={<Settings groupId={Number(groupId)}/>} />
+            <Route path="*" element={<ErrorScreen error={new ApiError(404, "Page Not Found")} />} />
         </Routes>
     )
 }
