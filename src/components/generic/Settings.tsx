@@ -61,7 +61,7 @@ export default function Settings({ groupId }: SettingsProps) {
                         <h1>Create a Password</h1>
                         <div className="flex justify-between py-2">
                             <input
-                                className="write-section w-full! mr-2 flex-[5]"
+                                className="write-section w-full! mr-2 flex-5"
                                 placeholder="Password"
                                 value={password}
                                 maxLength={32}
@@ -71,7 +71,7 @@ export default function Settings({ groupId }: SettingsProps) {
                                 }}
                                 required
                             />
-                            <div className="flex flex-[3]">
+                            <div className="flex flex-3">
                                 <TimeDurationDropdownMenu />
                             </div>
                         </div>
