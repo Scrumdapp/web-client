@@ -97,7 +97,7 @@ export default function Settings({ groupId }: SettingsProps) {
                         <div>
                             <h1>Invite others to group</h1>
                             <p>Copy and share this generated link with your team.</p>
-                            <div className="py-5 flex flex-nowrap justify-between items-center">
+                            <div className="py-5 gap-2 flex flex-nowrap justify-between items-center">
                                 <p>Link:</p>
                                 <text className="write-section p-2! overflow-hidden">{generatedLink}</text>
                             </div>
