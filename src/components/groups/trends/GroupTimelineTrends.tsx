@@ -9,6 +9,7 @@ import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttenda
 import { GroupUser } from "../../../js/models/group"
 import { parseScrumdappDate, toScrumdappDate } from "../../../js/utils/scrumdappDate"
 import { getWeekStart, parseWeekDay } from "../../../js/utils/timeUtils"
+import { ApiError } from "../../../js/hooks/api/apiError"
 
 export interface GroupTimelineTrendsProps {
     users: GroupUser[],
@@ -36,6 +37,8 @@ export const GroupTimelineTrends = memo(({ users, from, to }: GroupTimelineTrend
         component = <ErrorScreen error={getGroupTimelineTrends.error} />
     } else if (getGroupTimelineTrends.data == null) {
         component = <LoadScreen />
+    } else if (getGroupTimelineTrends.data.trends.length == 0) {
+        component = <ErrorScreen error={new ApiError(999, "")} />
     } else {
         component = <RenderTimelineGraph users={users} data={getGroupTimelineTrends.data} />
     }
