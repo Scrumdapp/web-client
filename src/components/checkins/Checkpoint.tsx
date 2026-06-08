@@ -74,7 +74,6 @@ function Checkpoint({
     ownerId,
 }: {
     groupId: number;
-    date: string;
     name: string;
     startTime: number;
     duration: number;
@@ -152,8 +151,9 @@ function Checkpoint({
         setApplyLoading(true);
         setApplyError(null);
         try {
-            await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
+            await ScrumdappApi.updateGroupCheckpoint()(groupId, {
                 userId: selectedUser.groupUser,
+                sessionId: sessionId,
                 presence: selectedPresence,
                 stars: selectedStar,
                 comment: notes,

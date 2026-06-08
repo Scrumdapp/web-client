@@ -1,21 +1,16 @@
-import {useGroup} from "../../js/context/group/useGroup.ts";
+import { useGroup } from "../../js/context/group/useGroup.ts";
 import Checkpoint from "../../components/checkins/Checkpoint.tsx";
-import {useSearchParams} from "react-router-dom";
-import {toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
-import {useModalState} from "../../js/hooks/useModalState.ts";
-import {faAdd} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
-import {LoadScreen} from "../../components/generic/LoadScreen.tsx";
-import {useApi} from "../../js/hooks/api/useApi.ts";
-import {useUser} from "../../js/context/user/useUser.ts";
-import {ErrorScreen} from "../../components/generic/ErrorScreen.tsx";
-import {CreateGroupCheckpointSessionModal} from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
-
-function parseStartTime(sessionDate: string, sessionStartTime: string) {
-    const parsed = new Date(`${sessionDate}T${sessionStartTime}`).getTime();
-    return Number.isNaN(parsed) ? Date.now() : parsed;
-}
+import { useSearchParams } from "react-router-dom";
+import { toScrumdappDate } from "../../js/utils/scrumdappDate.ts";
+import { useModalState } from "../../js/hooks/useModalState.ts";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
+import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
+import { useApi } from "../../js/hooks/api/useApi.ts";
+import { useUser } from "../../js/context/user/useUser.ts";
+import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
+import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 
 export function GroupCheckpointPage() {
     const group = useGroup();
@@ -26,10 +21,10 @@ export function GroupCheckpointPage() {
     const currentUser = useUser();
 
     const getGroupUsers = useApi(ScrumdappApi.getGroupUsers(), {
-        fetchOnCreated: [ group.id ]
+        fetchOnCreated: [group.id]
     })
     const getCheckpointSessions = useApi(ScrumdappApi.getCheckpointSessions(), {
-        fetchOnCreated: [ group.id, { date } ]
+        fetchOnCreated: [group.id, { date }]
     });
 
     if (getGroupUsers.loading || getCheckpointSessions.loading) {
@@ -53,17 +48,16 @@ export function GroupCheckpointPage() {
             <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
                 <h2 className="px-2">{date}</h2>
                 <button className="btn border" onClick={modal.open}>
-                    <FontAwesomeIcon icon={faAdd} className="text-blue"/> Create Checkpoint
+                    <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
                 </button>
             </div>
             {getCheckpointSessions.data!.reverse().map((session) => (
                 <div key={session.id} className="w-full">
                     <Checkpoint
                         groupId={group.id}
-                        date={session.date}
                         key={session.id}
                         name={session.name}
-                        startTime={parseStartTime(session.date, session.startTime)}
+                        startTime={new Date(session.startTime).getTime()}
                         duration={session.duration * 60_000}
                         sessionId={session.id}
                         users={getGroupUsers.data!}

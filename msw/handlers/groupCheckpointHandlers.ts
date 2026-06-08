@@ -1,8 +1,8 @@
-import {http, HttpResponse} from "msw";
-import {GroupCheckpoint, GroupCheckpointSession} from "../../src/js/models/checkpoint";
-import {groupData} from "./groupHandlers";
-import {groupUserData} from "./groupUserHandler";
-import {toScrumdappDate} from "../../src/js/utils/scrumdappDate";
+import { http, HttpResponse } from "msw";
+import { GroupCheckpoint, GroupCheckpointSession } from "../../src/js/models/checkpoint";
+import { groupData } from "./groupHandlers";
+import { groupUserData } from "./groupUserHandler";
+import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
 
 
 export const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
@@ -74,7 +74,7 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
 
         const now = Date.now()
         for (let i = 0; i < session.dateCount; i++) {
-            const day = new Date(now - (1000*60*60*24) * i)
+            const day = new Date(now - (1000 * 60 * 60 * 24) * i)
             for (let j = 0; j < session.sessionPerDay; j++) {
                 const randomUser = Math.floor(Math.random() * users.length)
                 const session = generateSession(Math.floor(Math.random() * 6900), group!.id, users[randomUser], day)
@@ -94,19 +94,18 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
     return sessions
 }
 
-function generateSession(id: number, gId: number, oId: number, date: Date, time?: string, name?: string ): GroupCheckpointSession {
+function generateSession(id: number, gId: number, oId: number, date: Date, time?: Date, name?: string): GroupCheckpointSession {
     return {
         id: id,
         groupId: gId,
         ownerId: oId,
         name: name != null ? name : "Checkpoint",
-        date: toScrumdappDate(date),
-        startTime: time != null ? time : generateRandomTime(date),
+        startTime: time != null ? time.toISOString() : generateRandomTime(date),
         duration: 15,
     }
 }
 
-function generateCheckpoint(sId: number, uId: number): GroupCheckpoint  {
+function generateCheckpoint(sId: number, uId: number): GroupCheckpoint {
     return {
         groupUser: uId,
         sessionId: sId,
@@ -114,27 +113,26 @@ function generateCheckpoint(sId: number, uId: number): GroupCheckpoint  {
 
         presence: Math.random() > 0.7 ? PRESENCE_FIELDS[0] : PRESENCE_FIELDS[Math.floor(Math.random() * PRESENCE_FIELDS.length)],
         impediment: Math.random() > 0.6 ? undefined : RANDOM_IMPEDIMENT[Math.floor(Math.random() * RANDOM_IMPEDIMENT.length)],
-        stars: Math.random() > 0.7 ? undefined: Math.floor(Math.random() * 11),
+        stars: Math.random() > 0.7 ? undefined : Math.floor(Math.random() * 11),
         comment: Math.random() > 0.8 ? undefined : RANDOM_COMMENT[Math.floor(Math.random() * RANDOM_COMMENT.length)]
     }
 }
 
 function generateRandomTime(now: Date): string {
-
     now.setHours(9 + Math.random() * (17 - 9) | 9)
     now.setMinutes(Math.random() * 60)
 
-    const dateText = now.toTimeString()
-    return dateText.split(' ')[0]
+    return now.toISOString()
 }
 
 export const groupCheckpointHandlers = [
-    http.get("/api/groups/:gid/sessions", ({params, request}) => {
+    http.get("/api/groups/:gid/sessions", ({ params, request }) => {
         const url = new URL(request.url)
 
-        const from = url.searchParams.get("start_date")
-        const to = url.searchParams.get("end_date")
-        const date = url.searchParams.get("date")
+        const from = parseScrumdappDate(url.searchParams.get("start_date") as string | null ?? "1970-01-01").getTime()
+        const to = parseScrumdappDate(url.searchParams.get("end_date") as string | null ?? "1970-01-01").getTime()
+        const date = parseScrumdappDate(url.searchParams.get("date") as string | null ?? "1970-01-01").getTime()
+        const defaultDate = parseScrumdappDate("1970-01-01").getTime()
 
 
         const sessions = groupCheckpoints.map(it => it.sessions)
@@ -143,18 +141,21 @@ export const groupCheckpointHandlers = [
             // @ts-ignore
             if (it.groupId !== parseInt(params.gid)) return false
 
-            if (from && it.date < from) return false
-            if (to && it.date > to) return false
-            if (date && it.date !== date) return false
+            const startDayTime = parseScrumdappDate(toScrumdappDate(new Date(it.startTime))).getTime()
+
+            if (from != defaultDate && startDayTime < from) return false
+            if (to != defaultDate && startDayTime > to) return false
+            if (date != defaultDate && startDayTime != date) return false
 
             return true
         })
 
         return HttpResponse.json(filteredSession)
     }),
-    http.post("/api/groups/:gid/sessions", async ({params, request}) => {
+
+    http.post("/api/groups/:gid/sessions", async ({ params, request }) => {
         const today = new Date()
-        const time = today.setMinutes(today.getMinutes() + 15)
+        const time = today
         const body = await request.json()
 
         // @ts-ignore
@@ -171,15 +172,15 @@ export const groupCheckpointHandlers = [
 
         groupCheckpoints.push(genCheckpoints)
 
-        return HttpResponse.json(newSession, { status: 201})
+        return HttpResponse.json(newSession, { status: 201 })
     }),
-    http.get("/api/groups/:gid/sessions/:sid", ({params}) => {
+    http.get("/api/groups/:gid/sessions/:sid", ({ params }) => {
 
         // @ts-ignore
         const sessions = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid) && it.id == parseInt(params.sid))
         return HttpResponse.json(sessions)
     }),
-    http.get("/api/groups/:gid/checkpoints", ({params, request}) => {
+    http.get("/api/groups/:gid/checkpoints", ({ params, request }) => {
         const url = new URL(request.url)
         const sessionParam = url.searchParams.get("session")
         const userParam = url.searchParams.get("user")
@@ -210,14 +211,14 @@ export const groupCheckpointHandlers = [
 
         return HttpResponse.json(filtered)
     }),
-    http.get("/api/groups/:gid/checkpoints/:cid", ({params}) => {
+    http.get("/api/groups/:gid/checkpoints/:cid", ({ params }) => {
         // @ts-ignore
         const session = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid) && it.id == parseInt(params.cid))[0]
         const checkpoints = groupCheckpoints.map(it => it.checkpoints).flat().filter(it => it.sessionId == session.id)
 
         return HttpResponse.json(checkpoints)
     }),
-    http.patch("/api/groups/:gid/checkpoints/:cid", ({params}) => {
+    http.patch("/api/groups/:gid/checkpoints/:cid", ({ params }) => {
         // @ts-ignore
         const session = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid) && it.id == parseInt(params.cid))[0]
 
