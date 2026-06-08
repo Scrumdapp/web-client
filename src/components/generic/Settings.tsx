@@ -48,7 +48,7 @@ export default function Settings({ groupId }: SettingsProps) {
         setStep(1);
     }
     return (
-        <main>
+        <>
             <div className="card flex justify-between items-center">
                 <h3>All Invites</h3>
                 <button onClick={handleOpenModal} className="btn btn-secondary border">
@@ -114,7 +114,7 @@ export default function Settings({ groupId }: SettingsProps) {
                     </>
                 )}
             </Modal>
-        </main>
+        </>
 
     )
 }
