@@ -11,12 +11,9 @@ export function getGroupCheckpoints() {
 }
 
 export function updateGroupCheckpoint() {
-    return createProcessor("updateGroupCheckpoint", (groupId: number, sessionId: number, checkpoint: UpdateGroupCheckpoint) => {
-        return makeApiRequest<GroupCheckpoint>("PATCH", "/groups/{groupId}/checkpoints/{checkpointId}", {
-            params: {
-                "{groupId}": groupId.toString(),
-                "{checkpointId}": sessionId.toString()
-            },
+    return createProcessor("updateGroupCheckpoint", (groupId: number, checkpoint: UpdateGroupCheckpoint) => {
+        return makeApiRequest<GroupCheckpoint>("PATCH", "/groups/{groupId}/checkpoints", {
+            params: { "{groupId}": groupId.toString(), },
             body: checkpoint,
         })
     })
