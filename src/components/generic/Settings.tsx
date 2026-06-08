@@ -99,7 +99,7 @@ export default function Settings({ groupId }: SettingsProps) {
                             <p>Copy and share this generated link with your team.</p>
                             <div className="py-5 flex flex-nowrap justify-between items-center">
                                 <p>Link:</p>
-                                <text className="write-section p-2! !w-7/10 overflow-hidden">{generatedLink}</text>
+                                <text className="write-section p-2! overflow-hidden">{generatedLink}</text>
                             </div>
                             <ModalActionRow>
                                 <button onClick={handleCopy} className="btn btn-secondary border">
