@@ -45,6 +45,7 @@ export interface CheckpointSessionFlags {
 
 export interface UpdateGroupCheckpoint {
     userId: number
+    sessionId: number
     presence?: string | null
     impediment?: string | null
     stars?: number | null

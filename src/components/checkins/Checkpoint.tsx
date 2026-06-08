@@ -33,7 +33,7 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
         setLoading(true);
         setError(null);
         try {
-            const checkpoints = await ScrumdappApi.getGroupCheckpointsBySession()(groupId, sessionId);
+            const checkpoints = await ScrumdappApi.getGroupCheckpoints()(groupId, sessionId);
             setRows(
                 currentUsers.map((user) => {
                     const checkpoint = checkpoints.find((entry) => entry.groupUser === user.user_id);
@@ -122,8 +122,9 @@ function Checkpoint({
         setApplyLoading(true);
         setApplyError(null);
         try {
-            await ScrumdappApi.updateGroupCheckpoint()(groupId, sessionId, {
+            await ScrumdappApi.updateGroupCheckpoint()(groupId, {
                 userId: myUserId,
+                sessionId: sessionId,
                 presence: selectedPresence,
                 stars: selectedStar,
                 comment: notes,
