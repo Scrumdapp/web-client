@@ -47,19 +47,21 @@ export default function AcceptInvite() {
 
     return (
         <div className="app-container">
-            <h1>You're invited to {invite?.groupId}!</h1>
-            <p>Enter your given password underneath.</p>
-            <div>
-                <div className="py-3">
-                    <input className="write-section w-full!"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
+            <div className="card flex flex-col">
+                <h1>You're invited to {invite?.groupId}!</h1>
+                <p>Enter your given password underneath.</p>
                 <div>
-                    <button onClick={handleJoinInvite} className="btn btn-secondary border flex float-right">
-                        Join
-                    </button>
+                    <div className="py-3">
+                        <input className="write-section w-full!"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <button onClick={handleJoinInvite} className="btn btn-secondary border flex float-right">
+                            Join
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
