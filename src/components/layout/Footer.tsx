@@ -6,10 +6,8 @@ import { Link } from "react-router-dom";
 export default function Footer() {
 
     const links = [
-        { to: "/public", label: "Home" },
         { to: "/about", label: "About" },
         { to: "/privacy", label: "Privacy" },
-        { to: "/groups", label: "Groups" },
         { to: "/support", label: "Support" },
     ];
 
