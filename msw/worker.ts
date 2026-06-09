@@ -5,6 +5,7 @@ import { groupHandlers } from "./handlers/groupHandlers.ts";
 import { groupCheckinsHandlers } from "./handlers/groupCheckinsHandlers.ts";
 import { groupCheckpointHandlers } from "./handlers/groupCheckpointHandlers.ts";
 import { userCookieHandler } from "./handlers/userCookieHandler.ts";
+import { inviteHandlers } from "./handlers/inviteHandlers.ts";
 import { trendsHandlers } from "./handlers/trendsHandlers.ts";
 
 export const worker = setupWorker(
@@ -14,5 +15,6 @@ export const worker = setupWorker(
     ...groupCheckinsHandlers,
     ...groupCheckpointHandlers,
     ...userCookieHandler,
+    ...inviteHandlers,
     ...trendsHandlers
 )

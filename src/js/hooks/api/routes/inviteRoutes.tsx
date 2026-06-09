@@ -15,16 +15,17 @@ export function CreateInvite() {
 
 export function GetGroupInvites() {
     return createProcessor("getGroupInvites", (groupId: number) => {
-        return makeApiRequest<InviteResponse>("GET", "/invites", {
+        return makeApiRequest<InviteResponse[]>("GET", "/invites", {
             query: { group: groupId },
         })
     })
 }
 
 export function GetGroupInvite() {
-    return createProcessor("getGroupInvite", (inviteId: number) => {
+    return createProcessor("getGroupInvite", (inviteId: number, token: string) => {
         return makeApiRequest<InviteResponse>("GET", "/invites/{inviteId}", {
-            params: { inviteId }
+            params: { "{inviteId}": inviteId },
+            query: { token }
         })
     })
 }
@@ -32,15 +33,15 @@ export function GetGroupInvite() {
 export function DeleteInvite() {
     return createProcessor("deleteInvite", (inviteId: number) => {
         return makeApiRequest("DELETE", "/invites/{inviteId}", {
-            params: { inviteId }
+            params: { "{inviteId}": inviteId }
         })
     })
 }
 
 export function AcceptInvite() {
-    return createProcessor("acceptInvite", (inviteId: number, userId: number, token: number, password: string) => {
+    return createProcessor("acceptInvite", (inviteId: number, userId: number, token: string, password: string) => {
         return makeApiRequest("POST", "/invites/{inviteId}/accept", {
-            params: { inviteId },
+            params: { "{inviteId}": inviteId },
             body: { userId, token, password }
         })
     })
