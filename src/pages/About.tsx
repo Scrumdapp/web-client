@@ -9,9 +9,8 @@ export default function About() {
            <div>
             <h2 className="pb-3">About Scrumdapp</h2>
             <h3 className="py-3">The Ultimate SCRUM tool for your team!</h3>
-            <p className="py-3">
+            <p className="py-3 wrap-break-word">
                 Scrumdapp was born out of frustration of not being able to easily manage the daily stand-ups from a team or project.
-            <br />
                 We have brought you an easy way to keep track of this using a easy-to-understand UI, great accessibility and many security and privacy features in the design.
             </p>
             <h3 className="py-3">
