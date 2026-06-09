@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 export default function Footer() {
 
     const links = [
-        { to: "/about", label: "About" },
-        { to: "/privacy", label: "Privacy" },
-        { to: "/support", label: "Support" },
+        { to: "/about", label: "About", external: false },
+        { to: "/privacy", label: "Privacy", external: false },
+        { to: "https://scrumdapp.com/#Contact", label: "Support", external: true },
     ];
 
     return (
@@ -16,10 +16,14 @@ export default function Footer() {
         <div className="mx-auto p-3 rounded-2xl bg-bg_h shadow-xl border w-full">
             <div className="flex flex-row items-center justify-between px-3">
                 <span>© 2026 Scrumdapp | All rights reserved</span>
-                    <span className="flex flex-wrap justify-between">
-                        {links.map(link => (
-                            <Link key={link.to} to={link.to} className="btn w-20 sm:text-sm md:text-start lg:text-lg">
-                                {link.label}
+                    <span className="flex flex-wrap justify-between gap-3">
+                        {links.map(({ to, label, external }) => external ? (
+                            <a key={label} href={to} target="_blank" rel="noopener noreferrer" className="btn w-20 sm:text-sm md:text-start lg:text-lg">
+                                {label}
+                            </a>
+                        ) : (
+                            <Link key={label} to={to} className="btn w-20 sm:text-sm md:text-start lg:text-lg">
+                                {label}
                             </Link>
                         ))}
                     </span>
