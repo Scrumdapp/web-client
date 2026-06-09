@@ -11,8 +11,6 @@ export default function Footer() {
         { to: "/privacy", label: "Privacy" },
         { to: "/groups", label: "Groups" },
         { to: "/support", label: "Support" },
-        { to: "/terms", label: "Terms" },
-        { to: "/cookies", label: "Cookies" },
     ];
 
     return (
