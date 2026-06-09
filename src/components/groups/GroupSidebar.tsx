@@ -16,7 +16,9 @@ export function GroupSidebar() {
 
     return (
         <div className="card vertical gap-1">
-            <p className="text-center">Pages</p>
+            <Link to={`/groups/${group.id}`} className="btn py-1!">
+                Today
+            </Link>
             <hr className="text-gray" />
             {links.map((link, i) => (
                 <Link key={i} to={`/groups/${group.id}/${link.path}`} className="btn justify-start!">

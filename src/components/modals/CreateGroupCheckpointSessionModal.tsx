@@ -29,7 +29,7 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
     return (
         <Modal state={state}>
             <div className="space-y-5">
-                <ModalHeadText>New Session</ModalHeadText>
+                <ModalHeadText>New Checkpoint</ModalHeadText>
                 <input
                     type="text"
                     className="write-section w-full!"
