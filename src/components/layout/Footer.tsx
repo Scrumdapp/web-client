@@ -12,23 +12,17 @@ export default function Footer() {
     ];
 
     return (
-    <footer className="mt-7 pb-4 px-2 flex-col">
-        <div className="mx-auto p-2 rounded-2xl bg-bg_h shadow-xl border w-full">
-            <div className="flex flex-wrap items-center justify-between pb-4">
-                {links.map(link => (
-                    <Link key={link.to} to={link.to} className="btn w-20 sm:text-sm md:text-start lg:text-lg">
-                        {link.label}
-                    </Link>
-                ))}
-            </div>
-
-            <div className="bg-fg h-0.5 rounded-full"></div>
-
-            <div className="flex flex-row items-center justify-between pt-4 px-3">
+    <footer className="px-2 flex-col">
+        <div className="mx-auto p-3 rounded-2xl bg-bg_h shadow-xl border w-full">
+            <div className="flex flex-row items-center justify-between px-3">
                 <span>© 2026 Scrumdapp | All rights reserved</span>
-                <span>
-                    <Link to="https://scrumdapp.com" target="_blank" className="underline">Scrumdapp.com</Link>
-                </span>
+                    <span className="flex flex-wrap justify-between">
+                        {links.map(link => (
+                            <Link key={link.to} to={link.to} className="btn w-20 sm:text-sm md:text-start lg:text-lg">
+                                {link.label}
+                            </Link>
+                        ))}
+                    </span>
                 <div className="flex items-center gap-4">
                     <Link to="https://www.linkedin.com/company/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
                     <Link to="https://x.com/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faXTwitter} /></Link>
