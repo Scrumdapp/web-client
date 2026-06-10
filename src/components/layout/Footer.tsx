@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="mx-auto p-3 rounded-2xl bg-bg_h shadow-xl border w-full">
             <div className="flex flex-row items-center justify-between px-3">
                 <span>© 2026 Scrumdapp | All rights reserved</span>
-                    <span className="flex flex-wrap justify-between gap-3">
+                    <span className="flex-1 flex flex-wrap justify-between gap-3">
                         {links.map(({ to, label, external }) => external ? (
                             <a key={label} href={to} target="_blank" rel="noopener noreferrer" className="btn w-20 sm:text-sm md:text-start lg:text-lg">
                                 {label}
