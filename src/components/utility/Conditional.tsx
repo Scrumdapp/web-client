@@ -6,5 +6,5 @@ export const HideIf = memo(({ condition, children }: { condition: boolean, child
 })
 
 export const ShowIf = memo(({ condition, children }: { condition: boolean, children: ReactNode }) => {
-    return condition ? null : children
+    return condition ? children : null
 })
