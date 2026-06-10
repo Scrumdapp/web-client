@@ -1,8 +1,8 @@
-import {createProcessor, GetCheckpointQueryOptions, makeApiRequest} from "../apiUtils.ts";
-import {GroupCheckpointSession, GroupCheckpointSessionCreate} from "../../../models/checkpoint.ts";
+import { createProcessor, GetCheckpointQueryOptions, makeApiRequest } from "../apiUtils.ts";
+import { GroupCheckpointSession, GroupCheckpointSessionCreate, SessionDates } from "../../../models/checkpoint.ts";
 
 export function getCheckpointSessions() {
-    return createProcessor("GetCheckpointSessions", (groupId: number, queryOptions: GetCheckpointQueryOptions )=> {
+    return createProcessor("GetCheckpointSessions", (groupId: number, queryOptions: GetCheckpointQueryOptions) => {
         return makeApiRequest<GroupCheckpointSession[]>("GET", "/groups/{group.id}/sessions", {
             params: { "{group.id}": groupId.toString() },
             query: {
@@ -24,10 +24,19 @@ export function getCheckpointSessionById() {
 }
 
 export function createCheckpointSessions() {
-    return createProcessor("createCheckpointSession", (groupId: number, body: GroupCheckpointSessionCreate ) => {
+    return createProcessor("createCheckpointSession", (groupId: number, body: GroupCheckpointSessionCreate) => {
         return makeApiRequest<GroupCheckpointSession>("POST", "/groups/{group.id}/sessions", {
             body: body,
             params: { "{group.id}": groupId.toString() }
+        })
+    })
+}
+
+export function getRecentCheckpointDates() {
+    return createProcessor("getRecentCheckpointDates", (groupId: number, limit: number) => {
+        return makeApiRequest<SessionDates>("GET", "/groups/{groupId}/sessions/dates", {
+            params: { "{groupId}": groupId },
+            query: { limit }
         })
     })
 }
