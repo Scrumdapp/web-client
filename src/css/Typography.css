@@ -18,3 +18,15 @@ h4 {
 .muted {
     @apply text-xs text-gray
 }
+
+.text-block h2 {
+    @apply pt-4
+}
+
+.text-block ul {
+    @apply list-disc
+}
+
+.text-block ul li {
+    @apply ml-4
+}
