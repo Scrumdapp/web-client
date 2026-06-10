@@ -33,7 +33,7 @@ export default function Groups() {
                     />
                 </div>
                 <div className="flex-1">
-                    <ShowIf condition={hasRole(user, Role.Docent)}>
+                    <ShowIf condition={hasRole(user, Role.Coach)}>
                         <button className="ml-auto btn btn-red border max-h-fit"
                             onClick={modal.open}>
                             New Group <FontAwesomeIcon icon={faPlus} />
@@ -66,7 +66,7 @@ export default function Groups() {
                     }}
                 </GetGroups>
             </ul>
-            <ShowIf condition={hasRole(user, Role.Docent)}>
+            <ShowIf condition={hasRole(user, Role.Coach)}>
                 <CreateGroupModal state={modal} />
             </ShowIf>
         </div>
