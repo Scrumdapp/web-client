@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCalendarDays} from "@fortawesome/free-regular-svg-icons";
+import {faCalendarDays, faHouse} from "@fortawesome/free-regular-svg-icons";
 import {useGroup} from "../../js/context/group/useGroup.ts";
 import {Link} from "react-router"
 import {faChartSimple, faGear} from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +16,9 @@ export function GroupSidebar() {
 
     return (
         <div className="card vertical gap-1">
-            <p className="text-center">Pages</p>
+            <Link to={`/groups/${group.id}`} className="btn justify-start!">
+                <FontAwesomeIcon icon={faHouse} /> Today
+            </Link>
             <hr className="text-gray" />
             {links.map((link, i) => (
                 <Link key={i} to={`/groups/${group.id}/${link.path}`} className="btn justify-start!">
