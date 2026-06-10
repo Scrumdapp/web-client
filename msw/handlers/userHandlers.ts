@@ -10,7 +10,7 @@ export const userData: User[] = [
         last_name: "Goodspeed",
         language_preference: "EN",
         theme_preference: null,
-        roles: ["STUDENT"]
+        roles: ["STUDENT", "DOCENT"]
     } as User,
     {
         id: 2,
