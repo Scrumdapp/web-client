@@ -2,7 +2,7 @@ import { User } from "../models/user";
 
 export enum Role {
     Student = "STUDENT",
-    Docent = "DOCENT"
+    Coach = "COACH"
 }
 
 export function hasRole(user: User, role: Role) {
