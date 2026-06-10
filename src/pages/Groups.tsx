@@ -8,9 +8,12 @@ import { useApiComponent } from "../js/hooks/api/useApiComponent.tsx";
 import { Link } from "react-router-dom";
 import { IconInput } from "../components/generic/IconInput.tsx";
 import { CreateGroupModal } from "../components/modals/CreateGroupModal.tsx";
+import { useUser } from "../js/context/user/useUser.ts";
+import { ShowIf } from "../components/utility/Conditional.tsx";
+import { hasRole, Role } from "../js/utils/userPermissions.ts";
 
 export default function Groups() {
-
+    const user = useUser()
     const modal = useModalState();
     const [search, setSearch] = useState("");
     const GetGroups = useApiComponent(ScrumdappApi.getGroups());
@@ -18,8 +21,8 @@ export default function Groups() {
     return (
         <div className="app-container vertical gap-4">
             <div className="horizontal justify-between">
-                <h1>Scrumdapp</h1>
-                <div className="w-20 horizontal center align-top ">
+                <h1 className="flex-1">Scrumdapp</h1>
+                <div className="flex-1 w-20 horizontal center align-top ">
                     <IconInput
                         icon={faMagnifyingGlass}
                         type="text"
@@ -29,10 +32,14 @@ export default function Groups() {
                         alt="Search here for diffrent groups"
                     />
                 </div>
-                <button className="btn btn-red border max-h-fit"
-                    onClick={modal.open}>
-                    New Group <FontAwesomeIcon icon={faPlus} />
-                </button>
+                <div className="flex-1">
+                    <ShowIf condition={hasRole(user, Role.Docent)}>
+                        <button className="ml-auto btn btn-red border max-h-fit"
+                            onClick={modal.open}>
+                            New Group <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                    </ShowIf>
+                </div>
             </div>
             <ul className="grid gap-4 grid-cols-3 justify-center">
                 <GetGroups input={[]}>
@@ -59,7 +66,9 @@ export default function Groups() {
                     }}
                 </GetGroups>
             </ul>
-            <CreateGroupModal state={modal} />
+            <ShowIf condition={hasRole(user, Role.Docent)}>
+                <CreateGroupModal state={modal} />
+            </ShowIf>
         </div>
     )
 }
