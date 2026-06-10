@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { GroupCheckpoint, GroupCheckpointSession } from "../../src/js/models/checkpoint";
+import { GroupCheckpoint, GroupCheckpointSession, SessionDates } from "../../src/js/models/checkpoint";
 import { groupData } from "./groupHandlers";
 import { groupUserData } from "./groupUserHandler";
 import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
@@ -232,5 +232,17 @@ export const groupCheckpointHandlers = [
         const sessions = groupCheckpoints.filter(it => it.sessions.groupId == params["gid"])
         const limit = parseInt(new URL(request.url).searchParams.get("limit") ?? "5")
         const uniqueDates = new Set<string>(sessions.map(it => toScrumdappDate(new Date(it.sessions.startTime))))
+        console.log(uniqueDates)
+        const dates = Array.from(uniqueDates).sort().slice(0, Math.min(limit, uniqueDates.size))
+        return HttpResponse.json<SessionDates>({
+            fromDate: dates.length == 0 ? toScrumdappDate(new Date()) : dates[dates.length - 1],
+            toDate: dates.length == 0 ? toScrumdappDate(new Date()) : dates[0],
+            dates: dates.map(it => ({
+                date: it,
+                sessions: groupCheckpoints
+                    .filter(cp => toScrumdappDate(new Date(cp.sessions.startTime)) == it)
+                    .map(cp => cp.sessions.id)
+            }))
+        })
     })
 ]
