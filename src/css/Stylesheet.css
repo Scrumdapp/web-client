@@ -10,6 +10,8 @@
 
 :root {
     @apply bg-bg font-Iosevka font-normal text-fg;
+    background-image: url("/Users/thomasmiddelbos/Documents/GitHub/web-client/public/backgrounds/1.webp");
+    background-size: cover;
 }
 
 #root {
