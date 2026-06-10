@@ -5,7 +5,7 @@ import { groupUserData } from "./groupUserHandler";
 import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
 
 
-export const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
+export const PRESENCE_FIELDS = ["ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT"]
 const RANDOM_COMMENT = [
     undefined, undefined, undefined, undefined,
     "jrkegbayunhgjlianhbgbahngamjgnahk",
@@ -22,6 +22,7 @@ const RANDOM_COMMENT = [
     "Ik ben Hendrik, ik ben een meter, nu ben ik leeg, maar vol smaak ik beter. Maar wat moet je nou, als je leeg bent? Dan kun je niet zuipen, als een echte Student. MVO",
     "Lorem Ipsum"
 ]
+
 const RANDOM_IMPEDIMENT = [
     undefined, undefined, undefined, undefined,
     "Chat gpt wou niet meewerken",
@@ -225,5 +226,11 @@ export const groupCheckpointHandlers = [
         const checkpoints = groupCheckpoints.map(it => it.checkpoints).flat().filter(it => it.sessionId == session.id)
 
         return HttpResponse.json(checkpoints)
+    }),
+    http.get("/api/groups/:gid/sessions/dates", ({ params, request }) => {
+        // @ts-ignore
+        const sessions = groupCheckpoints.filter(it => it.sessions.groupId == params["gid"])
+        const limit = parseInt(new URL(request.url).searchParams.get("limit") ?? "5")
+        const uniqueDates = new Set<string>(sessions.map(it => toScrumdappDate(new Date(it.sessions.startTime))))
     })
 ]
