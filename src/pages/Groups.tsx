@@ -22,7 +22,7 @@ export default function Groups() {
         <div className="app-container vertical gap-4">
             <div className="horizontal justify-between">
                 <h1 className="flex-1">Scrumdapp</h1>
-                <div className="flex-1 w-20 horizontal center align-top ">
+                <div className="flex-1 horizontal center align-top">
                     <IconInput
                         icon={faMagnifyingGlass}
                         type="text"
@@ -30,6 +30,7 @@ export default function Groups() {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         alt="Search here for diffrent groups"
+                        className="bg-bg_h"
                     />
                 </div>
                 <div className="flex-1">
