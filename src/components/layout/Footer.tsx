@@ -6,42 +6,32 @@ import { Link } from "react-router-dom";
 export default function Footer() {
 
     const links = [
-        { to: "/public", label: "Home" },
-        { to: "/about", label: "About" },
-        { to: "/privacy", label: "Privacy" },
-        { to: "/groups", label: "Groups" },
-        { to: "/support", label: "Support" },
-        { to: "/terms", label: "Terms" },
-        { to: "/cookies", label: "Cookies" },
+        { to: "/about", label: "About", external: false },
+        { to: "/privacy", label: "Privacy", external: false },
+        { to: "https://scrumdapp.com/#Contact", label: "Support", external: true },
     ];
 
     return (
-    <footer className="mt-7 pb-4 px-2 flex-col">
-        <div className="mx-auto p-2 rounded-2xl bg-bg_h shadow-xl border w-full">
-            <div className="flex flex-wrap items-center justify-between pb-4">
-                {links.map(link => (
-                    <Link key={link.to} to={link.to} className="btn w-20 sm:text-sm md:text-start lg:text-lg">
-                        {link.label}
+        <footer className="mb-2 mx-2 card horizontal items-center justify-between">
+            <span className="flex-1">© 2026 Scrumdapp | All rights reserved</span>
+            <span className="flex-1 flex flex-wrap justify-center gap-3">
+                {links.map(({ to, label, external }) => external ? (
+                    <a key={label} href={to} target="_blank" rel="noopener noreferrer" className="btn w-20 sm:text-sm md:text-start lg:text-lg">
+                        {label}
+                    </a>
+                ) : (
+                    <Link key={label} to={to} className="btn w-20 sm:text-sm md:text-start lg:text-lg">
+                        {label}
                     </Link>
                 ))}
+            </span>
+            <div className="flex-1 flex items-center gap-4 justify-end">
+                <Link to="https://www.linkedin.com/company/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
+                <Link to="https://x.com/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faXTwitter} /></Link>
+                <Link to="https://www.instagram.com/scrumdapp/" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faInstagram} /></Link>
+                <Link to="https://www.youtube.com/@Scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faYoutube} /></Link>
+                <Link to="https://github.com/Scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faGithub} /></Link>
             </div>
-
-            <div className="bg-fg h-0.5 rounded-full"></div>
-
-            <div className="flex flex-row items-center justify-between pt-4 px-3">
-                <span>© 2026 Scrumdapp | All rights reserved</span>
-                <span>
-                    <Link to="https://scrumdapp.com" target="_blank" className="underline">Scrumdapp.com</Link>
-                </span>
-                <div className="flex items-center gap-4">
-                    <Link to="https://www.linkedin.com/company/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
-                    <Link to="https://x.com/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faXTwitter} /></Link>
-                    <Link to="https://www.instagram.com/scrumdapp/" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faInstagram} /></Link>
-                    <Link to="https://www.youtube.com/@Scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faYoutube} /></Link>
-                    <Link to="https://github.com/Scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faGithub} /></Link>
-                </div>
-            </div>
-        </div>
     </footer>
     )
 }

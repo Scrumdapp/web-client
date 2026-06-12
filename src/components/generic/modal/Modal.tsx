@@ -17,7 +17,7 @@ export default function Modal({ state, children }: ModalProps) {
         onClick={state.close}
       >
         <div
-          className="bg-bg_h rounded-lg p-6 w-96 border"
+          className="bg-bg_h rounded-lg p-6 min-w-96 w-fit border"
           onClick={(e) => e.stopPropagation()}
         >
           {children}

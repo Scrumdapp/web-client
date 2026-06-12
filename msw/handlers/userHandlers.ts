@@ -1,7 +1,7 @@
-import {User} from "../../src/js/models/user";
-import {http, HttpResponse} from "msw";
-import {ErrorDto} from "../../src/js/models/dto/errorDto.ts";
-import {COOKIE_NAME} from "./userCookieHandler.ts";
+import { User } from "../../src/js/models/user";
+import { http, HttpResponse } from "msw";
+import { ErrorDto } from "../../src/js/models/dto/errorDto.ts";
+import { COOKIE_NAME } from "./userCookieHandler.ts";
 
 export const userData: User[] = [
     {
@@ -9,42 +9,48 @@ export const userData: User[] = [
         first_name: "Gary",
         last_name: "Goodspeed",
         language_preference: "EN",
-        theme_preference: null
+        theme_preference: null,
+        roles: ["STUDENT", "COACH"]
     } as User,
     {
         id: 2,
         first_name: "Quinn",
         last_name: "Ergon",
         language_preference: "NL",
-        theme_preference: "light"
+        theme_preference: "light",
+        roles: ["STUDENT"]
     } as User,
     {
         id: 3,
         first_name: "Ash",
         last_name: "Graven",
         language_preference: "NL",
-        theme_preference: "dark"
+        theme_preference: "dark",
+        roles: ["STUDENT"]
     } as User,
     {
         id: 4,
         first_name: "KVN",
         last_name: "",
         language_preference: null,
-        theme_preference: null
+        theme_preference: null,
+        roles: ["STUDENT"]
     } as User,
     {
         id: 5,
         first_name: "Klaas",
         last_name: "Kaaskop",
         language_preference: "EN",
-        theme_preference: "dark"
+        theme_preference: "dark",
+        roles: ["STUDENT"]
     } as User,
     {
         id: 6,
         first_name: "Bob",
         last_name: "de Bouwer",
         language_preference: "NL",
-        theme_preference: "light"
+        theme_preference: "light",
+        roles: ["STUDENT"]
     } as User
 ]
 

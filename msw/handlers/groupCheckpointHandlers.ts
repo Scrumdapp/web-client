@@ -1,11 +1,11 @@
 import { http, HttpResponse } from "msw";
-import { GroupCheckpoint, GroupCheckpointSession } from "../../src/js/models/checkpoint";
+import { GroupCheckpoint, GroupCheckpointSession, SessionDates } from "../../src/js/models/checkpoint";
 import { groupData } from "./groupHandlers";
 import { groupUserData } from "./groupUserHandler";
 import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
 
 
-export const PRESENCE_FIELDS = [ "ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT" ]
+export const PRESENCE_FIELDS = ["ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT"]
 const RANDOM_COMMENT = [
     undefined, undefined, undefined, undefined,
     "jrkegbayunhgjlianhbgbahngamjgnahk",
@@ -22,6 +22,7 @@ const RANDOM_COMMENT = [
     "Ik ben Hendrik, ik ben een meter, nu ben ik leeg, maar vol smaak ik beter. Maar wat moet je nou, als je leeg bent? Dan kun je niet zuipen, als een echte Student. MVO",
     "Lorem Ipsum"
 ]
+
 const RANDOM_IMPEDIMENT = [
     undefined, undefined, undefined, undefined,
     "Chat gpt wou niet meewerken",
@@ -174,6 +175,23 @@ export const groupCheckpointHandlers = [
 
         return HttpResponse.json(newSession, { status: 201 })
     }),
+    http.get("/api/groups/:gid/sessions/dates", ({ params, request }) => {
+        // @ts-ignore
+        const sessions = groupCheckpoints.filter(it => it.sessions.groupId == params["gid"])
+        const limit = parseInt(new URL(request.url).searchParams.get("limit") ?? "10")
+        const uniqueDates = new Set<string>(sessions.map(it => toScrumdappDate(new Date(it.sessions.startTime))))
+        const dates = Array.from(uniqueDates).sort().reverse().slice(0, Math.min(limit, uniqueDates.size))
+        return HttpResponse.json<SessionDates>({
+            fromDate: dates.length == 0 ? toScrumdappDate(new Date()) : dates[dates.length - 1],
+            toDate: dates.length == 0 ? toScrumdappDate(new Date()) : dates[0],
+            dates: dates.map(it => ({
+                date: it,
+                sessions: groupCheckpoints
+                    .filter(cp => toScrumdappDate(new Date(cp.sessions.startTime)) == it)
+                    .map(cp => cp.sessions.id)
+            }))
+        })
+    }),
     http.get("/api/groups/:gid/sessions/:sid", ({ params }) => {
 
         // @ts-ignore
@@ -225,5 +243,5 @@ export const groupCheckpointHandlers = [
         const checkpoints = groupCheckpoints.map(it => it.checkpoints).flat().filter(it => it.sessionId == session.id)
 
         return HttpResponse.json(checkpoints)
-    })
+    }),
 ]

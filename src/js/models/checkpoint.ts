@@ -51,3 +51,14 @@ export interface UpdateGroupCheckpoint {
     stars?: number | null
     comment?: string | null
 }
+
+export interface SessionDates {
+    fromDate: string
+    toDate: string
+    dates: SessionDate[]
+}
+
+export interface SessionDate {
+    date: string,
+    sessions: number[]
+}
