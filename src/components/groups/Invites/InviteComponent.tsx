@@ -62,23 +62,37 @@ export default function Invites({ groupId }: InvitesProps) {
     return (
         <>
             <div className="card flex flex-col items-center">
-                <div className="flex flex-row w-full justify-between items-center">
+                <div className="flex flex-row w-full justify-between items-center py-3">
                 <h3>All Invites</h3>
                 <button onClick={handleOpenModal} className="btn btn-secondary border">
                     Create Invite
                 </button>
                 </div>
-                <div className="flex flex-col w-full float-left ">
+                <div className="w-full">
                     {invites.length === 0 ? (
                         <p>No active invites.</p>
                     ) : (
-                        invites.map((invite) => (
-                            <div key={invite.id} className="flex justify-between items-center border p-2 mt-2 rounded-lg">
-                                <p>{invite.id} - Expires: {new Date(invite.expiresAt).toLocaleString()}</p>
-                            </div>
-                        ))
+                        <table className="table">
+                            <thead>
+                            <tr>
+                                <th className="p-2 text-left">Expires at</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {invites.map((invite) => (
+                                <tr key={invite.id}>
+                                    <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+
+                            ))}
+                            </tbody>
+                        </table>
                     )}
                 </div>
+
             </div>
             <Modal state={modal}>
                 {step === 1 && (
