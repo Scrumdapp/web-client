@@ -1,6 +1,6 @@
 import Modal from "../../generic/modal/Modal.tsx";
 import {useModalState} from "../../../js/hooks/useModalState.ts";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {ScrumdappApi} from "../../../js/hooks/api/scrumdappApi.ts";
 import ModalActionRow from "../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../generic/modal/components/ModalCancelButton.tsx";
@@ -8,6 +8,7 @@ import {TimeDurationDropdownMenu} from "../../generic/TimeDuration.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
+import {useApi} from "../../../js/hooks/api/useApi.ts";
 import {InviteResponse} from "../../../js/models/invites.tsx";
 
 interface InvitesProps {
@@ -21,9 +22,10 @@ export default function Invites({ groupId }: InvitesProps) {
     const [showWarning, setShowWarning] = useState(false);
     const [expireHours] = useState(12);
     const [generatedLink, setGeneratedLink] = useState("");
-    const createInvite = ScrumdappApi.CreateInvite();
-    const getGroupInvites = ScrumdappApi.GetGroupInvites();
+    const createInvite = useApi(ScrumdappApi.CreateInvite());
+    const getGroupInvites = useApi(ScrumdappApi.GetGroupInvites());
     const [invites, setInvites] = useState<InviteResponse[]>([]);
+
 
     const [copied, setCopied] = useState(false);
 
@@ -33,22 +35,15 @@ export default function Invites({ groupId }: InvitesProps) {
         setTimeout(() => setCopied(false), 3000);
     };
 
-    useEffect(() => {
-        async function fetchInvites(){
-        const result = await getGroupInvites(groupId);
-        setInvites(result);
-        }
-        fetchInvites();
-    }, [groupId]);
 
     async function handleCreateInvite() {
         const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000);
-        const invite = await createInvite(groupId, expiresAt, password);
+        const invite = await createInvite.runCommand(groupId, expiresAt, password);
         const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
         setGeneratedLink(link);
         setStep(2);
 
-        const result = await getGroupInvites(groupId);
+        const result = await getGroupInvites.runCommand(groupId);
         setInvites(result);
     }
 
@@ -69,11 +64,16 @@ export default function Invites({ groupId }: InvitesProps) {
                     Create Invite
                 </button>
                 <div>
-                    {invites.map((invite) => (
-                        <div key={invite.id}>
-                            <p>{invite.id} - Expires: {new Date(invite.expiresAt).toLocaleString()}</p>
-                        </div>
-                    ))}
+                    <h2>Existing Invites</h2>
+                    {Invites.length === 0 ? (
+                        <p>No active invites.</p>
+                    ) : (
+                        invites.map((invite) => (
+                            <div key={invite.id} className="flex justify-between items-center border p-2 mt-2">
+                                <p>{invite.id} - Expires: {new Date(invite.expiresAt).toLocaleString()}</p>
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
             <Modal state={modal}>
