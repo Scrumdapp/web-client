@@ -43,16 +43,16 @@ export default function Privacy() {
                 <p>We take fitting measures to protect your personal information against malicious use, theft and loss.
                 To do this we use a combination of the following measures: </p>
                 <ul>
-                    <li>TLS/HTTPS: Alle (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate</li>
+                    <li>TLS/HTTPS: All (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate</li>
                     <li>Firewall: Scrumdapp is hosted behind firewalls maintained by the University of applied sciences Utrecht</li>
                     <li>Databases: All information and backups of this information are stored on databases hosted within the Open-ICT cloud environment</li>
                 </ul>
                 
                 <h2>Questions & Complaints</h2>
                 <p>If you have questions about this privacy notice, your personal information or how Scrumdapp handles information. Please reach out at:
-                    <Link to="mailto:info@scrumdapp.com" target="_blank"> info@scrumdapp.com </Link>
+                    <Link className="text-link" target="_blank" to="mailto:info@scrumdapp.com"> info@scrumdapp.com </Link>
                     or on
-                    <Link to="https://scrumdapp.com/#Contact"> our contact page</Link>.
+                    <Link className="text-link" target="_blank" to="https://scrumdapp.com/#Contact"> our contact page</Link>.
                 </p>
             </div>
         </div>
