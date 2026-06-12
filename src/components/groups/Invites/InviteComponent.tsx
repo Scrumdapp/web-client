@@ -1,6 +1,6 @@
 import Modal from "../../generic/modal/Modal.tsx";
 import {useModalState} from "../../../js/hooks/useModalState.ts";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {ScrumdappApi} from "../../../js/hooks/api/scrumdappApi.ts";
 import ModalActionRow from "../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../generic/modal/components/ModalCancelButton.tsx";
@@ -8,7 +8,7 @@ import {TimeDurationDropdownMenu} from "../../generic/TimeDuration.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
-import {GetGroupInvites} from "../../../js/hooks/api/routes/inviteRoutes.tsx";
+import {InviteResponse} from "../../../js/models/invites.tsx";
 
 interface InvitesProps {
     groupId: number;
@@ -22,6 +22,8 @@ export default function Invites({ groupId }: InvitesProps) {
     const [expireHours] = useState(12);
     const [generatedLink, setGeneratedLink] = useState("");
     const createInvite = ScrumdappApi.CreateInvite();
+    const getGroupInvites = ScrumdappApi.GetGroupInvites();
+    const [invites, setInvites] = useState<InviteResponse[]>([]);
 
     const [copied, setCopied] = useState(false);
 
@@ -31,16 +33,20 @@ export default function Invites({ groupId }: InvitesProps) {
         setTimeout(() => setCopied(false), 3000);
     };
 
+    useEffect(() => {
+        async function fetchInvites(){
+        const result = await getGroupInvites(groupId);
+        setInvites(result);
+        }
+        fetchInvites();
+    }, [groupId]);
+
     async function handleCreateInvite() {
         const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000);
         const invite = await createInvite(groupId, expiresAt, password);
         const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
         setGeneratedLink(link);
         setStep(2);
-    }
-
-    async function ShowInvites(groupId: number) {
-        const invites = await GetGroupInvites(groupId);
     }
 
     function handleOpenModal() {
@@ -59,8 +65,13 @@ export default function Invites({ groupId }: InvitesProps) {
                 <button onClick={handleOpenModal} className="btn btn-secondary border">
                     Create Invite
                 </button>
-
-                <text>{ShowInvites}</text>
+                <div>
+                    {invites.map((invite) => (
+                        <div key={invite.id}>
+                            <p>{invite.id} - Expires: {new Date(invite.expiresAt).toLocaleString()}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
             <Modal state={modal}>
                 {step === 1 && (
