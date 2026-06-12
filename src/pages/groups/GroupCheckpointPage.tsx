@@ -11,11 +11,14 @@ import { useApi } from "../../js/hooks/api/useApi.ts";
 import { useUser } from "../../js/context/user/useUser.ts";
 import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
+import { ShowIf } from "../../components/utility/Conditional.tsx";
 
 export function GroupCheckpointPage() {
     const group = useGroup();
     const modal = useModalState();
     const [searchParams] = useSearchParams();
+
+    const currentDate = toScrumdappDate(new Date());
     const date = searchParams.get("date") ?? toScrumdappDate(new Date());
 
     const currentUser = useUser();
@@ -47,9 +50,11 @@ export function GroupCheckpointPage() {
         <div className="space-y-3 ">
             <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
                 <h2 className="px-2">{date}</h2>
-                <button className="btn border" onClick={modal.open}>
-                    <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
-                </button>
+                <ShowIf condition={currentDate == date}>
+                    <button className="btn border" onClick={modal.open}>
+                        <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
+                    </button>
+                </ShowIf>
             </div>
             {getCheckpointSessions.data!.reverse().map((session) => (
                 <div key={session.id} className="w-full">
