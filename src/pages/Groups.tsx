@@ -1,7 +1,7 @@
 import { useModalState } from "../js/hooks/useModalState.ts";
 import { faPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
 import { GroupCard } from "../components/groups/GroupCard.tsx";
 import { useApiComponent } from "../js/hooks/api/useApiComponent.tsx";
@@ -16,7 +16,18 @@ export default function Groups() {
     const user = useUser()
     const modal = useModalState();
     const [search, setSearch] = useState("");
-    const GetGroups = useApiComponent(ScrumdappApi.getGroups());
+    const GetGroupsComponent = useApiComponent(ScrumdappApi.getGroups());
+
+    useEffect(() => {
+        modal.onAccepted(() => {
+            console.log("closed")
+            GetGroupsComponent.refresh()
+        })
+        modal.onClosed(() => {
+            console.log("closed")
+            GetGroupsComponent.refresh()
+        })
+    }, [])
 
     return (
         <div className="app-container vertical gap-4">
@@ -42,7 +53,7 @@ export default function Groups() {
                     </ShowIf>
                 </div>
             </div>
-            <GetGroups input={[]}>
+            <GetGroupsComponent input={[]}>
                 {(groups) => {
                     const filteredGroups = groups.filter((group) =>
                         group.name.toLowerCase().includes(search.toLowerCase().trim())
@@ -63,7 +74,7 @@ export default function Groups() {
                         </ul>
                     )
                 }}
-            </GetGroups>
+            </GetGroupsComponent>
             <ShowIf condition={hasRole(user, Role.Coach)}>
                 <CreateGroupModal state={modal} />
             </ShowIf>
