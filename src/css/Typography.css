@@ -20,7 +20,7 @@ h4 {
 }
 
 .text-link {
-    @apply text-fg3 hover:text-fg4
+    @apply text-blue hover:text-blue-dim
 }
 
 .text-block h2 {

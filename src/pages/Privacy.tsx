@@ -4,8 +4,8 @@ export default function Privacy() {
     return (
         <div className="app-container">
             <div className="card text-block">
-                <h1>Privacy</h1>
-                <h2>What personal information do we collect</h2>
+                <h1>Privacy:</h1>
+                <h2>What personal information do we collect?</h2>
                 <p>
                     To ensure that Scrumdapp functions we store the following personal information upon logging in:
                 </p>
