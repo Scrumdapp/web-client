@@ -71,7 +71,7 @@ export default function Invites({ groupId }: InvitesProps) {
                         <p>No active invites.</p>
                     ) : (
                         invites.map((invite) => (
-                            <div key={invite.id} className="flex justify-between items-center border p-2 mt-2">
+                            <div key={invite.id} className="flex justify-between items-center border p-2 mt-2 rounded-lg">
                                 <p>{invite.id} - Expires: {new Date(invite.expiresAt).toLocaleString()}</p>
                             </div>
                         ))
