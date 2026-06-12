@@ -8,6 +8,8 @@ import {TimeDurationDropdownMenu} from "../../generic/TimeDuration.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
+import {GetGroupInvites} from "../../../js/hooks/api/routes/inviteRoutes.tsx";
+import {getGroups} from "../../../js/hooks/api/routes/groupRoutes.tsx";
 
 interface InvitesProps {
     groupId: number;
@@ -38,6 +40,10 @@ export default function Invites({ groupId }: InvitesProps) {
         setStep(2);
     }
 
+    function useGetGroupInvites (groupId) {
+        const Invite = GetGroupInvites()
+    }
+
     function handleOpenModal() {
         setStep(1);
         modal.open();
@@ -54,6 +60,8 @@ export default function Invites({ groupId }: InvitesProps) {
                 <button onClick={handleOpenModal} className="btn btn-secondary border">
                     Create Invite
                 </button>
+
+                <text>{Invite}</text>
             </div>
             <Modal state={modal}>
                 {step === 1 && (
