@@ -44,8 +44,8 @@ export default function Privacy() {
                 To do this we use a combination of the following measures: </p>
                 <ul>
                     <li>TLS: All (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate</li>
-                    <li>Firewall: Scrumdapp is hosted behind firewalls maintained by the University of applied sciences Utrecht</li>
-                    <li>Databases: All information and backups of this information are stored on databases hosted within the Open-ICT cloud environment</li>
+                    <li>Firewall: Scrumdapp is hosted behind firewalls maintained by the University of Applied Sciences Utrecht and TandemIt</li>
+                    <li>Databases: All information and backups of this information are stored on databases hosted within the Open-ICT/TandemIt cloud environment</li>
                 </ul>
                 
                 <h2>Questions & Complaints</h2>
