@@ -1,6 +1,6 @@
-import {http, HttpResponse} from "msw";
-import {Group} from "../../src/js/models/group";
-import {groupUserData} from "./groupUserHandler.ts";
+import { http, HttpResponse } from "msw";
+import { Group } from "../../src/js/models/group";
+import { groupUserData } from "./groupUserHandler.ts";
 
 export const groupData: Group[] = [
     {
@@ -50,10 +50,10 @@ export const groupData: Group[] = [
 ]
 
 export const groupHandlers = [
-    http.get("/api/groups", ({}) => {
+    http.get("/api/groups", async ({ }) => {
         return HttpResponse.json(groupData)
     }),
-    http.post("/api/groups", ({}) => {
+    http.post("/api/groups", ({ }) => {
         const group = groupUserData[0]
         if (group) {
             return HttpResponse.json(group)
@@ -67,7 +67,7 @@ export const groupHandlers = [
             status: 404
         })
     }),
-    http.get("/api/groups/:gid", ({ params }) => {
+    http.get("/api/groups/:gid", async ({ params }) => {
         // @ts-ignore
         const group = groupData.find(it => it.id == params.gid)
         if (group) {
