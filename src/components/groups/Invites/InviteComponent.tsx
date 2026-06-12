@@ -61,12 +61,14 @@ export default function Invites({ groupId }: InvitesProps) {
     }
     return (
         <>
-            <div className="card flex justify-between items-center">
+            <div className="card flex flex-col items-center">
+                <div className="flex flex-row w-full justify-between">
                 <h3>All Invites</h3>
                 <button onClick={handleOpenModal} className="btn btn-secondary border">
                     Create Invite
                 </button>
-                <div>
+                </div>
+                <div className="flex flex-col w-full float-left ">
                     {invites.length === 0 ? (
                         <p>No active invites.</p>
                     ) : (
