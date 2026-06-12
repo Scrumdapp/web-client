@@ -1,6 +1,6 @@
 import Modal from "../../generic/modal/Modal.tsx";
 import {useModalState} from "../../../js/hooks/useModalState.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ScrumdappApi} from "../../../js/hooks/api/scrumdappApi.ts";
 import ModalActionRow from "../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../generic/modal/components/ModalCancelButton.tsx";
@@ -35,6 +35,9 @@ export default function Invites({ groupId }: InvitesProps) {
         setTimeout(() => setCopied(false), 3000);
     };
 
+    useEffect(() => {
+        getGroupInvites.runCommand(groupId).then(setInvites);
+    }, [groupId]);
 
     async function handleCreateInvite() {
         const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000);
@@ -64,8 +67,7 @@ export default function Invites({ groupId }: InvitesProps) {
                     Create Invite
                 </button>
                 <div>
-                    <h2>Existing Invites</h2>
-                    {Invites.length === 0 ? (
+                    {invites.length === 0 ? (
                         <p>No active invites.</p>
                     ) : (
                         invites.map((invite) => (
