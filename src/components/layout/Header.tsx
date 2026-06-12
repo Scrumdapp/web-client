@@ -34,7 +34,7 @@ export default function Header() {
                 <div className="flex-1 nav-dropdown cursor-default">
                     <div className="horizontal justify-end items-center gap-1">
                         <span>{`${user.first_name} ${user.last_name}`}</span>
-                        <img alt="user-profile-picture" src={user.avatar ?? "/public/Scrumdaddy.png"} className="nav-icon" />
+                        <img alt="user-profile-picture" src={user.avatar ?? "/Scrumdaddy.png"} className="nav-icon" />
                     </div>
                     <div className="nav-dropdown-content -right-[0.5px]!">
                         <div className="py-4 px-1.5 text-left">
