@@ -53,34 +53,31 @@ export default function Groups() {
                     </ShowIf>
                 </div>
             </div>
-            <ul className="grid gap-4 grid-cols-3 justify-center">
-                <GetGroupsComponent input={[]}>
-                    {(groups) => {
-                        const filteredGroups = groups.filter((group) =>
-                            group.name.toLowerCase().includes(search.toLowerCase().trim())
-                        );
+            <GetGroupsComponent input={[]}>
+                {(groups) => {
+                    const filteredGroups = groups.filter((group) =>
+                        group.name.toLowerCase().includes(search.toLowerCase().trim())
+                    );
 
-                        return (
-                            <>
-                                {filteredGroups.length === 0 && (
-                                    <p className="text-fg">No groups have been found...</p>
-                                )}
-                                {filteredGroups.map((group) => (
-                                    <li key={group.id}>
-                                        <Link to={`/groups/${group.id}`} className="block">
-                                            <GroupCard group={group} />
-                                        </Link>
-                                    </li>
-
-                                ))}
-                            </>
-                        )
-                    }}
-                </GetGroupsComponent>
-            </ul>
+                    return (
+                        <ul className="grid gap-4 grid-cols-3 justify-center">
+                            {filteredGroups.length === 0 && (
+                                <p className="text-fg">No groups have been found...</p>
+                            )}
+                            {filteredGroups.map((group) => (
+                                <li key={group.id}>
+                                    <Link to={`/groups/${group.id}`} className="block">
+                                        <GroupCard group={group} />
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )
+                }}
+            </GetGroupsComponent>
             <ShowIf condition={hasRole(user, Role.Coach)}>
                 <CreateGroupModal state={modal} />
             </ShowIf>
-        </div>
+        </div >
     )
 }
