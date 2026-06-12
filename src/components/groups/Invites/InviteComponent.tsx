@@ -47,6 +47,9 @@ export default function Invites({ groupId }: InvitesProps) {
         const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
         setGeneratedLink(link);
         setStep(2);
+
+        const result = await getGroupInvites(groupId);
+        setInvites(result);
     }
 
     function handleOpenModal() {
