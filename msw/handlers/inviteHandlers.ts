@@ -72,9 +72,10 @@ export const inviteHandlers = [
 
         return HttpResponse.json(invite);
     }),
-    http.get("/api/invites", ({ params }) => {
+    http.get("/api/invites", ({ request }) => {
+        const params = new URL(request.url).searchParams
         //@ts-ignore
-        const group = groupData.find(it => it.id == params["group"] as string)!
+        const group = groupData.find(it => it.id == params.get("group") as string)!
         return HttpResponse.json(inviteData[group.id])
     }),
     http.get("/api/invites/:inviteId", ({ params }) => {
