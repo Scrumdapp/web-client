@@ -10,7 +10,7 @@ export default function Privacy() {
                     To ensure that Scrumdapp functions we store the following personal information upon logging in:
                 </p>
                 <ul>
-                    <li>Full name</li>
+                    <li>Full name (retrieved from the Open-ICT Discord server)</li>
                     <li>Discord user identifier</li>
                     <li>Link to public Discord avatar</li>
                 </ul>
@@ -23,14 +23,14 @@ export default function Privacy() {
                 </ul>
 
                 <h2>Which personal information is visible to others</h2>
-                <p>Your name is visible for other users whenever you're in a group with them.</p>
+                <p>Your name is visible for other users whenever you share a group with them.</p>
 
                 <h2>Lifetime personal information</h2>
                 <p>We avoid storing your personal information longer than necessary in order to complete the above mentioned goals.</p>
 
                 <h2>Sharing data with third parties</h2>
                 <p>We don't share your personal information to any third party.
-                Information may be shared with your explicit approval or due to legal obligations.</p>
+                However, information may be shared with your explicit approval or due to legal obligations.</p>
 
                 <h2>Usage of cookies or similar technologies</h2>
                 <p>We use cookies in our services. These cookies are purely functional and strictly necessary to deliver our services.</p>
@@ -43,7 +43,7 @@ export default function Privacy() {
                 <p>We take fitting measures to protect your personal information against malicious use, theft and loss.
                 To do this we use a combination of the following measures: </p>
                 <ul>
-                    <li>TLS/HTTPS: All (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate</li>
+                    <li>TLS: All (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate</li>
                     <li>Firewall: Scrumdapp is hosted behind firewalls maintained by the University of applied sciences Utrecht</li>
                     <li>Databases: All information and backups of this information are stored on databases hosted within the Open-ICT cloud environment</li>
                 </ul>
