@@ -9,7 +9,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
 import {GetGroupInvites} from "../../../js/hooks/api/routes/inviteRoutes.tsx";
-import {getGroups} from "../../../js/hooks/api/routes/groupRoutes.tsx";
 
 interface InvitesProps {
     groupId: number;
@@ -40,8 +39,8 @@ export default function Invites({ groupId }: InvitesProps) {
         setStep(2);
     }
 
-    function useGetGroupInvites (groupId) {
-        const Invite = GetGroupInvites()
+    async function ShowInvites(groupId: number) {
+        const invites = await GetGroupInvites(groupId);
     }
 
     function handleOpenModal() {
@@ -61,7 +60,7 @@ export default function Invites({ groupId }: InvitesProps) {
                     Create Invite
                 </button>
 
-                <text>{Invite}</text>
+                <text>{ShowInvites}</text>
             </div>
             <Modal state={modal}>
                 {step === 1 && (
