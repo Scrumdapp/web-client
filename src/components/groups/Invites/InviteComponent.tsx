@@ -157,5 +157,5 @@ export default function Invites({ groupId }: InvitesProps) {
             </Modal>
         </>
 
-    )
+    );
 }
