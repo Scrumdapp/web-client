@@ -21,6 +21,7 @@ COPY vite.config.ts .
 COPY index.html .
 COPY src src
 COPY public public
+COPY .well-known .well-known
 COPY msw/empty.ts msw/worker.ts
 
 # Remove service worker, we don't want it in the build
