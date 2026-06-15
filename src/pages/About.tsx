@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function About() {
     return (
-       <div className="app-container card horizontal gap-3">
+       <div className="app-container card horizontal gap-3 mb-4">
            <div>
             <h2 className="pb-3">About Scrumdapp</h2>
             <h3 className="py-3">The Ultimate SCRUM tool for your team!</h3>
