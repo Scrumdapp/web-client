@@ -19,7 +19,7 @@ export default function About() {
             </h3>
             <div>
                 Luc van Ogtrop <Link to="https://www.linkedin.com/in/luc-van-ogtrop" target="_blank" className="underline"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
-                Daan Meijneken <Link to="https://daan.meijneken.nl/" target="_blank" className="underline"><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></Link> <Link to="https://www.linkedin.com/in/daan-meijneken" target="_blank" className="underline"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
+                <Link to="https://daan.meijneken.nl/" target="_blank">Daan Meijneken</Link> <Link to="https://daan.meijneken.nl/" target="_blank" className="underline"><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></Link> <Link to="https://www.linkedin.com/in/daan-meijneken" target="_blank" className="underline"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
                 Steven Hoekstra <Link to="https://www.linkedin.com/in/never-gonna-give-you-up-never-gonna-let-you-down/" target="_blank" className="underline"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
                 Ian van der Werf <Link to="https://www.linkedin.com/in/ian-vd-werf/" target="_blank" className="underline"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
                 Thomas Middelbos <Link to="https://www.linkedin.com/in/thomas-middelbos/" target="_blank" className="underline"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
