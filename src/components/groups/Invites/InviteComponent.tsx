@@ -83,7 +83,7 @@ export default function Invites({ groupId }: InvitesProps) {
                                 <tr key={invite.id}>
                                     <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
                                     <td>
-                                        <button onClick={handleCopy} className="btn btn-secondary border my-1">
+                                        <button onClick={handleCopy} className="btn btn-secondary border my-1 float-right">
                                             <FontAwesomeIcon icon={faCopy} /> Copy link
                                         </button>
                                     </td>
