@@ -1,12 +1,14 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
-import { InviteResponse } from "../js/models/invites.tsx";
+import { InviteResponse } from "../js/models/invites.ts";
 import { useUser } from "../js/context/user/useUser.ts";
+import {useApi} from "../js/hooks/api/useApi.ts";
 
 export default function AcceptInvite() {
     const { inviteId } = useParams()
     const [searchParams] = useSearchParams()
+    const navigate = useNavigate()
     const token = searchParams.get("token")
 
     const currentUser = useUser()
@@ -17,7 +19,7 @@ export default function AcceptInvite() {
     const [password, setPassword] = useState("")
 
     const getInvite = ScrumdappApi.GetGroupInvite()
-    const acceptInvite = ScrumdappApi.AcceptInvite()
+    const acceptInvite = useApi(ScrumdappApi.AcceptInvite())
 
 
     useEffect(() => {
@@ -34,12 +36,22 @@ export default function AcceptInvite() {
         RetrieveInvite()
     }, [inviteId])
 
-    async function handleJoinInvite() {
-        try {
-            await acceptInvite(Number(inviteId), currentUser.id, token ?? "", password)
-        } catch (e) {
-            setError("Failed to join the group...")
-        }
+     function handleJoinInvite() {
+         acceptInvite.runCommand(Number(inviteId), currentUser.id, token ?? "", password).then(() => {
+             if (acceptInvite.error != null) {
+                 switch (acceptInvite.error.status) {
+                     case 401:
+                         setError(acceptInvite.error.message)
+                         break;
+                     default:
+                         setError("Could not accept invite.")
+                         break;
+                 }
+             } else {
+                 const groupId = acceptInvite.data?.groupId
+                 navigate(`/groups${groupId ? `/${groupId}` : ''}`)
+             }
+         })
     }
 
     if (loading) return <p>Loading...</p>
