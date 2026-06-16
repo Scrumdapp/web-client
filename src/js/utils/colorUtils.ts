@@ -1,7 +1,6 @@
 
 
 export const attendanceOptions = [
-    { label: "---", color: "text-gray", background: "bg-gray", value: null },
     { label: "On Time", color: "text-green", background: "bg-green", value: "ON_TIME" },
     { label: "Online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
     { label: "Late", color: "text-orange", background: "bg-orange", value: "LATE" },
@@ -9,6 +8,7 @@ export const attendanceOptions = [
     { label: "Absent", color: "text-red", background: "bg-red", value: "ABSENT" },
     { label: "Verified Absent", color: "text-aqua", background: "bg-aqua", value: "VERIFIED_ABSENT" },
     { label: "Sick", color: "text-blue", background: "bg-blue", value: "SICK" },
+    { label: "---", color: "text-gray", background: "bg-gray", value: null },
 ];
 
 export function getAttendanceLabel(value: string | null | undefined): string {
