@@ -1,4 +1,3 @@
-import { getGroupTimelineHeight, GroupTimelineTrends } from "../../components/groups/trends/GroupTimelineTrends"
 import { GroupUser } from "../../js/models/group"
 import { useGroup } from "../../js/context/group/useGroup"
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi"
@@ -6,6 +5,7 @@ import { useApiComponent } from "../../js/hooks/api/useApiComponent"
 import { useState } from "react";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx"
 import { TimeRangeSelector } from "../../components/groups/trends/TimeRangeSelector.tsx"
+import { getGroupTimelineHeight, GroupTimelineDisplayType, GroupTimelineTrends } from "../../components/groups/trends/timeline/GroupTimelineTrends.tsx";
 
 export function TrendsPage() {
 
@@ -39,7 +39,7 @@ export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
         )
     } else {
         component = (
-            <GroupTimelineTrends users={users} from={dates.from} to={dates.to} />
+            <GroupTimelineTrends users={users} from={dates.from} to={dates.to} display={GroupTimelineDisplayType.Cumelative} />
         )
     }
 
