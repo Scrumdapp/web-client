@@ -3,12 +3,12 @@
 export const attendanceOptions = [
     { label: "On Time", color: "text-green", background: "bg-green", value: "ON_TIME" },
     { label: "Online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
-    { label: "Late", color: "text-orange", background: "bg-orange", value: "LATE" },
-    { label: "Verified Late", color: "text-green", background: "bg-green-dim", value: "VERIFIED_LATE" },
-    { label: "Absent", color: "text-red", background: "bg-red", value: "ABSENT" },
-    { label: "Verified Absent", color: "text-aqua", background: "bg-aqua", value: "VERIFIED_ABSENT" },
+    { label: "Late", color: "text-orange-dim", background: "bg-orange-dim", value: "LATE" },
+    { label: "Verified Late", color: "text-orange", background: "bg-orange", value: "VERIFIED_LATE" },
+    { label: "Absent", color: "text-red-dim", background: "bg-red-dim", value: "ABSENT" },
+    { label: "Verified Absent", color: "text-red", background: "bg-red", value: "VERIFIED_ABSENT" },
     { label: "Sick", color: "text-blue", background: "bg-blue", value: "SICK" },
-    { label: "---", color: "text-gray", background: "bg-gray", value: null },
+    { label: "---", color: "text-gray", background: "bg-gray-dim", value: null },
 ];
 
 export function getAttendanceLabel(value: string | null | undefined): string {
@@ -20,7 +20,7 @@ export function getAttendanceColor(value: string | null | undefined): string {
 }
 
 export function getAttendanceBackgroundColor(value: string | null | undefined): string {
-    return attendanceOptions.find(opt => opt.value === value)?.background ?? "bg-gray";
+    return attendanceOptions.find(opt => opt.value === value)?.background ?? "bg-gray-dim";
 }
 
 export function getAttendanceColorScrummaster(value: string | null | undefined): string {

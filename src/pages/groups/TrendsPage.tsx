@@ -55,7 +55,7 @@ export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
 
     return (
         <div className="card">
-            <div className="horizontal justify-between items-center mb-4">
+            <div className="horizontal justify-between gap-2 items-center mb-4">
                 <h2>Presence</h2>
                 <div className="flex-1" />
                 <TimelineSelector onRangeSelected={displaySelected} />
