@@ -29,13 +29,13 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
     const [error, setError] = useState<ApiError | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const fetch = useCallback(async (currentUsers: CheckpointUser[]) => {
+    const fetch = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
             const checkpoints = await ScrumdappApi.getGroupCheckpoints()(groupId, sessionId);
             setRows(
-                currentUsers.map((user) => {
+                users.map((user) => {
                     const checkpoint = checkpoints.find((entry) => entry.groupUser === user.user_id);
                     const base: GroupCheckpoint = checkpoint ?? {
                         id: user.user_id,
@@ -54,13 +54,9 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
         } finally {
             setLoading(false);
         }
-    }, [groupId, sessionId]);
+    }, [groupId, sessionId, users]);
 
-    useEffect(() => {
-        fetch(users).catch(console.error);
-    }, [fetch, users]);
-
-    return { rows, setRows, error, loading, refresh: () => fetch(users).catch(console.error) };
+    return { rows, setRows, error, loading, fetch };
 }
 
 function Checkpoint({
@@ -105,7 +101,11 @@ function Checkpoint({
         if (isLocked) modal.close();
     }, [isLocked, modal]);
 
-    const { rows, setRows, error: rowsError, loading: rowsLoading, refresh } = useGroupCheckpoints(groupId, sessionId, users);
+    const { rows, setRows, error: rowsError, loading: rowsLoading, fetch } = useGroupCheckpoints(groupId, sessionId, users);
+
+    useEffect(() => {
+        fetch().catch(console.error);
+    }, [fetch]);
 
     const [notes, setNotes] = useState("");
     const [selectedPresence, setSelectedPresence] = useState<string | null>(null);
@@ -201,6 +201,10 @@ function Checkpoint({
         modal.open();
     };
 
+    const handleToggle = () => {
+        setIsExpanded(prev => !prev);
+    };
+
     if (rowsLoading || rows === null) return <LoadScreen />;
     if (rowsError) return <ErrorScreen error={rowsError} />;
 
@@ -213,7 +217,7 @@ function Checkpoint({
             <div className="flex flex-row items-center justify-between mr-0">
                 <button
                     className="flex items-center gap-2 text-left cursor-pointer w-full"
-                    onClick={() => setIsExpanded(prev => !prev)}
+                    onClick={handleToggle}
                     aria-expanded={isExpanded}
                 >
                     <FontAwesomeIcon
@@ -222,17 +226,17 @@ function Checkpoint({
                     />
                     <div className="gap-3 flex items-center justify-between w-full">
                         <h2>{name}</h2>
-                        <div className="flex items-center gap-3">
-                            <button
-                                className="btn border"
-                                onClick={refresh}
-                                disabled={rowsLoading}
-                            >
-                                Refresh
-                            </button>
-                        </div>
                     </div>
                 </button>
+                <div className="flex items-center gap-3">
+                    <button
+                        className="btn border"
+                        onClick={() => fetch().catch(console.error)}
+                        disabled={rowsLoading}
+                    >
+                        Refresh
+                    </button>
+                </div>
             </div>
             <p>
                 {isLocked
