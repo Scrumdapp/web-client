@@ -78,7 +78,7 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                             paddingLeft: "4px"
                         }}
                     >
-                        <div className="absolute bottom-0 h-3 left-0 right-0 flex">
+                        <div className="absolute bottom-0 top-0 left-0 right-0 flex">
                             <div style={{ width: `${selfCount / selfTotal * 100}%` }}></div>
                             {item.children.filter(it => (presenceData.get(it) ?? 0) != 0).map(it => (
                                 <div key={it} className={getAttendanceBackgroundColor(it)} style={{
