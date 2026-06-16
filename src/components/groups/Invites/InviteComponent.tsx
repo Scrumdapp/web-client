@@ -35,6 +35,15 @@ export default function Invites({ groupId }: InvitesProps) {
         setTimeout(() => setCopied(false), 3000);
     };
 
+    const [copiedId, setCopiedId] = useState<number | null>(null);
+
+    const handleCopyInvite = (invite: InviteResponse) => {
+        const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
+        navigator.clipboard.writeText(link);
+        setCopiedId(invite.id);
+        setTimeout(() => setCopiedId(null), 3000);
+    };
+
     useEffect(() => {
         getGroupInvites.runCommand(groupId).then(setInvites);
     }, [groupId]);
@@ -83,8 +92,9 @@ export default function Invites({ groupId }: InvitesProps) {
                                 <tr key={invite.id}>
                                     <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
                                     <td>
-                                        <button onClick={handleCopy} className="btn btn-secondary border my-1 float-right">
-                                            <FontAwesomeIcon icon={faCopy} /> Copy link
+                                        <button onClick={() => handleCopyInvite(invite)} className="btn btn-secondary border my-1 float-right">
+                                            <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy} />
+                                            {copiedId === invite.id ? " Copied!" : " Copy link"}
                                         </button>
                                     </td>
                                 </tr>
