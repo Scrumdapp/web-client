@@ -25,8 +25,6 @@ export default function Invites({ groupId }: InvitesProps) {
     const createInvite = useApi(ScrumdappApi.CreateInvite());
     const getGroupInvites = useApi(ScrumdappApi.GetGroupInvites());
     const [invites, setInvites] = useState<InviteResponse[]>([]);
-
-
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
