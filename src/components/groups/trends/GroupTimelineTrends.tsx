@@ -151,7 +151,7 @@ function TimelineWeekDisplays({ trends }: { trends: PresenceTrendItem }) {
                     marginRight: "2px",
                     marginBottom: "2px"
                 }}>
-                    <span className="text-xs w-full">W{getWeekNumber(it.date)}</span>
+                    <span className="text-xs">W{getWeekNumber(it.date)}</span>
                     <hr />
                 </div>
             ))}
