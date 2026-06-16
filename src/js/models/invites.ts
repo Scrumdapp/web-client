@@ -8,6 +8,6 @@ export interface InviteResponse {
 }
 
 export interface InviteAcceptResponse {
-    userId: number
-    groupId: number
+    groupId: number,
+    groupName: string
 }
