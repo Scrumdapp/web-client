@@ -246,65 +246,65 @@ function Checkpoint({
                 <div className="overflow-hidden">
                     <hr className="my-2 mr-0" />
                     <table className="table-fixed w-full">
-                <thead>
-                    <tr>
-                        <th className="p-4 text-left">Name</th>
-                        <th className="p-4 text-left border-l border-dotted">Attendance</th>
-                        <th className="p-4 items-center">How're you feeling?</th>
-                        <th className="p-4 text-left w-[25%]">Comment</th>
-                        <th className="p-4 text-left w-[25%]">Obstacle</th>
-                        {(isSessionmaster || isInGroup) && !isLocked && (
-                            <th className="py-4 pr-4 text-left w-[5%]">Edit</th>
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows.map((item) => (
-                        <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
-                            <td className="p-4 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
-                                {item.first_name} {item.last_name}
-                            </td>
-                            <td className={`text-left p-4 border-t border-dotted border-current`}>
-                                <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
-                                    {getformatPresence(item.presence ? String(item.presence) : "---")}
-                                </div>
-                            </td>
-                            <td className={`p-4 border-t border-dotted border-current`}>
-                                <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
-                                    <Stars amount={item.stars} />
-                                </div>
-                            </td>
-                            <td className="p-4 break-words border-t border-dotted">
-                                {item.comment}
-                            </td>
-                            <td className="p-4 break-words border-t border-dotted">
-                                {item.impediment}
-                            </td>
-                            {(isSessionmaster || isInGroup) && !isLocked && (
-                                <td className="border-t border-dotted py-3 pr-2">
-                                    {!isLocked ? (isSessionmaster ? (
-                                        <button
-                                            className="btn border aspect-square"
-                                            onClick={() => handleModalOpen(item)}
-                                        >
-                                            <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-                                        </button>
-                                    ) : (item.groupUser === myUserId || item.id === myUserId) ? (
-                                        <button
-                                            className="btn border aspect-square"
-                                            onClick={handleOwnModalOpen}
-                                        >
-                                            <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-                                        </button>
-                                    ) : null
-                                    ) : null}
-                                </td>
-                            )}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            </div>
+                        <thead>
+                            <tr>
+                                <th className="p-4 text-left">Name</th>
+                                <th className="p-4 text-left border-l border-dotted">Attendance</th>
+                                <th className="p-4 items-center">How're you feeling?</th>
+                                <th className="p-4 text-left w-[25%]">Comment</th>
+                                <th className="p-4 text-left w-[25%]">Obstacle</th>
+                                {(isSessionmaster || isInGroup) && !isLocked && (
+                                    <th className="py-4 pr-4 text-left w-[5%]">Edit</th>
+                                )}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows.map((item) => (
+                                <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
+                                    <td className="p-4 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
+                                        {item.first_name} {item.last_name}
+                                    </td>
+                                    <td className={`text-left p-4 border-t border-dotted border-current`}>
+                                        <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
+                                            {getformatPresence(item.presence ? String(item.presence) : "---")}
+                                        </div>
+                                    </td>
+                                    <td className={`p-4 border-t border-dotted border-current`}>
+                                        <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
+                                            <Stars amount={item.stars} />
+                                        </div>
+                                    </td>
+                                    <td className="p-4 break-words border-t border-dotted">
+                                        {item.comment}
+                                    </td>
+                                    <td className="p-4 break-words border-t border-dotted">
+                                        {item.impediment}
+                                    </td>
+                                    {(isSessionmaster || isInGroup) && !isLocked && (
+                                        <td className="border-t border-dotted py-3 pr-2">
+                                            {!isLocked ? (isSessionmaster ? (
+                                                <button
+                                                    className="btn border aspect-square"
+                                                    onClick={() => handleModalOpen(item)}
+                                                >
+                                                    <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+                                                </button>
+                                            ) : (item.groupUser === myUserId || item.id === myUserId) ? (
+                                                <button
+                                                    className="btn border aspect-square"
+                                                    onClick={handleOwnModalOpen}
+                                                >
+                                                    <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+                                                </button>
+                                            ) : null
+                                            ) : null}
+                                        </td>
+                                    )}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <Modal state={modal}>
                 <div className="space-y-5">
