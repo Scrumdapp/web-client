@@ -1,9 +1,9 @@
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import Checkpoint from "../../components/checkins/Checkpoint.tsx";
-import { useSearchParams } from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import { toScrumdappDate } from "../../js/utils/scrumdappDate.ts";
 import { useModalState } from "../../js/hooks/useModalState.ts";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import {faAdd, faChevronDown} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
@@ -20,6 +20,14 @@ export function GroupCheckpointPage() {
 
     const currentDate = toScrumdappDate(new Date());
     const date = searchParams.get("date") ?? toScrumdappDate(new Date());
+
+    const prev = new Date(date);
+    prev.setDate(prev.getDate() - 1);
+    const prevDate = prev.toISOString().split("T")[0];
+
+    const next = new Date(date);
+    next.setDate(next.getDate() + 1);
+    const nextDate = next.toISOString().split("T")[0];
 
     const currentUser = useUser();
 
@@ -49,7 +57,15 @@ export function GroupCheckpointPage() {
     return (
         <div className="space-y-3 ">
             <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
-                <h2 className="px-2">{date}</h2>
+                <div className="horizontal items-center">
+                    <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
+                        <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
+                    </Link>
+                    <h2 className="px-2">{date}</h2>
+                    <Link to={`/groups/${group.id}?date=${nextDate}`} className="btn">
+                        <FontAwesomeIcon icon={faChevronDown} className="rotate-270" />
+                    </Link>
+                </div>
                 <ShowIf condition={currentDate == date}>
                     <button className="btn border" onClick={modal.open}>
                         <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
