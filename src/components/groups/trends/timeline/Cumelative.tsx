@@ -2,6 +2,7 @@ import { GroupUser } from "../../../../js/models/group"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
 import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../../js/utils/colorUtils"
 import { HideIf } from "../../../utility/Conditional"
+import { HideIfNotFullyVisible } from "../../../utility/Text"
 
 export function RenderCumelativeGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
     const length = data.trends[0].days.length
@@ -31,10 +32,11 @@ export function RenderCumelativeGraph({ users, data }: { users: GroupUser[], dat
 function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) {
 
     const map = [
-        { id: "ON_TIME", children: ["ONLINE"] },
-        { id: "LATE", children: ["VERIFIED_LATE"] },
-        { id: "ABSENT", children: ["VERIFIED_ABSENT", "SICK"] },
-        { id: null, children: [] }
+        { id: "ON_TIME", color: "bg-green", children: [{ id: "ONLINE", color: "bg-purple" }] },
+        { id: "VERIFIED_LATE", color: "bg-orange", children: [{ id: "LATE", color: "bg-orange-dim" }] },
+        { id: "VERIFIED_ABSENT", color: "bg-red", children: [{ id: "ABSENT", color: "bg-red-dim" }] },
+        { id: "SICK", color: "bg-blue", children: [] },
+        { id: null, color: "bg-gray-dim", children: [] }
     ]
 
     let total = 0;
@@ -55,10 +57,10 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                 let hasChildren = false
 
                 for (const child of item.children) {
-                    if ((presenceData.get(child) ?? 0) == 0) {
+                    if ((presenceData.get(child.id) ?? 0) == 0) {
                         continue
                     }
-                    selfTotal += presenceData.get(child) ?? 0
+                    selfTotal += presenceData.get(child.id) ?? 0
                     hasChildren = true
                 }
 
@@ -68,7 +70,7 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
 
                 return (
                     <div
-                        className={`timeline-item dropdown relative ${getAttendanceBackgroundColor(item.id)}`}
+                        className={`timeline-item dropdown relative ${item.color} hover:outline`}
                         key={i}
                         style={{
                             width: `calc(${selfTotal / total * 100}% - 4px)`,
@@ -80,24 +82,26 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                     >
                         <div className="absolute bottom-0 top-0 left-0 right-0 flex">
                             <div style={{ width: `${selfCount / selfTotal * 100}%` }}></div>
-                            {item.children.filter(it => (presenceData.get(it) ?? 0) != 0).map(it => (
-                                <div key={it} className={getAttendanceBackgroundColor(it)} style={{
-                                    width: `calc(${(presenceData.get(it) ?? 0) / selfTotal * 100}%)`,
+                            {item.children.filter(it => (presenceData.get(it.id) ?? 0) != 0).map(it => (
+                                <div key={it.id} className={it.color} style={{
+                                    width: `calc(${(presenceData.get(it.id) ?? 0) / selfTotal * 100}%)`,
                                 }} />
                             ))}
                         </div>
                         <HideIf condition={selfTotal == 0}>
-                            <span className="absolute text-bg_h">{selfTotal}x</span>
+                            <HideIfNotFullyVisible className="absolute text-bg_h">
+                                {selfTotal}x
+                            </HideIfNotFullyVisible>
                         </HideIf>
                         <div className="dropdown-content vertical">
                             <HideIf condition={selfCount == 0}>
                                 <div>
-                                    {getLabelName(item.id)}: <span className={getAttendanceColorScrummaster(item.id)}>{selfCount}x</span>
+                                    {getLabelName(item.id)}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
                                 </div>
                             </HideIf>
-                            {item.children.filter(it => (presenceData.get(it) ?? 0) != 0).map(it => (
-                                <div key={it}>
-                                    {getLabelName(it)}: <span className={getAttendanceColorScrummaster(it)}>{presenceData.get(it)}x</span>
+                            {item.children.filter(it => (presenceData.get(it.id) ?? 0) != 0).map(it => (
+                                <div key={it.id}>
+                                    {getLabelName(it.id)}: <span className={it.color + " rounded-md text-bg_h px-1"}>{presenceData.get(it.id)}x</span>
                                 </div>
                             ))}
                         </div>
