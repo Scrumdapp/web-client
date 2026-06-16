@@ -72,6 +72,7 @@ function Checkpoint({
     users,
     currentUser,
     ownerId,
+    isMostRecent,
 }: {
     groupId: number;
     name: string;
@@ -81,6 +82,7 @@ function Checkpoint({
     users: CheckpointUser[];
     currentUser: { id: number } | null | undefined;
     ownerId: number;
+    isMostRecent?: boolean;
 }) {
     const modal = useModalState();
 
@@ -117,7 +119,8 @@ function Checkpoint({
 
     const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(null);
 
-    const [isExpanded, setIsExpanded] = useState(!isLocked);
+    const [isExpanded, setIsExpanded] = useState(!isLocked || isMostRecent);
+
 
     const handleOwnModalApply = async () => {
         if (myUserId == null || isLocked) return;
