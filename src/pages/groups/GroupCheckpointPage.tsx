@@ -62,7 +62,11 @@ export function GroupCheckpointPage() {
                         <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
                     </Link>
                     <h2 className="px-2">{date}</h2>
-                    <Link to={`/groups/${group.id}?date=${nextDate}`} className="btn">
+                    <Link
+                        to={`/groups/${group.id}?date=${nextDate}`}
+                        className={`btn ${date === currentDate ? "opacity-50 pointer-events-none" : ""}`}
+                        aria-disabled={date === currentDate}
+                    >
                         <FontAwesomeIcon icon={faChevronDown} className="rotate-270" />
                     </Link>
                 </div>
