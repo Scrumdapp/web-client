@@ -63,7 +63,6 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
     return { rows, setRows, error, loading, refresh: () => fetch(users).catch(console.error) };
 }
 
-
 function Checkpoint({
     groupId,
     name,
@@ -198,7 +197,6 @@ function Checkpoint({
         setObstacle(row.impediment ?? "");
         modal.open();
     };
-
 
     if (rowsLoading || rows === null) return <LoadScreen />;
     if (rowsError) return <ErrorScreen error={rowsError} />;
