@@ -2,7 +2,7 @@ import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
 import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { getformatPresence } from "../../js/utils/colorUtils.ts";
 import { useEffect, useState, useCallback } from "react";
 import Modal from "../../components/generic/modal/Modal.tsx";
@@ -118,6 +118,8 @@ function Checkpoint({
 
     const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(null);
 
+    const [isExpanded, setIsExpanded] = useState(!isLocked);
+
     const handleOwnModalApply = async () => {
         if (myUserId == null || isLocked) return;
         setApplyLoading(true);
@@ -208,24 +210,42 @@ function Checkpoint({
     return (
         <div className="card w-full space-x-5">
             <div className="flex flex-row items-center justify-between mr-0">
-                <h2>{name}</h2>
-                <div className="flex items-center gap-3">
-                    <button
-                        className="btn border"
-                        onClick={refresh}
-                        disabled={rowsLoading}
-                    >
-                        Refresh
-                    </button>
-                </div>
+                <button
+                    className="flex items-center gap-2 text-left cursor-pointer w-full"
+                    onClick={() => setIsExpanded(prev => !prev)}
+                    aria-expanded={isExpanded}
+                >
+                    <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                    />
+                    <div className="gap-3 flex items-center justify-between w-full">
+                        <h2>{name}</h2>
+                        <div className="flex items-center gap-3">
+                            <button
+                                className="btn border"
+                                onClick={refresh}
+                                disabled={rowsLoading}
+                            >
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                </button>
             </div>
-            <hr className="my-2 mr-0" />
             <p>
                 {isLocked
                     ? "Checkpoint closed"
                     : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
             </p>
-            <table className="table-fixed w-full">
+            <div
+                className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+                    isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                }`}
+            >
+                <div className="overflow-hidden">
+                    <hr className="my-2 mr-0" />
+                    <table className="table-fixed w-full">
                 <thead>
                     <tr>
                         <th className="p-4 text-left">Name</th>
@@ -284,6 +304,8 @@ function Checkpoint({
                     ))}
                 </tbody>
             </table>
+            </div>
+            </div>
             <Modal state={modal}>
                 <div className="space-y-5">
                     <ModalHeadText>{`Edit Checkpoint ${selectedUser ? `for ${selectedUser.first_name} ${selectedUser.last_name}` : ""}`}</ModalHeadText>          <div className="flex flex-col space-y-2 w-full">
