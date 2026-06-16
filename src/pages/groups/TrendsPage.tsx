@@ -6,6 +6,7 @@ import { useState } from "react";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx"
 import { TimeRangeSelector } from "../../components/groups/trends/TimeRangeSelector.tsx"
 import { getGroupTimelineHeight, GroupTimelineDisplayType, GroupTimelineTrends } from "../../components/groups/trends/timeline/GroupTimelineTrends.tsx";
+import { TimelineSelector } from "../../components/groups/trends/timeline/TimelineSelector.tsx";
 
 export function TrendsPage() {
 
@@ -29,6 +30,15 @@ export function TrendsPage() {
 export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
 
     const [dates, setDates] = useState({ from: "1970-01-01", to: "1970-01-01" })
+    const [displayType, setDisplayType] = useState(GroupTimelineDisplayType.Periodic)
+
+    const rangeSelected = (from: string, to: string) => {
+        setDates({ from, to })
+    }
+
+    const displaySelected = (type: GroupTimelineDisplayType) => {
+        setDisplayType(type)
+    }
 
     let component = null
     if (dates.from == "1970-01-01" || dates.to == "1970-01-01") {
@@ -39,12 +49,8 @@ export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
         )
     } else {
         component = (
-            <GroupTimelineTrends users={users} from={dates.from} to={dates.to} display={GroupTimelineDisplayType.Cumelative} />
+            <GroupTimelineTrends users={users} from={dates.from} to={dates.to} display={displayType} />
         )
-    }
-
-    const buttonClicked = (from: string, to: string) => {
-        setDates({ from, to })
     }
 
     return (
@@ -52,7 +58,8 @@ export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
             <div className="horizontal justify-between items-center mb-4">
                 <h2>Presence</h2>
                 <div className="flex-1" />
-                <TimeRangeSelector onRangeSelected={buttonClicked} />
+                <TimelineSelector onRangeSelected={displaySelected} />
+                <TimeRangeSelector onRangeSelected={rangeSelected} />
             </div>
             {component}
         </div >
