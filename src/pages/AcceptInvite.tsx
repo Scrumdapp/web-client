@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
 import {useApi} from "../js/hooks/api/useApi.ts";
 import {LoadScreen} from "../components/generic/LoadScreen.tsx";
-import {ApiError} from "../js/hooks/api/apiError.ts";
 
 export default function AcceptInvite() {
     const params = useParams()
@@ -14,7 +13,6 @@ export default function AcceptInvite() {
 
     const navigate = useNavigate()
 
-    const [error, setError] = useState("")
     const [password, setPassword] = useState("")
 
     const getInvite = useApi(ScrumdappApi.GetGroupInvite())
@@ -31,21 +29,15 @@ export default function AcceptInvite() {
                 const groupId = data.groupId
                 navigate(`/groups${groupId ? `/${groupId}` : ''}`)
             })
-            .catch((error: ApiError) => {
-                switch (error.status) {
-                    case 401:
-                        setError(error.message)
-                        break;
-                    default:
-                        setError("Could not accept invite.")
-                        break;
-                }
-            })
     }
 
     if (getInvite.loading) return <LoadScreen />
-    if (getInvite.error || error != "") {
-        return <p>{error}</p>
+    if (getInvite.error) {
+        return <p>{getInvite.error?.message ?? "Something went wrong retrieving invite"}</p>
+    }
+
+    if (acceptInvite.error) {
+        return <p>{acceptInvite.error?.message ?? "Could not accept invite"}</p>
     }
 
     return (
