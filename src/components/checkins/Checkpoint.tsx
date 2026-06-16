@@ -233,7 +233,7 @@ function Checkpoint({
                         <th className="p-4 items-center w-[19%]"><h3>How're you feeling?</h3></th>
                         <th className="p-4 text-left w-[19%]"><h3>Comment</h3></th>
                         <th className="p-4 text-left w-[19%]"><h3>Obstacle</h3></th>
-                        {(isSessionmaster || (isInGroup && !isLocked)) && (
+                        {(isSessionmaster || isInGroup) && !isLocked && (
                             <th className="py-4 pr-4 text-left w-[5%]"><h3>Edit</h3></th>
                         )}
                     </tr>
@@ -260,7 +260,7 @@ function Checkpoint({
                             <td className="p-4 break-words border-t border-dotted">
                                 {item.impediment}
                             </td>
-                            {(isSessionmaster || (isInGroup && !isLocked)) && (
+                            {(isSessionmaster || isInGroup) && !isLocked && (
                                 <td className="border-t border-dotted py-3 pr-2">
                                     {!isLocked ? (isSessionmaster ? (
                                         <button
