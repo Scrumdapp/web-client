@@ -1,5 +1,6 @@
 import { GroupUser } from "../../../../js/models/group"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
+import { getAttendanceLabel } from "../../../../js/utils/colorUtils"
 import { HideIf } from "../../../utility/Conditional"
 import { HideIfNotFullyVisible } from "../../../utility/Text"
 
@@ -111,4 +112,7 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
     )
 }
 
-
+function getLabelName(id: string | null) {
+    const n = getAttendanceLabel(id)
+    return n == "---" ? "No Data" : n
+}
