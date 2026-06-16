@@ -38,7 +38,7 @@ export const GroupTimelineTrends = memo(({ users, from, to }: GroupTimelineTrend
     } else if (getGroupTimelineTrends.data == null) {
         component = <LoadScreen />
     } else if (getGroupTimelineTrends.data.trends.length == 0) {
-        component = <ErrorScreen error={new ApiError(999, "")} />
+        component = <ErrorScreen error={new ApiError(999, "No trends available")} />
     } else {
         component = <RenderTimelineGraph users={users} data={getGroupTimelineTrends.data} />
     }
