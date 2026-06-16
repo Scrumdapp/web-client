@@ -228,13 +228,13 @@ function Checkpoint({
             <table className="table-fixed w-full">
                 <thead>
                     <tr>
-                        <th className="p-4 text-left w-32"><h3>Name</h3></th>
-                        <th className="p-4 text-left border-l border-dotted"><h3>Attendance</h3></th>
-                        <th className="p-4 items-center"><h3>How're you feeling?</h3></th>
-                        <th className="p-4 text-left w-46"><h3>Comment</h3></th>
-                        <th className="p-4 text-left w-46"><h3>Obstacle</h3></th>
+                        <th className="py-4 px-3 text-left w-44">Name</th>
+                        <th className="py-4 px-3 text-left border-l border-dotted w-28">Attendance</th>
+                        <th className="py-4 px-3 items-center w-28">How're you feeling?</th>
+                        <th className="py-4 px-3 text-left">Comment</th>
+                        <th className="py-4 px-3 text-left">Obstacle</th>
                         {(isSessionmaster || isInGroup) && !isLocked && (
-                            <th className="py-4 pr-4 text-left w-12"><h3>Edit</h3></th>
+                            <th className="py-4 px-2 text-right w-10">Edit</th>
                         )}
                     </tr>
                 </thead>
