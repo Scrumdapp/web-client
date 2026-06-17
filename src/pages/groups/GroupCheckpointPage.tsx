@@ -13,6 +13,10 @@ import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
 import {parseWeekDay} from "../../js/utils/timeUtils.ts";
+import { Group, GroupUser } from "../../js/models/group.ts";
+import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
+import { User } from "../../js/models/user.ts";
+import { ModalState } from "../../js/hooks/useModalState.ts";
 
 export function GroupCheckpointPage() {
     const group = useGroup();
@@ -24,11 +28,11 @@ export function GroupCheckpointPage() {
 
     const prev = new Date(date);
     prev.setDate(prev.getDate() - 1);
-    const prevDate = prev.toISOString().split("T")[0];
+    const prevDate = toScrumdappDate(prev);
 
     const next = new Date(date);
     next.setDate(next.getDate() + 1);
-    const nextDate = next.toISOString().split("T")[0];
+    const nextDate = toScrumdappDate(next);
 
     const currentUser = useUser();
 
@@ -56,6 +60,15 @@ export function GroupCheckpointPage() {
     }
 
     return (
+        <Component {...{group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions: getCheckpointSessions.data!, groupUsers: getGroupUsers.data!, currentUser, modal}} />
+    );
+}
+
+function Component(
+    { group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions, groupUsers, currentUser, modal }:
+    { group: Group, date: string, prevDate: string, nextDate: string, currentDate: string, groupCreated: () => void, checkpointSessions: GroupCheckpointSession[], groupUsers: GroupUser[], currentUser: User, modal: ModalState }
+) {
+    return (
         <div className="space-y-3 ">
             <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
                 <div className="horizontal items-center">
@@ -77,7 +90,7 @@ export function GroupCheckpointPage() {
                     </button>
                 </ShowIf>
             </div>
-            {getCheckpointSessions.data!.reverse().map((session) => (
+            {checkpointSessions.reverse().map((session) => (
                 <div key={session.id} className="w-full">
                     <Checkpoint
                         groupId={group.id}
@@ -86,7 +99,7 @@ export function GroupCheckpointPage() {
                         startTime={new Date(session.startTime).getTime()}
                         duration={session.duration * 60_000}
                         sessionId={session.id}
-                        users={getGroupUsers.data!}
+                        users={groupUsers}
                         currentUser={currentUser}
                         ownerId={session.ownerId}
                     />
@@ -94,5 +107,5 @@ export function GroupCheckpointPage() {
             ))}
             <CreateGroupCheckpointSessionModal groupId={group.id} state={modal} onCreated={groupCreated} />
         </div>
-    );
+    )
 }
