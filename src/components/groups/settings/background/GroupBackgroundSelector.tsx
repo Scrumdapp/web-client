@@ -16,11 +16,12 @@ import {BackgroundGrid} from "./BackgroundGrid.tsx";
 import {BackgroundTopicNavbar} from "./BackgroundTopicNavbar.tsx";
 
 const backgroundTopics: BackgroundTopic[] = [
-    {id: 'colors', backgrounds: ['color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
+
     {id: 'landscapes', backgrounds: ['1', '4', '6_2', '7_2', '9', '10', '14_2', '22', '30']},
     {id: 'cities', backgrounds: ['5', '6', '7', '8','15', '17']},
     {id: 'people', backgrounds: ['2', '4', '14']},
-    {id: 'other', backgrounds: ['2', '18', '23']}
+    {id: 'other', backgrounds: ['2', '18', '23']},
+    {id: 'colors', backgrounds: ['color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
 ]
 export interface BackgroundTopic {
     id: string,
