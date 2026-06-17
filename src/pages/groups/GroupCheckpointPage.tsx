@@ -90,7 +90,7 @@ function Component(
                     </button>
                 </ShowIf>
             </div>
-            {checkpointSessions.reverse().map((session) => (
+            {checkpointSessions.reverse().map((session, index) => (
                 <div key={session.id} className="w-full">
                     <Checkpoint
                         groupId={group.id}
