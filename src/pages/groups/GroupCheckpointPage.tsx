@@ -1,7 +1,7 @@
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import Checkpoint from "../../components/checkins/Checkpoint.tsx";
 import {Link, useSearchParams} from "react-router-dom";
-import { toScrumdappDate } from "../../js/utils/scrumdappDate.ts";
+import {parseScrumdappDate, toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import {faAdd, faChevronDown} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ import { useUser } from "../../js/context/user/useUser.ts";
 import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
+import {parseWeekDay} from "../../js/utils/timeUtils.ts";
 
 export function GroupCheckpointPage() {
     const group = useGroup();
@@ -61,7 +62,7 @@ export function GroupCheckpointPage() {
                     <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
                         <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
                     </Link>
-                    <h2 className="px-2">{date}</h2>
+                    <h2 className="px-2">{parseWeekDay(parseScrumdappDate(date).getUTCDay())} {date}</h2>
                     <Link
                         to={`/groups/${group.id}?date=${nextDate}`}
                         className={`btn ${date === currentDate ? "opacity-50 pointer-events-none" : ""}`}
