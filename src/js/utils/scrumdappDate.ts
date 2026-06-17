@@ -8,7 +8,7 @@ export function parseScrumdappDate(date: string) {
     const year = result[1]
     const month = result[2]
     const day = result[3]
-    const resultDate = Date.UTC(parseInt(year), parseInt(month), parseInt(day))
+    const resultDate = Date.UTC(parseInt(year), parseInt(month)-1, parseInt(day))
     return new Date(resultDate)
 }
 
