@@ -93,7 +93,7 @@ export default function Invites({ groupId }: InvitesProps) {
                                     <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
                                     <td>
                                         <button onClick={() => handleCopyInvite(invite)}
-                                                className="btn btn-secondary border my-1 float-right"
+                                                className={`btn btn-secondary border my-1 float-right ${expired? "opacity-50 cursor-not-allowed!" : ""}`}
                                                 disabled={expired}>
                                             <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy}/>
                                             {copiedId === invite.id ? " Copied!" : expired ? "Expired" : " Copy link"}
