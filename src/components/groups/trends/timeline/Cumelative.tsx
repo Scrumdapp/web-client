@@ -54,14 +54,12 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
             {map.map((item, i) => {
                 let selfTotal = presenceData.get(item.id) ?? 0
                 let selfCount = selfTotal
-                let hasChildren = false
 
                 for (const child of item.children) {
                     if ((presenceData.get(child.id) ?? 0) == 0) {
                         continue
                     }
                     selfTotal += presenceData.get(child.id) ?? 0
-                    hasChildren = true
                 }
 
                 if (selfTotal == 0) {
