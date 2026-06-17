@@ -1,4 +1,3 @@
-import { getGroupTimelineHeight, GroupTimelineTrends } from "../../components/groups/trends/GroupTimelineTrends"
 import { GroupUser } from "../../js/models/group"
 import { useGroup } from "../../js/context/group/useGroup"
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi"
@@ -6,6 +5,8 @@ import { useApiComponent } from "../../js/hooks/api/useApiComponent"
 import { useState } from "react";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx"
 import { TimeRangeSelector } from "../../components/groups/trends/TimeRangeSelector.tsx"
+import { getGroupTimelineHeight, GroupTimelineDisplayType, GroupTimelineTrends } from "../../components/groups/trends/timeline/GroupTimelineTrends.tsx";
+import { TimelineSelector } from "../../components/groups/trends/timeline/TimelineSelector.tsx";
 
 export function TrendsPage() {
 
@@ -29,6 +30,15 @@ export function TrendsPage() {
 export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
 
     const [dates, setDates] = useState({ from: "1970-01-01", to: "1970-01-01" })
+    const [displayType, setDisplayType] = useState(GroupTimelineDisplayType.Periodic)
+
+    const rangeSelected = (from: string, to: string) => {
+        setDates({ from, to })
+    }
+
+    const displaySelected = (type: GroupTimelineDisplayType) => {
+        setDisplayType(type)
+    }
 
     let component = null
     if (dates.from == "1970-01-01" || dates.to == "1970-01-01") {
@@ -39,20 +49,17 @@ export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
         )
     } else {
         component = (
-            <GroupTimelineTrends users={users} from={dates.from} to={dates.to} />
+            <GroupTimelineTrends users={users} from={dates.from} to={dates.to} display={displayType} />
         )
-    }
-
-    const buttonClicked = (from: string, to: string) => {
-        setDates({ from, to })
     }
 
     return (
         <div className="card">
-            <div className="horizontal justify-between items-center mb-4">
+            <div className="horizontal justify-between gap-2 items-center mb-4">
                 <h2>Presence</h2>
                 <div className="flex-1" />
-                <TimeRangeSelector onRangeSelected={buttonClicked} />
+                <TimelineSelector onRangeSelected={displaySelected} />
+                <TimeRangeSelector onRangeSelected={rangeSelected} />
             </div>
             {component}
         </div >
