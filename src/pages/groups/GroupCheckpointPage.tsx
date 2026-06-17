@@ -102,6 +102,7 @@ function Component(
                         users={groupUsers}
                         currentUser={currentUser}
                         ownerId={session.ownerId}
+                        isMostRecent={index === 0}
                     />
                 </div>
             ))}
