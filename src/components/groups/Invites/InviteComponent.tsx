@@ -6,10 +6,12 @@ import ModalActionRow from "../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../generic/modal/components/ModalCancelButton.tsx";
 import {TimeDurationDropdownMenu} from "../../generic/TimeDuration.tsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faAdd } from "@fortawesome/free-solid-svg-icons";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
 import {useApi} from "../../../js/hooks/api/useApi.ts";
 import {InviteResponse} from "../../../js/models/invites.tsx";
+
+
 
 interface InvitesProps {
     groupId: number;
@@ -72,6 +74,7 @@ export default function Invites({ groupId }: InvitesProps) {
                 <div className="flex flex-row w-full justify-between items-center py-3">
                 <h3>All Invites</h3>
                 <button onClick={handleOpenModal} className="btn btn-secondary border">
+                    <FontAwesomeIcon icon={faAdd} />
                     Create Invite
                 </button>
                 </div>
@@ -93,7 +96,7 @@ export default function Invites({ groupId }: InvitesProps) {
                                     <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
                                     <td>
                                         <button onClick={() => handleCopyInvite(invite)}
-                                                className={`btn btn-secondary border my-1 float-right ${expired? "opacity-50 cursor-not-allowed!" : ""}`}
+                                                className={`btn btn-secondary border my-1 float-right ${expired ? "opacity-50 cursor-not-allowed!" : ""}`}
                                                 disabled={expired}>
                                             <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy}/>
                                             {copiedId === invite.id ? " Copied!" : expired ? "Expired" : " Copy link"}
