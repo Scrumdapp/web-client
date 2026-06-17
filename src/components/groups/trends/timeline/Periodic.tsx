@@ -1,56 +1,10 @@
-import { memo, useEffect } from "react"
-import { useGroup } from "../../../js/context/group/useGroup"
-import { ScrumdappApi } from "../../../js/hooks/api/scrumdappApi"
-import { useApi } from "../../../js/hooks/api/useApi"
-import { GroupPresenceTrends, PresenceTrendItem } from "../../../js/models/trends"
-import { LoadScreen } from "../../generic/LoadScreen"
-import { ErrorScreen } from "../../generic/ErrorScreen"
-import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../js/utils/colorUtils"
-import { GroupUser } from "../../../js/models/group"
-import { parseScrumdappDate, toScrumdappDate } from "../../../js/utils/scrumdappDate"
-import { getWeekStart, parseWeekDay } from "../../../js/utils/timeUtils"
-import { ApiError } from "../../../js/hooks/api/apiError"
+import { GroupUser } from "../../../../js/models/group"
+import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
+import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../../js/utils/colorUtils"
+import { parseScrumdappDate, toScrumdappDate } from "../../../../js/utils/scrumdappDate"
+import { getWeekNumber, getWeekStart, parseWeekDay } from "../../../../js/utils/timeUtils"
 
-export interface GroupTimelineTrendsProps {
-    users: GroupUser[],
-    from: string,
-    to: string
-}
-
-export function getGroupTimelineHeight(users: GroupUser[]) {
-    return (users.length * 2 + 0.5) + "rem"
-}
-
-export const GroupTimelineTrends = memo(({ users, from, to }: GroupTimelineTrendsProps) => {
-    const getGroupTimelineTrends = useApi(ScrumdappApi.getGroupTimelineTrends())
-    const group = useGroup()
-
-    useEffect(() => {
-        getGroupTimelineTrends.runCommand(group.id, from, to)
-    }, [group.id, from, to])
-
-    let component = null;
-
-    if (getGroupTimelineTrends.loading) {
-        component = <LoadScreen />
-    } else if (getGroupTimelineTrends.error) {
-        component = <ErrorScreen error={getGroupTimelineTrends.error} />
-    } else if (getGroupTimelineTrends.data == null) {
-        component = <LoadScreen />
-    } else if (getGroupTimelineTrends.data.trends.length == 0) {
-        component = <ErrorScreen error={new ApiError(999, "")} />
-    } else {
-        component = <RenderTimelineGraph users={users} data={getGroupTimelineTrends.data} />
-    }
-
-    return (
-        <div className="vertical" style={{ height: getGroupTimelineHeight(users) }}>
-            {component}
-        </div>
-    )
-})
-
-function RenderTimelineGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
+export function RenderTimelineGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
     const length = data.trends[0].days.length
 
     if (length == 0) {
@@ -135,14 +89,16 @@ function TimelineWeekDisplays({ trends }: { trends: PresenceTrendItem }) {
     return (
         <div className="horizontal">
             {data.map((it, i) => (
-                <hr className="text-fg3" key={i} style={{
+                <div key={i} className="text-fg3" style={{
                     width: `calc(${it.size / totalSize * 100}% - 4px)`,
                     marginLeft: "2px",
                     marginRight: "2px",
                     marginBottom: "2px"
-                }} />
+                }}>
+                    <span className="text-xs">W{getWeekNumber(it.date)}</span>
+                    <hr />
+                </div>
             ))}
         </div>
     )
 }
-
