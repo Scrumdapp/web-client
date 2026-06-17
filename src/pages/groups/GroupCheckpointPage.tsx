@@ -56,7 +56,7 @@ export function GroupCheckpointPage() {
                     </button>
                 </ShowIf>
             </div>
-            {getCheckpointSessions.data!.reverse().map((session) => (
+            {getCheckpointSessions.data!.reverse().map((session, index) => (
                 <div key={session.id} className="w-full">
                     <Checkpoint
                         groupId={group.id}
@@ -68,6 +68,7 @@ export function GroupCheckpointPage() {
                         users={getGroupUsers.data!}
                         currentUser={currentUser}
                         ownerId={session.ownerId}
+                        isMostRecent={index === 0}
                     />
                 </div>
             ))}
