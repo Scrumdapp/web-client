@@ -1,14 +1,14 @@
 import {useState} from "react";
 
-export default function useTempValue(): {
+export default function useTempValue<T>(): {
     visibility: boolean,
-    content: any,
-    showContent: (content: any, ms: number) => void
+    content: T,
+    showContent: (content: T, ms: number) => void
 } {
     const [visibility, setVisibility] = useState(false);
-    const [content, setContent] = useState(null);
+    const [content, setContent] = useState<T>();
 
-    const showContent = (content: any, ms: number): void => {
+    const showContent = (content: T, ms: number): void => {
         setVisibility(true);
         setContent(content);
 
@@ -19,6 +19,7 @@ export default function useTempValue(): {
 
     return {
         visibility,
+        // @ts-ignore
         content,
         showContent
     };
