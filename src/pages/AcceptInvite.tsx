@@ -19,7 +19,6 @@ export default function AcceptInvite() {
     const getInvite = ScrumdappApi.GetGroupInvite()
     const acceptInvite = ScrumdappApi.AcceptInvite()
 
-
     useEffect(() => {
         async function RetrieveInvite() {
             try {

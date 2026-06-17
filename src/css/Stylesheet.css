@@ -81,6 +81,10 @@ table {
     @apply pt-2
 }
 
+.background-container {
+    @apply overflow-x-hidden overflow-y-auto h-full max-h-96
+}
+
 .name-field {
     @apply w-40 max-w-40 border-r-green
 }
