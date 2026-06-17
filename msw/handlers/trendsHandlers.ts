@@ -56,8 +56,6 @@ function createFakeTrendsData(group: GroupUserCollection) {
         })
     }
 
-    console.log(data, maxCheckins)
-
     trendData[group.groupId] = data
 }
 
