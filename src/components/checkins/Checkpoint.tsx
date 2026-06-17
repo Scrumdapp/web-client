@@ -228,40 +228,40 @@ function Checkpoint({
             <table className="table-fixed w-full">
                 <thead>
                     <tr>
-                        <th className="py-4 px-3 text-left w-44">Name</th>
-                        <th className="py-4 px-3 text-left border-l border-dotted w-28">Attendance</th>
-                        <th className="py-4 px-3 items-center w-28">How're you feeling?</th>
-                        <th className="py-4 px-3 text-left">Comment</th>
-                        <th className="py-4 px-3 text-left">Obstacle</th>
+                        <th className="p-2 text-left w-44">Name</th>
+                        <th className="p-2 text-left border-l border-dotted w-28">Attendance</th>
+                        <th className="p-2 items-center w-28">How're you feeling?</th>
+                        <th className="p-2 text-left">Comment</th>
+                        <th className="p-2 text-left">Obstacle</th>
                         {(isSessionmaster || isInGroup) && !isLocked && (
-                            <th className="py-4 px-2 text-right w-10">Edit</th>
+                            <th className="p-2 pl-0 text-right w-10">Edit</th>
                         )}
                     </tr>
                 </thead>
                 <tbody>
                     {rows.map((item) => (
                         <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
-                            <td className="p-4 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
+                            <td className="p-2 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
                                 {item.first_name} {item.last_name}
                             </td>
-                            <td className={`text-left p-4 border-t border-dotted border-current`}>
+                            <td className={`text-left p-2 border-t border-dotted border-current`}>
                                 <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
                                     {getformatPresence(item.presence ? String(item.presence) : "---")}
                                 </div>
                             </td>
-                            <td className={`p-4 border-t border-dotted border-current`}>
+                            <td className={`p-2 border-t border-dotted border-current`}>
                                 <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
                                     <Stars amount={item.stars} />
                                 </div>
                             </td>
-                            <td className="p-4 break-words border-t border-dotted">
+                            <td className="p-2 break-words border-t border-dotted">
                                 {item.comment}
                             </td>
-                            <td className="p-4 break-words border-t border-dotted">
+                            <td className="p-2 break-words border-t border-dotted">
                                 {item.impediment}
                             </td>
                             {(isSessionmaster || isInGroup) && !isLocked && (
-                                <td className="border-t border-dotted py-3 pr-2">
+                                <td className="border-t border-dotted p-2 pl-0">
                                     {!isLocked ? (isSessionmaster ? (
                                         <button
                                             className="btn border aspect-square"
