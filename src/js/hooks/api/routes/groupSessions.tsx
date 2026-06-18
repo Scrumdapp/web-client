@@ -40,3 +40,12 @@ export function getRecentCheckpointDates() {
         })
     })
 }
+j
+export function getCheckpointDatesInMonth() {
+    return createProcessor("getRecentCheckpointDates", (groupId: number, yearMonth: string) => {
+        return makeApiRequest<SessionDates>("GET", "/groups/{groupId}/sessions/dates", {
+            params: { "{groupId}": groupId },
+            query: { month: yearMonth }
+        })
+    })
+}

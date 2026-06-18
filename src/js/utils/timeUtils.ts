@@ -1,7 +1,12 @@
+import { parseStr } from "./scrumdappDate"
 
 
 export function getWeekStart(date: Date) {
     return new Date(date.getTime() - ((date.getUTCDay() + 6) % 7) * (24 * 60 * 60 * 1000))
+}
+
+export function getWeekEnd(date: Date) {
+    return new Date(date.getTime() - (((date.getUTCDay() + 6) % 7) + 6) * (24 * 60 * 60 * 1000))
 }
 
 export function parseWeekDay(day: number) {
@@ -14,6 +19,22 @@ export function parseWeekDay(day: number) {
         case 6: return "Sat"
         case 0: return "Sun"
     }
+}
+
+const regex = /^(\d{4})-(\d{2})$/
+export function parseYearMonth(yearMonth: string) {
+    const result = regex.exec(yearMonth)
+    if (result == null) {
+        throw new Error("Could not parse yearMonth")
+    }
+    const year = result[1]
+    const month = result[2]
+    const resultDate = Date.UTC(parseInt(year), parseInt(month) - 1)
+    return new Date(resultDate)
+}
+
+export function getYearMonth(date: Date) {
+    return `${date.getFullYear()}-${parseStr(date.getMonth() + 1)}`
 }
 
 export function getWeekNumber(date: Date) {
