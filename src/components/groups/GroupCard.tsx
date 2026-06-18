@@ -7,8 +7,8 @@ interface GroupCardProps {
 
 export function GroupCard({ group }: GroupCardProps) {
     return (
-        <div className="card hover:bg-bg2!">
-            <p className="text-lg pb-2">{group.name}</p>
+        <div className="card hover:bg-bg2! wrap-break-word overflow-hidden">
+            <p className="text-lg pb-2 overflow-hidden">{group.name}</p>
             <img
                 src="https://http.cat/images/404.jpg"
                 alt="Group Image"
