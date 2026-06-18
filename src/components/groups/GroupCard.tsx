@@ -10,13 +10,13 @@ export function GroupCard({ group }: GroupCardProps) {
     const GroupUsers = useApiComponent(ScrumdappApi.getGroupUsers());
 
     return (
-        <div className="card hover:bg-bg2! wrap-break-word overflow-hidden">
+        <div className="card hover:bg-bg2!">
             <GroupUsers input={[group.id]}>
                 {(users) => (
                     <p>{users.length} Users</p>
                 )}
             </GroupUsers>
-            <p className="text-lg pb-2 overflow-hidden">{group.name}</p>
+            <p className="text-lg pb-2 overflow-hidden whitespace-nowrap text-ellipsis max-w-60ch">{group.name}</p>
             <img
                 src="https://http.cat/images/404.jpg"
                 alt="Group Image"
