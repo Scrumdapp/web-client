@@ -2,7 +2,7 @@ import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
 import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { getformatPresence } from "../../js/utils/colorUtils.ts";
 import { useEffect, useState, useCallback } from "react";
 import Modal from "../../components/generic/modal/Modal.tsx";
@@ -29,13 +29,13 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
     const [error, setError] = useState<ApiError | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const fetch = useCallback(async (currentUsers: CheckpointUser[]) => {
+    const fetch = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
             const checkpoints = await ScrumdappApi.getGroupCheckpoints()(groupId, sessionId);
             setRows(
-                currentUsers.map((user) => {
+                users.map((user) => {
                     const checkpoint = checkpoints.find((entry) => entry.groupUser === user.user_id);
                     const base: GroupCheckpoint = checkpoint ?? {
                         id: user.user_id,
@@ -54,15 +54,10 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
         } finally {
             setLoading(false);
         }
-    }, [groupId, sessionId]);
+    }, [groupId, sessionId, users]);
 
-    useEffect(() => {
-        fetch(users).catch(console.error);
-    }, [fetch, users]);
-
-    return { rows, setRows, error, loading, refresh: () => fetch(users).catch(console.error) };
+    return { rows, setRows, error, loading, fetch };
 }
-
 
 function Checkpoint({
     groupId,
@@ -73,6 +68,7 @@ function Checkpoint({
     users,
     currentUser,
     ownerId,
+    isMostRecent,
 }: {
     groupId: number;
     name: string;
@@ -82,6 +78,7 @@ function Checkpoint({
     users: CheckpointUser[];
     currentUser: { id: number } | null | undefined;
     ownerId: number;
+    isMostRecent?: boolean;
 }) {
     const modal = useModalState();
 
@@ -104,7 +101,11 @@ function Checkpoint({
         if (isLocked) modal.close();
     }, [isLocked, modal]);
 
-    const { rows, setRows, error: rowsError, loading: rowsLoading, refresh } = useGroupCheckpoints(groupId, sessionId, users);
+    const { rows, setRows, error: rowsError, loading: rowsLoading, fetch } = useGroupCheckpoints(groupId, sessionId, users);
+
+    useEffect(() => {
+        fetch().catch(console.error);
+    }, [fetch]);
 
     const [notes, setNotes] = useState("");
     const [selectedPresence, setSelectedPresence] = useState<string | null>(null);
@@ -117,6 +118,9 @@ function Checkpoint({
     const myUserId = currentUser?.id ?? null;
 
     const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(null);
+
+    const [isExpanded, setIsExpanded] = useState(!isLocked || isMostRecent);
+
 
     const handleOwnModalApply = async () => {
         if (myUserId == null || isLocked) return;
@@ -197,6 +201,9 @@ function Checkpoint({
         modal.open();
     };
 
+    const handleToggle = () => {
+        setIsExpanded(prev => !prev);
+    };
 
     if (rowsLoading || rows === null) return <LoadScreen />;
     if (rowsError) return <ErrorScreen error={rowsError} />;
@@ -208,82 +215,102 @@ function Checkpoint({
     return (
         <div className="card w-full space-x-5">
             <div className="flex flex-row items-center justify-between mr-0">
-                <h2>{name}</h2>
+                <button
+                    className="flex items-center gap-2 text-left cursor-pointer w-full"
+                    onClick={handleToggle}
+                    aria-expanded={isExpanded}
+                >
+                    <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                    />
+                    <div className="gap-3 flex items-center justify-between w-full">
+                        <h2>{name}</h2>
+                    </div>
+                </button>
                 <div className="flex items-center gap-3">
                     <button
                         className="btn border"
-                        onClick={refresh}
+                        onClick={() => fetch().catch(console.error)}
                         disabled={rowsLoading}
                     >
                         Refresh
                     </button>
                 </div>
             </div>
-            <hr className="my-2 mr-0" />
             <p>
                 {isLocked
                     ? "Checkpoint closed"
                     : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
             </p>
-            <table className="table-fixed w-full">
-                <thead>
-                    <tr>
-                        <th className="p-4 text-left">Name</th>
-                        <th className="p-4 text-left border-l border-dotted">Attendance</th>
-                        <th className="p-4 items-center">How're you feeling?</th>
-                        <th className="p-4 text-left w-[25%]">Comment</th>
-                        <th className="p-4 text-left w-[25%]">Obstacle</th>
-                        {(isSessionmaster || (isInGroup && !isLocked)) && (
-                            <th className="py-4 pr-4 text-left w-[5%]">Edit</th>
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows.map((item) => (
-                        <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
-                            <td className="p-4 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
-                                {item.first_name} {item.last_name}
-                            </td>
-                            <td className={`text-left p-4 border-t border-dotted border-current`}>
-                                <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
-                                    {getformatPresence(item.presence ? String(item.presence) : "---")}
-                                </div>
-                            </td>
-                            <td className={`p-4 border-t border-dotted border-current`}>
-                                <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
-                                    <Stars amount={item.stars} />
-                                </div>
-                            </td>
-                            <td className="p-4 break-words border-t border-dotted">
-                                {item.comment}
-                            </td>
-                            <td className="p-4 break-words border-t border-dotted">
-                                {item.impediment}
-                            </td>
-                            {(isSessionmaster || (isInGroup && !isLocked)) && (
-                                <td className="border-t border-dotted py-3 pr-2">
-                                    {!isLocked ? (isSessionmaster ? (
-                                        <button
-                                            className="btn border aspect-square"
-                                            onClick={() => handleModalOpen(item)}
-                                        >
-                                            <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-                                        </button>
-                                    ) : (item.groupUser === myUserId || item.id === myUserId) ? (
-                                        <button
-                                            className="btn border aspect-square"
-                                            onClick={handleOwnModalOpen}
-                                        >
-                                            <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
-                                        </button>
-                                    ) : null
-                                    ) : null}
-                                </td>
-                            )}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div
+                className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+                    isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                }`}
+            >
+                <div className="overflow-hidden">
+                    <hr className="my-2 mr-0" />
+                    <table className="table-fixed w-full">
+                        <thead>
+                            <tr>
+                                <th className="p-2 text-left w-44">Name</th>
+                                <th className="p-2 text-left border-l border-dotted w-28">Attendance</th>
+                                <th className="p-2 items-center w-28">How're you feeling?</th>
+                                <th className="p-2 text-left">Comment</th>
+                                <th className="p-2 text-left">Obstacle</th>
+                                {(isSessionmaster || isInGroup) && !isLocked && (
+                                    <th className="p-2 pl-0 text-right w-10">Edit</th>
+                                )}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows.map((item) => (
+                                <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
+                                    <td className="p-2 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
+                                        {item.first_name} {item.last_name}
+                                    </td>
+                                    <td className={`text-left p-2 border-t border-dotted border-current`}>
+                                        <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
+                                            {getformatPresence(item.presence ? String(item.presence) : "---")}
+                                        </div>
+                                    </td>
+                                    <td className={`p-2 border-t border-dotted border-current`}>
+                                        <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
+                                            <Stars amount={item.stars} />
+                                        </div>
+                                    </td>
+                                    <td className="p-2 break-words border-t border-dotted">
+                                        {item.comment}
+                                    </td>
+                                    <td className="p-2 break-words border-t border-dotted">
+                                        {item.impediment}
+                                    </td>
+                                    {(isSessionmaster || isInGroup) && !isLocked && (
+                                        <td className="border-t border-dotted p-2 pl-0">
+                                            {!isLocked ? (isSessionmaster ? (
+                                                <button
+                                                    className="btn border aspect-square"
+                                                    onClick={() => handleModalOpen(item)}
+                                                >
+                                                    <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+                                                </button>
+                                            ) : (item.groupUser === myUserId || item.id === myUserId) ? (
+                                                <button
+                                                    className="btn border aspect-square"
+                                                    onClick={handleOwnModalOpen}
+                                                >
+                                                    <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
+                                                </button>
+                                            ) : null
+                                            ) : null}
+                                        </td>
+                                    )}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <Modal state={modal}>
                 <div className="space-y-5">
                     <ModalHeadText>{`Edit Checkpoint ${selectedUser ? `for ${selectedUser.first_name} ${selectedUser.last_name}` : ""}`}</ModalHeadText>          <div className="flex flex-col space-y-2 w-full">

@@ -9,7 +9,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
 import {useApi} from "../../../js/hooks/api/useApi.ts";
-import {InviteResponse} from "../../../js/models/invites.ts";
+import {InviteResponse} from "../../../js/models/invites.tsx";
+import useTempState from "../../../js/hooks/useTempState.ts";
 
 interface InvitesProps {
     groupId: number;
@@ -26,13 +27,19 @@ export default function Invites({ groupId }: InvitesProps) {
     const getGroupInvites = useApi(ScrumdappApi.GetGroupInvites());
     const [invites, setInvites] = useState<InviteResponse[]>([]);
 
-
-    const [copied, setCopied] = useState(false);
+    const [copied, setCopied] = useTempState(false);
+    const [copiedId, setCopiedId] = useTempState<number>(null);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(generatedLink);
         setCopied(true);
-        setTimeout(() => setCopied(false), 3000);
+    };
+
+
+    const handleCopyInvite = (invite: InviteResponse) => {
+        const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
+        navigator.clipboard.writeText(link);
+        setCopiedId(invite.id);
     };
 
     useEffect(() => {
@@ -79,17 +86,22 @@ export default function Invites({ groupId }: InvitesProps) {
                             </tr>
                             </thead>
                             <tbody>
-                            {invites.map((invite) => (
+                            {invites.map((invite) => {
+                                const expired = new Date(invite.expiresAt) < new Date();
+                                return (
                                 <tr key={invite.id}>
                                     <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
                                     <td>
-                                        <button onClick={handleCopy} className="btn btn-secondary border my-1 float-right">
-                                            <FontAwesomeIcon icon={faCopy} /> Copy link
+                                        <button onClick={() => handleCopyInvite(invite)}
+                                                className={`btn btn-secondary border my-1 float-right ${expired? "opacity-50 cursor-not-allowed!" : ""}`}
+                                                disabled={expired}>
+                                            <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy}/>
+                                            {copiedId === invite.id ? " Copied!" : expired ? "Expired" : " Copy link"}
                                         </button>
                                     </td>
                                 </tr>
-
-                            ))}
+                                );
+                            })}
                             </tbody>
                         </table>
                     )}
