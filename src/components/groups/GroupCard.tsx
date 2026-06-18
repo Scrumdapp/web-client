@@ -1,13 +1,21 @@
 import { PartialGroup } from "../../js/models/group.ts";
+import {useApiComponent} from "../../js/hooks/api/useApiComponent.tsx";
+import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 
 interface GroupCardProps {
     group: PartialGroup;
 }
 
-
 export function GroupCard({ group }: GroupCardProps) {
+    const GroupUsers = useApiComponent(ScrumdappApi.getGroupUsers());
+
     return (
         <div className="card hover:bg-bg2! wrap-break-word overflow-hidden">
+            <GroupUsers input={[group.id]}>
+                {(users) => (
+                    <p>{users.length} Users</p>
+                )}
+            </GroupUsers>
             <p className="text-lg pb-2 overflow-hidden">{group.name}</p>
             <img
                 src="https://http.cat/images/404.jpg"
