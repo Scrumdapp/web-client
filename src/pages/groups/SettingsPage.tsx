@@ -1,6 +1,6 @@
 import Invites from "../../components/groups/Invites/InviteComponent.tsx";
 import {useParams} from "react-router-dom";
-import {BackgroundSelector} from "../../components/groups/settings/GroupBackgroundSelector.tsx";
+import {BackgroundSelector} from "../../components/groups/settings/background/GroupBackgroundSelector.tsx";
 
 export function SettingsPage() {
 
