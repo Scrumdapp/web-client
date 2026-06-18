@@ -2,7 +2,7 @@ import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
 import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faPencil } from "@fortawesome/free-solid-svg-icons";
+import {faArrowsRotate, faChevronDown, faPencil} from "@fortawesome/free-solid-svg-icons";
 import { getformatPresence } from "../../js/utils/colorUtils.ts";
 import { useEffect, useState, useCallback } from "react";
 import Modal from "../../components/generic/modal/Modal.tsx";
@@ -234,7 +234,7 @@ function Checkpoint({
                         onClick={() => fetch().catch(console.error)}
                         disabled={rowsLoading}
                     >
-                        Refresh
+                        <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" /> Refresh
                     </button>
                 </div>
             </div>
@@ -255,7 +255,7 @@ function Checkpoint({
                             <tr>
                                 <th className="p-2 text-left w-44">Name</th>
                                 <th className="p-2 text-left border-l border-dotted w-28">Attendance</th>
-                                <th className="p-2 items-center w-28">How're you feeling?</th>
+                                <th className="p-2 items-center w-28">How are you?</th>
                                 <th className="p-2 text-left">Comment</th>
                                 <th className="p-2 text-left">Obstacle</th>
                                 {(isSessionmaster || isInGroup) && !isLocked && (
