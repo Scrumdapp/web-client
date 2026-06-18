@@ -10,6 +10,7 @@ import { faCheck, faAdd } from "@fortawesome/free-solid-svg-icons";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
 import {useApi} from "../../../js/hooks/api/useApi.ts";
 import {InviteResponse} from "../../../js/models/invites.tsx";
+import useTempState from "../../../js/hooks/useTempState.ts";
 
 
 
@@ -27,21 +28,20 @@ export default function Invites({ groupId }: InvitesProps) {
     const createInvite = useApi(ScrumdappApi.CreateInvite());
     const getGroupInvites = useApi(ScrumdappApi.GetGroupInvites());
     const [invites, setInvites] = useState<InviteResponse[]>([]);
-    const [copied, setCopied] = useState(false);
+
+    const [copied, setCopied] = useTempState(false);
+    const [copiedId, setCopiedId] = useTempState<number>(null);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(generatedLink);
         setCopied(true);
-        setTimeout(() => setCopied(false), 3000);
     };
 
-    const [copiedId, setCopiedId] = useState<number | null>(null);
 
     const handleCopyInvite = (invite: InviteResponse) => {
         const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
         navigator.clipboard.writeText(link);
         setCopiedId(invite.id);
-        setTimeout(() => setCopiedId(null), 3000);
     };
 
     useEffect(() => {
