@@ -255,7 +255,7 @@ function Checkpoint({
                             <tr>
                                 <th className="p-2 text-left w-44">Name</th>
                                 <th className="p-2 text-left border-l border-dotted w-28">Attendance</th>
-                                <th className="p-2 items-center w-28">How are you?</th>
+                                <th className="p-2 items-center w-28">Stars</th>
                                 <th className="p-2 text-left">Comment</th>
                                 <th className="p-2 text-left">Obstacle</th>
                                 {(isSessionmaster || isInGroup) && !isLocked && (
