@@ -116,6 +116,7 @@ export default function Invites({ groupId }: InvitesProps) {
                             <input
                                 className="write-section w-full! mr-2 flex-5"
                                 placeholder="Password"
+                                alt="Password"
                                 value={password}
                                 maxLength={32}
                                 onChange={(e) => {

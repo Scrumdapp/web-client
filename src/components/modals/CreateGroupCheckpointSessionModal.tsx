@@ -33,7 +33,8 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
                 <input
                     type="text"
                     className="write-section w-full!"
-                    placeholder="Session Name"
+                    placeholder="Checkpoint Name"
+                    alt="Checkpoint Name"
                     value={checkpointName}
                     maxLength={32}
                     onChange={(e) => {

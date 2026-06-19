@@ -53,6 +53,7 @@ export default function AcceptInvite() {
                 <div>
                     <div className="py-3">
                         <input className="write-section w-full!"
+                            alt="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
