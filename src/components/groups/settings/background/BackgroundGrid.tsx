@@ -43,7 +43,7 @@ function BackgroundTile({id, handleUpdate}: {
                     aria-label={`apply background ${id}`}
                     onClick={() => handleUpdate(id)}
                 >
-                    apply
+                    Apply
                 </button>
             </div>
         </div>

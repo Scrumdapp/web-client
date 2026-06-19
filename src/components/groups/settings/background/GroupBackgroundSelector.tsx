@@ -15,13 +15,14 @@ import {BackgroundGrid} from "./BackgroundGrid.tsx";
 import {BackgroundTopicNavbar} from "./BackgroundTopicNavbar.tsx";
 
 const backgroundTopics: BackgroundTopic[] = [
-
-    {id: 'landscapes', backgrounds: ['1', '4', '6_2', '7_2', '9', '10', '14_2', '22', '30']},
-    {id: 'cities', backgrounds: ['5', '6', '7', '8','15', '17']},
-    {id: 'people', backgrounds: ['2', '4', '14']},
-    {id: 'other', backgrounds: ['2', '18', '23']},
-    {id: 'colors', backgrounds: ['color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
+    {id: 'All', backgrounds: ['1', '2', '4', '5', '6', '6_2', '7', '7_2', '8', '9', '10', '14', '14_2', '15', '17', '18', '22', '23', '30', 'color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
+    {id: 'Landscapes', backgrounds: ['1', '4', '6_2', '7_2', '9', '10', '14_2', '22', '30']},
+    {id: 'Cities', backgrounds: ['5', '6', '7', '8','15', '17']},
+    {id: 'People', backgrounds: ['2', '4', '14']},
+    {id: 'Other', backgrounds: ['2', '18', '23']},
+    {id: 'Colors', backgrounds: ['color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
 ]
+
 export interface BackgroundTopic {
     id: string,
     backgrounds: string[]
@@ -57,7 +58,7 @@ export function BackgroundSelector() {
         <>
             <div className="card vertical gap-2">
                 <h3>Background</h3>
-                <p>current background:</p>
+                <p>Current background:</p>
                 <img className="rounded-md w-1/2" src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`} alt="current background"/>
 
                 <Button onClick={modalState.open} aria-label="change background" className="mr-auto btn border">
