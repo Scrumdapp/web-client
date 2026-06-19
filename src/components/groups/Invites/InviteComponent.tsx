@@ -71,10 +71,10 @@ export default function Invites({ groupId }: InvitesProps) {
             <title>Invite | Scrumdapp</title>
             <div className="card flex flex-col items-center">
                 <div className="flex flex-row w-full justify-between items-center py-3">
-                <h3>All Invites</h3>
-                <button onClick={handleOpenModal} className="btn btn-secondary border">
-                    Create Invite
-                </button>
+                    <h3>All Invites</h3>
+                    <button onClick={handleOpenModal} className="btn btn-secondary border">
+                        Create Invite
+                    </button>
                 </div>
                 <div className="w-full">
                     {invites.length === 0 ? (
@@ -82,32 +82,31 @@ export default function Invites({ groupId }: InvitesProps) {
                     ) : (
                         <table className="table">
                             <thead>
-                            <tr>
-                                <th className="p-2 text-left">Expires at</th>
-                            </tr>
+                                <tr>
+                                    <th className="p-2 text-left">Expires at</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            {invites.map((invite) => {
-                                const expired = new Date(invite.expiresAt) < new Date();
-                                return (
-                                <tr key={invite.id}>
-                                    <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
-                                    <td>
-                                        <button onClick={() => handleCopyInvite(invite)}
-                                                className={`btn btn-secondary border my-1 float-right ${expired? "opacity-50 cursor-not-allowed!" : ""}`}
-                                                disabled={expired}>
-                                            <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy}/>
-                                            {copiedId === invite.id ? " Copied!" : expired ? "Expired" : " Copy link"}
-                                        </button>
-                                    </td>
-                                </tr>
-                                );
-                            })}
+                                {invites.map((invite) => {
+                                    const expired = new Date(invite.expiresAt) < new Date();
+                                    return (
+                                        <tr key={invite.id}>
+                                            <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
+                                            <td>
+                                                <button onClick={() => handleCopyInvite(invite)}
+                                                    className={`btn btn-secondary border my-1 float-right ${expired? "opacity-50 cursor-not-allowed!" : ""}`}
+                                                    disabled={expired}>
+                                                    <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy}/>
+                                                    {copiedId === invite.id ? " Copied!" : expired ? "Expired" : " Copy link"}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     )}
                 </div>
-
             </div>
             <Modal state={modal}>
                 {step === 1 && (
@@ -170,6 +169,5 @@ export default function Invites({ groupId }: InvitesProps) {
                 )}
             </Modal>
         </>
-
     );
 }
