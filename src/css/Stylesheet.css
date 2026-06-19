@@ -7,6 +7,7 @@
 @import "./Nav.css";
 @import "./Dropdown.css";
 @import "./Trends.css";
+@import "./CalendarTable.css";
 
 :root {
     @apply bg-bg font-Iosevka font-normal text-fg;

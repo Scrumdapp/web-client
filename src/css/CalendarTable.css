@@ -1,0 +1,32 @@
+.calendar-table th {
+    @apply border-b-fg border-b-1 font-bold;
+}
+
+.calendar-table th,
+.calendar-table td {
+    @apply p-2 text-center
+}
+
+.calendar-table td a {
+    @apply px-2
+}
+
+.calendar-table .outside-month {
+    @apply opacity-50
+}
+
+.calendar-table .weekend-day {
+    @apply text-fg4
+}
+
+.calendar-table .highlight {
+    @apply bg-green-dim/50 rounded-full transition duration-75
+}
+
+.calendar-table .highlight:hover {
+    @apply bg-green-dim/75
+}
+
+.calendar-table .today {
+    @apply underline
+}

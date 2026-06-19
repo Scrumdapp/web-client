@@ -1,12 +1,34 @@
 import { parseStr } from "./scrumdappDate"
 
+export const SECOND = 1000
+export const MINUTE = 60 * SECOND
+export const HOUR = 60 * MINUTE
+export const DAY = 24 * HOUR
+export const WEEK = 7 * DAY
 
 export function getWeekStart(date: Date) {
-    return new Date(date.getTime() - ((date.getUTCDay() + 6) % 7) * (24 * 60 * 60 * 1000))
+    return new Date(date.getTime() - ((date.getUTCDay() + 6) % 7) * DAY)
 }
 
 export function getWeekEnd(date: Date) {
-    return new Date(date.getTime() - (((date.getUTCDay() + 6) % 7) + 6) * (24 * 60 * 60 * 1000))
+    return new Date(date.getTime() - (((date.getUTCDay() + 6) % 7)) * DAY + 6 * DAY)
+}
+
+export function getWeeksBetween(from: Date, to: Date) {
+    return Math.ceil((to.getTime() - from.getTime()) / WEEK)
+}
+
+export function firstDayOfMonth(date: Date) {
+    const nd = new Date(date)
+    nd.setDate(1)
+    return nd
+}
+
+export function lastDayOfMonth(date: Date) {
+    const fd = firstDayOfMonth(date)
+    fd.setMonth(fd.getMonth() + 1)
+    fd.setDate(fd.getDate() - 1)
+    return fd;
 }
 
 export function parseWeekDay(day: number) {
