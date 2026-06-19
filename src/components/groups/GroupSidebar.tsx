@@ -11,8 +11,6 @@ const links = [
     { path: "settings", icon: faGear, color: "text-red", text: "Settings" },
 ]
 
-
-
 export function GroupSidebar() {
     const group = useGroup()
     const bg = useBackground()

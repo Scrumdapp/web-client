@@ -4,7 +4,6 @@ interface GroupCardProps {
     group: PartialGroup;
 }
 
-
 export function GroupCard({ group }: GroupCardProps) {
     const backgroundUrl = group.background_preference ? `/backgrounds/thumbnails/${group.background_preference}.webp`: "https://http.cat/images/404.jpg"
 

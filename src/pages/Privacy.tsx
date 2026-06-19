@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 export default function Privacy() {
     return (
         <div className="app-container">
+            <title>Privacy | Scrumdapp</title>
             <div className="card text-block">
                 <h1>Privacy:</h1>
                 <h2>What personal information do we collect?</h2>
