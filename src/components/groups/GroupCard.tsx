@@ -13,19 +13,8 @@ export function GroupCard({ group }: GroupCardProps) {
 
     return (
         <div className="card hover:bg-bg2!">
-            <div className="flex flex-row justify-between">
-                <p className="text-lg pb-2 overflow-hidden whitespace-nowrap text-ellipsis max-w-60ch">{group.name}</p>
-                <GroupUsers input={[group.id]}>
-                    {(users) => (
-                        <p>{users.length}<FontAwesomeIcon icon={faUser} className="text-blue"/></p>
-                    )}
-                </GroupUsers>
-                </div>
-            <img
-                src="https://http.cat/images/404.jpg"
-                alt="Group Image"
-                className="object-cover h-full rounded overflow-hidden"
-            />
+            <p className="text-lg pb-2">{group.name}</p>
+            <img src="https://http.cat/images/404.jpg" alt="Group-image" className="object-cover h-full rounded overflow-hidden" />
         </div >
     );
 }

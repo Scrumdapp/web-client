@@ -3,7 +3,6 @@ import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../js/context/user/useUser.ts";
-import ScrumdappLogoTransparant from "../../assets/ScrumdappLogoTransparent.webp"
 
 export default function Header() {
 
@@ -19,7 +18,7 @@ export default function Header() {
             <nav className="bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center z-50">
                 <div className="flex-1 text-fg text-2xl font-bold">
                     <Link to="/groups" className="horizontal gap-1 items-center">
-                        <img alt="scrumdapp-logo" src={ScrumdappLogoTransparant} className="nav-icon" />
+                        <img src={`/ScrumdappLogoTransparent.webp`} alt="scrumdapp-logo" className="nav-icon" />
                         Scrumdapp
                     </Link>
                 </div>
@@ -34,8 +33,8 @@ export default function Header() {
             <div className="flex-1 nav-dropdown cursor-default">
                 <button className="horizontal float-right items-center gap-1">
                         <span>{`${user.first_name} ${user.last_name}`}</span>
-                        <img alt="user-profile-picture" src={user.avatar ?? "/Scrumdaddy.png"} className="nav-icon" />
-                    </button>
+                        <img src={user.avatar ?? "/Scrumdaddy.png"} alt="user-profile-picture" className="nav-icon" />
+                    </div>
                     <div className="nav-dropdown-content -right-[0.5px]!">
                         <div className="py-4 px-1.5 text-left">
                             <Link to="/settings" className="btn-nav-dropdown hover:text-yellow">

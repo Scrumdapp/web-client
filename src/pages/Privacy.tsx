@@ -49,7 +49,7 @@ export default function Privacy() {
                 </ul>
                 
                 <h2>Questions & Complaints</h2>
-                <p>If you have questions about this privacy notice, your personal information or how Scrumdapp handles information. Please reach out at:
+                <p>If you have questions about this privacy notice, your personal information or how Scrumdapp handles information, please reach out at:
                     <Link className="text-link" target="_blank" to="mailto:info@scrumdapp.com"> info@scrumdapp.com </Link>
                     or on
                     <Link className="text-link" target="_blank" to="https://scrumdapp.com/#Contact"> our contact page</Link>.
