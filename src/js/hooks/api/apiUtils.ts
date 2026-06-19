@@ -59,6 +59,7 @@ export async function makeApiRequest<T>(
 
     return fetch(actualUrl, init)
         .then(async it => {
+            if (it.status == 204) return null
             if (it.status >= 400) {
                 const json = await it.json()
                 if (!isErrorDto(json)) {

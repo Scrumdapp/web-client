@@ -88,7 +88,7 @@ export const inviteHandlers = [
             groupId: invite.groupId,
             groupName: "I don't know, a group"
         }
-        return HttpResponse.json(response)
+        return HttpResponse.json(null, {status: 204})
     }),
     http.delete("/api/invites/:inviteId", ({ }) => {
         return new HttpResponse()

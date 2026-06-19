@@ -1,5 +1,5 @@
 import { createProcessor, makeApiRequest } from "../apiUtils.ts";
-import {InviteAcceptResponse, InviteResponse} from "../../../models/invites.ts";
+import { InviteResponse} from "../../../models/invites.ts";
 
 export function CreateInvite() {
     return createProcessor("createInvite", (groupId: number, expiresAt: Date, password: string) => {
@@ -40,7 +40,7 @@ export function DeleteInvite() {
 
 export function AcceptInvite() {
     return createProcessor("acceptInvite", (inviteId: number, token: string, password: string) => {
-        return makeApiRequest<InviteAcceptResponse>("POST", "/invites/{inviteId}/accept", {
+        return makeApiRequest("POST", "/invites/{inviteId}/accept", {
             params: { "{inviteId}": inviteId },
             body: { token, password }
         })
