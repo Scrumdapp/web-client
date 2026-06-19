@@ -24,7 +24,7 @@ export const groupData: Group[] = [
     {
         id: 2,
         name: "Outer Space",
-        background_preference: undefined,
+        background_preference: 'color_green',
         icon_preference: undefined,
         enabled_features: [
             "checkins",
@@ -39,7 +39,7 @@ export const groupData: Group[] = [
     {
         id: 3,
         name: "Inner Space",
-        background_preference: undefined,
+        background_preference: '14_2',
         icon_preference: undefined,
         enabled_features: [
             "checkins",
