@@ -15,7 +15,7 @@ export function IconInput({ icon, iconProps = {}, className, ...inputProps }: Ic
 
   return (
     <div className="relative">
-      <input className={`write-section pr-9! ${className ?? ""}`} {...inputProps} alt="icon-input" />
+      <input className={`write-section pr-9! ${className ?? ""}`} {...inputProps} alt="search" />
       { /* @ts-ignore */}
       <FontAwesomeIcon {...(iconProps)} />
     </div>
