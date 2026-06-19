@@ -10,11 +10,11 @@ interface ModalProps {
 export default function Modal({ state, children }: ModalProps) {
   if (!state.isOpen) return null
 
+
   return (
     <ModalContext.Provider value={state}>
       <div
         className="flex fixed inset-0 backdrop-blur-lg justify-center items-center"
-        onClick={state.close}
       >
         <div
           className="bg-bg_h rounded-lg p-6 min-w-96 w-fit border"
