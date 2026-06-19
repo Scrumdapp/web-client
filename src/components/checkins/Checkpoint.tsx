@@ -327,8 +327,8 @@ function Checkpoint({
                         <label>Notes</label>
                         <input
                             className="write-section"
-                            placeholder="Comment"
-                            alt="Comment"
+                            placeholder="Notes"
+                            alt="Notes"
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                         />
