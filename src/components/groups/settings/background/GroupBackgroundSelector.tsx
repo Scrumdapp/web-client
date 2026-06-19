@@ -3,7 +3,7 @@ import {useModalState} from "../../../../js/hooks/useModalState.ts";
 import ModalHeadText from "../../../generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useGroup} from "../../../../js/context/group/useGroup.ts";
 import {Button} from "@headlessui/react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -11,7 +11,6 @@ import {faImages} from "@fortawesome/free-solid-svg-icons";
 import {useApi} from "../../../../js/hooks/api/useApi.ts";
 import {ScrumdappApi} from "../../../../js/hooks/api/scrumdappApi.ts";
 import {PatchGroup} from "../../../../js/models/group.ts";
-import useTempValue from "../../../../js/hooks/useTempValue.ts";
 import {BackgroundGrid} from "./BackgroundGrid.tsx";
 import {BackgroundTopicNavbar} from "./BackgroundTopicNavbar.tsx";
 
@@ -32,23 +31,25 @@ export function BackgroundSelector() {
 
     const group = useGroup()
     const modalState = useModalState()
-    const statusMessage = useTempValue<string>()
 
     const [selectedTopic, setSelectedTopic] = useState<BackgroundTopic>(backgroundTopics[0])
+    const [statusMessage, setStatusMessage] = useState<{text: string, col: string} | null>(null)
 
     const updateGroup = useApi(ScrumdappApi.updateGroup())
+
+    useEffect(() => {
+        modalState.onClosed(() => setStatusMessage(null))
+    }, []);
 
     function handleGroupUpdate(backgroundId: string) {
         const patched: PatchGroup = {
             background_preference: backgroundId
         }
         updateGroup.runCommand(group.id, patched).then(() => {
-            modalState.close()
-            statusMessage.showContent("Background applied succesfully", 4000)
+            setStatusMessage({col: "green", text: "Background applied successfully"})
         })
         .catch(() => {
-            modalState.close()
-            statusMessage.showContent("Something went wrong whilst applying changes", 4000)
+            setStatusMessage({col: "red", text: "Something went wrong trying to apply the background"})
         })
     }
 
@@ -56,7 +57,6 @@ export function BackgroundSelector() {
         <>
             <div className="card vertical gap-2">
                 <h3>Background</h3>
-                {statusMessage.visibility ? <p className="w-full border rounded-lg bg-orange-dim">{statusMessage.content}</p> : ''}
                 <p>current background:</p>
                 <img className="rounded-md w-1/2" src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`} alt="current background"/>
 
@@ -73,6 +73,11 @@ export function BackgroundSelector() {
                     <BackgroundGrid backgrounds={selectedTopic.backgrounds} handleUpdate={handleGroupUpdate} />
                 </div>
                 <ModalActionRow>
+                    {statusMessage && (
+                        <p className={`w-full transition-opacity opacity-100 text-${statusMessage.col}`}>
+                            {statusMessage.text}
+                        </p>
+                    )}
                     <ModalCancelButton/>
                 </ModalActionRow>
             </Modal>
