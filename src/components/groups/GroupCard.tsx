@@ -4,7 +4,6 @@ interface GroupCardProps {
     group: PartialGroup;
 }
 
-
 export function GroupCard({ group }: GroupCardProps) {
     return (
         <div className="card hover:bg-bg2!">
