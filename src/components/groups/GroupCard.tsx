@@ -13,7 +13,7 @@ export function GroupCard({ group }: GroupCardProps) {
             <p className="text-lg pb-2">{group.name}</p>
             <img
                 src={backgroundUrl}
-                alt="Group Image"
+                alt={`Group image for ${group.name}`}
                 className="aspect-4/3 object-cover h-full rounded overflow-hidden"
             />
         </div >

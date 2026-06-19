@@ -61,7 +61,6 @@ export default function Groups() {
                     const filteredGroups = groups.filter((group) =>
                         group.name.toLowerCase().includes(search.toLowerCase().trim())
                     );
-
                     return (
                         <ul className="grid gap-4 grid-cols-3 justify-center">
                             {filteredGroups.length === 0 && (

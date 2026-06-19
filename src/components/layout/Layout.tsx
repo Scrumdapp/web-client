@@ -15,7 +15,7 @@ export default function Layout({ children }: PropsWithChildren) {
                         <Header />
                         <main className="flex-1 flex flex-col">{children}</main>
                         <Footer />
-                        <img src={`/backgrounds/${ctx?.background ? ctx.background : '1'}.webp`} className="fixed object-cover right-0 left-0 top-0 bottom-0 w-full h-full -z-1 opacity-15 transition-all duration-300" alt="background" />
+                        <img src={`/backgrounds/${ctx?.background ? ctx.background : '1'}.webp`} className="fixed object-cover right-0 left-0 top-0 bottom-0 w-full h-full -z-1 opacity-15" alt="background" />
                     </div>
                 )}
             </BackgroundConsumer>
