@@ -2,9 +2,9 @@ import {Link} from "react-router-dom";
 
 export default function Privacy() {
     return (
-        <div className="app-container">
+        <>
             <title>Privacy | Scrumdapp</title>
-            <div className="card text-block">
+            <div className="card text-block app-container mb-4">
                 <h1>Privacy:</h1>
                 <h2>What personal information do we collect?</h2>
                 <p>
@@ -56,6 +56,6 @@ export default function Privacy() {
                     <Link className="text-link" target="_blank" to="https://scrumdapp.com/#Contact"> our contact page</Link>.
                 </p>
             </div>
-        </div>
+        </>
     )
 }
