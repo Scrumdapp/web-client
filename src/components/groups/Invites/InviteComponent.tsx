@@ -68,6 +68,7 @@ export default function Invites({ groupId }: InvitesProps) {
     }
     return (
         <>
+            <title>Invite | Scrumdapp</title>
             <div className="card flex flex-col items-center">
                 <div className="flex flex-row w-full justify-between items-center py-3">
                 <h3>All Invites</h3>

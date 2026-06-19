@@ -47,6 +47,7 @@ export default function AcceptInvite() {
 
     return (
         <div className="app-container">
+            <title>Accept Invite | Scrumdapp</title>
             <div className="card flex flex-col">
                 <h1>You're invited to {invite?.groupId}!</h1>
                 <p>Enter your given password underneath.</p>
