@@ -49,3 +49,11 @@ export function getCheckpointDatesInMonth() {
         })
     })
 }
+
+export function getCheckpointMonths() {
+    return createProcessor("getCheckpointMonths", (groupId: number) => {
+        return makeApiRequest<string[]>("GET", "/groups/{groupId}/sessions/months", {
+            params: { "{groupId}": groupId },
+        })
+    })
+}

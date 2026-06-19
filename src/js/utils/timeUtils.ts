@@ -31,6 +31,18 @@ export function lastDayOfMonth(date: Date) {
     return fd;
 }
 
+export function previousMonth(date: Date) {
+    const nd = new Date(date)
+    nd.setMonth(nd.getMonth() - 1)
+    return nd
+}
+
+export function nextMonth(date: Date) {
+    const nd = new Date(date)
+    nd.setMonth(nd.getMonth() + 1)
+    return nd
+}
+
 export function parseWeekDay(day: number) {
     switch (day) {
         case 1: return "Mon"
@@ -40,6 +52,23 @@ export function parseWeekDay(day: number) {
         case 5: return "Fri"
         case 6: return "Sat"
         case 0: return "Sun"
+    }
+}
+
+export function parseMonthText(month: number) {
+    switch (month) {
+        case 0: return "January"
+        case 1: return "February"
+        case 2: return "March"
+        case 3: return "April"
+        case 4: return "May"
+        case 5: return "June"
+        case 6: return "July"
+        case 7: return "August"
+        case 8: return "September"
+        case 9: return "Oktober"
+        case 10: return "November"
+        case 11: return "December"
     }
 }
 
@@ -53,6 +82,10 @@ export function parseYearMonth(yearMonth: string) {
     const month = result[2]
     const resultDate = Date.UTC(parseInt(year), parseInt(month) - 1)
     return new Date(resultDate)
+}
+
+export function isYearMonth(yearMonth: string) {
+    return regex.test(yearMonth)
 }
 
 export function getYearMonth(date: Date) {

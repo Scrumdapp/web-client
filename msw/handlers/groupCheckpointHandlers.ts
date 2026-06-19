@@ -3,7 +3,7 @@ import { GroupCheckpoint, GroupCheckpointSession, SessionDates } from "../../src
 import { groupData } from "./groupHandlers";
 import { groupUserData } from "./groupUserHandler";
 import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
-import { DAY, firstDayOfMonth, getWeekEnd, getWeekStart, lastDayOfMonth, parseYearMonth } from "../../src/js/utils/timeUtils";
+import { DAY, firstDayOfMonth, getWeekEnd, getWeekStart, getYearMonth, lastDayOfMonth, parseYearMonth } from "../../src/js/utils/timeUtils";
 
 
 export const PRESENCE_FIELDS = ["ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT", "SICK"]
@@ -175,6 +175,15 @@ export const groupCheckpointHandlers = [
         groupCheckpoints.push(genCheckpoints)
 
         return HttpResponse.json(newSession, { status: 201 })
+    }),
+    http.get("/api/groups/:gid/sessions/months", ({ params }) => {
+        // @ts-ignore
+        const sessions = groupCheckpoints.filter(it => it.sessions.groupId == params["gid"])
+
+        const uniqueMonths = new Set<string>(sessions.map(it => getYearMonth(new Date(it.sessions.startTime))))
+        let dates = Array.from(uniqueMonths).sort().reverse()
+
+        return HttpResponse.json<string[]>(dates)
     }),
     http.get("/api/groups/:gid/sessions/dates", ({ params, request }) => {
         // @ts-ignore
