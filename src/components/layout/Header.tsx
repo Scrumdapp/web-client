@@ -22,7 +22,6 @@ export default function Header() {
                         Scrumdapp
                     </Link>
                 </div>
-
                 <div className="flex-1 flex space-x-6 text-black justify-center font-medium">
                     {links.map((link, i) => (
                         <Link key={i} to={link.to} className="btn w-20 py-1!">
@@ -30,19 +29,19 @@ export default function Header() {
                         </Link>
                     ))}
                 </div>
-            <div className="flex-1 nav-dropdown cursor-default">
-                <button className="horizontal float-right items-center gap-1">
+                <div className="flex-1 nav-dropdown cursor-default">
+                    <button className="horizontal float-right items-center gap-1">
                         <span>{`${user.first_name} ${user.last_name}`}</span>
                         <img src={user.avatar ?? "/Scrumdaddy.png"} alt="user-profile-picture" className="nav-icon" />
-                    </div>
-                    <div className="nav-dropdown-content -right-[0.5px]!">
-                        <div className="py-4 px-1.5 text-left">
-                            <Link to="/settings" className="btn-nav-dropdown hover:text-yellow">
-                                <FontAwesomeIcon icon={faPortrait} className="text-yellow" />
-                                Profile
-                            </Link>
-                            <LogoutButton />
-                        </div>
+                    </button>
+                </div>
+                <div className="nav-dropdown-content -right-[0.5px]!">
+                    <div className="py-4 px-1.5 text-left">
+                        <Link to="/settings" className="btn-nav-dropdown hover:text-yellow">
+                            <FontAwesomeIcon icon={faPortrait} className="text-yellow" />
+                            Profile
+                        </Link>
+                        <LogoutButton />
                     </div>
                 </div>
             </nav>
