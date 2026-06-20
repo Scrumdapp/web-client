@@ -7,7 +7,7 @@
 }
 
 .nav-dropdown-content {
-    @apply absolute bg-bg_h w-fit h-auto border border-fg4 border-t-transparent rounded-b-2xl -mr-1 -z-1 top-1/2 right-0 origin-top-right scale-25 transition-all ease-in-out duration-200 opacity-0 px-2 pt-2
+    @apply absolute bg-bg_h w-fit h-auto border-r border-l border-b border-r-fg4 border-l-fg4 border-b-fg4 rounded-b-2xl -mr-1 -z-1 top-1/2 right-0 origin-top-right scale-25 transition-all ease-in-out duration-200 opacity-0 px-2 pt-2
 }
 
 .nav-icon {
