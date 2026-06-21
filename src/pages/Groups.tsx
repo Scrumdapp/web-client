@@ -11,15 +11,12 @@ import { CreateGroupModal } from "../components/modals/CreateGroupModal.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
 import { ShowIf } from "../components/utility/Conditional.tsx";
 import { hasRole, Role } from "../js/utils/userPermissions.ts";
-import {useBackground} from "../js/context/background/useBackground.ts";
 
 export default function Groups() {
     const user = useUser()
     const modal = useModalState();
     const [search, setSearch] = useState("");
     const GetGroupsComponent = useApiComponent(ScrumdappApi.getGroups());
-    const bg = useBackground()
-    bg.setBackground("1")
 
     useEffect(() => {
         modal.onAccepted(() => {

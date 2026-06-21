@@ -68,11 +68,9 @@ export function BackgroundSelector() {
             </div>
 
             <Modal state={modalState}>
-                <div className="vertical max-w-xl">
-                    <ModalHeadText>Select background</ModalHeadText>
-                    <BackgroundTopicNavbar selectedTopicId={selectedTopic.id} handleSelected={setSelectedTopic} topics={backgroundTopics} />
-                    <BackgroundGrid backgrounds={selectedTopic.backgrounds} handleUpdate={handleGroupUpdate} />
-                </div>
+                <ModalHeadText>Select background</ModalHeadText>
+                <BackgroundTopicNavbar selectedTopicId={selectedTopic.id} handleSelected={setSelectedTopic} topics={backgroundTopics} />
+                <BackgroundGrid backgrounds={selectedTopic.backgrounds} handleUpdate={handleGroupUpdate} />
                 <ModalActionRow>
                     {statusMessage && (
                         <p className={`w-full transition-opacity opacity-100 text-${statusMessage.col}`}>
