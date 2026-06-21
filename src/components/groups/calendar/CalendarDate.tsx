@@ -9,6 +9,8 @@ import { LoadScreen } from "../../generic/LoadScreen"
 
 export function CalendarDate({ weekStart, offsetDays, yearMonth, groupId, dates }: { weekStart: Date, offsetDays: number, yearMonth: string, groupId: number, dates: SessionDates }) {
 
+    const [ mouseOver, setMouseOver ] = useState(false)
+
     const myDate = new Date(weekStart.getTime() + offsetDays * DAY)
     const myScrumdappDate = toScrumdappDate(myDate)
     const hasCheckpoint = dates.dates.find(it => myScrumdappDate == it.date) != null
@@ -23,22 +25,23 @@ export function CalendarDate({ weekStart, offsetDays, yearMonth, groupId, dates 
             <Link
                 className={`dropdown ${hasCheckpoint ? "highlight" : ""} ${isWeekendDay ? "weekend-day" : ""} ${isToday ? "today" : ""}`}
                 to={`/groups/${groupId}?date=${myScrumdappDate}`}
+                onMouseEnter={() => setMouseOver(true)}
+                onMouseLeave={() => setMouseOver(false)}
             >
                 {myDate.getUTCDate()}
-                {hasCheckpoint && <DateDropdownContent groupId={groupId} date={myScrumdappDate} />}
+                {hasCheckpoint && <DateDropdownContent groupId={groupId} date={myScrumdappDate} mouseOver={mouseOver} />}
             </Link>
         </td>
     )
 }
 
-const DateDropdownContent = memo(({ groupId, date }: { groupId: number, date: string }) => {
+const DateDropdownContent = memo(({ groupId, date, mouseOver }: { groupId: number, date: string, mouseOver: boolean }) => {
 
-    const [mouseOver, setMouseOver] = useState(false)
     const getCheckpointSessions = useApi(ScrumdappApi.getCheckpointSessions())
 
     const tryLoadData = () => {
         console.log("Loading")
-        if (getCheckpointSessions.data != null || getCheckpointSessions.loading == true) {
+        if (getCheckpointSessions.data != null || getCheckpointSessions.loading) {
             return
         }
 
@@ -57,10 +60,8 @@ const DateDropdownContent = memo(({ groupId, date }: { groupId: number, date: st
     return (
         <div
             className="dropdown-content"
-            onMouseEnter={() => setMouseOver(true)}
-            onMouseLeave={() => setMouseOver(false)}
         >
-            {getCheckpointSessions.data == null || getCheckpointSessions.loading == true ? (
+            {getCheckpointSessions.data == null || getCheckpointSessions.loading ? (
                 <LoadScreen />
             ) : (
                 <div className="vertical gap-2">
