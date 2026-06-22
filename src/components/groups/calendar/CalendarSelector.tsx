@@ -35,7 +35,7 @@ export const CalendarSelector = memo(({ currentYearMonth }: { currentYearMonth: 
                     </div>
                     <div className="flex-2 flex justify-center items-center">
                         <div className="dropdown flex btn border w-32">
-                            {parseMonthText(previousMonth(ym).getUTCMonth())}
+                            {parseMonthText(ym.getUTCMonth())}
                             <div className="flex-1" />
                             <FontAwesomeIcon icon={faChevronDown} />
                             <div className="dropdown-content w-32">
