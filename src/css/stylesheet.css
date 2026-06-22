@@ -20,6 +20,7 @@
 @import "./components/write-section.css" layer(components);
 
 @import "./pages/trends.css" layer(components);
+@import "./pages/calendar-table.css" layer(components);
 
 @import "./utilities/utils.css" layer(utilities);
 @import "./utilities/anim.css" layer(utilities);
