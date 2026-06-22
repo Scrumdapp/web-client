@@ -18,7 +18,7 @@ export function useApiComponent<TInput extends any[], TResult>(processor: Reques
 
         useEffect(() => {
             apiRequester.runCommand(...input)
-        }, [processor.id])
+        }, [processor.id, ...input])
 
         if (apiRequester.loading) {
             return loading ?? <LoadScreen />

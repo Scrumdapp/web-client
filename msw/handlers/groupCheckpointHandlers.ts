@@ -3,6 +3,7 @@ import { GroupCheckpoint, GroupCheckpointSession, SessionDates } from "../../src
 import { groupData } from "./groupHandlers";
 import { groupUserData } from "./groupUserHandler";
 import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
+import { DAY, firstDayOfMonth, getWeekEnd, getWeekStart, getYearMonth, lastDayOfMonth, parseYearMonth } from "../../src/js/utils/timeUtils";
 
 
 export const PRESENCE_FIELDS = ["ON_TIME", "ONLINE", "LATE", "ABSENT", "VERIFIED_LATE", "VERIFIED_ABSENT", "SICK"]
@@ -48,7 +49,7 @@ interface GenCheckpoints {
 
 const groupCheckpoints: GenCheckpoints[] = generateCheckpoints({
     gId: 1,
-    dateCount: 10,
+    dateCount: 64,
     sessionPerDay: 3,
 }, {
     gId: 2,
@@ -75,7 +76,7 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
 
         const now = Date.now()
         for (let i = 0; i < session.dateCount; i++) {
-            const day = new Date(now - (1000 * 60 * 60 * 24) * i)
+            const day = new Date(now - i * DAY)
             for (let j = 0; j < session.sessionPerDay; j++) {
                 const randomUser = Math.floor(Math.random() * users.length)
                 const session = generateSession(Math.floor(Math.random() * 6900), group!.id, users[randomUser], day)
@@ -175,12 +176,34 @@ export const groupCheckpointHandlers = [
 
         return HttpResponse.json(newSession, { status: 201 })
     }),
+    http.get("/api/groups/:gid/sessions/months", ({ params }) => {
+        // @ts-ignore
+        const sessions = groupCheckpoints.filter(it => it.sessions.groupId == params["gid"])
+
+        const uniqueMonths = new Set<string>(sessions.map(it => getYearMonth(new Date(it.sessions.startTime))))
+        let dates = Array.from(uniqueMonths).sort().reverse()
+
+        return HttpResponse.json<string[]>(dates)
+    }),
     http.get("/api/groups/:gid/sessions/dates", ({ params, request }) => {
         // @ts-ignore
         const sessions = groupCheckpoints.filter(it => it.sessions.groupId == params["gid"])
-        const limit = parseInt(new URL(request.url).searchParams.get("limit") ?? "10")
+        const url = new URL(request.url);
+
         const uniqueDates = new Set<string>(sessions.map(it => toScrumdappDate(new Date(it.sessions.startTime))))
-        const dates = Array.from(uniqueDates).sort().reverse().slice(0, Math.min(limit, uniqueDates.size))
+        let dates = Array.from(uniqueDates).sort().reverse()
+
+        if (url.searchParams.has("month")) {
+            const month = parseYearMonth(url.searchParams.get("month")!)
+            const firstDay = getWeekStart(firstDayOfMonth(month)).getTime()
+            const lastDay = getWeekEnd(lastDayOfMonth(month)).getTime()
+
+            dates = dates.filter(it => { const d = parseScrumdappDate(it).getTime(); return d >= firstDay && d <= lastDay })
+        } else {
+            const limit = parseInt(url.searchParams.get("limit") ?? "10")
+            dates = dates.slice(0, limit)
+        }
+
         return HttpResponse.json<SessionDates>({
             fromDate: dates.length == 0 ? toScrumdappDate(new Date()) : dates[dates.length - 1],
             toDate: dates.length == 0 ? toScrumdappDate(new Date()) : dates[0],

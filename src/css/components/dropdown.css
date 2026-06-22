@@ -4,7 +4,7 @@
 }
 
 .dropdown-content {
-    @apply hidden fixed border z-1 border border-fg4 p-4 rounded-lg bg-bg_h shadow-lg;
+    @apply hidden fixed border z-1 border border-fg4 p-2 rounded-lg bg-bg_h shadow-lg;
 
     position-anchor: --dropdown-anchor;
     top: anchor(bottom);
