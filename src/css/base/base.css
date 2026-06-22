@@ -9,3 +9,7 @@
 table {
     @apply table border-collapse box-border w-full
 }
+
+body:has(dialog[open]) {
+    overflow: hidden;
+}
