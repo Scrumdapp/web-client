@@ -91,7 +91,7 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                                 {selfTotal}x
                             </HideIfNotFullyVisible>
                         </HideIf>
-                        <div className="dropdown-content vertical">
+                        <div className="dropdown-content">
                             <HideIf condition={selfCount == 0}>
                                 <div>
                                     {getLabelName(item.id)}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
