@@ -39,7 +39,7 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
                     <tbody>
                         {Array.from({ length: weekCount }).map((_, w) => new Date(firstDay.getTime() + w * WEEK)).map((weekStart) => (
                             <tr key={weekStart.getTime()}>
-                                <td className="text-gray max-w-6"> W{getWeekNumber(weekStart)} </td>
+                                <td className="text-gray max-w-6">W{getWeekNumber(weekStart)}</td>
                                 <CalendarDate weekStart={weekStart} offsetDays={0} yearMonth={yearMonth} groupId={group.id} dates={dates} />
                                 <CalendarDate weekStart={weekStart} offsetDays={1} yearMonth={yearMonth} groupId={group.id} dates={dates} />
                                 <CalendarDate weekStart={weekStart} offsetDays={2} yearMonth={yearMonth} groupId={group.id} dates={dates} />
