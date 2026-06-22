@@ -12,7 +12,6 @@ const links = [
 
 export function GroupSidebar() {
     const group = useGroup()
-
     return (
         <div className="card vertical gap-1">
             <Link to={`/groups/${group.id}`} className="btn justify-start!">

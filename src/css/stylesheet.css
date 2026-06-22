@@ -11,6 +11,7 @@
 @import "./base/typography.css" layer(base);
 
 @import "./components/layout/nav.css" layer(components);
+@import "./components/background-grid.css" layer(components);
 @import "./components/btn.css" layer(components);
 @import "./components/card.css" layer(components);
 @import "./components/checkpoint-table.css" layer(components);

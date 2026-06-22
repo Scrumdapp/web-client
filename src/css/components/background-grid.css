@@ -1,0 +1,3 @@
+.background-container {
+    @apply overflow-x-hidden overflow-y-auto h-full max-h-96
+}

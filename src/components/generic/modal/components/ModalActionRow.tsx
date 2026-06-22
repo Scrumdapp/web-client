@@ -6,6 +6,6 @@ interface ModalActionRowProps {
 
 export default function ModalActionRow({children}: ModalActionRowProps) {
     return (
-        <div className="flex justify-end gap-2">{children}</div>
+        <div className="flex items-center justify-end gap-2">{children}</div>
     )
 }
