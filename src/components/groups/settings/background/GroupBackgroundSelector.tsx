@@ -1,5 +1,5 @@
 import Modal from "../../../generic/modal/Modal.tsx";
-import {useModalState} from "../../../../js/hooks/useModalState.ts";
+import {ModalState, useModalState} from "../../../../js/hooks/useModalState.ts";
 import ModalHeadText from "../../../generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
@@ -12,7 +12,7 @@ import {ScrumdappApi} from "../../../../js/hooks/api/scrumdappApi.ts";
 import {PatchGroup} from "../../../../js/models/group.ts";
 import {BackgroundGrid} from "./BackgroundGrid.tsx";
 import {BackgroundTopicNavbar} from "./BackgroundTopicNavbar.tsx";
-import {StatusMessage, StatusMessageProps, useStatusMessage} from "../../../../js/hooks/useStatusMessage.tsx";
+import {StatusMessage, useStatusMessage} from "../../../../js/hooks/useStatusMessage.tsx";
 import {useState} from "react";
 
 const backgroundTopics: BackgroundTopic[] = [
@@ -30,60 +30,57 @@ export interface BackgroundTopic {
 }
 
 export function BackgroundSelector() {
+
     const group = useGroup()
     const modalState = useModalState()
 
-    const updateGroup = useApi(ScrumdappApi.updateGroup())
-
-    const statusMessage = useStatusMessage()
-
-    function handleGroupUpdate(backgroundId: string) {
-        const patched: PatchGroup = {
-            background_preference: backgroundId
-        }
-        updateGroup.runCommand(group.id, patched).then(() => {
-            modalState.close()
-        })
-        .catch(() => {
-            statusMessage.error("Something went wrong trying to apply the background")
-        })
-    }
-
     return (
-        <>
-            <div className="card vertical gap-2">
-                <h3>Background</h3>
-                <p>Current background:</p>
-                <img className="rounded-md w-1/2" src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`} alt="current background"/>
-                <Button onClick={modalState.open} aria-label="change background" className="mr-auto btn border">
-                    <FontAwesomeIcon icon={faImages} className="text-green" />
-                    Change background
-                </Button>
-            </div>
-            <Modal state={modalState}>
-                <BackgroundSelectorModal handleUpdate={handleGroupUpdate} statusMessage={statusMessage}/>
+        <div className="card vertical gap-2">
+            <h3>Background</h3>
+            <p>Current background:</p>
+            <img className="rounded-md w-1/2" src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`} alt="current background"/>
+            <Button onClick={modalState.open} aria-label="change background" className="mr-auto btn border">
+                <FontAwesomeIcon icon={faImages} className="text-green" />
+                Change background
+            </Button>
 
-            </Modal>
-        </>
+            <BackgroundSelectorModal modal={modalState}/>
+        </div>
     )
 }
 
-function BackgroundSelectorModal({ handleUpdate, statusMessage} : {
-    handleUpdate: (backgroundId: string) => void,
-    statusMessage: StatusMessageProps
-}) {
+function BackgroundSelectorModal({modal}: {modal: ModalState}){
+    {
+        const group = useGroup()
 
-    const [selectedTopic, setSelectedTopic] = useState<BackgroundTopic>(backgroundTopics[0])
+        const updateGroup = useApi(ScrumdappApi.updateGroup())
 
-    return (
-        <>
-            <ModalHeadText>Select background</ModalHeadText>
-            <BackgroundTopicNavbar selectedTopicId={selectedTopic.id} handleSelected={setSelectedTopic} topics={backgroundTopics} />
-            <BackgroundGrid backgrounds={selectedTopic.backgrounds} handleUpdate={handleUpdate} />
-            <ModalActionRow>
-                <StatusMessage status={statusMessage} />
-                <ModalCancelButton/>
-            </ModalActionRow>
-        </>
-    )
+        const statusMessage = useStatusMessage()
+
+        function handleGroupUpdate(backgroundId: string) {
+            const patched: PatchGroup = {
+                background_preference: backgroundId
+            }
+            updateGroup.runCommand(group.id, patched).then(() => {
+                modal.close()
+            })
+                .catch(() => {
+                    statusMessage.error("Something went wrong trying to apply the background")
+                })
+        }
+
+        const [selectedTopic, setSelectedTopic] = useState<BackgroundTopic>(backgroundTopics[0])
+
+        return (
+            <Modal state={modal}>
+                <ModalHeadText>Select background</ModalHeadText>
+                <BackgroundTopicNavbar selectedTopicId={selectedTopic.id} handleSelected={setSelectedTopic} topics={backgroundTopics} />
+                <BackgroundGrid backgrounds={selectedTopic.backgrounds} handleUpdate={handleGroupUpdate} />
+                <ModalActionRow>
+                    <StatusMessage status={statusMessage} />
+                    <ModalCancelButton/>
+                </ModalActionRow>
+            </Modal>
+        )
+    }
 }
