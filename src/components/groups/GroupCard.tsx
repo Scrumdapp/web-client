@@ -5,7 +5,7 @@ interface GroupCardProps {
 }
 
 export function GroupCard({ group }: GroupCardProps) {
-    const backgroundUrl = group.background_preference ? `/backgrounds/thumbnails/${group.background_preference}.webp`: "https://http.cat/images/404.jpg"
+    const backgroundUrl = group.background_preference ? `/backgrounds/thumbnails/${group.background_preference}.webp` : "https://http.cat/images/404.jpg"
 
     return (
         <div className="card hover:bg-bg2!">

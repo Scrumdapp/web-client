@@ -22,7 +22,6 @@ export default function Header() {
                         Scrumdapp
                     </Link>
                 </div>
-
                 <div className="flex-1 flex space-x-6 text-black justify-center font-medium">
                     {links.map((link, i) => (
                         <Link key={i} to={link.to} className="btn w-20 py-1!">
