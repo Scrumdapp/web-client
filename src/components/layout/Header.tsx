@@ -30,10 +30,10 @@ export default function Header() {
                     ))}
                 </div>
                 <div className="flex-1 nav-dropdown cursor-default">
-                    <button className="horizontal float-right items-center gap-1">
+                    <div className="horizontal justify-end items-center gap-1">
                         <span>{`${user.first_name} ${user.last_name}`}</span>
                         <img src={user.avatar ?? "/Scrumdaddy.png"} alt="user-profile-picture" className="nav-icon" />
-                    </button>
+                    </div>
                     <div className="nav-dropdown-content -right-[0.5px]!">
                         <div className="py-4 px-1.5 text-left">
                             <Link to="/settings" className="btn-nav-dropdown hover:text-yellow">
