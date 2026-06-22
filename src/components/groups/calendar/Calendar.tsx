@@ -1,7 +1,7 @@
 import { useGroup } from "../../../js/context/group/useGroup"
 import { ScrumdappApi } from "../../../js/hooks/api/scrumdappApi"
 import { useApiComponent } from "../../../js/hooks/api/useApiComponent"
-import { firstDayOfMonth, getWeekEnd, getWeeksBetween, getWeekStart, lastDayOfMonth, parseYearMonth, WEEK } from "../../../js/utils/timeUtils"
+import { firstDayOfMonth, getWeekEnd, getWeekNumber, getWeeksBetween, getWeekStart, lastDayOfMonth, parseYearMonth, WEEK } from "../../../js/utils/timeUtils"
 import { memo } from "react"
 import { CalendarDate } from "./CalendarDate"
 
@@ -26,6 +26,7 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
                 <table className="calendar-table">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Mon</th>
                             <th>Tue</th>
                             <th>Wed</th>
@@ -38,6 +39,7 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
                     <tbody>
                         {Array.from({ length: weekCount }).map((_, w) => new Date(firstDay.getTime() + w * WEEK)).map((weekStart) => (
                             <tr key={weekStart.getTime()}>
+                                <td className="text-gray max-w-6"> W{getWeekNumber(weekStart)} </td>
                                 <CalendarDate weekStart={weekStart} offsetDays={0} yearMonth={yearMonth} groupId={group.id} dates={dates} />
                                 <CalendarDate weekStart={weekStart} offsetDays={1} yearMonth={yearMonth} groupId={group.id} dates={dates} />
                                 <CalendarDate weekStart={weekStart} offsetDays={2} yearMonth={yearMonth} groupId={group.id} dates={dates} />
