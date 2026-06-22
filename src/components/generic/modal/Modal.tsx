@@ -26,6 +26,7 @@ export default function Modal({ state, children }: ModalProps) {
                 className="flex backdrop-blur-lg bg-[unset] w-full h-full max-w-screen max-h-screen"
                 onClick={state.close}
                 onClose={(e) => e.preventDefault()}
+                closedby="none"
                 ref={ref}
                 open={false}
             >
