@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Iosevka+Charon:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+
+/* Plz sort by layer, then alphabetically */
+/* Layer sort order: theme, base, components, utilities */
+
+@import "tailwindcss";
+@import "./theme.css" layer(theme);
+
+@import "./base/base.css" layer(base);
+@import "./base/typography.css" layer(base);
+
+@import "./components/layout/nav.css" layer(components);
+@import "./components/background-grid.css" layer(components);
+@import "./components/btn.css" layer(components);
+@import "./components/card.css" layer(components);
+@import "./components/checkpoint-table.css" layer(components);
+@import "./components/dropdown.css" layer(components);
+@import "./components/other.css" layer(components);
+@import "./components/write-section.css" layer(components);
+
+@import "./pages/trends.css" layer(components);
+@import "./pages/calendar-table.css" layer(components);
+
+@import "./utilities/utils.css" layer(utilities);
+@import "./utilities/anim.css" layer(utilities);
+/* No layer, makes it the last */
+@import "./utilities/overrides.css";

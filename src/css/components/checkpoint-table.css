@@ -1,0 +1,19 @@
+.checkpoint-table {
+    @apply border-collapse w-full
+}
+
+.checkpoint-table th {
+    @apply pb-3
+}
+
+.checkpoint-table td {
+    @apply pt-2
+}
+
+.name-field {
+    @apply w-40 max-w-40 border-r-green
+}
+
+.td {
+    @apply table-cell align-baseline
+}

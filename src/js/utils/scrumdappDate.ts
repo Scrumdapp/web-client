@@ -8,18 +8,18 @@ export function parseScrumdappDate(date: string) {
     const year = result[1]
     const month = result[2]
     const day = result[3]
-    const resultDate = Date.UTC(parseInt(year), parseInt(month)-1, parseInt(day))
+    const resultDate = Date.UTC(parseInt(year), parseInt(month) - 1, parseInt(day))
     return new Date(resultDate)
 }
 
 export function toScrumdappDate(date: Date) {
-    return `${date.getFullYear()}-${parseStr(date.getMonth()+1)}-${parseStr(date.getDate())}`
+    return `${date.getFullYear()}-${parseStr(date.getMonth() + 1)}-${parseStr(date.getDate())}`
 }
 
-function parseStr(i: number): string {
+export function parseStr(i: number): string {
     let s = i.toString()
     while (s.length < 2) {
-        s = "0"+s
+        s = "0" + s
     }
     return s
 }

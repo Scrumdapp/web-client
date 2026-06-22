@@ -1,0 +1,11 @@
+:root {
+    @apply bg-bg font-Iosevka font-normal text-fg;
+}
+
+#root {
+    @apply min-h-screen flex flex-col
+}
+
+table {
+    @apply table border-collapse box-border w-full
+}

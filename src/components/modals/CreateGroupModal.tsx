@@ -30,6 +30,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
         <input
           type="text"
           placeholder="Group Name"
+          alt="Group Name"
           className="write-section mb-4 w-full!"
           value={name}
           maxLength={30}
