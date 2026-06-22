@@ -1,9 +1,8 @@
 import Modal from "../../../generic/modal/Modal.tsx";
-import {ModalState, useModalState} from "../../../../js/hooks/useModalState.ts";
+import {useModalState} from "../../../../js/hooks/useModalState.ts";
 import ModalHeadText from "../../../generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
-import {useEffect, useState} from "react";
 import {useGroup} from "../../../../js/context/group/useGroup.ts";
 import {Button} from "@headlessui/react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -14,6 +13,7 @@ import {PatchGroup} from "../../../../js/models/group.ts";
 import {BackgroundGrid} from "./BackgroundGrid.tsx";
 import {BackgroundTopicNavbar} from "./BackgroundTopicNavbar.tsx";
 import {StatusMessage, StatusMessageProps, useStatusMessage} from "../../../../js/hooks/useStatusMessage.tsx";
+import {useState} from "react";
 
 const backgroundTopics: BackgroundTopic[] = [
     {id: 'All', backgrounds: ['1', '2', '4', '5', '6', '6_2', '7', '7_2', '8', '9', '10', '14', '14_2', '15', '17', '18', '22', '23', '30', 'color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
