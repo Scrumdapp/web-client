@@ -10,13 +10,14 @@ export function GroupCalendarPage() {
     const ymParam = searchParams.get("month") ?? ""
     const yearMonth = isYearMonth(ymParam) ? ymParam : getYearMonth(new Date())
 
-    return (
+    return (<>
+        <title>Calendar | Scrumdapp</title>
         <div className="card">
             <CalendarSelector currentYearMonth={yearMonth} />
             <div className="h-60">
                 <Calendar yearMonth={yearMonth} />
             </div>
         </div>
-    )
+    </>)
 
 }
