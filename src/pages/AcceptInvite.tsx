@@ -47,12 +47,14 @@ export default function AcceptInvite() {
 
     return (
         <div className="app-container">
+            <title>Accept Invite | Scrumdapp</title>
             <div className="card flex flex-col">
                 <h1>You're invited to {invite?.groupId}!</h1>
                 <p>Enter your given password underneath.</p>
                 <div>
                     <div className="py-3">
                         <input className="write-section w-full!"
+                            alt="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
