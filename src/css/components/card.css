@@ -1,0 +1,3 @@
+.card {
+    @apply bg-bg_h border border-fg4 p-4 rounded-lg
+}
