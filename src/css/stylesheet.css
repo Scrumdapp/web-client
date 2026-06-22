@@ -1,76 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Iosevka+Charon:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
+
+/* Plz sort by layer, then alphabetically */
+/* Layer sort order: theme, base, components, utilities */
+
 @import "tailwindcss";
 @import "./theme.css" layer(theme);
 
+@import "./base/base.css" layer(base);
 @import "./base/typography.css" layer(base);
 
+@import "./components/layout/nav.css" layer(components);
 @import "./components/btn.css" layer(components);
+@import "./components/card.css" layer(components);
+@import "./components/checkpoint-table.css" layer(components);
 @import "./components/dropdown.css" layer(components);
+@import "./components/other.css" layer(components);
+@import "./components/write-section.css" layer(components);
 
 @import "./pages/trends.css" layer(components);
 
 @import "./utilities/utils.css" layer(utilities);
 @import "./utilities/anim.css" layer(utilities);
-
-:root {
-    @apply bg-bg font-Iosevka font-normal text-fg;
-}
-
-#root {
-    @apply min-h-screen flex flex-col
-}
-
-
-.border {
-    @apply border border-fg4;
-}
-
-.write-section {
-    @apply p-3 text-fg4 border max-h-10.5 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-auto;
-}
-
-.write-section-attendance {
-    @apply p-1 pl-3 text-fg4 border h-10 border-fg4 rounded-lg focus:border-dashed focus:border-red-dim outline-none w-full;
-}
-
-.write-section::-webkit-scrollbar {
-    @apply w-0;
-
-}
-
-.write-section::-webkit-scrollbar-track {
-    @apply bg-transparent;
-}
-
-.card {
-    @apply bg-bg_h border border-fg4 p-4 rounded-lg
-}
-
-table {
-    @apply table border-collapse box-border w-full
-}
-
-.checkpoint-table {
-    @apply border-collapse w-full
-}
-
-.checkpoint-table th {
-    @apply pb-3
-}
-
-.checkpoint-table td {
-    @apply pt-2
-}
-
-.name-field {
-    @apply w-40 max-w-40 border-r-green
-}
-
-.td {
-    @apply table-cell align-baseline
-}
-
-.stars>.icon {
-    @apply text-xs
-}
+/* No layer, makes it the last */
+@import "./utilities/overrides.css";
