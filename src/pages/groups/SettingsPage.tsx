@@ -8,6 +8,7 @@ export function SettingsPage() {
 
     return (
         <div className="vertical gap-4">
+            <title>Settings | Scrumdapp</title>
             <div className="card">
                 <h2>Settings</h2>
             </div>

@@ -70,7 +70,7 @@ function Component(
 ) {
     return (
         <div className="space-y-3 ">
-            <title>{group.name} | Scrumdapp</title>
+            <title>{group.name ? `${group.name} | Scrumdapp` : "Scrumdapp"}</title>
             <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
                 <div className="horizontal items-center">
                     <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
