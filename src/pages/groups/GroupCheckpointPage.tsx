@@ -81,6 +81,8 @@ function Component(
                         to={`/groups/${group.id}?date=${nextDate}`}
                         className={`btn ${date === currentDate ? "opacity-50 pointer-events-none" : ""}`}
                         aria-disabled={date === currentDate}
+                        tabIndex={date === currentDate ? -1 : undefined}
+                        onClick={(e) => { if (date === currentDate) e.preventDefault(); }}
                     >
                         <FontAwesomeIcon icon={faChevronDown} className="rotate-270" />
                     </Link>
@@ -91,7 +93,7 @@ function Component(
                     </button>
                 </ShowIf>
             </div>
-            {checkpointSessions.reverse().map((session, index) => (
+            {[...checkpointSessions].reverse().map((session, index) => (
                 <div key={session.id} className="w-full">
                     <Checkpoint
                         groupId={group.id}
