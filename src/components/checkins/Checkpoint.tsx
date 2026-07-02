@@ -269,12 +269,12 @@ function Checkpoint({
                                     <td className="p-2 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
                                         {item.first_name} {item.last_name}
                                     </td>
-                                    <td className={`text-left p-2 border-t border-dotted border-current`}>
+                                    <td className="text-left p-2 border-t border-dotted border-current">
                                         <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
                                             {getformatPresence(item.presence ? String(item.presence) : "---")}
                                         </div>
                                     </td>
-                                    <td className={`p-2 border-t border-dotted border-current`}>
+                                    <td className="p-2 border-t border-dotted border-current">
                                         <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
                                             <Stars amount={item.stars} />
                                         </div>
