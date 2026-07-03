@@ -1,5 +1,3 @@
-
-
 export const attendanceOptions = [
     { label: "On Time", color: "text-green", background: "bg-green", value: "ON_TIME" },
     { label: "Online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
@@ -50,4 +48,14 @@ export function getformatPresence(value: string): string {
     const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
     return formatPresence(value);
 }
+export const roleOptions = [
+    { label: "Student", color: "text-green", background: "bg-green", value: "STUDENT" },
+    { label: "Usermanagement", color: "text-yellow", background: "bg-yellow", value: "USERMANAGEMENT" },
+    { label: "Checkpointmanagement", color: "text-blue", background: "bg-blue", value: "CHECKPOINTMANAGEMENT" },
+    { label: "Coach", color: "text-orange", background: "bg-orange", value: "COACH" },
+    { label: "Scrumdaddy", color: "text-purple", background: "bg-purple", value: "SCRUMMASTER" },
+];
 
+export function geRoleColorScrummaster(value: string | null | undefined): string {
+    return roleOptions.find(opt => opt.value === value)?.color ?? "text-gray";
+}

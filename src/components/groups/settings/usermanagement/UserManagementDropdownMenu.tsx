@@ -1,15 +1,15 @@
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 import {useEffect, useState} from "react";
-import {attendanceOptions, getAttendanceColorScrummaster} from "../../../js/utils/colorUtils.ts";
+import {roleOptions, geRoleColorScrummaster} from "../../../../js/utils/colorUtils.ts";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-type AttendanceDropDownMenuProps = {
+type UserManagementDropDownMenuProps = {
     value?: string | null;
     onChange?: (value: string | null) => void;
 };
 
-export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMenuProps) {
+export function UserManagementDropDownMenu({value, onChange,}: UserManagementDropDownMenuProps) {
     const [localValue, setLocalValue] = useState<string | null>(value ?? null);
 
     const updateValue = (value: string | null) => {
@@ -24,11 +24,11 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
     }, [value]);
 
     const resolvedValue = value !== null ? (value ?? null) : localValue;
-    const currentOption = attendanceOptions.find((opt) => opt.value === resolvedValue) ?? attendanceOptions[0];
-    const currentColor = getAttendanceColorScrummaster(resolvedValue);
+    const currentOption = roleOptions.find((opt) => opt.value === resolvedValue) ?? roleOptions[0];
+    const currentColor = geRoleColorScrummaster(resolvedValue);
 
     return (
-        <Menu as="div" className="relative w-full">
+        <Menu as="div" className="relative">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
                     {currentOption.label}
@@ -37,7 +37,7 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 <div>
-                    {attendanceOptions.map((opt) => (
+                    {roleOptions.map((opt) => (
                         <MenuItem
                             key={opt.label}
                             as="button"

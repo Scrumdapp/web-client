@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { useUser } from "../../js/context/user/useUser";
 import { useUserManagement } from "../../js/hooks/useUserManagement";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+    UserManagementDropDownMenu
+} from "../../components/groups/settings/usermanagement/UserManagementDropdownMenu.tsx";
 
 type Props = {
     groupId: number;
@@ -24,6 +27,8 @@ export default function UserManagement({ groupId }: Props) {
     useEffect(() => {
         void fetch();
     }, [fetch]);
+
+    const [selectedRole, setSelectedRole] = useState<string | null>(null);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error.message}</p>;
@@ -47,7 +52,10 @@ export default function UserManagement({ groupId }: Props) {
                                 {user.first_name} {user.last_name}
                             </td>
                             <td className="p-2 text-left border-t border-dotted border-current">
-                                Role shows here
+                                <UserManagementDropDownMenu
+                                value={selectedRole}
+                                onChange={setSelectedRole}
+                                />
                             </td>
                             <td className="p-2 pr-0 border-t border-dotted border-current flex justify-end">
                                 <button className="btn btn-red border"><FontAwesomeIcon icon={faTrashCan} /> Remove user</button>
