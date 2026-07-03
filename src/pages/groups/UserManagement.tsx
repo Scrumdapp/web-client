@@ -34,30 +34,31 @@ export default function UserManagement({ groupId }: Props) {
             <hr className="my-2 mr-0" />
             <table className="table-fixed w-full">
                 <thead>
-                <tr>
-                    <th className="text-left px-2 py-1">Name</th>
-                    <th className="text-left px-2 py-1 border-l border-dotted">Role</th>
-                    <th className="text-right px-2 py-1 w-40">Danger Zone</th>
-                </tr>
+                    <tr>
+                        <th className="text-left px-2 py-1">Name</th>
+                        <th className="text-left px-2 py-1 border-l border-dotted">Role</th>
+                        <th className="text-right pl-2 pr-0 py-1 w-40">Danger Zone</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {rows.map(user => (
-                    <tr key={user.user_id}>
-                        <td className="p-2 text-left name-field border-r border-t border-dotted border-current!">
-                            {user.first_name} {user.last_name}
-                        </td>
-
-                        <td className="p-2 text-left border-t border-dotted border-current">
-                            Role shows here
-                        </td>
-                        <td className="p-2 border-t border-dotted border-current">
-                            <button className="btn btn-red border"><FontAwesomeIcon icon={faTrashCan} /> Remove user</button>
-                        </td>
-                    </tr>
-                ))}
+                    {rows.map(user => (
+                        <tr key={user.user_id}>
+                            <td className="p-2 text-left name-field border-r border-t border-dotted border-current!">
+                                {user.first_name} {user.last_name}
+                            </td>
+                            <td className="p-2 text-left border-t border-dotted border-current">
+                                Role shows here
+                            </td>
+                            <td className="p-2 pr-0 border-t border-dotted border-current flex justify-end">
+                                <button className="btn btn-red border"><FontAwesomeIcon icon={faTrashCan} /> Remove user</button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
-            <button className="btn btn-secondary border mt-2"><FontAwesomeIcon icon={faCheck} />Confirm</button>
+            <div className="flex justify-end">
+                <button className="btn btn-secondary border mt-2"><FontAwesomeIcon icon={faCheck} />Confirm</button>
+            </div>
         </div>
     )
 }
