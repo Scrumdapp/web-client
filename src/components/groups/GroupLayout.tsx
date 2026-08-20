@@ -5,6 +5,10 @@ import {groupContext} from "../../js/context/group/groupContext.ts";
 import {GroupRouter} from "../../router/GroupRouter.tsx";
 import {GroupSidebarDates} from "./GroupSidebarDates.tsx";
 import {BackgroundOverride} from "../../js/context/background/BackgroundOverride.tsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStar as faStarRegular} from "@fortawesome/free-regular-svg-icons";
+import {faStar as faStarSolid} from "@fortawesome/free-solid-svg-icons";
+import {useState} from "react";
 
 export function GroupLayout() {
     const params = useParams()
@@ -15,6 +19,11 @@ export function GroupLayout() {
             <span>GroupLayout could not load the groupId params</span>
         )
     }
+    const [isFavourite, setIsFavourite] = useState<boolean>(false);
+
+    const handleClick = () => {
+        setIsFavourite((prev) => !prev);
+    }
 
     const GroupConsumer = groupContext.Consumer
 
@@ -24,7 +33,12 @@ export function GroupLayout() {
                 <GroupConsumer>
                     {ctx => (<>
                         <BackgroundOverride background={ctx!!.group!!.background_preference ?? "1"} />
-                        <h1> {ctx!!.group!!.name} </h1>
+                        <div className="flex flex-1 w-full horizontal gap-4">
+                            <h1> {ctx!!.group!!.name}</h1>
+                            <button className="cursor-pointer" onClick={handleClick} aria-pressed={isFavourite}>
+                                <h1> <FontAwesomeIcon icon={isFavourite ? faStarSolid : faStarRegular} /></h1>
+                            </button>
+                        </div>
                     </>)}
                 </GroupConsumer>
                 <div className="flex gap-4">
