@@ -3,7 +3,6 @@ import { Calendar } from "../../components/groups/calendar/Calendar"
 import { CalendarSelector } from "../../components/groups/calendar/CalendarSelector"
 import { getYearMonth, isYearMonth } from "../../js/utils/timeUtils"
 
-
 export function GroupCalendarPage() {
 
     const [searchParams] = useSearchParams()
@@ -19,5 +18,4 @@ export function GroupCalendarPage() {
             </div>
         </div>
     </>)
-
 }

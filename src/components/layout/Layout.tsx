@@ -18,7 +18,6 @@ export default function Layout({ children }: PropsWithChildren) {
     )
 }
 
-
 function BackgroundDisplayer() {
     const bg = useCurrentBackground()
 

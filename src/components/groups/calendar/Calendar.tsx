@@ -55,4 +55,3 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
         </GetCalendarDatesComponent>
     )
 })
-

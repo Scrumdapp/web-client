@@ -5,7 +5,6 @@ import { getWeekStart } from "../../../js/utils/timeUtils"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 
-
 const options = [
     {
         name: "Last 2 weeks",
@@ -18,7 +17,6 @@ const options = [
         to: () => new Date()
     },
 ]
-
 
 export function TimeRangeSelector(
     {
@@ -59,5 +57,4 @@ export function TimeRangeSelector(
             </MenuItems>
         </Menu>
     )
-
 }

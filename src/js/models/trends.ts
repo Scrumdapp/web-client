@@ -1,4 +1,3 @@
-
 export interface GroupPresenceTrends {
     fromDate: string
     toDate: string

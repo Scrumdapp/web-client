@@ -1,4 +1,3 @@
-
 export interface InviteResponse {
     id: number
     groupId: number

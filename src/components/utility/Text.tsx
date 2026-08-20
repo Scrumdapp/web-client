@@ -1,6 +1,5 @@
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
-
 export function HideIfNotFullyVisible({ className, children }: PropsWithChildren<{ className?: string }>) {
 
     const [hide, setHidden] = useState(false);
@@ -12,11 +11,9 @@ export function HideIfNotFullyVisible({ className, children }: PropsWithChildren
         setHidden((elem.parentElement?.clientWidth ?? 0) - 2 <= elem.clientWidth)
     }, [])
 
-
     return (
         <span ref={ref} className={hide ? "hidden" : className}>
             {children}
         </span>
     )
 }
-
