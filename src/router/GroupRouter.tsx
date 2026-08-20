@@ -7,7 +7,6 @@ import { GroupCalendarPage } from "../pages/groups/GroupCalendarPage.tsx";
 import {SettingsPage} from "../pages/groups/SettingsPage.tsx";
 
 export function GroupRouter() {
-
     return (
         <Routes>
             <Route index element={<GroupCheckpointPage />} />

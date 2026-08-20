@@ -15,6 +15,5 @@ export function SettingsPage() {
             <Invites groupId={group.id}/>
             <BackgroundSelector />
         </div>
-
     )
 }
