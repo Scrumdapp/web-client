@@ -1,10 +1,9 @@
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
-import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
+import { getStarsColor, getAttendanceColor, getformatPresence } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faArrowsRotate, faChevronDown, faPencil} from "@fortawesome/free-solid-svg-icons";
-import { getformatPresence } from "../../js/utils/colorUtils.ts";
-import { useEffect, useState, useCallback } from "react";
+import { faArrowsRotate, faChevronDown, faPencil } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import Modal from "../../components/generic/modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
@@ -14,7 +13,7 @@ import { StarsDropDownMenu } from "./checkpointcomponents/StarsDropDownMenu.tsx"
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
-import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
+import { GroupCheckpoint, GroupCheckpointSession, UpdateGroupCheckpoint } from "../../js/models/checkpoint.ts";
 import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
 
 type CheckpointUser = { user_id: number; first_name: string; last_name: string };
@@ -23,6 +22,10 @@ type SessionCheckpointRow = GroupCheckpoint & {
     first_name: string;
     last_name: string;
 };
+
+function toApiError(err: unknown): ApiError {
+    return err instanceof ApiError ? err : new ApiError(999, "Unhandled error", err as Error);
+}
 
 function useGroupCheckpoints(groupId: number, sessionId: number, users: CheckpointUser[]) {
     const [rows, setRows] = useState<SessionCheckpointRow[] | null>(null);
@@ -50,7 +53,7 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
                 })
             );
         } catch (err) {
-            setError(err instanceof ApiError ? err : new ApiError(999, "Unhandled error", err as Error));
+            setError(toApiError(err));
         } finally {
             setLoading(false);
         }
@@ -59,47 +62,55 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
     return { rows, setRows, error, loading, fetch };
 }
 
-function Checkpoint({
-    groupId,
-    name,
-    startTime,
-    duration,
-    sessionId,
-    users,
-    currentUser,
-    ownerId,
-    isMostRecent,
-}: {
-    groupId: number;
-    name: string;
-    startTime: number;
-    duration: number;
-    sessionId: number;
-    users: CheckpointUser[];
-    currentUser: { id: number } | null | undefined;
-    ownerId: number;
-    isMostRecent?: boolean;
-}) {
-    const modal = useModalState();
-
-    const [timeLeft, setTimeLeft] = useState(() =>
-        Math.max(0, startTime + duration - Date.now()),
-    );
+function useCountdown(startTime: number, duration: number) {
+    const target = startTime + duration;
+    const [timeLeft, setTimeLeft] = useState(() => Math.max(0, target - Date.now()));
 
     useEffect(() => {
+        const remainingNow = Math.max(0, target - Date.now());
+        setTimeLeft(remainingNow);
+        if (remainingNow <= 0) return;
+
         const id = setInterval(() => {
-            const remaining = Math.max(0, startTime + duration - Date.now());
+            const remaining = Math.max(0, target - Date.now());
             setTimeLeft(remaining);
             if (remaining <= 0) clearInterval(id);
         }, 1000);
         return () => clearInterval(id);
-    }, [startTime, duration]);
+    }, [target]);
 
+    return timeLeft;
+}
+
+function formatTimeLeft(ms: number) {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = String(Math.floor((ms % 60000) / 1000)).padStart(2, "0");
+    return `${minutes}:${seconds}`;
+}
+
+function Checkpoint({
+    session,
+    users,
+    currentUser,
+    isMostRecent,
+    } : {
+    session: GroupCheckpointSession;
+    users: CheckpointUser[];
+    currentUser: { id: number } | null | undefined;
+    isMostRecent?: boolean;
+}) {
+    const { id: sessionId, groupId, name, ownerId } = session;
+    const startTime = useMemo(() => new Date(session.startTime).getTime(), [session.startTime]);
+    const duration = session.duration * 60_000;
+
+    const modal = useModalState();
+
+    const timeLeft = useCountdown(startTime, duration);
     const isLocked = timeLeft <= 0;
 
     useEffect(() => {
         if (isLocked) modal.close();
-    }, [isLocked, modal]);
+    }, [isLocked]);
 
     const { rows, setRows, error: rowsError, loading: rowsLoading, fetch } = useGroupCheckpoints(groupId, sessionId, users);
 
@@ -117,100 +128,61 @@ function Checkpoint({
 
     const myUserId = currentUser?.id ?? null;
 
-    const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(null);
+    const [editingUser, setEditingUser] = useState<SessionCheckpointRow | null>(null);
 
     const [isExpanded, setIsExpanded] = useState(!isLocked || isMostRecent);
 
+    const handleApply = async () => {
+        const targetUserId = editingUser ? editingUser.groupUser : myUserId;
+        if (targetUserId == null || isLocked) return;
 
-    const handleOwnModalApply = async () => {
-        if (myUserId == null || isLocked) return;
         setApplyLoading(true);
         setApplyError(null);
         try {
-            await ScrumdappApi.updateGroupCheckpoint()(groupId, {
-                userId: myUserId,
-                sessionId: sessionId,
+            const payload: UpdateGroupCheckpoint = {
+                userId: targetUserId,
+                sessionId,
                 presence: selectedPresence,
                 stars: selectedStar,
                 comment: notes,
                 impediment: obstacle,
-            });
+            };
+            await ScrumdappApi.updateGroupCheckpoint()(groupId, payload);
             setRows(prev =>
                 prev?.map(row =>
-                    row.groupUser === myUserId
+                    row.groupUser === targetUserId
                         ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
                         : row
                 ) ?? prev
             );
             modal.close();
         } catch (err) {
-            if (err instanceof ApiError) setApplyError(err);
-            else setApplyError(new ApiError(999, "Unhandled error", err as Error));
+            setApplyError(toApiError(err));
         } finally {
             setApplyLoading(false);
         }
     };
 
-    const handleModalApply = async () => {
-        if (isLocked || selectedUser == null) return;
-        setApplyLoading(true);
-        setApplyError(null);
-        try {
-            await ScrumdappApi.updateGroupCheckpoint()(groupId, {
-                userId: selectedUser.groupUser,
-                sessionId: sessionId,
-                presence: selectedPresence,
-                stars: selectedStar,
-                comment: notes,
-                impediment: obstacle,
-            });
-            setRows(prev =>
-                prev?.map(row =>
-                    row.groupUser === selectedUser.groupUser
-                        ? { ...row, presence: selectedPresence, stars: selectedStar, comment: notes, impediment: obstacle }
-                        : row
-                ) ?? prev
-            );
-            modal.close();
-        } catch (err) {
-            setApplyError(err instanceof ApiError ? err : new ApiError(999, "Unhandled error", err as Error));
-        } finally {
-            setApplyLoading(false);
-        }
-    };
-
-    const handleOwnModalOpen = () => {
+    const openModalFor = (row: SessionCheckpointRow | null) => {
         if (rows == null) return;
         setApplyError(null);
-        const myRow = rows.find(row => row.groupUser === myUserId);
-        setSelectedPresence(myRow?.presence ? String(myRow.presence) : null);
-        setSelectedStar(myRow?.stars ?? null);
-        setNotes(myRow?.comment ?? "");
-        setObstacle(myRow?.impediment ?? "");
+        setEditingUser(row);
+        const source = row ?? rows.find(r => r.groupUser === myUserId);
+        setSelectedPresence(source?.presence ? String(source.presence) : null);
+        setSelectedStar(source?.stars ?? null);
+        setNotes(source?.comment ?? "");
+        setObstacle(source?.impediment ?? "");
         modal.open();
     };
 
-    const handleModalOpen = (row: SessionCheckpointRow) => {
-        if (rows == null) return;
-        setApplyError(null);
-        setSelectedUser(row);
-        setSelectedPresence(row.presence ? String(row.presence) : null);
-        setSelectedStar(row.stars ?? null);
-        setNotes(row.comment ?? "");
-        setObstacle(row.impediment ?? "");
-        modal.open();
-    };
-
-    const handleToggle = () => {
-        setIsExpanded(prev => !prev);
-    };
+    const handleToggle = () => setIsExpanded(prev => !prev);
 
     if (rowsLoading || rows === null) return <LoadScreen />;
     if (rowsError) return <ErrorScreen error={rowsError} />;
 
     const isSessionmaster = myUserId === ownerId;
-
     const isInGroup = users.some(user => user.user_id === myUserId);
+    const showEditColumn = (isSessionmaster || isInGroup) && !isLocked;
 
     return (
         <div className="card w-full space-x-5">
@@ -238,11 +210,7 @@ function Checkpoint({
                     </button>
                 </div>
             </div>
-            <p>
-                {isLocked
-                    ? "Checkpoint closed"
-                    : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
-            </p>
+            <p>{isLocked ? "Checkpoint closed" : `Closes in ${formatTimeLeft(timeLeft)}`}</p>
             <div
                 className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
                     isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
@@ -252,78 +220,64 @@ function Checkpoint({
                     <hr className="my-2 mr-0" />
                     <table className="table-fixed w-full">
                         <thead>
-                            <tr>
-                                <th className="p-2 text-left w-44">Name</th>
-                                <th className="p-2 text-left border-l border-dotted w-28">Attendance</th>
-                                <th className="p-2 items-center w-28">Stars</th>
-                                <th className="p-2 text-left">Comment</th>
-                                <th className="p-2 text-left">Obstacle</th>
-                                {(isSessionmaster || isInGroup) && !isLocked && (
-                                    <th className="p-2 pl-0 text-right w-10">Edit</th>
-                                )}
-                            </tr>
+                        <tr>
+                            <th className="p-2 text-left w-44">Name</th>
+                            <th className="p-2 text-left border-l border-dotted w-28">Attendance</th>
+                            <th className="p-2 items-center w-28">Stars</th>
+                            <th className="p-2 text-left">Comment</th>
+                            <th className="p-2 text-left">Obstacle</th>
+                            {showEditColumn && <th className="p-2 pl-0 text-right w-10">Edit</th>}
+                        </tr>
                         </thead>
                         <tbody>
-                            {rows.map((item) => (
-                                <tr key={`${item.groupUser === item.id ? 'u' : 'cp'}-${item.id}`} className="align-top">
+                        {rows.map((item) => {
+                            const presenceLabel = getformatPresence(item.presence ? String(item.presence) : "---");
+                            const isOwnRow = item.groupUser === myUserId;
+                            return (
+                                <tr key={item.groupUser} className="align-top">
                                     <td className="p-2 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
                                         {item.first_name} {item.last_name}
                                     </td>
-                                    <td className={`text-left p-2 border-t border-dotted border-current`}>
-                                        <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
-                                            {getformatPresence(item.presence ? String(item.presence) : "---")}
-                                        </div>
+                                    <td className="text-left p-2 border-t border-dotted border-current">
+                                        <div className={getAttendanceColor(presenceLabel)}>{presenceLabel}</div>
                                     </td>
-                                    <td className={`p-2 border-t border-dotted border-current`}>
+                                    <td className="p-2 border-t border-dotted border-current">
                                         <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
                                             <Stars amount={item.stars} />
                                         </div>
                                     </td>
-                                    <td className="p-2 break-words border-t border-dotted">
-                                        {item.comment}
-                                    </td>
-                                    <td className="p-2 break-words border-t border-dotted">
-                                        {item.impediment}
-                                    </td>
-                                    {(isSessionmaster || isInGroup) && !isLocked && (
+                                    <td className="p-2 break-words border-t border-dotted">{item.comment}</td>
+                                    <td className="p-2 break-words border-t border-dotted">{item.impediment}</td>
+                                    {showEditColumn && (
                                         <td className="border-t border-dotted p-2 pl-0">
-                                            {!isLocked ? (isSessionmaster ? (
-                                                <button
-                                                    className="btn border aspect-square"
-                                                    onClick={() => handleModalOpen(item)}
-                                                >
+                                            {isSessionmaster ? (
+                                                <button className="btn border aspect-square" onClick={() => openModalFor(item)}>
                                                     <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
                                                 </button>
-                                            ) : (item.groupUser === myUserId || item.id === myUserId) ? (
-                                                <button
-                                                    className="btn border aspect-square"
-                                                    onClick={handleOwnModalOpen}
-                                                >
+                                            ) : isOwnRow ? (
+                                                <button className="btn border aspect-square" onClick={() => openModalFor(null)}>
                                                     <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
                                                 </button>
-                                            ) : null
                                             ) : null}
                                         </td>
                                     )}
                                 </tr>
-                            ))}
+                            );
+                        })}
                         </tbody>
                     </table>
                 </div>
             </div>
             <Modal state={modal}>
                 <div className="space-y-5">
-                    <ModalHeadText>{`Edit Checkpoint ${selectedUser ? `for ${selectedUser.first_name} ${selectedUser.last_name}` : ""}`}</ModalHeadText>          <div className="flex flex-col space-y-2 w-full">
+                    <ModalHeadText>
+                        {`Edit Checkpoint ${editingUser ? `for ${editingUser.first_name} ${editingUser.last_name}` : ""}`}
+                    </ModalHeadText>
+                    <div className="flex flex-col space-y-2 w-full">
                         <label>Attendance</label>
-                        <AttendanceDropDownMenu
-                            value={selectedPresence}
-                            onChange={setSelectedPresence}
-                        />
+                        <AttendanceDropDownMenu value={selectedPresence} onChange={setSelectedPresence} />
                         <label>Stars</label>
-                        <StarsDropDownMenu
-                            value={selectedStar}
-                            onChange={setSelectedStar}
-                        />
+                        <StarsDropDownMenu value={selectedStar} onChange={setSelectedStar} />
                         <label>Notes</label>
                         <input
                             className="write-section"
@@ -344,12 +298,7 @@ function Checkpoint({
                     {applyError && <p className="text-red text-right">{applyError.message}</p>}
                     <ModalActionRow>
                         <ModalCancelButton />
-                        <button
-                            className="btn border"
-                            onClick={isSessionmaster ? handleModalApply : handleOwnModalApply}
-                            type="button"
-                            disabled={applyLoading}
-                        >
+                        <button className="btn border" onClick={handleApply} type="button" disabled={applyLoading}>
                             {applyLoading ? "Saving..." : "Apply"}
                         </button>
                     </ModalActionRow>
