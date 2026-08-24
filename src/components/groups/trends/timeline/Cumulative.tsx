@@ -4,7 +4,7 @@ import { getAttendanceLabel } from "../../../../js/utils/colorUtils"
 import { HideIf } from "../../../utility/Conditional"
 import { HideIfNotFullyVisible } from "../../../utility/Text"
 
-export function RenderCumelativeGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
+export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
     const length = data.trends[0].days.length
 
     if (length == 0) {
@@ -17,11 +17,29 @@ export function RenderCumelativeGraph({ users, data }: { users: GroupUser[], dat
 
     return (
         <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        <div className="horizontal flex">
+                            <div className="text-fg3 flex justify-between w-full">
+                                <span className="text-xs">0%</span>
+                                <span className="text-xs">20%</span>
+                                <span className="text-xs">40%</span>
+                                <span className="text-xs">60%</span>
+                                <span className="text-xs">80%</span>
+                                <span className="text-xs">100%</span>
+                            </div>
+                        </div>
+                        <hr />
+                    </th>
+                </tr>
+            </thead>
             <tbody>
                 {users.map((user) => (
                     <tr key={user.user_id}>
                         <td className="w-48 pr-2">{user.first_name} {user.last_name}</td>
-                        <td className="py-1"><RenderCumelativeTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
+                        <td className="py-1"><RenderCumulativeTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
                     </tr>
                 ))}
             </tbody>
@@ -29,7 +47,7 @@ export function RenderCumelativeGraph({ users, data }: { users: GroupUser[], dat
     )
 }
 
-function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) {
+function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) {
 
     const map = [
         { id: "ON_TIME", color: "bg-green", children: [{ id: "ONLINE", color: "bg-purple" }] },

@@ -11,8 +11,8 @@ const options = [
         value: GroupTimelineDisplayType.Periodic
     },
     {
-        name: "Cumelative",
-        value: GroupTimelineDisplayType.Cumelative
+        name: "Cumulative",
+        value: GroupTimelineDisplayType.Cumulative
     },
 ]
 

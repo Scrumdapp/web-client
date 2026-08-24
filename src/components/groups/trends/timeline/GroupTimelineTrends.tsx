@@ -6,13 +6,13 @@ import { GroupUser } from "../../../../js/models/group"
 import { LoadScreen } from "../../../generic/LoadScreen"
 import { ErrorScreen } from "../../../generic/ErrorScreen"
 import { attendanceOptions } from "../../../../js/utils/colorUtils"
-import { RenderCumelativeGraph } from "./Cumelative"
+import { RenderCumulativeGraph } from "./Cumulative.tsx"
 import { RenderTimelineGraph } from "./Periodic"
 import { ApiError } from "../../../../js/hooks/api/apiError"
 
 export enum GroupTimelineDisplayType {
     Periodic,
-    Cumelative
+    Cumulative
 }
 
 export interface GroupTimelineTrendsProps {
@@ -45,8 +45,8 @@ export const GroupTimelineTrends = memo(({ users, from, to, display }: GroupTime
         component = <LoadScreen />
     } else if (getGroupTimelineTrends.data.trends.length == 0) {
         component = <ErrorScreen error={new ApiError(999, "No trends available")} />
-    } else if (display == GroupTimelineDisplayType.Cumelative) {
-        component = <RenderCumelativeGraph users={users} data={getGroupTimelineTrends.data} />
+    } else if (display == GroupTimelineDisplayType.Cumulative) {
+        component = <RenderCumulativeGraph users={users} data={getGroupTimelineTrends.data} />
     } else {
         component = <RenderTimelineGraph users={users} data={getGroupTimelineTrends.data} />
     }
