@@ -13,7 +13,7 @@ export function GroupCalendarPage() {
         <title>Calendar | Scrumdapp</title>
         <div className="card">
             <CalendarSelector currentYearMonth={yearMonth} />
-            <div className="h-60">
+            <div className="flex max-h-70">
                 <Calendar yearMonth={yearMonth} />
             </div>
         </div>
