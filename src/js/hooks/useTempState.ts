@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-
 export default function useTempState<T>(defaultValue: T | null = null, timeout: number = 3000): [T | null, React.Dispatch<T>] {
     const [v, setV] = useState<T | null>(defaultValue);
 

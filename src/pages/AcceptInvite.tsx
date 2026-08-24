@@ -66,6 +66,5 @@ export default function AcceptInvite() {
                 </div>
             </div>
         </div>
-
     )
 }

@@ -1,4 +1,3 @@
-
 export interface User extends PartialUser {
     theme_preference: string | null
     language_preference: string | null

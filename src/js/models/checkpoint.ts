@@ -1,4 +1,3 @@
-
 export interface GroupCheckpointSession {
     id: number,
     startTime: string,

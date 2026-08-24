@@ -39,4 +39,4 @@ export default function Modal({ state, children }: ModalProps) {
             </dialog>
         </ModalContext.Provider>
     )
-} 
+}

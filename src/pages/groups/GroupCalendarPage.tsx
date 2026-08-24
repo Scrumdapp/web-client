@@ -3,7 +3,6 @@ import { Calendar } from "../../components/groups/calendar/Calendar"
 import { CalendarSelector } from "../../components/groups/calendar/CalendarSelector"
 import { getYearMonth, isYearMonth } from "../../js/utils/timeUtils"
 
-
 export function GroupCalendarPage() {
 
     const [searchParams] = useSearchParams()
@@ -14,10 +13,9 @@ export function GroupCalendarPage() {
         <title>Calendar | Scrumdapp</title>
         <div className="card">
             <CalendarSelector currentYearMonth={yearMonth} />
-            <div className="h-60">
+            <div className="flex max-h-70">
                 <Calendar yearMonth={yearMonth} />
             </div>
         </div>
     </>)
-
 }

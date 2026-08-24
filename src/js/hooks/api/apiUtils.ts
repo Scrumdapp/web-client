@@ -1,7 +1,6 @@
 import { isErrorDto } from "../../models/dto/errorDto.ts";
 import { ApiError, RequestException } from "./apiError.ts";
 
-
 export const API_URL = (import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api").replace(/\/$/, "")
 
 export type RequestProcessor<Ti extends any[], Tr> = MRP<Ti, Promise<Tr>>

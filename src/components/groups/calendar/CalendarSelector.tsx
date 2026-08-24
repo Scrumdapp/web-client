@@ -7,7 +7,6 @@ import { getYearMonth, nextMonth, parseMonthText, parseYearMonth, previousMonth 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faArrowRight, faChevronDown } from "@fortawesome/free-solid-svg-icons"
 
-
 export const CalendarSelector = memo(({ currentYearMonth }: { currentYearMonth: string }) => {
 
     const ym = parseYearMonth(currentYearMonth)

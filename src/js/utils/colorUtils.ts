@@ -1,5 +1,3 @@
-
-
 export const attendanceOptions = [
     { label: "On Time", color: "text-green", background: "bg-green", value: "ON_TIME" },
     { label: "Online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
@@ -50,4 +48,3 @@ export function getformatPresence(value: string): string {
     const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
     return formatPresence(value);
 }
-

@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { GroupTimelineDisplayType } from "./GroupTimelineTrends"
 
-
 const options = [
     {
         name: "Periodic",
@@ -15,7 +14,6 @@ const options = [
         value: GroupTimelineDisplayType.Cumelative
     },
 ]
-
 
 export function TimelineSelector(
     {
@@ -57,5 +55,4 @@ export function TimelineSelector(
             </MenuItems>
         </Menu>
     )
-
 }

@@ -8,7 +8,6 @@
 
 .write-section::-webkit-scrollbar {
     @apply w-0;
-
 }
 
 .write-section::-webkit-scrollbar-track {

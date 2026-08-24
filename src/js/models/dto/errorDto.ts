@@ -1,5 +1,3 @@
-
-
 export interface ErrorDto {
     error: true
     status: number

@@ -1,7 +1,6 @@
 import {createProcessor, makeApiRequest} from "../apiUtils.ts";
 import {CreateGroup, Group, PartialGroup, PatchGroup} from "../../../models/group.ts";
 
-
 export function getGroups() {
     return createProcessor("getGroups", () => {
         return makeApiRequest<PartialGroup[]>("GET", "/groups")
