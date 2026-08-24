@@ -15,6 +15,7 @@ import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 import { GroupCheckpoint, GroupCheckpointSession, UpdateGroupCheckpoint } from "../../js/models/checkpoint.ts";
 import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
+import { useUser } from "../../js/context/user/useUser.ts";
 
 type CheckpointUser = { user_id: number; first_name: string; last_name: string };
 
@@ -22,6 +23,12 @@ type SessionCheckpointRow = GroupCheckpoint & {
     first_name: string;
     last_name: string;
 };
+
+interface CheckpointProps {
+    session: GroupCheckpointSession;
+    users: CheckpointUser[];
+    isMostRecent?: boolean;
+}
 
 function toApiError(err: unknown): ApiError {
     return err instanceof ApiError ? err : new ApiError(999, "Unhandled error", err as Error);
@@ -89,16 +96,11 @@ function formatTimeLeft(ms: number) {
 }
 
 function Checkpoint({
-    session,
-    users,
-    currentUser,
-    isMostRecent,
-    } : {
-    session: GroupCheckpointSession;
-    users: CheckpointUser[];
-    currentUser: { id: number } | null | undefined;
-    isMostRecent?: boolean;
-}) {
+                        session,
+                        users,
+                        isMostRecent,
+                    }: CheckpointProps) {
+    const currentUser = useUser();
     const { id: sessionId, groupId, name, ownerId } = session;
     const startTime = useMemo(() => new Date(session.startTime).getTime(), [session.startTime]);
     const duration = session.duration * 60_000;
@@ -110,7 +112,7 @@ function Checkpoint({
 
     useEffect(() => {
         if (isLocked) modal.close();
-    }, [isLocked]);
+    }, [isLocked, modal]);
 
     const { rows, setRows, error: rowsError, loading: rowsLoading, fetch } = useGroupCheckpoints(groupId, sessionId, users);
 

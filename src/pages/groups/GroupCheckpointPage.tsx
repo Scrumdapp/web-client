@@ -9,14 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
 import { useApi } from "../../js/hooks/api/useApi.ts";
-import { useUser } from "../../js/context/user/useUser.ts";
 import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
 import { parseWeekDay } from "../../js/utils/timeUtils.ts";
 import { Group, GroupUser } from "../../js/models/group.ts";
 import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
-import { User } from "../../js/models/user.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
 
 function shiftDate(date: string, offsetDays: number): string {
@@ -30,13 +28,7 @@ export function GroupCheckpointPage() {
     const modal = useModalState();
     const [searchParams] = useSearchParams();
 
-    const currentDate = toScrumdappDate(new Date());
-    const date = searchParams.get("date") ?? currentDate;
-
-    const prevDate = shiftDate(date, -1);
-    const nextDate = shiftDate(date, 1);
-
-    const currentUser = useUser();
+    const date = searchParams.get("date") ?? toScrumdappDate(new Date());
 
     const getGroupUsers = useApi(ScrumdappApi.getGroupUsers(), {
         fetchOnCreated: [group.id],
@@ -57,7 +49,7 @@ export function GroupCheckpointPage() {
         return <ErrorScreen error={getCheckpointSessions.error} />;
     }
 
-    const groupCreated = () => {
+    const refreshSessions = () => {
         getCheckpointSessions.runCommand(group.id, { date });
     };
 
@@ -65,41 +57,35 @@ export function GroupCheckpointPage() {
         <GroupCheckpointView
             group={group}
             date={date}
-            prevDate={prevDate}
-            nextDate={nextDate}
-            currentDate={currentDate}
-            groupCreated={groupCreated}
+            onSessionCreated={refreshSessions}
             checkpointSessions={getCheckpointSessions.data!}
             groupUsers={getGroupUsers.data!}
-            currentUser={currentUser}
             modal={modal}
         />
     );
 }
 
-function GroupCheckpointView({
-                                 group,
-                                 date,
-                                 prevDate,
-                                 nextDate,
-                                 currentDate,
-                                 groupCreated,
-                                 checkpointSessions,
-                                 groupUsers,
-                                 currentUser,
-                                 modal,
-                             }: {
+interface GroupCheckpointViewProps {
     group: Group;
     date: string;
-    prevDate: string;
-    nextDate: string;
-    currentDate: string;
-    groupCreated: () => void;
+    onSessionCreated: () => void;
     checkpointSessions: GroupCheckpointSession[];
     groupUsers: GroupUser[];
-    currentUser: User;
     modal: ModalState;
-}) {
+}
+
+function GroupCheckpointView({
+    group,
+    date,
+    onSessionCreated,
+    checkpointSessions,
+    groupUsers,
+    modal,
+    } : GroupCheckpointViewProps) {
+    const currentDate = toScrumdappDate(new Date());
+    const prevDate = shiftDate(date, -1);
+    const nextDate = shiftDate(date, 1);
+    const isToday = date === currentDate;
 
     const sessionsMostRecentFirst = useMemo(
         () => [...checkpointSessions].reverse(),
@@ -119,13 +105,13 @@ function GroupCheckpointView({
                     </h2>
                     <Link
                         to={`/groups/${group.id}?date=${nextDate}`}
-                        className={`btn ${date === currentDate ? "opacity-50 pointer-events-none" : ""}`}
-                        aria-disabled={date === currentDate}
+                        className={`btn ${isToday ? "opacity-50 pointer-events-none" : ""}`}
+                        aria-disabled={isToday}
                     >
                         <FontAwesomeIcon icon={faChevronDown} className="rotate-270" />
                     </Link>
                 </div>
-                <ShowIf condition={currentDate == date}>
+                <ShowIf condition={isToday}>
                     <button className="btn border" onClick={modal.open}>
                         <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
                     </button>
@@ -136,12 +122,11 @@ function GroupCheckpointView({
                     <Checkpoint
                         session={session}
                         users={groupUsers}
-                        currentUser={currentUser}
                         isMostRecent={index === 0}
                     />
                 </div>
             ))}
-            <CreateGroupCheckpointSessionModal groupId={group.id} state={modal} onCreated={groupCreated} />
+            <CreateGroupCheckpointSessionModal groupId={group.id} state={modal} onCreated={onSessionCreated} />
         </div>
     );
 }
