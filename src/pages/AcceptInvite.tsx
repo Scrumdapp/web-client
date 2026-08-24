@@ -1,7 +1,7 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
-import { InviteResponse } from "../js/models/invites.tsx";
+import { InviteResponse } from "../js/models/invites.ts";
 import { useUser } from "../js/context/user/useUser.ts";
 
 export default function AcceptInvite() {

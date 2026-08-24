@@ -27,7 +27,8 @@ function getGroupUsers(collection: GroupUserCollection): GroupUser[] {
             user_id: userId,
             group_id: collection.groupId,
             first_name: user.first_name,
-            last_name: user.last_name
+            last_name: user.last_name,
+            roles: user.roles
         })
     }
     return r
