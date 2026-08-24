@@ -21,14 +21,14 @@ export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], dat
                 <tr>
                     <th></th>
                     <th>
-                        <div className="horizontal flex">
-                            <div className="text-fg3 flex justify-between w-full">
-                                <span className="text-xs">0%</span>
-                                <span className="text-xs">20%</span>
-                                <span className="text-xs">40%</span>
-                                <span className="text-xs">60%</span>
-                                <span className="text-xs">80%</span>
-                                <span className="text-xs">100%</span>
+                        <div className="horizontal">
+                            <div className="text-fg3 flex justify-between w-full mb-2 text-xs">
+                                <span>0%</span>
+                                <span>20%</span>
+                                <span>40%</span>
+                                <span>60%</span>
+                                <span>80%</span>
+                                <span>100%</span>
                             </div>
                         </div>
                         <hr />

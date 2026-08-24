@@ -16,4 +16,5 @@
 
 .dropdown:hover .dropdown-content {
     @apply block
+    mt-1
 }
