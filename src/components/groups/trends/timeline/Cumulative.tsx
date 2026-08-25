@@ -22,7 +22,11 @@ export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], dat
                     <th></th>
                     <th>
                         <div className="horizontal">
-                            <div className="text-fg3 flex justify-between w-full mb-2 text-xs">
+                            <div className="text-fg3 justify-between flex" style={{
+                                width: `calc(100% - 4px)`,
+                                marginLeft: "2px",
+                                marginRight: "2px",
+                            }}>
                                 <span>0%</span>
                                 <span>20%</span>
                                 <span>40%</span>
@@ -31,7 +35,7 @@ export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], dat
                                 <span>100%</span>
                             </div>
                         </div>
-                        <hr />
+                        <hr className="text-fg3" />
                     </th>
                 </tr>
             </thead>
@@ -92,7 +96,6 @@ function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                             width: `calc(${selfTotal / total * 100}% - 4px)`,
                             marginLeft: "2px",
                             marginRight: "2px",
-                            marginBottom: "2px",
                             paddingLeft: "4px"
                         }}
                     >
