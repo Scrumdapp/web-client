@@ -3,10 +3,10 @@
 export const attendanceOptions = [
     { label: "On Time", color: "text-green", background: "bg-green", value: "ON_TIME" },
     { label: "Online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
-    { label: "Late", color: "text-orange-dim", background: "bg-orange-dim", value: "LATE" },
     { label: "Verified Late", color: "text-orange", background: "bg-orange", value: "VERIFIED_LATE" },
-    { label: "Absent", color: "text-red-dim", background: "bg-red-dim", value: "ABSENT" },
+    { label: "Late", color: "text-orange-dim", background: "bg-orange-dim", value: "LATE" },
     { label: "Verified Absent", color: "text-red", background: "bg-red", value: "VERIFIED_ABSENT" },
+    { label: "Absent", color: "text-red-dim", background: "bg-red-dim", value: "ABSENT" },
     { label: "Sick", color: "text-blue", background: "bg-blue", value: "SICK" },
     { label: "---", color: "text-gray", background: "bg-gray-dim", value: null },
 ];
