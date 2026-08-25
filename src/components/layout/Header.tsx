@@ -3,6 +3,7 @@ import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../js/context/user/useUser.ts";
+import LanguageSwitch from "../generic/LanguageSwitch.tsx";
 
 export default function Header() {
 
@@ -40,6 +41,7 @@ export default function Header() {
                                 <FontAwesomeIcon icon={faPortrait} className="text-yellow" />
                                 Profile
                             </Link>
+                            <LanguageSwitch />
                             <LogoutButton />
                         </div>
                     </div>

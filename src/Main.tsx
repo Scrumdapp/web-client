@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./css/stylesheet.css"
-
+import './js/language/i18next.js' ;
 
 async function tryEnableMocking() {
     if (!import.meta.env.DEV) {
