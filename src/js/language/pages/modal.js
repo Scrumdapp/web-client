@@ -1,26 +1,12 @@
-import i18n from "i18next";
-
-i18n
-    .init({
-        debug: true,
-        fallbackLng: 'en',
-        interpolation: {
-            escapeValue: false,
+export default {
+    en: {
+        modal: {
+            cancel: 'Cancel',
         },
-        resources: {
-            en: {
-                translation: {
-                    modal: {
-                        cancel: 'Cancel',
-                    },
-                }
-            },
-            nl: {
-                translation: {
-                    modal: {
-                        cancel: 'Annuleer',
-                    },
-                }
-            }
-        }
-    })
+    },
+    nl: {
+        modal: {
+            cancel: 'Annuleer',
+        },
+    }
+}

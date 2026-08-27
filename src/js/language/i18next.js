@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+
 import privacy from './pages/privacy.js';
 import about from './pages/about.js';
 import settings from './pages/settings.js';
@@ -9,36 +10,35 @@ import groups from './pages/groups.js';
 import checkpoint from './pages/checkpoint.js';
 import calendar from './pages/calendar.js';
 import trends from './pages/trends.js';
-import error from './pages/error.js';t
+import error from './pages/error.js';
 import header from './pages/header.js';
 import footer from './pages/footer.js';
 import date from './pages/date.js';
 import modal from './pages/modal.js';
 
+const pages = [
+    privacy, about, settings, invite, groups, checkpoint,
+    calendar, trends, error, header, footer, date, modal,
+];
+
+const resources = pages.reduce((acc, page) => {
+    Object.entries(page).forEach(([lang, strings]) => {
+        acc[lang] = acc[lang] || { translation: {} };
+        Object.assign(acc[lang].translation, strings);
+    });
+    return acc;
+    }, {});
+
 i18n
-    // detect user language
-    // learn more: https://github.com/i18next/i18next-browser-languageDetector
     .use(LanguageDetector)
-    // pass the i18n instance to react-i18next.
     .use(initReactI18next)
-    // init i18next
-    // for all options read: https://www.i18next.com/overview/configuration-options
     .init({
         debug: true,
         fallbackLng: 'en',
         interpolation: {
-            escapeValue: false, // not needed for react as it escapes by default
+            escapeValue: false,
         },
-        resources: {
-            en: {
-                translation: {
-                }
-            },
-            nl: {
-                translation: {
-                }
-            },
-        }
+        resources,
     });
 
 export default i18n;
