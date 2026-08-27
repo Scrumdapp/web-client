@@ -1,22 +1,20 @@
-
-
 export const attendanceOptions = [
-    { label: "On Time", color: "text-green", background: "bg-green", value: "ON_TIME" },
-    { label: "Online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
-    { label: "Late", color: "text-orange-dim", background: "bg-orange-dim", value: "LATE" },
-    { label: "Verified Late", color: "text-orange", background: "bg-orange", value: "VERIFIED_LATE" },
-    { label: "Absent", color: "text-red-dim", background: "bg-red-dim", value: "ABSENT" },
-    { label: "Verified Absent", color: "text-red", background: "bg-red", value: "VERIFIED_ABSENT" },
-    { label: "Sick", color: "text-blue", background: "bg-blue", value: "SICK" },
-    { label: "---", color: "text-gray", background: "bg-gray-dim", value: null },
+    { labelKey: "checkpoint.attendance.onTime", color: "text-green", background: "bg-green", value: "ON_TIME" },
+    { labelKey: "checkpoint.attendance.online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
+    { labelKey: "checkpoint.attendance.late", color: "text-orange-dim", background: "bg-orange-dim", value: "LATE" },
+    { labelKey: "checkpoint.attendance.verifiedLate", color: "text-orange", background: "bg-orange", value: "VERIFIED_LATE" },
+    { labelKey: "checkpoint.attendance.absent", color: "text-red-dim", background: "bg-red-dim", value: "ABSENT" },
+    { labelKey: "checkpoint.attendance.verifiedAbsent", color: "text-red", background: "bg-red", value: "VERIFIED_ABSENT" },
+    { labelKey: "checkpoint.attendance.sick", color: "text-blue", background: "bg-blue", value: "SICK" },
+    { labelKey: "checkpoint.attendance.none", color: "text-gray", background: "bg-gray-dim", value: null },
 ];
 
-export function getAttendanceLabel(value: string | null | undefined): string {
-    return attendanceOptions.find(opt => opt.value === value)?.label ?? "---";
+export function getAttendanceLabelKey(value: string | null | undefined): string {
+    return attendanceOptions.find(opt => opt.value === value)?.labelKey ?? "attendance.none";
 }
 
 export function getAttendanceColor(value: string | null | undefined): string {
-    return attendanceOptions.find(opt => opt.label === value)?.color ?? "text-gray";
+    return attendanceOptions.find(opt => opt.value === value)?.color ?? "text-gray";
 }
 
 export function getAttendanceBackgroundColor(value: string | null | undefined): string {
@@ -45,9 +43,3 @@ export const starsOptions = [
 export function getStarsColor(value: number | null | undefined): string {
     return starsOptions.find(opt => opt.value === value)?.color ?? "text-gray";
 }
-
-export function getformatPresence(value: string): string {
-    const formatPresence = (val: string) => val?.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-    return formatPresence(value);
-}
-

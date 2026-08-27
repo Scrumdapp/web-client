@@ -1,9 +1,7 @@
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
-import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faArrowsRotate, faChevronDown, faPencil} from "@fortawesome/free-solid-svg-icons";
-import { getformatPresence } from "../../js/utils/colorUtils.ts";
+import { faArrowsRotate, faChevronDown, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useCallback } from "react";
 import Modal from "../../components/generic/modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
@@ -17,6 +15,8 @@ import { ApiError } from "../../js/hooks/api/apiError.ts";
 import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
 import {Trans} from "react-i18next";
+import { useTranslation } from "react-i18next";
+import { getStarsColor, getAttendanceColor, getAttendanceLabelKey } from "../../js/utils/colorUtils.ts";
 
 type CheckpointUser = { user_id: number; first_name: string; last_name: string };
 
@@ -82,6 +82,8 @@ function Checkpoint({
     isMostRecent?: boolean;
 }) {
     const modal = useModalState();
+
+    const { t } = useTranslation();
 
     const [timeLeft, setTimeLeft] = useState(() =>
         Math.max(0, startTime + duration - Date.now()),
@@ -287,8 +289,8 @@ function Checkpoint({
                                         {item.first_name} {item.last_name}
                                     </td>
                                     <td className={`text-left p-2 border-t border-dotted border-current`}>
-                                        <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
-                                            {getformatPresence(item.presence ? String(item.presence) : "---")}
+                                        <div className={getAttendanceColor(item.presence)}>
+                                            {t(getAttendanceLabelKey(item.presence))}
                                         </div>
                                     </td>
                                     <td className={`p-2 border-t border-dotted border-current`}>
