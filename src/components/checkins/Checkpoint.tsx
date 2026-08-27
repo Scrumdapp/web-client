@@ -14,7 +14,7 @@ import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
-import {Trans} from "react-i18next";
+import { Trans } from "react-i18next";
 import { useTranslation } from "react-i18next";
 import { getStarsColor, getAttendanceColor, getAttendanceLabelKey } from "../../js/utils/colorUtils.ts";
 

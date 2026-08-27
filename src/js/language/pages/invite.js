@@ -2,11 +2,16 @@ export default {
     en: {
         invite: {
             title: 'Accept invite | Scrumdapp',
-            header: 'You\'re invited to',
-            text: 'Enter your given password underneath.',
-            join: 'Join',
+            accept: {
+                header: 'You\'re invited to',
+                text: 'Enter your given password underneath.',
+                join: 'Join',
+            },
+            header: 'All Invites',
+            create: 'New Invite',
             noinvites: 'No active invites.',
             expire: 'Expires at',
+            expired: 'Expired',
             modal: {
                 error: 'Only letters, numbers and spaces and !@#$%^& are allowed.',
                 create: 'Create',

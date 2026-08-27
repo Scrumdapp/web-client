@@ -41,7 +41,6 @@ export default {
             link2: ' our contact page',
         },
     },
-
     nl: {
         privacy: {
             title: 'Privacy | Scrumdapp',
