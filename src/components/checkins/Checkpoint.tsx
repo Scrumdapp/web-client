@@ -315,7 +315,7 @@ function Checkpoint({
                                                 </button>
                                             ) : (item.groupUser === myUserId || item.id === myUserId) ? (
                                                 <button
-                                                    className="btn border aspect-square"
+                                                    className="btn border aspect-square ml-auto mr-0"
                                                     onClick={handleOwnModalOpen}
                                                 >
                                                     <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
