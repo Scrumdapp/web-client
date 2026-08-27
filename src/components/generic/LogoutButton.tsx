@@ -15,7 +15,7 @@ export function LogoutButton() {
     return (
         <button className="btn-nav-dropdown hover:text-red cursor-pointer" type="button" onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOut} className="text-red " />
-            <Trans i18nKey="logout">Logout</Trans>
+            <Trans i18nKey="header.logout">Logout</Trans>
         </button>
     )
 }

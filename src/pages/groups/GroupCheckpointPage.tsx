@@ -1,9 +1,9 @@
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import Checkpoint from "../../components/checkins/Checkpoint.tsx";
-import {Link, useSearchParams} from "react-router-dom";
-import {parseScrumdappDate, toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
+import { Link, useSearchParams } from "react-router-dom";
+import { parseScrumdappDate, toScrumdappDate } from "../../js/utils/scrumdappDate.ts";
 import { useModalState } from "../../js/hooks/useModalState.ts";
-import {faAdd, faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
@@ -12,14 +12,16 @@ import { useUser } from "../../js/context/user/useUser.ts";
 import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
-import {parseWeekDay} from "../../js/utils/timeUtils.ts";
+import { parseWeekDay } from "../../js/utils/timeUtils.ts";
 import { Group, GroupUser } from "../../js/models/group.ts";
 import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
 import { User } from "../../js/models/user.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
-import {Trans} from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
+import {TFunction} from "i18next";
 
 export function GroupCheckpointPage() {
+    const { t } = useTranslation();
     const group = useGroup();
     const modal = useModalState();
     const [searchParams] = useSearchParams();
@@ -61,13 +63,13 @@ export function GroupCheckpointPage() {
     }
 
     return (
-        <Component {...{group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions: getCheckpointSessions.data!, groupUsers: getGroupUsers.data!, currentUser, modal}} />
+        <Component {...{group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions: getCheckpointSessions.data!, groupUsers: getGroupUsers.data!, currentUser, modal, t}} />
     );
 }
 
 function Component(
-    { group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions, groupUsers, currentUser, modal }:
-    { group: Group, date: string, prevDate: string, nextDate: string, currentDate: string, groupCreated: () => void, checkpointSessions: GroupCheckpointSession[], groupUsers: GroupUser[], currentUser: User, modal: ModalState }
+    { group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions, groupUsers, currentUser, modal, t }:
+    { group: Group, date: string, prevDate: string, nextDate: string, currentDate: string, groupCreated: () => void, checkpointSessions: GroupCheckpointSession[], groupUsers: GroupUser[], currentUser: User, modal: ModalState, t: TFunction }
 ) {
     return (
         <div className="space-y-3 ">
@@ -77,7 +79,7 @@ function Component(
                     <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
                         <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
                     </Link>
-                    <h2 className="px-2">{parseWeekDay(parseScrumdappDate(date).getUTCDay())} {date}</h2>
+                    <h2 className="px-2">{t(parseWeekDay(parseScrumdappDate(date).getUTCDay()))} {date}</h2>
                     <Link
                         to={`/groups/${group.id}?date=${nextDate}`}
                         className={`btn ${date === currentDate ? "opacity-50 pointer-events-none" : ""}`}

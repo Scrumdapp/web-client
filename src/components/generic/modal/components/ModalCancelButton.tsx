@@ -13,7 +13,7 @@ export default function ModalCancelButton() {
 
     return (
         <button onClick={modal.close} className="btn border">
-            <FontAwesomeIcon icon={faRotateLeft} className="text-gray icon" />
+            <FontAwesomeIcon icon={faRotateLeft} className="text-gray" />
             <Trans i18nKey="modal.cancel">Cancel</Trans>
         </button>
     )

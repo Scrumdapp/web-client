@@ -1,0 +1,61 @@
+import i18n from "i18next";
+
+i18n
+    .init({
+        debug: true,
+        fallbackLng: 'en',
+        interpolation: {
+            escapeValue: false,
+        },
+        resources: {
+            en: {
+                translation: {
+                    invite: {
+                        title: 'Accept invite | Scrumdapp',
+                        header: 'You\'re invited to',
+                        text: 'Enter your given password underneath.',
+                        join: 'Join',
+                        noinvites: 'No active invites.',
+                        expire: 'Expires at',
+                        modal: {
+                            error: 'Only letters, numbers and spaces and !@#$%^& are allowed.',
+                            create: 'Create',
+                            header: 'Invite others to group.',
+                            text: 'Copy and share this generated link with your team.',
+                            link: 'Link:',
+                            copy: 'Copy link',
+                            done: 'Done',
+                            succes: 'Link copied to clipboard!',
+                        },
+                    },
+                }
+            },
+            nl: {
+                translation: {
+                    invite: {
+                        title: 'Accepteer Uitnodiging | Scrumdapp',
+                        accept: {
+                            header: 'jij bent uitgenodigd voor',
+                            text: 'Enter your given password underneath.',
+                            join: 'Neem deel',
+                        },
+                        header: 'Alle uitnodigingen',
+                        create: 'Maak uitnodiging',
+                        noinvites: 'Geen actieve uitnodigingen',
+                        expire: 'Verloopt op',
+                        expired: 'Verlopen',
+                        modal: {
+                            error: 'Alleen letters, nummer, spaties en !@#$%^& zijn toegestaan.',
+                            create: 'Maak aan',
+                            header: 'Nodig anderen uit om deel te nemen aan de groep.',
+                            text: 'Kopieer en deel deze link met je team.',
+                            link: 'Link:',
+                            copy: 'Kopieer',
+                            done: 'Klaar',
+                            succes: 'Link gekopieerd naar klembord!',
+                        },
+                    },
+                }
+            }
+        }
+    })

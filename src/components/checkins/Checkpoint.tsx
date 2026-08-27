@@ -51,7 +51,7 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
                 })
             );
         } catch (err) {
-            setError(err instanceof ApiError ? err : new ApiError(999, <Trans>Unhandled error</Trans>, err as Error));
+            setError(err instanceof ApiError ? err : new ApiError(999, "Unhandled error", err as Error));
         } finally {
             setLoading(false);
         }
@@ -242,7 +242,11 @@ function Checkpoint({
             <p>
                 {isLocked
                     ? <Trans i18nKey="checkpoint.closed">Checkpoint closed</Trans>
-                    : <Trans i18nKey="checkpoint.closesin">Closes in</Trans>} {`${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
+                    : <>
+                        <Trans i18nKey="checkpoint.closesin">Closes in</Trans>{" "}
+                        {`${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
+                    </>
+                }
             </p>
             <div
                 className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
@@ -270,7 +274,7 @@ function Checkpoint({
                                     <Trans i18nKey="checkpoint.table5">Obstacle</Trans>
                                 </th>
                                 {(isSessionmaster || isInGroup) && !isLocked && (
-                                    <th className="p-2 pl-0 text-right w-10">
+                                    <th className="p-2 pl-0 text-right w-14">
                                         <Trans i18nKey="checkpoint.table6">Edit</Trans>
                                     </th>
                                 )}
@@ -302,7 +306,7 @@ function Checkpoint({
                                         <td className="border-t border-dotted p-2 pl-0">
                                             {!isLocked ? (isSessionmaster ? (
                                                 <button
-                                                    className="btn border aspect-square"
+                                                    className="btn border aspect-square ml-auto mr-0"
                                                     onClick={() => handleModalOpen(item)}
                                                 >
                                                     <FontAwesomeIcon icon={faPencil} className="icon text-blue" />

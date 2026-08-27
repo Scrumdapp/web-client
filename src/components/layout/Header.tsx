@@ -4,14 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../generic/LanguageSwitch.tsx";
+import {Trans} from "react-i18next";
 
 export default function Header() {
 
     const user = useUser()
 
     const links = [
-        { to: "/", label: "Home" },
-        { to: "/groups", label: "Groups" },
+        { to: "/", label: <Trans i18nKey="header.home">Home</Trans> },
+        { to: "/groups", label: <Trans i18nKey="header.groups">Groups</Trans> },
     ];
 
     return (<>
@@ -25,7 +26,7 @@ export default function Header() {
                 </div>
                 <div className="flex-1 flex space-x-6 text-black justify-center font-medium">
                     {links.map((link, i) => (
-                        <Link key={i} to={link.to} className="btn w-20 py-1!">
+                        <Link key={i} to={link.to} className="btn py-1!">
                             {link.label}
                         </Link>
                     ))}
@@ -39,7 +40,7 @@ export default function Header() {
                         <div className="py-4 px-1.5 text-left">
                             <Link to="/settings" className="btn-nav-dropdown hover:text-yellow">
                                 <FontAwesomeIcon icon={faPortrait} className="text-yellow" />
-                                Profile
+                                <Trans i18nKey="header.profile">Profile</Trans>
                             </Link>
                             <LanguageSwitch />
                             <LogoutButton />

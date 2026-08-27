@@ -1,0 +1,82 @@
+import i18n from "i18next";
+
+i18n
+    .init({
+        debug: true,
+        fallbackLng: 'en',
+        interpolation: {
+            escapeValue: false,
+        },
+        resources: {
+            en: {
+                translation: {
+                    checkpoint: {
+                        create: 'Create checkpoint',
+                        refresh: 'Refresh',
+                        table1: 'Name',
+                        table2: 'Attendance',
+                        table3: 'Stars',
+                        table4: 'Comment',
+                        table5: 'Obstacle',
+                        table6: 'Edit',
+                        modalheader: 'Edit checkpoint for',
+                        modal1: 'Attendance',
+                        modal2: 'Stars',
+                        modal3: 'Notes',
+                        modal4: 'Obstacle',
+                        saving: 'Saving...',
+                        apply: 'Apply',
+                        closed: 'Checkpoint closed',
+                        closesin: 'Checkpoint closes in',
+                        modal: {
+                            newcheckpoint: 'New checkpoint',
+                            error: 'Only letters, numbers and spaces are allowed.',
+                            create: 'Create',
+                        },
+                        sidebar: {
+                            today: 'Today',
+                            calendar: 'Calendar',
+                            trends: 'Trends',
+                            settings: 'Settings',
+                            recent: 'Recent',
+                        },
+                    },
+                }
+            },
+            nl: {
+                translation: {
+                    checkpoint: {
+                        create: 'Nieuw checkpoint',
+                        refresh: 'Herlaad',
+                        table1: 'Naam',
+                        table2: 'Aanwezigheid',
+                        table3: 'Sterren',
+                        table4: 'Opmerking',
+                        table5: 'Obstakel',
+                        table6: 'Bewerk',
+                        modalheader: 'Bewerk checkpoint voor',
+                        modal1: 'Aanwezigheid',
+                        modal2: 'Sterren',
+                        modal3: 'Opmerkingen',
+                        modal4: 'Obstakels',
+                        saving: 'Opslaan...',
+                        apply: 'Opslaan',
+                        closed: 'Checkpoint gesloten',
+                        closesin: 'Checkpoint sluit over',
+                        modal: {
+                            newcheckpoint: 'Nieuw checkpoint',
+                            error: 'Alleen letters, cijfers en spaties zijn toegestaan.',
+                            create: 'Maak aan',
+                        },
+                        sidebar: {
+                            today: 'Vandaag',
+                            calendar: 'Kalender',
+                            trends: 'Trends',
+                            settings: 'Instellingen',
+                            recent: 'Recent',
+                        },
+                    },
+                }
+            }
+        }
+    })
