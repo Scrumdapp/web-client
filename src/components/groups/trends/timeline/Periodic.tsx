@@ -1,6 +1,6 @@
 import { GroupUser } from "../../../../js/models/group"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
-import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../../js/utils/colorUtils"
+import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttendanceLabelKey } from "../../../../js/utils/colorUtils"
 import { parseScrumdappDate, toScrumdappDate } from "../../../../js/utils/scrumdappDate"
 import { getWeekNumber, getWeekStart, parseWeekDay } from "../../../../js/utils/timeUtils"
 
@@ -51,7 +51,7 @@ function RenderTimelineTrend({ trend: trends }: { trend: PresenceTrendItem }) {
                                 {trend.presences.map((it, i) => (
                                     <tr key={i}>
                                         <td className="text-nowrap pr-2">{it.name}</td>
-                                        <td className={`text-nowrap ${getAttendanceColorScrummaster(it.presence)}`}>{getAttendanceLabel(it.presence)}</td>
+                                        <td className={`text-nowrap ${getAttendanceColorScrummaster(it.presence)}`}>{getAttendanceLabelKey(it.presence)}</td>
                                     </tr>
                                 ))}
                             </tbody>

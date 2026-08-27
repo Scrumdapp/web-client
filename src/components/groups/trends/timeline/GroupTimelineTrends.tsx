@@ -60,7 +60,7 @@ export const GroupTimelineTrends = memo(({ users, from, to, display }: GroupTime
                 {attendanceOptions.map(it => (
                     <div className="horizontal gap-2 items-center">
                         <div className={`w-4 h-4 rounded-sm ${it.background}`}></div>
-                        <p className="text-fg2">{it.label === "---" ? "No Data" : it.label}</p>
+                        <p className="text-fg2">{it.labelKey === "---" ? "No Data" : it.labelKey}</p>
                     </div>
                 ))}
             </div >

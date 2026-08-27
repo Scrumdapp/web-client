@@ -31,7 +31,7 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
         <Menu as="div" className="relative w-full w-[20%]">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
-                    {currentOption.label}
+                    {currentOption.labelKey}
                 </span>
                 <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`}/>
             </MenuButton>
@@ -39,12 +39,12 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
                 <div>
                     {attendanceOptions.map((opt) => (
                         <MenuItem
-                            key={opt.label}
+                            key={opt.labelKey}
                             as="button"
                             type="button"
                             onClick={() => updateValue(opt.value)}
                             className={`btn-attendance-dropdown ${opt.color}`}>
-                            {opt.label}
+                            {opt.labelKey}
                         </MenuItem>
                     ))}
                 </div>
