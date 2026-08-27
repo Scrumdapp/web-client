@@ -1,5 +1,5 @@
 interface ModalHeadTextProps {
-    children?: string
+    children?: any
 }
 
 export default function ModalHeadText({children}: ModalHeadTextProps) {

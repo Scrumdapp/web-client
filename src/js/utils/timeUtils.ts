@@ -66,7 +66,7 @@ export function parseMonthText(month: number) {
         case 6: return "July"
         case 7: return "August"
         case 8: return "September"
-        case 9: return "Oktober"
+        case 9: return "October"
         case 10: return "November"
         case 11: return "December"
     }

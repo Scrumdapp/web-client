@@ -17,6 +17,7 @@ import { Group, GroupUser } from "../../js/models/group.ts";
 import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
 import { User } from "../../js/models/user.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
+import {Trans} from "react-i18next";
 
 export function GroupCheckpointPage() {
     const group = useGroup();
@@ -89,7 +90,7 @@ function Component(
                 </div>
                 <ShowIf condition={currentDate == date}>
                     <button className="btn border" onClick={modal.open}>
-                        <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
+                        <FontAwesomeIcon icon={faAdd} className="text-blue" /> <Trans i18nKey="checkpoint.create">Create Checkpoint</Trans>
                     </button>
                 </ShowIf>
             </div>

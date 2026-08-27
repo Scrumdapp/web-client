@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useGroup } from "../../js/context/group/useGroup"
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi"
 import { useApiComponent } from "../../js/hooks/api/useApiComponent"
+import {Trans} from "react-i18next";
 
 export function GroupSidebarDates() {
 
@@ -10,7 +11,9 @@ export function GroupSidebarDates() {
 
     return (
         <div className="card vertical gap-1 text-center">
-            <span>Recent</span>
+            <span>
+                <Trans i18nKey="checkpoint.sidebar.recent">Recent</Trans>
+            </span>
             <hr className="text-gray my-2" />
             <GetDatesApiComponent input={[group.id, 5]}>
                 {(dates) => dates.dates.map((date) => (

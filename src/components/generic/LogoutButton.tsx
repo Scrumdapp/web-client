@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { WebConfig } from "../../config";
+import {Trans} from "react-i18next";
 
 export const handleLogout = () => {
     if (import.meta.env.DEV) {
@@ -14,7 +15,7 @@ export function LogoutButton() {
     return (
         <button className="btn-nav-dropdown hover:text-red cursor-pointer" type="button" onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOut} className="text-red " />
-            Logout
+            <Trans i18nKey="logout">Logout</Trans>
         </button>
     )
 }

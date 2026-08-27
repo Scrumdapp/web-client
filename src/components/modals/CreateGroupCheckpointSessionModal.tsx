@@ -10,6 +10,7 @@ import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {GroupCheckpointSession} from "../../js/models/checkpoint.ts";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {LoadScreen} from "../generic/LoadScreen.tsx";
+import {Trans} from "react-i18next";
 
 export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }: { groupId: number, state: ModalState, onCreated?: (session: GroupCheckpointSession) => void }) {
     const [checkpointName, setCheckpointName] = useState("");
@@ -29,7 +30,9 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
     return (
         <Modal state={state}>
             <div className="space-y-5">
-                <ModalHeadText>New Checkpoint</ModalHeadText>
+                <ModalHeadText>
+                    <Trans i18nKey="checkpoint.modal.newcheckpoint">New Checkpoint</Trans>
+                </ModalHeadText>
                 <input
                     type="text"
                     className="write-section w-full!"
@@ -45,7 +48,7 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
                 />
                 {showWarning && (
                     <p className="text-red text-sm">
-                        Only letters, numbers and spaces are allowed.
+                        <Trans i18nKey="checkpoint.modal.error">Only letters, numbers and spaces are allowed.</Trans>
                     </p>
                 )}
                 <ModalActionRow>
@@ -56,7 +59,7 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
                         onClick={handleCreate}
                     >
                         <FontAwesomeIcon icon={faCheck} className="icon"/>
-                        {createCheckpointSession.loading ? (<LoadScreen />) : "Create"}
+                        {createCheckpointSession.loading ? (<LoadScreen />) : <Trans i18nKey="checkpoint.modal.create">Create</Trans>}
                     </button>
                 </ModalActionRow>
             </div>

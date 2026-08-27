@@ -14,6 +14,7 @@ import {BackgroundGrid} from "./BackgroundGrid.tsx";
 import {BackgroundTopicNavbar} from "./BackgroundTopicNavbar.tsx";
 import {StatusMessage, useStatusMessage} from "../../../../js/hooks/useStatusMessage.tsx";
 import {useState} from "react";
+import {Trans} from "react-i18next";
 
 const backgroundTopics: BackgroundTopic[] = [
     {id: 'All', backgrounds: ['1', '2', '4', '5', '6', '6_2', '7', '7_2', '8', '9', '10', '14', '14_2', '15', '17', '18', '22', '23', '30', 'color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
@@ -36,12 +37,16 @@ export function BackgroundSelector() {
 
     return (
         <div className="card vertical gap-2">
-            <h3>Background</h3>
-            <p>Current background:</p>
+            <h3>
+                <Trans i18nKey="settings.background.header">Background</Trans>
+            </h3>
+            <p>
+                <Trans i18nKey="settings.background.text">Current background:</Trans>
+            </p>
             <img className="rounded-md w-1/2" src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`} alt="current background"/>
             <Button onClick={modalState.open} aria-label="change background" className="mr-auto btn border">
                 <FontAwesomeIcon icon={faImages} className="text-green" />
-                Change background
+                <Trans i18nKey="settings.background.change">Change background</Trans>
             </Button>
 
             <BackgroundSelectorModal modal={modalState}/>

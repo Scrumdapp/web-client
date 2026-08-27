@@ -2,6 +2,7 @@ import * as React from "react"
 import ModalContext from "./ModalContext.tsx"
 import {faRotateLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {Trans} from "react-i18next";
 
 export default function ModalCancelButton() {
     const modal = React.useContext(ModalContext)
@@ -13,7 +14,7 @@ export default function ModalCancelButton() {
     return (
         <button onClick={modal.close} className="btn border">
             <FontAwesomeIcon icon={faRotateLeft} className="text-gray icon" />
-            Cancel
+            <Trans i18nKey="modal.cancel">Cancel</Trans>
         </button>
     )
 }

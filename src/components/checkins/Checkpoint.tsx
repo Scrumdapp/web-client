@@ -16,6 +16,7 @@ import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
+import {Trans} from "react-i18next";
 
 type CheckpointUser = { user_id: number; first_name: string; last_name: string };
 
@@ -50,7 +51,7 @@ function useGroupCheckpoints(groupId: number, sessionId: number, users: Checkpoi
                 })
             );
         } catch (err) {
-            setError(err instanceof ApiError ? err : new ApiError(999, "Unhandled error", err as Error));
+            setError(err instanceof ApiError ? err : new ApiError(999, <Trans>Unhandled error</Trans>, err as Error));
         } finally {
             setLoading(false);
         }
@@ -234,14 +235,14 @@ function Checkpoint({
                         onClick={() => fetch().catch(console.error)}
                         disabled={rowsLoading}
                     >
-                        <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" /> Refresh
+                        <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" /> <Trans i18nKey="checkpoint.refresh">Refresh</Trans>
                     </button>
                 </div>
             </div>
             <p>
                 {isLocked
-                    ? "Checkpoint closed"
-                    : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
+                    ? <Trans i18nKey="checkpoint.closed">Checkpoint closed</Trans>
+                    : <Trans i18nKey="checkpoint.closesin">Closes in</Trans>} {`${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
             </p>
             <div
                 className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
@@ -253,13 +254,25 @@ function Checkpoint({
                     <table className="table-fixed w-full">
                         <thead>
                             <tr>
-                                <th className="p-2 text-left w-44">Name</th>
-                                <th className="p-2 text-left border-l border-dotted w-28">Attendance</th>
-                                <th className="p-2 items-center w-28">Stars</th>
-                                <th className="p-2 text-left">Comment</th>
-                                <th className="p-2 text-left">Obstacle</th>
+                                <th className="p-2 text-left w-44">
+                                    <Trans i18nKey="checkpoint.table1">Name</Trans>
+                                </th>
+                                <th className="p-2 text-left border-l border-dotted w-28">
+                                    <Trans i18nKey="checkpoint.table2">Attendance</Trans>
+                                </th>
+                                <th className="p-2 items-center w-28">
+                                    <Trans i18nKey="checkpoint.table3">Stars</Trans>
+                                </th>
+                                <th className="p-2 text-left">
+                                    <Trans i18nKey="checkpoint.table4">Comment</Trans>
+                                </th>
+                                <th className="p-2 text-left">
+                                    <Trans i18nKey="checkpoint.table5">Obstacle</Trans>
+                                </th>
                                 {(isSessionmaster || isInGroup) && !isLocked && (
-                                    <th className="p-2 pl-0 text-right w-10">Edit</th>
+                                    <th className="p-2 pl-0 text-right w-10">
+                                        <Trans i18nKey="checkpoint.table6">Edit</Trans>
+                                    </th>
                                 )}
                             </tr>
                         </thead>
@@ -313,18 +326,27 @@ function Checkpoint({
             </div>
             <Modal state={modal}>
                 <div className="space-y-5">
-                    <ModalHeadText>{`Edit Checkpoint ${selectedUser ? `for ${selectedUser.first_name} ${selectedUser.last_name}` : ""}`}</ModalHeadText>          <div className="flex flex-col space-y-2 w-full">
-                        <label>Attendance</label>
+                    <ModalHeadText>
+                        <Trans i18nKey="checkpoint.modalheader">Edit Checkpoint for</Trans> {selectedUser ? ( <>{selectedUser.first_name} {selectedUser.last_name}</>) : null}
+                    </ModalHeadText>
+                    <div className="flex flex-col space-y-2 w-full">
+                        <label>
+                            <Trans i18nKey="checkpoint.modal1">Attendance</Trans>
+                        </label>
                         <AttendanceDropDownMenu
                             value={selectedPresence}
                             onChange={setSelectedPresence}
                         />
-                        <label>Stars</label>
+                        <label>
+                            <Trans i18nKey="checkpoint.modal2">Stars</Trans>
+                        </label>
                         <StarsDropDownMenu
                             value={selectedStar}
                             onChange={setSelectedStar}
                         />
-                        <label>Notes</label>
+                        <label>
+                            <Trans i18nKey="checkpoint.modal3">Notes</Trans>
+                        </label>
                         <input
                             className="write-section"
                             placeholder="Notes"
@@ -332,7 +354,9 @@ function Checkpoint({
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                         />
-                        <label>Obstacle</label>
+                        <label>
+                            <Trans i18nKey="checkpoint.modal4">Obstacle</Trans>
+                        </label>
                         <input
                             className="write-section"
                             placeholder="Obstacle"
@@ -350,7 +374,7 @@ function Checkpoint({
                             type="button"
                             disabled={applyLoading}
                         >
-                            {applyLoading ? "Saving..." : "Apply"}
+                            {applyLoading ? <Trans i18nKey="checkpoint.saving">Saving...</Trans> : <Trans i18nKey="checkpoint.apply">Apply</Trans>}
                         </button>
                     </ModalActionRow>
                 </div>

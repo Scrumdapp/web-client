@@ -5,7 +5,9 @@ export default function Privacy() {
 
     return (
         <div className="app-container">
-            <title>Privacy | Scrumdapp</title>
+            <title>
+                <Trans i18nKey="privacy.title">Privacy | Scrumdapp</Trans>
+            </title>
             <div className="card text-block">
                 <h1>
                     <Trans i18nKey="privacy.header">Privacy:</Trans>
@@ -103,7 +105,6 @@ export default function Privacy() {
                     >
                         {t("privacy.link2")}
                     </a>
-                    .
                 </p>
             </div>
         </div>

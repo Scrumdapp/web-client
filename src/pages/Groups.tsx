@@ -11,6 +11,7 @@ import { CreateGroupModal } from "../components/modals/CreateGroupModal.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
 import { ShowIf } from "../components/utility/Conditional.tsx";
 import { hasRole, Role } from "../js/utils/userPermissions.ts";
+import { Trans } from "react-i18next";
 
 export default function Groups() {
     const user = useUser()
@@ -31,7 +32,9 @@ export default function Groups() {
 
     return (
         <div className="app-container vertical gap-4">
-            <title>Groups | Scrumdapp</title>
+            <title>
+                <Trans i18nKey="groups.title">Groups | Scrumdapp</Trans>
+            </title>
             <div className="horizontal justify-between">
                 <h1 className="flex-1">Scrumdapp</h1>
                 <div className="flex-1 horizontal center align-top">
@@ -41,15 +44,16 @@ export default function Groups() {
                         placeholder="Search for groups"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        alt="Search here for diffrent groups"
+                        alt="Search here for groups"
                         className="bg-bg_h"
+                        //Need to be able to translate the placeholder and alt-text
                     />
                 </div>
                 <div className="flex-1">
                     <ShowIf condition={hasRole(user, Role.Coach)}>
                         <button className="ml-auto btn btn-red border max-h-fit"
                             onClick={modal.open}>
-                            New Group <FontAwesomeIcon icon={faPlus} />
+                            <Trans i18nKey="groups.newgroup">New Group </Trans><FontAwesomeIcon icon={faPlus} />
                         </button>
                     </ShowIf>
                 </div>
@@ -62,7 +66,7 @@ export default function Groups() {
                     return (
                         <ul className="grid gap-4 grid-cols-3 justify-center">
                             {filteredGroups.length === 0 && (
-                                <p className="text-fg">No groups have been found...</p>
+                                <Trans i18nKey="groups.nogroups"><p className="text-fg">No groups have been found...</p></Trans>
                             )}
                             {filteredGroups.map((group) => (
                                 <li key={group.id}>

@@ -11,6 +11,7 @@ import {faCopy} from "@fortawesome/free-regular-svg-icons";
 import {useApi} from "../../../js/hooks/api/useApi.ts";
 import {InviteResponse} from "../../../js/models/invites.tsx";
 import useTempState from "../../../js/hooks/useTempState.ts";
+import {Trans} from "react-i18next";
 
 interface InvitesProps {
     groupId: number;
@@ -70,19 +71,25 @@ export default function Invites({ groupId }: InvitesProps) {
         <>
             <div className="card flex flex-col items-center">
                 <div className="flex flex-row w-full justify-between items-center py-3">
-                    <h3>All Invites</h3>
+                    <h3>
+                        <Trans i18nKey="invite.header">All Invites</Trans>
+                    </h3>
                     <button onClick={handleOpenModal} className="btn btn-secondary border">
-                        Create Invite
+                        <Trans i18nKey="invite.create">Create Invite</Trans>
                     </button>
                 </div>
                 <div className="w-full">
                     {invites.length === 0 ? (
-                        <p>No active invites.</p>
+                        <p>
+                            <Trans i18nKey="invite.noinvites">No active invites.</Trans>
+                        </p>
                     ) : (
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th className="p-2 text-left">Expires at</th>
+                                    <th className="p-2 text-left">
+                                        <Trans i18nKey="invite.expire">Expires at</Trans>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,7 +103,7 @@ export default function Invites({ groupId }: InvitesProps) {
                                                     className={`btn btn-secondary border my-1 float-right ${expired? "opacity-50 cursor-not-allowed!" : ""}`}
                                                     disabled={expired}>
                                                     <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy}/>
-                                                    {copiedId === invite.id ? " Copied!" : expired ? "Expired" : " Copy link"}
+                                                    {copiedId === invite.id ? " Copied!" : expired ? <Trans i18nKey="invite.expired">Expired</Trans> : <Trans i18nKey="invite.modal.copy">Copy link</Trans>}
                                                 </button>
                                             </td>
                                         </tr>
@@ -132,14 +139,14 @@ export default function Invites({ groupId }: InvitesProps) {
                             <div className="py-2 flex gap-x-2">
                                 {showWarning && (
                                     <p className="text-red text-sm">
-                                        Only letters, numbers and spaces and !@#$%^& are allowed.
+                                        <Trans i18nKey="invite.modal.error">Only letters, numbers and spaces and !@#$%^& are allowed.</Trans>
                                     </p>
                                 )}
                                 <ModalCancelButton />
                                 <button onClick={handleCreateInvite} className={`btn btn-secondary border ${!password ? "opacity-50 cursor-not-allowed!" : ""}`}
                                         disabled={!password.trim()}
                                 >
-                                    <FontAwesomeIcon icon={faCheck} /> Create
+                                    <FontAwesomeIcon icon={faCheck} /> <Trans i18nKey="invite.modal.create">Create</Trans>
                                 </button>
                             </div>
                         </ModalActionRow>
@@ -148,21 +155,27 @@ export default function Invites({ groupId }: InvitesProps) {
                 {step === 2 && (
                     <>
                         <div>
-                            <h1>Invite others to group</h1>
-                            <p>Copy and share this generated link with your team.</p>
+                            <h1>
+                                <Trans i18nKey="invite.modal.header">Invite others to group.</Trans>
+                            </h1>
+                            <p>
+                                <Trans i18nKey="invite.modal.text">Copy and share this generated link with your team.</Trans>
+                            </p>
                             <div className="py-5 gap-2 flex flex-nowrap justify-between items-center">
-                                <p>Link:</p>
+                                <p>
+                                    <Trans i18nKey="invite.modal.link">Link:</Trans>
+                                </p>
                                 <text className="write-section p-2! overflow-hidden">{generatedLink}</text>
                             </div>
                             <ModalActionRow>
                                 <button onClick={handleCopy} className="btn btn-secondary border">
-                                    <FontAwesomeIcon icon={faCopy} /> Copy link
+                                    <FontAwesomeIcon icon={faCopy} /> <Trans i18nKey="invite.modal.copy">Copy link</Trans>
                                 </button>
                                 <button onClick={handleDone} className="btn border">
-                                    <FontAwesomeIcon icon={faCheck} /> Done
+                                    <FontAwesomeIcon icon={faCheck} /> <Trans i18nKey="invite.modal.done">Done</Trans>
                                 </button>
                             </ModalActionRow>
-                            {copied && <p className="text-right text-green-dim mt-2">Link copied to clipboard!</p>}
+                            {copied && <p className="text-right text-green-dim mt-2"><Trans i18nKey="invite.modal.succes">Link copied to clipboard!</Trans></p>}
                         </div>
                     </>
                 )}

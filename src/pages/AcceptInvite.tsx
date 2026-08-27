@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
 import { InviteResponse } from "../js/models/invites.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
+import {Trans} from "react-i18next";
 
 export default function AcceptInvite() {
     const { inviteId } = useParams()
@@ -46,26 +47,33 @@ export default function AcceptInvite() {
 
     return (
         <div className="app-container">
-            <title>Accept Invite | Scrumdapp</title>
+            <title>
+                <Trans i18nKey="invite.title">Accept Invite | Scrumdapp</Trans>
+            </title>
             <div className="card flex flex-col">
-                <h1>You're invited to {invite?.groupId}!</h1>
-                <p>Enter your given password underneath.</p>
+                <h1>
+                    <Trans i18nKey="invite.accept.header">You're invited to</Trans> {invite?.groupId}!
+                </h1>
+                <p>
+                    <Trans i18nKey="invite.accept.text">Enter your given password underneath.</Trans>
+                </p>
                 <div>
                     <div className="py-3">
-                        <input className="write-section w-full!"
+                        <input
+                            className="write-section w-full!"
                             alt="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            //Need to be able to translate the placeholder and alt-text
                         />
                     </div>
                     <div>
                         <button onClick={handleJoinInvite} className="btn btn-secondary border flex float-right">
-                            Join
+                            <Trans i18nKey="invite.accept.join">Join</Trans>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }

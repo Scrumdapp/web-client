@@ -1,11 +1,11 @@
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const lngs = {
     en: { nativeName: 'EN' },
     nl: { nativeName: 'NL' }
 };
 function LanguageSwitch() {
-    const { t, i18n } = useTranslation();
+    const { i18n } = useTranslation();
 
     return (
         <>

@@ -1,4 +1,5 @@
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Trans } from "react-i18next";
 
 export default function ErrorPage() {
 
@@ -6,12 +7,16 @@ export default function ErrorPage() {
 
     return (
         <div className="app-container vertical gap-4">
-            <title>Page not found | Scrumdapp</title>
+            <title>
+                <Trans i18nKey="error.title">Page not found | Scrumdapp</Trans>
+            </title>
             <img src="https://http.cat/images/404.jpg" alt="404-error-page-not-found" className="border rounded-2xl mx-auto" />
-            <Link
-                to=".." className="mx-auto bg-bg! card btn text-xl"
-                onClick={(e) => {e.preventDefault();navigate(-1);}}>Go back
-            </Link>
+            <a
+                href=".." className="mx-auto bg-bg! card btn text-xl"
+                onClick={(e) => {e.preventDefault();navigate(-1);}}
+            >
+                <Trans i18nKey="error.goback">Go Back</Trans>
+            </a>
         </div>
     )
 }
