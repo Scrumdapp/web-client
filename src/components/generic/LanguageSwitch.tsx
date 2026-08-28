@@ -1,23 +1,38 @@
 import { useTranslation } from 'react-i18next';
 
 const lngs = {
-    en: { nativeName: 'EN' },
-    nl: { nativeName: 'NL' }
-};
+    en: { nativeName: 'English', flag: '🇬🇧' },
+    nl: { nativeName: 'Nederlands', flag: '🇳🇱' }
+} satisfies Record<string, { nativeName: string; flag: string }>;
+
+type LngKey = keyof typeof lngs;
+
 function LanguageSwitch() {
     const { i18n } = useTranslation();
 
+    const handleChangeLanguage = (lng: LngKey) => {
+        i18n.changeLanguage(lng).then(() => {
+            window.location.reload();
+        });
+    };
+
     return (
-        <>
-            <div>
-                {Object.keys(lngs).map((lng) => (
-                    <button key={lng} className="hover:cursor-pointer button" style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
-                        {lngs[lng].nativeName}
-                    </button>
-                ))}
-            </div>
-        </>
-    )
+        <div className="flex horizontal gap-4 justify-center items-center">
+            {(Object.keys(lngs) as LngKey[]).map((lng) => (
+                <button
+                    key={lng}
+                    className="hover:cursor-pointer"
+                    style={{ opacity: i18n.resolvedLanguage === lng ? 1 : 0.5 }}
+                    type="button"
+                    aria-label={lngs[lng].nativeName}
+                    title={lngs[lng].nativeName}
+                    onClick={() => handleChangeLanguage(lng)}
+                >
+                    {lngs[lng].flag}
+                </button>
+            ))}
+        </div>
+    );
 }
 
-export default LanguageSwitch
+export default LanguageSwitch;
