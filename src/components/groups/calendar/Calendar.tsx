@@ -4,7 +4,7 @@ import { useApiComponent } from "../../../js/hooks/api/useApiComponent"
 import { firstDayOfMonth, getWeekEnd, getWeekNumber, getWeeksBetween, getWeekStart, lastDayOfMonth, parseYearMonth, WEEK } from "../../../js/utils/timeUtils"
 import { memo } from "react"
 import { CalendarDate } from "./CalendarDate"
-import {Trans} from "react-i18next";
+import { Trans } from "react-i18next";
 
 export interface CalendarProps {
     yearMonth: string
