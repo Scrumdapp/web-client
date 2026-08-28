@@ -11,9 +11,11 @@ import { CreateGroupModal } from "../components/modals/CreateGroupModal.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
 import { ShowIf } from "../components/utility/Conditional.tsx";
 import { hasRole, Role } from "../js/utils/userPermissions.ts";
-import { Trans } from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export default function Groups() {
+    const { t } = useTranslation();
+
     const user = useUser()
     const modal = useModalState();
     const [search, setSearch] = useState("");
@@ -41,12 +43,11 @@ export default function Groups() {
                     <IconInput
                         icon={faMagnifyingGlass}
                         type="text"
-                        placeholder="Search for groups"
+                        placeholder={t('groups.searchPlaceholder')}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        alt="Search here for groups"
+                        alt={t('groups.searchAlt')}
                         className="bg-bg_h"
-                        //Need to be able to translate the placeholder and alt-text
                     />
                 </div>
                 <div className="flex-1">

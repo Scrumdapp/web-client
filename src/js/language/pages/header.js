@@ -5,6 +5,7 @@ export default {
             groups: 'Groups',
             profile: 'Profile',
             logout: 'Logout',
+            profileAlt: 'User Profile Picture',
         },
     },
     nl: {
@@ -13,6 +14,7 @@ export default {
             groups: 'Groepen',
             profile: 'Profiel',
             logout: 'Uitloggen',
+            profileAlt: 'Gebruikersprofielfoto',
         },
     }
 }

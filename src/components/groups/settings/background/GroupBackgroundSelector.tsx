@@ -14,7 +14,7 @@ import {BackgroundGrid} from "./BackgroundGrid.tsx";
 import {BackgroundTopicNavbar} from "./BackgroundTopicNavbar.tsx";
 import {StatusMessage, useStatusMessage} from "../../../../js/hooks/useStatusMessage.tsx";
 import {useState} from "react";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 const backgroundTopics: BackgroundTopic[] = [
     {id: 'All', backgrounds: ['1', '2', '4', '5', '6', '6_2', '7', '7_2', '8', '9', '10', '14', '14_2', '15', '17', '18', '22', '23', '30', 'color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
@@ -31,7 +31,7 @@ export interface BackgroundTopic {
 }
 
 export function BackgroundSelector() {
-
+    const { t } = useTranslation();
     const group = useGroup()
     const modalState = useModalState()
 
@@ -43,7 +43,7 @@ export function BackgroundSelector() {
             <p>
                 <Trans i18nKey="settings.background.text">Current background:</Trans>
             </p>
-            <img className="rounded-md w-1/2" src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`} alt="current background"/>
+            <img className="rounded-md w-1/2" src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`} alt={t('settings.background.current')}/>
             <Button onClick={modalState.open} aria-label="change background" className="mr-auto btn border">
                 <FontAwesomeIcon icon={faImages} className="text-green" />
                 <Trans i18nKey="settings.background.change">Change background</Trans>

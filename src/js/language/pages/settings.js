@@ -7,6 +7,8 @@ export default {
                 header: 'Background',
                 text: 'Current background',
                 change: 'Change background',
+                alt: 'Background {{id}}',
+                current: 'Current background',
             },
         },
     },
@@ -18,6 +20,8 @@ export default {
                 header: 'Achtergrond',
                 text: 'Huidige achtergrond',
                 change: 'Verander achtergrond',
+                alt: 'Achtergrond {{id}}',
+                current: 'Huidige achtergrond',
             },
         },
     }

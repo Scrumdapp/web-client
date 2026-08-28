@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
 import { InviteResponse } from "../js/models/invites.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export default function AcceptInvite() {
+    const { t } = useTranslation();
     const { inviteId } = useParams()
     const [searchParams] = useSearchParams()
     const token = searchParams.get("token")
@@ -61,10 +62,10 @@ export default function AcceptInvite() {
                     <div className="py-3">
                         <input
                             className="write-section w-full!"
-                            alt="Password"
+                            placeholder={t('invite.password')}
+                            alt={t('invite.password')}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            //Need to be able to translate the placeholder and alt-text
                         />
                     </div>
                     <div>

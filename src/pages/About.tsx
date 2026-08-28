@@ -3,9 +3,10 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 import { Link } from "react-router-dom";
 import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export default function About() {
+    const {t} = useTranslation();
     return (
        <div className="app-container card horizontal gap-3 mb-4">
            <title>
@@ -35,7 +36,7 @@ export default function About() {
             </div>
            </div>
            <div className="my-auto">
-               <img src={`/ScrumdappLogoTransparent.webp`} alt="scrumdapp-logo" className="mx-auto" />
+               <img src={`/ScrumdappLogoTransparent.webp`} alt={t('about.logo')} className="mx-auto" />
            </div>
         </div>
     )

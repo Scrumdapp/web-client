@@ -7,6 +7,7 @@ export default {
                 text: 'Enter your given password underneath.',
                 join: 'Join',
             },
+            password: 'Password',
             header: 'All Invites',
             create: 'New Invite',
             noinvites: 'No active invites.',
@@ -28,10 +29,11 @@ export default {
         invite: {
             title: 'Accepteer Uitnodiging | Scrumdapp',
             accept: {
-                header: 'jij bent uitgenodigd voor',
+                header: 'Jij bent uitgenodigd voor',
                 text: 'Enter your given password underneath.',
                 join: 'Neem deel',
             },
+            password: 'Wachtwoord',
             header: 'Alle uitnodigingen',
             create: 'Maak uitnodiging',
             noinvites: 'Geen actieve uitnodigingen',

@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../generic/LanguageSwitch.tsx";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export default function Header() {
-
+    const {t} = useTranslation();
     const user = useUser()
 
     const links = [
@@ -20,7 +20,7 @@ export default function Header() {
             <nav className="bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center z-50">
                 <div className="flex-1 text-fg text-2xl font-bold">
                     <Link to="/groups" className="horizontal gap-1 items-center">
-                        <img src={`/ScrumdappLogoTransparent.webp`} alt="scrumdapp-logo" className="nav-icon" />
+                        <img src={`/ScrumdappLogoTransparent.webp`} alt={t('about.logo')} className="nav-icon" />
                         Scrumdapp
                     </Link>
                 </div>
@@ -34,7 +34,7 @@ export default function Header() {
                 <div className="flex-1 nav-dropdown cursor-default">
                     <div className="horizontal justify-end items-center gap-1">
                         <span>{`${user.first_name} ${user.last_name}`}</span>
-                        <img src={user.avatar ?? "/Scrumdaddy.png"} alt="user-profile-picture" className="nav-icon" />
+                        <img src={user.avatar ?? "/Scrumdaddy.png"} alt={t('header.profileAlt')} className="nav-icon" />
                     </div>
                     <div className="nav-dropdown-content -right-[0.5px]!">
                         <div className="py-4 px-1.5 text-left">

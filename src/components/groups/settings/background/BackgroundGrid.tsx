@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 export function BackgroundGrid({backgrounds, handleUpdate}: {
     backgrounds: string[],
@@ -19,6 +20,7 @@ function BackgroundTile({id, handleUpdate}: {
     id: string,
     handleUpdate: (id: string) => void
 }) {
+    const {t} = useTranslation();
 
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -30,7 +32,7 @@ function BackgroundTile({id, handleUpdate}: {
 
             <img
                 src={`/backgrounds/thumbnails/${id}.webp`}
-                alt={`Background ${id}`}
+                alt={t('settings.background.alt')}
                 className={` inset-0 h-full w-full object-cover transition-opacity duration-300 ${
                     isLoaded ? "opacity-100" : "opacity-0"
                 }`}

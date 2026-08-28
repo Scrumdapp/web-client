@@ -11,13 +11,14 @@ import {faCopy} from "@fortawesome/free-regular-svg-icons";
 import {useApi} from "../../../js/hooks/api/useApi.ts";
 import {InviteResponse} from "../../../js/models/invites.tsx";
 import useTempState from "../../../js/hooks/useTempState.ts";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 interface InvitesProps {
     groupId: number;
 }
 
 export default function Invites({ groupId }: InvitesProps) {
+    const { t } = useTranslation();
     const modal = useModalState();
     const [step, setStep] = useState<1 | 2>(1);
     const [password, setPassword] = useState("");
@@ -121,8 +122,8 @@ export default function Invites({ groupId }: InvitesProps) {
                         <div className="flex justify-between py-2">
                             <input
                                 className="write-section w-full! mr-2 flex-5"
-                                placeholder="Password"
-                                alt="Password"
+                                placeholder={t('invite.password')}
+                                alt={t('invite.password')}
                                 value={password}
                                 maxLength={32}
                                 onChange={(e) => {

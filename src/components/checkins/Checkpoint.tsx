@@ -355,8 +355,8 @@ function Checkpoint({
                         </label>
                         <input
                             className="write-section"
-                            placeholder="Notes"
-                            alt="Notes"
+                            placeholder={t('checkpoint.notes')}
+                            alt={t('checkpoint.notes')}
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                         />
@@ -365,8 +365,8 @@ function Checkpoint({
                         </label>
                         <input
                             className="write-section"
-                            placeholder="Obstacle"
-                            alt="Obstacle"
+                            placeholder={t('checkpoint.obstacle')}
+                            alt={t('checkpoint.obstacle')}
                             value={obstacle}
                             onChange={(e) => setObstacle(e.target.value)}
                         />

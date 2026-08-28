@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { Trans } from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export default function ErrorPage() {
-
+    const {t} = useTranslation();
     const navigate = useNavigate();
 
     return (
@@ -10,7 +10,7 @@ export default function ErrorPage() {
             <title>
                 <Trans i18nKey="error.title">Page not found | Scrumdapp</Trans>
             </title>
-            <img src="https://http.cat/images/404.jpg" alt="404-error-page-not-found" className="border rounded-2xl mx-auto" />
+            <img src="https://http.cat/images/404.jpg" alt={t('error.notfound')} className="border rounded-2xl mx-auto" />
             <a
                 href=".." className="mx-auto bg-bg! card btn text-xl"
                 onClick={(e) => {e.preventDefault();navigate(-1);}}

@@ -14,6 +14,8 @@ export default {
             modal2: 'Stars',
             modal3: 'Notes',
             modal4: 'Obstacle',
+            notes: 'Notes',
+            obstacle: 'Obstacle',
             saving: 'Saving...',
             apply: 'Apply',
             closed: 'Checkpoint closed',
@@ -22,6 +24,7 @@ export default {
                 newcheckpoint: 'New checkpoint',
                 error: 'Only letters, numbers and spaces are allowed.',
                 create: 'Create',
+                name: 'Checkpoint Name',
             },
             sidebar: {
                 today: 'Today',
@@ -65,6 +68,7 @@ export default {
                 newcheckpoint: 'Nieuw checkpoint',
                 error: 'Alleen letters, cijfers en spaties zijn toegestaan.',
                 create: 'Maak aan',
+                name: 'Checkpoint Naam',
             },
             sidebar: {
                 today: 'Vandaag',

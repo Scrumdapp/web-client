@@ -10,9 +10,10 @@ import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
 import {GroupCheckpointSession} from "../../js/models/checkpoint.ts";
 import {useApi} from "../../js/hooks/api/useApi.ts";
 import {LoadScreen} from "../generic/LoadScreen.tsx";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }: { groupId: number, state: ModalState, onCreated?: (session: GroupCheckpointSession) => void }) {
+    const { t } = useTranslation();
     const [checkpointName, setCheckpointName] = useState("");
     const [showWarning, setShowWarning] = useState(false);
     const createCheckpointSession = useApi(ScrumdappApi.createCheckpointSessions());
@@ -36,8 +37,8 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
                 <input
                     type="text"
                     className="write-section w-full!"
-                    placeholder="Checkpoint Name"
-                    alt="Checkpoint Name"
+                    placeholder={t('checkpoint.modal.name')}
+                    alt={t('checkpoint.modal.name')}
                     value={checkpointName}
                     maxLength={32}
                     onChange={(e) => {
