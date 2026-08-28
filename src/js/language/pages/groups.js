@@ -8,6 +8,7 @@ export default {
             searchAlt: 'Search here for groups',
             creategroup: 'Create Name',
             image: 'Group image for {{group.name}}',
+            submit: 'Submit',
         },
     },
     nl: {
@@ -19,6 +20,7 @@ export default {
             searchAlt: 'Zoek hier naar groepen',
             creategroup: 'Groep Naam',
             image: 'Groepsafbeelding voor {{group.name}}',
+            submit: 'Maak aan',
         },
     }
 }

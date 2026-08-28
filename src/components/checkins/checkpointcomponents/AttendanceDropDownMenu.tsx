@@ -1,8 +1,8 @@
-import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import {useEffect, useState} from "react";
-import {attendanceOptions, getAttendanceColorScrummaster} from "../../../js/utils/colorUtils.ts";
-import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { useEffect, useState } from "react";
+import { attendanceOptions, getAttendanceColorScrummaster } from "../../../js/utils/colorUtils.ts";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type AttendanceDropDownMenuProps = {
     value?: string | null;

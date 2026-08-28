@@ -7,7 +7,7 @@ import ModalHeadText from "../generic/modal/components/ModalHeadText";
 import Modal from "../generic/modal/Modal";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton";
 import { LoadScreen } from "../generic/LoadScreen";
-import {useTranslation} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export function CreateGroupModal({ state }: { state: ModalState }) {
     const { t } = useTranslation();
@@ -16,7 +16,9 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
 
     return (
         <Modal state={state}>
-            <ModalHeadText>New Group</ModalHeadText>
+            <ModalHeadText>
+                <Trans i18nKey="groups.newgroup">New Group</Trans>
+            </ModalHeadText>
             <form id="create-group-form"
             onSubmit={(e) => {
                 e.preventDefault();
@@ -48,7 +50,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
                     disabled={!name}
                     className={`btn border ${!name ? "opacity-50 cursor-not-allowed!" : ""}`}
                 >
-                    {createGroupCommand.loading ? <LoadScreen /> : "Submit"}
+                    {createGroupCommand.loading ? <LoadScreen /> : <Trans i18nKey="groups.submit">Submit</Trans>}
                 </button>
             </ModalActionRow>
         </Modal>

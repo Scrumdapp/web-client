@@ -2,6 +2,7 @@ import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 import {useEffect, useState} from "react";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useTranslation} from "react-i18next";
 
 type TimeDurationDropdownMenuProps = {
     value?: number | null;
@@ -9,14 +10,15 @@ type TimeDurationDropdownMenuProps = {
 };
 
 export const TimeDuration = [
-    { label: "12 hours", hours: 12 },
-    { label: "24 hours", hours: 24 },
-    { label: "2 days", hours: 48 },
-    { label: "3 days", hours: 72 },
-    { label: "1 week", hours: 168 },
+    { labelKey: "invite.duration.twelvehours", hours: 12 },
+    { labelKey: "invite.duration.oneday", hours: 24 },
+    { labelKey: "invite.duration.twodays", hours: 48 },
+    { labelKey: "invite.duration.threedays", hours: 72 },
+    { labelKey: "invite.duration.oneweek", hours: 168 },
 ];
 
 export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdownMenuProps) {
+    const {t} = useTranslation();
     const [localValue, setLocalValue] = useState<number | null>(value ?? null);
 
     const updateValue = (value: number | null) => {
@@ -34,7 +36,7 @@ export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdo
         <Menu as="div" className="relative w-full">
             <MenuButton className="btn-attendance border cursor-pointer h-10.5!">
                 <span className="text-left">
-                    {currentOption.label}
+                    {t(currentOption.labelKey)}
                 </span>
                 <FontAwesomeIcon icon={faChevronDown} className="shrink-0"/>
             </MenuButton>
@@ -42,12 +44,12 @@ export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdo
                 <div>
                     {TimeDuration.map(opt => (
                         <MenuItem
-                            key={opt.label}
+                            key={t(opt.labelKey)}
                             as="button"
                             type="button"
                             onClick={() => updateValue(opt.hours)}
                             className="btn-attendance-dropdown py-1">
-                            {opt.label}
+                            {t(opt.labelKey)}
                         </MenuItem>
                     ))}
                 </div>

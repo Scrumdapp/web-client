@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useTranslation} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export function BackgroundGrid({backgrounds, handleUpdate}: {
     backgrounds: string[],
@@ -45,7 +45,7 @@ function BackgroundTile({id, handleUpdate}: {
                     aria-label={`apply background ${id}`}
                     onClick={() => handleUpdate(id)}
                 >
-                    Apply
+                    <Trans i18nKey="settings.background.modal.apply">Apply</Trans>
                 </button>
             </div>
         </div>

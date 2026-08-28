@@ -17,16 +17,16 @@ import {useState} from "react";
 import {Trans, useTranslation} from "react-i18next";
 
 const backgroundTopics: BackgroundTopic[] = [
-    {id: 'All', backgrounds: ['1', '2', '4', '5', '6', '6_2', '7', '7_2', '8', '9', '10', '14', '14_2', '15', '17', '18', '22', '23', '30', 'color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
-    {id: 'Landscapes', backgrounds: ['1', '4', '6_2', '7_2', '9', '10', '14_2', '22', '30']},
-    {id: 'Cities', backgrounds: ['5', '6', '7', '8','15', '17']},
-    {id: 'People', backgrounds: ['2', '4', '14']},
-    {id: 'Colors', backgrounds: ['color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
-    {id: 'Other', backgrounds: ['18', '23']},
+    {labelKey: 'settings.background.modal.subjects.all', backgrounds: ['1', '2', '4', '5', '6', '6_2', '7', '7_2', '8', '9', '10', '14', '14_2', '15', '17', '18', '22', '23', '30', 'color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
+    {labelKey: 'settings.background.modal.subjects.landscapes', backgrounds: ['1', '4', '6_2', '7_2', '9', '10', '14_2', '22', '30']},
+    {labelKey: 'settings.background.modal.subjects.cities', backgrounds: ['5', '6', '7', '8','15', '17']},
+    {labelKey: 'settings.background.modal.subjects.people', backgrounds: ['2', '4', '14']},
+    {labelKey: 'settings.background.modal.subjects.colors', backgrounds: ['color_aqua', 'color_bg', 'color_blue', 'color_gray', 'color_green', 'color_orange', 'color_purple', 'color_red']},
+    {labelKey: 'settings.background.modal.subjects.other', backgrounds: ['18', '23']},
 ]
 
 export interface BackgroundTopic {
-    id: string,
+    labelKey: string,
     backgrounds: string[]
 }
 
@@ -56,6 +56,7 @@ export function BackgroundSelector() {
 
 function BackgroundSelectorModal({modal}: {modal: ModalState}){
     {
+        const { t } = useTranslation();
         const group = useGroup()
 
         const updateGroup = useApi(ScrumdappApi.updateGroup())
@@ -78,8 +79,10 @@ function BackgroundSelectorModal({modal}: {modal: ModalState}){
 
         return (
             <Modal state={modal}>
-                <ModalHeadText>Select background</ModalHeadText>
-                <BackgroundTopicNavbar selectedTopicId={selectedTopic.id} handleSelected={setSelectedTopic} topics={backgroundTopics} />
+                <ModalHeadText>
+                    <Trans i18nKey="settings.background.modal.select">Select background</Trans>
+                </ModalHeadText>
+                <BackgroundTopicNavbar selectedTopicId={t(selectedTopic.labelKey)} handleSelected={setSelectedTopic} topics={backgroundTopics} />
                 <BackgroundGrid backgrounds={selectedTopic.backgrounds} handleUpdate={handleGroupUpdate} />
                 <ModalActionRow>
                     <StatusMessage status={statusMessage} />

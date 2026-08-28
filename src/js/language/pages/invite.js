@@ -7,6 +7,7 @@ export default {
                 text: 'Enter your given password underneath.',
                 join: 'Join',
             },
+            createPassword: 'Create a Password',
             password: 'Password',
             header: 'All Invites',
             create: 'New Invite',
@@ -23,6 +24,13 @@ export default {
                 done: 'Done',
                 succes: 'Link copied to clipboard!',
             },
+            duration: {
+                twelvehours: '12 hours',
+                oneday: '1 day',
+                twodays: '2 days',
+                threedays: '3 days',
+                oneweek: '1 week',
+            }
         },
     },
     nl: {
@@ -33,6 +41,7 @@ export default {
                 text: 'Enter your given password underneath.',
                 join: 'Neem deel',
             },
+            createPassword: 'Maak een wachtwoord aan',
             password: 'Wachtwoord',
             header: 'Alle uitnodigingen',
             create: 'Maak uitnodiging',
@@ -49,6 +58,13 @@ export default {
                 done: 'Klaar',
                 succes: 'Link gekopieerd naar klembord!',
             },
+            duration: {
+                twelvehours: '12 uur',
+                oneday: '1 dag',
+                twodays: '2 dagen',
+                threedays: '3 dagen',
+                oneweek: '1 week',
+            }
         },
     }
 }

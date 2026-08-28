@@ -118,7 +118,9 @@ export default function Invites({ groupId }: InvitesProps) {
             <Modal state={modal}>
                 {step === 1 && (
                     <>
-                        <h1>Create a Password</h1>
+                        <h1>
+                            <Trans i18nKey="invite.createPassword">Create a Password</Trans>
+                        </h1>
                         <div className="flex justify-between py-2">
                             <input
                                 className="write-section w-full! mr-2 flex-5"
