@@ -19,9 +19,7 @@ export default function Privacy() {
                     <Trans i18nKey="privacy.text1">To ensure that Scrumdapp functions we store the following personal information upon logging in:</Trans>
                 </p>
                 <ul>
-                    <Trans i18nKey="privacy.text2.point1"><li>Full name (retrieved from the Open-ICT Discord server)</li></Trans>
-                    <Trans i18nKey="privacy.text2.point2"><li>Discord user identifier</li></Trans>
-                    <Trans i18nKey="privacy.text2.point3"><li>Link to public Discord avatar</li></Trans>
+                    <li><Trans i18nKey="privacy.text2.point1">Email Address</Trans></li>
                 </ul>
 
                 <h2>
@@ -31,8 +29,8 @@ export default function Privacy() {
                     <Trans i18nKey="privacy.text3">We use the information mentioned above for the following goals:</Trans>
                 </p>
                 <ul>
-                    <Trans i18nKey="privacy.text4.point1"><li>To identify & authorize users</li></Trans>
-                    <Trans i18nKey="privacy.text4.point2"><li>To ensure we can deliver our services</li></Trans>
+                    <li><Trans i18nKey="privacy.text4.point1">To identify & authorize user</Trans></li>
+                    <li><Trans i18nKey="privacy.text4.point2">To ensure we can deliver our services</Trans></li>
                 </ul>
 
                 <h2>
@@ -80,9 +78,9 @@ export default function Privacy() {
                         To do this we use a combination of the following measures:</Trans>
                 </p>
                 <ul>
-                    <Trans i18nKey="privacy.text11.point1"><li>TLS: All (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate.</li></Trans>
-                    <Trans i18nKey="privacy.text11.point2"><li>Firewall: Scrumdapp is hosted behind firewalls maintained by the University of Applied Sciences Utrecht and TandemIt.</li></Trans>
-                    <Trans i18nKey="privacy.text11.point3"><li>Databases: All information and backups of this information are stored on databases hosted within the Open-ICT/TandemIt cloud environment.</li></Trans>
+                    <li><Trans i18nKey="privacy.text11.point1">TLS: All (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate.</Trans></li>
+                    <li><Trans i18nKey="privacy.text11.point2">Firewall: Scrumdapp is hosted behind firewalls maintained by the University of Applied Sciences Utrecht and TandemIt.</Trans></li>
+                    <li><Trans i18nKey="privacy.text11.point3">Databases: All information and backups of this information are stored on databases hosted within the Open-ICT/TandemIt cloud environment.</Trans></li>
                 </ul>
 
                 <h2>
