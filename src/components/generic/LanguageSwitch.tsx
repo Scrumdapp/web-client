@@ -17,7 +17,7 @@ function LanguageSwitch() {
     };
 
     return (
-        <div className="flex horizontal gap-4 justify-center items-center">
+        <div className="flex horizontal gap-4 justify-center items-center mb-2">
             {(Object.keys(lngs) as LngKey[]).map((lng) => (
                 <button
                     key={lng}

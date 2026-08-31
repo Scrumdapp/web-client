@@ -37,11 +37,8 @@ export default function Header() {
                         <img src={user.avatar ?? "/Scrumdaddy.png"} alt={t('header.profileAlt')} className="nav-icon" />
                     </div>
                     <div className="nav-dropdown-content -right-[0.5px]!">
-                        <div className="py-4 px-1.5 text-left">
-                            <Link to="/settings" className="btn-nav-dropdown hover:text-yellow">
-                                <FontAwesomeIcon icon={faPortrait} className="text-yellow" />
-                                <Trans i18nKey="header.profile">Profile</Trans>
-                            </Link>
+                        <div className="my-4 px-1.5 text-center">
+                            {/*<Link to="/settings" className="btn-nav-dropdown hover:text-yellow"><FontAwesomeIcon icon={faPortrait} className="text-yellow" /><Trans i18nKey="header.profile">Profile</Trans></Link>*/}
                             <LanguageSwitch />
                             <LogoutButton />
                         </div>
