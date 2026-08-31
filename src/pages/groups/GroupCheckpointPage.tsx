@@ -18,7 +18,7 @@ import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
 import { User } from "../../js/models/user.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
 import { useTranslation, Trans } from "react-i18next";
-import {TFunction} from "i18next";
+import { TFunction } from "i18next";
 
 export function GroupCheckpointPage() {
     const { t } = useTranslation();

@@ -42,6 +42,7 @@ export default {
                 verifiedAbsent: 'Verified Absent',
                 sick: 'Sick',
                 none: '---',
+                noData: 'No data',
             },
         },
     },
@@ -86,6 +87,7 @@ export default {
                 verifiedAbsent: 'Absent met reden',
                 sick: 'Ziek',
                 none: '---',
+                noData: 'Geen data',
             },
         },
     }

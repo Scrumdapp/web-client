@@ -13,6 +13,13 @@ export function getAttendanceLabelKey(value: string | null | undefined): string 
     return attendanceOptions.find(opt => opt.value === value)?.labelKey ?? "attendance.none";
 }
 
+export function getAttendanceLabel(id: string | null, t: (key: string) => string): string {
+    if (id == null) {
+        return t("checkpoint.attendance.noData")
+    }
+    return t(getAttendanceLabelKey(id))
+}
+
 export function getAttendanceColor(value: string | null | undefined): string {
     return attendanceOptions.find(opt => opt.value === value)?.color ?? "text-gray";
 }

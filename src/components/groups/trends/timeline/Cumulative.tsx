@@ -1,8 +1,9 @@
 import { GroupUser } from "../../../../js/models/group"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
-import { getAttendanceLabelKey } from "../../../../js/utils/colorUtils"
 import { HideIf } from "../../../utility/Conditional"
 import { HideIfNotFullyVisible } from "../../../utility/Text"
+import { useTranslation } from "react-i18next";
+import { getAttendanceLabel } from "../../../../js/utils/colorUtils"
 
 export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
     const length = data.trends[0].days.length
@@ -18,18 +19,19 @@ export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], dat
     return (
         <table>
             <tbody>
-                {users.map((user) => (
-                    <tr key={user.user_id}>
-                        <td className="w-48 pr-2">{user.first_name} {user.last_name}</td>
-                        <td className="py-1"><RenderCumulativeTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
-                    </tr>
-                ))}
+            {users.map((user) => (
+                <tr key={user.user_id}>
+                    <td className="w-48 pr-2">{user.first_name} {user.last_name}</td>
+                    <td className="py-1"><RenderCumulativeTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
+                </tr>
+            ))}
             </tbody>
         </table>
     )
 }
 
 function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) {
+    const { t } = useTranslation()
 
     const map = [
         { id: "ON_TIME", color: "bg-green", children: [{ id: "ONLINE", color: "bg-purple" }] },
@@ -94,12 +96,12 @@ function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                         <div className="dropdown-content">
                             <HideIf condition={selfCount == 0}>
                                 <div>
-                                    {getLabelName(item.id)}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
+                                    {getAttendanceLabel(item.id, t)}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
                                 </div>
                             </HideIf>
                             {item.children.filter(it => (presenceData.get(it.id) ?? 0) != 0).map(it => (
                                 <div key={it.id}>
-                                    {getLabelName(it.id)}: <span className={it.color + " rounded-md text-bg_h px-1"}>{presenceData.get(it.id)}x</span>
+                                    {getAttendanceLabel(it.id, t)}: <span className={it.color + " rounded-md text-bg_h px-1"}>{presenceData.get(it.id)}x</span>
                                 </div>
                             ))}
                         </div>
@@ -108,9 +110,4 @@ function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
             })}
         </div>
     )
-}
-
-function getLabelName(id: string | null) {
-    const n = getAttendanceLabelKey(id)
-    return n == "---" ? "No Data" : n
 }

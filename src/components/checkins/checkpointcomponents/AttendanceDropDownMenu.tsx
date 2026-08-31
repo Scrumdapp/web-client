@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { attendanceOptions, getAttendanceColorScrummaster } from "../../../js/utils/colorUtils.ts";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {useTranslation} from "react-i18next";
 
 type AttendanceDropDownMenuProps = {
     value?: string | null;
@@ -10,6 +11,7 @@ type AttendanceDropDownMenuProps = {
 };
 
 export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMenuProps) {
+    const {t} = useTranslation();
     const [localValue, setLocalValue] = useState<string | null>(value ?? null);
 
     const updateValue = (value: string | null) => {
@@ -31,7 +33,7 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
         <Menu as="div" className="relative w-full w-[20%]">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
-                    {currentOption.labelKey}
+                    {t(currentOption.labelKey)}
                 </span>
                 <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`}/>
             </MenuButton>
@@ -44,7 +46,7 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
                             type="button"
                             onClick={() => updateValue(opt.value)}
                             className={`btn-attendance-dropdown ${opt.color}`}>
-                            {opt.labelKey}
+                            {t(opt.labelKey)}
                         </MenuItem>
                     ))}
                 </div>
