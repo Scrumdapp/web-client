@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { LogoutButton } from "../generic/LogoutButton.tsx";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../generic/LanguageSwitch.tsx";
 import {Trans, useTranslation} from "react-i18next";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
     const {t} = useTranslation();
