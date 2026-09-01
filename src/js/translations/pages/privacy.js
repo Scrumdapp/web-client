@@ -46,7 +46,7 @@ export default {
             header1: 'Welke persoonsgegevens verzamelen wij?',
             header2: 'Waarom verzamelen wij deze informatie?',
             header3: 'Welke persoonlijke informatie is zichtbaar voor anderen?',
-            header4: 'Opslaan van Persoonlijke informatie',
+            header4: 'Opslaan van persoonlijke informatie',
             header5: 'Gegevens delen met derden',
             header6: 'Cookies en andere technologiën gebruiken',
             header7: 'Bekijken, aanpassen en verwijderen van persoonlijke informatie',
