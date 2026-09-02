@@ -21,19 +21,39 @@ export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], dat
                 <tr>
                     <th></th>
                     <th>
-                        <div className="horizontal">
-                            <div className="text-fg3 justify-between flex" style={{
-                                width: `calc(100% - 4px)`,
-                                marginLeft: "2px",
-                                marginRight: "2px",
-                            }}>
-                                <span>0%</span>
-                                <span>20%</span>
-                                <span>40%</span>
-                                <span>60%</span>
-                                <span>80%</span>
-                                <span>100%</span>
-                            </div>
+                        <div className="relative" style={{ height: "16px", marginLeft: "2px", marginRight: "2px", marginBottom: "4px"}}>
+                            {[0, 20, 40, 60, 80, 100].map((pct) => (
+                                <span
+                                    key={pct}
+                                    className="text-fg3 absolute"
+                                    style={{
+                                        left: `${pct}%`,
+                                        transform:
+                                            pct === 0 ? "translateX(0%)" :
+                                                pct === 100 ? "translateX(-100%)" :
+                                                    "translateX(-50%)",
+                                    }}
+                                >
+                                    {pct}%
+                                </span>
+                            ))}
+                        </div>
+                        <div className="relative" style={{ height: "4px", marginLeft: "2px", marginRight: "2px" }}>
+                            {[0, 20, 40, 60, 80, 100].map((pct) => (
+                                <div
+                                    key={pct}
+                                    className="bg-fg3 absolute"
+                                    style={{
+                                        left: `${pct}%`,
+                                        width: "1px",
+                                        height: "4px",
+                                        transform:
+                                            pct === 0 ? "translateX(0%)" :
+                                                pct === 100 ? "translateX(-100%)" :
+                                                    "translateX(-50%)",
+                                    }}
+                                />
+                            ))}
                         </div>
                         <hr className="text-fg3" />
                     </th>
