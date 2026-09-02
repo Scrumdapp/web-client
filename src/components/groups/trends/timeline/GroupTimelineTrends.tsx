@@ -6,9 +6,10 @@ import { GroupUser } from "../../../../js/models/group"
 import { LoadScreen } from "../../../generic/LoadScreen"
 import { ErrorScreen } from "../../../generic/ErrorScreen"
 import { attendanceOptions } from "../../../../js/utils/colorUtils"
-import { RenderCumulativeGraph } from "./Cumulative.tsx"
+import { RenderCumulativeGraph } from "./Cumulative"
 import { RenderTimelineGraph } from "./Periodic"
 import { ApiError } from "../../../../js/hooks/api/apiError"
+import { useTranslation } from "react-i18next";
 
 export enum GroupTimelineDisplayType {
     Periodic,
@@ -28,6 +29,7 @@ export function getGroupTimelineHeight(users: GroupUser[]) {
 
 
 export const GroupTimelineTrends = memo(({ users, from, to, display }: GroupTimelineTrendsProps) => {
+    const { t } = useTranslation()
     const getGroupTimelineTrends = useApi(ScrumdappApi.getGroupTimelineTrends())
     const group = useGroup()
 
@@ -60,7 +62,7 @@ export const GroupTimelineTrends = memo(({ users, from, to, display }: GroupTime
                 {attendanceOptions.map(it => (
                     <div className="horizontal gap-2 items-center">
                         <div className={`w-4 h-4 rounded-sm ${it.background}`}></div>
-                        <p className="text-fg2">{it.label === "---" ? "No Data" : it.label}</p>
+                        <p className="text-fg2">{t(it.labelKey) === "---" ? "No Data" : t(it.labelKey)}</p>
                     </div>
                 ))}
             </div >

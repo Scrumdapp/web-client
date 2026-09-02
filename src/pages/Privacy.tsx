@@ -1,59 +1,105 @@
-import {Link} from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Privacy() {
+    const { t } = useTranslation();
+
     return (
         <div className="app-container">
-            <title>Privacy | Scrumdapp</title>
+            <title>
+                {t("privacy.title")}
+            </title>
             <div className="card text-block">
-                <h1>Privacy:</h1>
-                <h2>What personal information do we collect?</h2>
+                <h1>
+                    {t("privacy.header")}
+                </h1>
+                <h2>
+                    {t("privacy.header1")}
+                </h2>
                 <p>
-                    To ensure that Scrumdapp functions we store the following personal information upon logging in:
+                    {t("privacy.text1")}
                 </p>
                 <ul>
-                    <li>Full name (retrieved from the Open-ICT Discord server)</li>
-                    <li>Discord user identifier</li>
-                    <li>Link to public Discord avatar</li>
+                    <li>{t("privacy.text2.point1")}</li>
                 </ul>
 
-                <h2>Why do we collect this information?</h2>
-                <p>We use the information mentioned above for the following goals:</p>
+                <h2>
+                    {t("privacy.header2")}
+                </h2>
+                <p>
+                    {t("privacy.text3")}
+                </p>
                 <ul>
-                    <li>To identify & authorize users</li>
-                    <li>To ensure we can deliver our services</li>
+                    <li>{t("privacy.text4.point1")}</li>
+                    <li>{t("privacy.text4.point2")}</li>
                 </ul>
 
-                <h2>Which personal information is visible to others</h2>
-                <p>Your name is visible for other users whenever you share a group with them.</p>
+                <h2>
+                    {t("privacy.header3")}
+                </h2>
+                <p>
+                    {t("privacy.text5")}
+                </p>
 
-                <h2>Lifetime personal information</h2>
-                <p>We avoid storing your personal information longer than necessary in order to complete the above mentioned goals.</p>
+                <h2>
+                    {t("privacy.header4")}
+                </h2>
+                <p>
+                    {t("privacy.text6")}
+                </p>
 
-                <h2>Sharing data with third parties</h2>
-                <p>We don't share your personal information to any third party.
-                However, information may be shared with your explicit approval or due to legal obligations.</p>
+                <h2>
+                    {t("privacy.header5")}
+                </h2>
+                <p>
+                    {t("privacy.text7")}
+                </p>
 
-                <h2>Usage of cookies or similar technologies</h2>
-                <p>We use cookies in our services. These cookies are purely functional and strictly necessary to deliver our services.</p>
+                <h2>
+                    {t("privacy.header6")}
+                </h2>
+                <p>
+                    {t("privacy.text8")}
+                </p>
 
-                <h2>Viewing, modifying & deleting your information</h2>
-                <p>You have the right to see, adjust and delete your personal information.
-                In addition, you have the right to lodge an objection against the use and/or processing of your personal information by Scrumdapp.</p>
+                <h2>
+                    {t("privacy.header7")}
+                </h2>
+                <p>
+                    {t("privacy.text9")}
+                </p>
 
-                <h2>How we protect personal information</h2>
-                <p>We take fitting measures to protect your personal information against malicious use, theft and loss.
-                To do this we use a combination of the following measures: </p>
+                <h2>
+                    {t("privacy.header8")}
+                </h2>
+                <p>
+                    {t("privacy.text10")}
+                </p>
                 <ul>
-                    <li>TLS: All (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate</li>
-                    <li>Firewall: Scrumdapp is hosted behind firewalls maintained by the University of Applied Sciences Utrecht and TandemIt</li>
-                    <li>Databases: All information and backups of this information are stored on databases hosted within the Open-ICT/TandemIt cloud environment</li>
+                    <li>{t("privacy.text11.point1")}</li>
+                    <li>{t("privacy.text11.point2")}</li>
+                    <li>{t("privacy.text11.point3")}</li>
                 </ul>
-                
-                <h2>Questions & Complaints</h2>
-                <p>If you have questions about this privacy notice, your personal information or how Scrumdapp handles information, please reach out at:
-                    <Link className="text-link" target="_blank" to="mailto:info@scrumdapp.com"> info@scrumdapp.com </Link>
-                    or on
-                    <Link className="text-link" target="_blank" to="https://scrumdapp.com/#Contact"> our contact page</Link>.
+
+                <h2>
+                    {t("privacy.header9")}
+                </h2>
+                <p>
+                    {t("privacy.text12")}
+                    <a
+                        className="text-link"
+                        href="mailto:info@scrumdapp.com"
+                        target="_blank"
+                    >
+                        {t("privacy.link1")}
+                    </a>
+                    {t("privacy.text13")}
+                    <a
+                        className="text-link"
+                        href="https://scrumdapp.com/#Contact"
+                        target="_blank"
+                    >
+                        {t("privacy.link2")}
+                    </a>
                 </p>
             </div>
         </div>

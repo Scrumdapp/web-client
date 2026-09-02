@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
 import { InviteResponse } from "../js/models/invites.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
+import { useTranslation } from "react-i18next";
 
 export default function AcceptInvite() {
+    const { t } = useTranslation();
     const { inviteId } = useParams()
     const [searchParams] = useSearchParams()
     const token = searchParams.get("token")
@@ -46,26 +48,33 @@ export default function AcceptInvite() {
 
     return (
         <div className="app-container">
-            <title>Accept Invite | Scrumdapp</title>
+            <title>
+                {t("invite.title")}
+            </title>
             <div className="card flex flex-col">
-                <h1>You're invited to {invite?.groupId}!</h1>
-                <p>Enter your given password underneath.</p>
+                <h1>
+                    {t("invite.accept.header")} {invite?.groupId}!
+                </h1>
+                <p>
+                    {t("invite.accept.text")}
+                </p>
                 <div>
                     <div className="py-3">
-                        <input className="write-section w-full!"
-                            alt="Password"
+                        <input
+                            className="write-section w-full!"
+                            placeholder={t('invite.password')}
+                            alt={t('invite.password')}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <div>
                         <button onClick={handleJoinInvite} className="btn btn-secondary border flex float-right">
-                            Join
+                            {t("invite.accept.join")}
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }

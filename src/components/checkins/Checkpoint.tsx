@@ -1,9 +1,7 @@
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
-import { getStarsColor, getAttendanceColor } from "../../js/utils/colorUtils.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faArrowsRotate, faChevronDown, faPencil} from "@fortawesome/free-solid-svg-icons";
-import { getformatPresence } from "../../js/utils/colorUtils.ts";
+import { faArrowsRotate, faChevronDown, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useCallback } from "react";
 import Modal from "../../components/generic/modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
@@ -16,6 +14,8 @@ import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
+import { useTranslation } from "react-i18next";
+import { getStarsColor, getAttendanceColor, getAttendanceLabelKey } from "../../js/utils/colorUtils.ts";
 
 type CheckpointUser = { user_id: number; first_name: string; last_name: string };
 
@@ -81,6 +81,8 @@ function Checkpoint({
     isMostRecent?: boolean;
 }) {
     const modal = useModalState();
+
+    const { t } = useTranslation();
 
     const [timeLeft, setTimeLeft] = useState(() =>
         Math.max(0, startTime + duration - Date.now()),
@@ -234,14 +236,17 @@ function Checkpoint({
                         onClick={() => fetch().catch(console.error)}
                         disabled={rowsLoading}
                     >
-                        <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" /> Refresh
+                        <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" /> {t("checkpoint.refresh")}
                     </button>
                 </div>
             </div>
             <p>
                 {isLocked
-                    ? "Checkpoint closed"
-                    : `Closes in ${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
+                    ? t("checkpoint.closed")
+                    : <>
+                    {t("checkpoint.closesin")} {`${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
+                    </>
+                }
             </p>
             <div
                 className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
@@ -253,13 +258,25 @@ function Checkpoint({
                     <table className="table-fixed w-full">
                         <thead>
                             <tr>
-                                <th className="p-2 text-left w-44">Name</th>
-                                <th className="p-2 text-left border-l border-dotted w-28">Attendance</th>
-                                <th className="p-2 items-center w-28">Stars</th>
-                                <th className="p-2 text-left">Comment</th>
-                                <th className="p-2 text-left">Obstacle</th>
+                                <th className="p-2 text-left w-44">
+                                    {t("checkpoint.name")}
+                                </th>
+                                <th className="p-2 text-left border-l border-dotted w-28">
+                                    {t("checkpoint.attendance")}
+                                </th>
+                                <th className="p-2 items-center w-28">
+                                    {t("checkpoint.stars")}
+                                </th>
+                                <th className="p-2 text-left">
+                                    {t("checkpoint.notes")}
+                                </th>
+                                <th className="p-2 text-left">
+                                    {t("checkpoint.obstacle")}
+                                </th>
                                 {(isSessionmaster || isInGroup) && !isLocked && (
-                                    <th className="p-2 pl-0 text-right w-10">Edit</th>
+                                    <th className="p-2 pl-0 text-right w-14">
+                                        {t("checkpoint.edit")}
+                                    </th>
                                 )}
                             </tr>
                         </thead>
@@ -270,8 +287,8 @@ function Checkpoint({
                                         {item.first_name} {item.last_name}
                                     </td>
                                     <td className={`text-left p-2 border-t border-dotted border-current`}>
-                                        <div className={`${getAttendanceColor(getformatPresence(item.presence ? String(item.presence) : "---"))}`}>
-                                            {getformatPresence(item.presence ? String(item.presence) : "---")}
+                                        <div className={getAttendanceColor(item.presence)}>
+                                            {t(getAttendanceLabelKey(item.presence))}
                                         </div>
                                     </td>
                                     <td className={`p-2 border-t border-dotted border-current`}>
@@ -289,14 +306,14 @@ function Checkpoint({
                                         <td className="border-t border-dotted p-2 pl-0">
                                             {!isLocked ? (isSessionmaster ? (
                                                 <button
-                                                    className="btn border aspect-square"
+                                                    className="btn border aspect-square ml-auto mr-0"
                                                     onClick={() => handleModalOpen(item)}
                                                 >
                                                     <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
                                                 </button>
                                             ) : (item.groupUser === myUserId || item.id === myUserId) ? (
                                                 <button
-                                                    className="btn border aspect-square"
+                                                    className="btn border aspect-square ml-auto mr-0"
                                                     onClick={handleOwnModalOpen}
                                                 >
                                                     <FontAwesomeIcon icon={faPencil} className="icon text-blue" />
@@ -313,30 +330,43 @@ function Checkpoint({
             </div>
             <Modal state={modal}>
                 <div className="space-y-5">
-                    <ModalHeadText>{`Edit Checkpoint ${selectedUser ? `for ${selectedUser.first_name} ${selectedUser.last_name}` : ""}`}</ModalHeadText>          <div className="flex flex-col space-y-2 w-full">
-                        <label>Attendance</label>
+                    <ModalHeadText>
+                        {t("checkpoint.modalheader", {
+                            name: selectedUser ? `${selectedUser.first_name} ${selectedUser.last_name}` : ""
+                        })}
+                    </ModalHeadText>
+                    <div className="flex flex-col space-y-2 w-full">
+                        <label>
+                            {t("checkpoint.attendance")}
+                        </label>
                         <AttendanceDropDownMenu
                             value={selectedPresence}
                             onChange={setSelectedPresence}
                         />
-                        <label>Stars</label>
+                        <label>
+                            {t("checkpoint.stars")}
+                        </label>
                         <StarsDropDownMenu
                             value={selectedStar}
                             onChange={setSelectedStar}
                         />
-                        <label>Notes</label>
+                        <label>
+                            {t("checkpoint.notes")}
+                        </label>
                         <input
                             className="write-section"
-                            placeholder="Notes"
-                            alt="Notes"
+                            placeholder={t('checkpoint.notes')}
+                            alt={t('checkpoint.notes')}
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                         />
-                        <label>Obstacle</label>
+                        <label>
+                            {t("checkpoint.obstacle")}
+                        </label>
                         <input
                             className="write-section"
-                            placeholder="Obstacle"
-                            alt="Obstacle"
+                            placeholder={t('checkpoint.obstacle')}
+                            alt={t('checkpoint.obstacle')}
                             value={obstacle}
                             onChange={(e) => setObstacle(e.target.value)}
                         />
@@ -350,7 +380,7 @@ function Checkpoint({
                             type="button"
                             disabled={applyLoading}
                         >
-                            {applyLoading ? "Saving..." : "Apply"}
+                            {applyLoading ? t("checkpoint.saving") : t("checkpoint.apply")}
                         </button>
                     </ModalActionRow>
                 </div>
