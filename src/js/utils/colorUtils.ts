@@ -15,7 +15,7 @@ export function getAttendanceLabelKey(value: string | null | undefined): string 
 
 export function getAttendanceLabel(id: string | null, t: (key: string) => string): string {
     if (id == null) {
-        return t("checkpoint.attendance.noData")
+        return t("checkpoint.attendanceOptions.noData")
     }
     return t(getAttendanceLabelKey(id))
 }
