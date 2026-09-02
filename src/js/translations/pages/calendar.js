@@ -14,13 +14,13 @@ export default {
     nl: {
         calendar: {
             title: 'Kalender | Scrumdapp',
-            mon: 'Maa',
-            tue: 'Din',
-            wed: 'Woe',
-            thu: 'Don',
-            fri: 'Vri',
-            sat: 'Zat',
-            sun: 'Zon',
+            mon: 'Ma',
+            tue: 'Di',
+            wed: 'Wo',
+            thu: 'Do',
+            fri: 'Vr',
+            sat: 'Za',
+            sun: 'Zo',
         },
     }
 }

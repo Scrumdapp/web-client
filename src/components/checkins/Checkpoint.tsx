@@ -277,7 +277,7 @@ function Checkpoint({
                                 </th>
                                 {(isSessionmaster || isInGroup) && !isLocked && (
                                     <th className="p-2 pl-0 text-right w-14">
-                                        <Trans i18nKey="checkpoint.table6">Edit</Trans>
+                                        <Trans i18nKey="checkpoint.edit">Edit</Trans>
                                     </th>
                                 )}
                             </tr>
@@ -333,7 +333,9 @@ function Checkpoint({
             <Modal state={modal}>
                 <div className="space-y-5">
                     <ModalHeadText>
-                        <Trans i18nKey="checkpoint.modalheader">Edit Checkpoint for</Trans> {selectedUser ? ( <>{selectedUser.first_name} {selectedUser.last_name}</>) : null}
+                        <Trans i18nKey="checkpoint.modalheader" values={{ name: selectedUser ? `${selectedUser.first_name} ${selectedUser.last_name}` : "" }}>
+                            Edit Checkpoint for {"{{name}}"}
+                        </Trans>
                     </ModalHeadText>
                     <div className="flex flex-col space-y-2 w-full">
                         <label>
