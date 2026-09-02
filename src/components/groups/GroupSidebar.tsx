@@ -5,16 +5,16 @@ import { Link } from "react-router"
 import { faChartSimple, faGear, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
-const {t} = useTranslation()
-const links = [
-    { path: "calendar", icon: faCalendarDays, color: "text-green", text: t("checkpoint.sidebar.calendar") },
-    { path: "trends", icon: faChartSimple, color: "text-yellow", text: t("checkpoint.sidebar.trends") },
-    { path: "settings", icon: faGear, color: "text-red", text: t("checkpoint.sidebar.settings") },
-]
-
 export function GroupSidebar() {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const group = useGroup()
+
+    const links = [
+        { path: "calendar", icon: faCalendarDays, color: "text-green", text: t("checkpoint.sidebar.calendar") },
+        { path: "trends", icon: faChartSimple, color: "text-yellow", text: t("checkpoint.sidebar.trends") },
+        { path: "settings", icon: faGear, color: "text-red", text: t("checkpoint.sidebar.settings") },
+    ]
+
     return (
         <div className="card vertical gap-1">
             <Link to={`/groups/${group.id}`} className="btn justify-start!">

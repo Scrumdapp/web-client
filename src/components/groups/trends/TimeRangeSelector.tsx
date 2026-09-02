@@ -6,19 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { useTranslation } from "react-i18next";
 
-const {t} = useTranslation();
-const options = [
-    {
-        name: t("trends.twoweeks"),
-        from: () => getWeekStart(new Date(new Date().getTime() - (14 * 24 * 60 * 60 * 1000))),
-        to: () => new Date()
-    },
-    {
-        name: t("trends.sixmonths"),
-        from: () => getWeekStart(new Date(new Date().getTime() - (6 * 4 * 7 * 24 * 60 * 60 * 1000))),
-        to: () => new Date()
-    },
-]
 
 
 export function TimeRangeSelector(
@@ -29,6 +16,20 @@ export function TimeRangeSelector(
         onRangeSelected?: (start: string, end: string) => void, defaultOption?: number
     }) {
 
+    const { t } = useTranslation();
+
+    const options = [
+        {
+            name: t("trends.twoweeks"),
+            from: () => getWeekStart(new Date(new Date().getTime() - (14 * 24 * 60 * 60 * 1000))),
+            to: () => new Date()
+        },
+        {
+            name: t("trends.sixmonths"),
+            from: () => getWeekStart(new Date(new Date().getTime() - (6 * 4 * 7 * 24 * 60 * 60 * 1000))),
+            to: () => new Date()
+        },
+    ]
     const [selectedOption, setSelectedOption] = useState(defaultOption)
 
     const selectOption = (index: number) => {
