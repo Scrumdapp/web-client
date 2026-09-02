@@ -54,11 +54,11 @@ export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], dat
 function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) {
 
     const map = [
-        { id: "ON_TIME", color: "bg-green", borderColor: "border-green", children: [{ id: "ONLINE", color: "bg-purple", border: "bg-green" }] },
-        { id: "VERIFIED_LATE", color: "bg-orange", borderColor: "border-orange", children: [{ id: "LATE", color: "bg-orange-dim", border: "bg-orange" }] },
-        { id: "VERIFIED_ABSENT", color: "bg-red", borderColor: "border-red", children: [{ id: "ABSENT", color: "bg-red-dim", border: "bg-red" }] },
-        { id: "SICK", color: "bg-blue", borderColor: "border-blue", children: [] },
-        { id: null, color: "bg-gray-dim", borderColor: "border-gray-dim", children: [] }
+        { id: "ON_TIME", color: "bg-green", children: [{ id: "ONLINE", color: "bg-purple", border: "bg-green" }] },
+        { id: "VERIFIED_LATE", color: "bg-orange", children: [{ id: "LATE", color: "bg-orange-dim", border: "bg-orange" }] },
+        { id: "VERIFIED_ABSENT", color: "bg-red", children: [{ id: "ABSENT", color: "bg-red-dim", border: "bg-red" }] },
+        { id: "SICK", color: "bg-blue", children: [] },
+        { id: null, color: "bg-gray-dim", children: [] }
     ]
 
     let total = 0;
@@ -104,7 +104,7 @@ function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                             {item.children.filter(it => (presenceData.get(it.id) ?? 0) != 0).map(it => (
                                 <div
                                     key={it.id}
-                                    className={`${it.color} border-2 ${item.borderColor}`}
+                                    className={`${it.color}`}
                                     style={{width: `calc(${(presenceData.get(it.id) ?? 0) / selfTotal * 100}%)`}}
                                 />
                             ))}
