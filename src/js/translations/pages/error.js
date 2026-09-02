@@ -10,7 +10,7 @@ export default {
         error: {
             title: 'Pagina niet gevonden | Scrumdapp',
             goback: 'Ga terug',
-            notfound: '404 fout, pagina niet gevonden',
+            notfound: '404, pagina niet gevonden',
         },
     }
 }

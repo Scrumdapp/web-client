@@ -53,7 +53,7 @@ export default function AcceptInvite() {
             </title>
             <div className="card flex flex-col">
                 <h1>
-                    <Trans i18nKey="invite.accept.header">You're invited to</Trans> {invite?.groupId}!
+                    <Trans i18nKey="invite.accept.header">You have been invited to join</Trans> {invite?.groupId}!
                 </h1>
                 <p>
                     <Trans i18nKey="invite.accept.text">Enter your given password underneath.</Trans>

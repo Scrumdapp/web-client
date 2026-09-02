@@ -3,7 +3,7 @@ export default {
         invite: {
             title: 'Accept invite | Scrumdapp',
             accept: {
-                header: 'You\'re invited to',
+                header: 'You have been invited to join',
                 text: 'Enter your given password underneath.',
                 join: 'Join',
             },
@@ -38,7 +38,7 @@ export default {
             title: 'Accepteer Uitnodiging | Scrumdapp',
             accept: {
                 header: 'Jij bent uitgenodigd voor',
-                text: 'Enter your given password underneath.',
+                text: 'Voer het gegeven wachtwoord in.',
                 join: 'Neem deel',
             },
             createPassword: 'Maak een wachtwoord aan',
@@ -49,7 +49,7 @@ export default {
             expire: 'Verloopt op',
             expired: 'Verlopen',
             modal: {
-                error: 'Alleen letters, nummer, spaties en !@#$%^& zijn toegestaan.',
+                error: 'Alleen letters, nummer, spaties en de leestekens zijn toegestaan.',
                 create: 'Maak aan',
                 header: 'Nodig anderen uit om deel te nemen aan de groep.',
                 text: 'Kopieer en deel deze link met je team.',

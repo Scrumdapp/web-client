@@ -10,10 +10,8 @@ export default {
             table5: 'Obstacle',
             table6: 'Edit',
             modalheader: 'Edit checkpoint for',
-            modal1: 'Attendance',
-            modal2: 'Stars',
-            modal3: 'Notes',
-            modal4: 'Obstacle',
+            attendance: 'Attendance',
+            stars: 'Stars',
             notes: 'Notes',
             obstacle: 'Obstacle',
             saving: 'Saving...',
@@ -33,7 +31,7 @@ export default {
                 settings: 'Settings',
                 recent: 'Recent',
             },
-            attendance: {
+            attendanceOptions: {
                 onTime: 'On Time',
                 online: 'Online',
                 late: 'Late',

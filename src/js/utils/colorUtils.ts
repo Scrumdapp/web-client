@@ -1,12 +1,12 @@
 export const attendanceOptions = [
-    { labelKey: "checkpoint.attendance.onTime", color: "text-green", background: "bg-green", value: "ON_TIME" },
-    { labelKey: "checkpoint.attendance.online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
-    { labelKey: "checkpoint.attendance.late", color: "text-orange-dim", background: "bg-orange-dim", value: "LATE" },
-    { labelKey: "checkpoint.attendance.verifiedLate", color: "text-orange", background: "bg-orange", value: "VERIFIED_LATE" },
-    { labelKey: "checkpoint.attendance.absent", color: "text-red-dim", background: "bg-red-dim", value: "ABSENT" },
-    { labelKey: "checkpoint.attendance.verifiedAbsent", color: "text-red", background: "bg-red", value: "VERIFIED_ABSENT" },
-    { labelKey: "checkpoint.attendance.sick", color: "text-blue", background: "bg-blue", value: "SICK" },
-    { labelKey: "checkpoint.attendance.none", color: "text-gray", background: "bg-gray-dim", value: null },
+    { labelKey: "checkpoint.attendanceOptions.onTime", color: "text-green", background: "bg-green", value: "ON_TIME" },
+    { labelKey: "checkpoint.attendanceOptions.online", color: "text-purple", background: "bg-purple", value: "ONLINE" },
+    { labelKey: "checkpoint.attendanceOptions.late", color: "text-orange-dim", background: "bg-orange-dim", value: "LATE" },
+    { labelKey: "checkpoint.attendanceOptions.verifiedLate", color: "text-orange", background: "bg-orange", value: "VERIFIED_LATE" },
+    { labelKey: "checkpoint.attendanceOptions.absent", color: "text-red-dim", background: "bg-red-dim", value: "ABSENT" },
+    { labelKey: "checkpoint.attendanceOptions.verifiedAbsent", color: "text-red", background: "bg-red", value: "VERIFIED_ABSENT" },
+    { labelKey: "checkpoint.attendanceOptions.sick", color: "text-blue", background: "bg-blue", value: "SICK" },
+    { labelKey: "checkpoint.attendanceOptions.none", color: "text-gray", background: "bg-gray-dim", value: null },
 ];
 
 export function getAttendanceLabelKey(value: string | null | undefined): string {

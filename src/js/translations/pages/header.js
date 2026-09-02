@@ -14,7 +14,7 @@ export default {
             groups: 'Groepen',
             profile: 'Profiel',
             logout: 'Uitloggen',
-            profileAlt: 'Gebruikersprofielfoto',
+            profileAlt: 'Profielfoto',
         },
     }
 }

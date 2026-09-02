@@ -261,19 +261,19 @@ function Checkpoint({
                         <thead>
                             <tr>
                                 <th className="p-2 text-left w-44">
-                                    <Trans i18nKey="checkpoint.table1">Name</Trans>
+                                    <Trans i18nKey="checkpoint.name">Name</Trans>
                                 </th>
                                 <th className="p-2 text-left border-l border-dotted w-28">
-                                    <Trans i18nKey="checkpoint.table2">Attendance</Trans>
+                                    <Trans i18nKey="checkpoint.attendance">Attendance</Trans>
                                 </th>
                                 <th className="p-2 items-center w-28">
-                                    <Trans i18nKey="checkpoint.table3">Stars</Trans>
+                                    <Trans i18nKey="checkpoint.stars">Stars</Trans>
                                 </th>
                                 <th className="p-2 text-left">
-                                    <Trans i18nKey="checkpoint.table4">Comment</Trans>
+                                    <Trans i18nKey="checkpoint.notes">Comment</Trans>
                                 </th>
                                 <th className="p-2 text-left">
-                                    <Trans i18nKey="checkpoint.table5">Obstacle</Trans>
+                                    <Trans i18nKey="checkpoint.obstacle">Obstacle</Trans>
                                 </th>
                                 {(isSessionmaster || isInGroup) && !isLocked && (
                                     <th className="p-2 pl-0 text-right w-14">
@@ -337,21 +337,21 @@ function Checkpoint({
                     </ModalHeadText>
                     <div className="flex flex-col space-y-2 w-full">
                         <label>
-                            <Trans i18nKey="checkpoint.modal1">Attendance</Trans>
+                            <Trans i18nKey="checkpoint.attendance">Attendance</Trans>
                         </label>
                         <AttendanceDropDownMenu
                             value={selectedPresence}
                             onChange={setSelectedPresence}
                         />
                         <label>
-                            <Trans i18nKey="checkpoint.modal2">Stars</Trans>
+                            <Trans i18nKey="checkpoint.stars">Stars</Trans>
                         </label>
                         <StarsDropDownMenu
                             value={selectedStar}
                             onChange={setSelectedStar}
                         />
                         <label>
-                            <Trans i18nKey="checkpoint.modal3">Notes</Trans>
+                            <Trans i18nKey="checkpoint.notes">Notes</Trans>
                         </label>
                         <input
                             className="write-section"
@@ -361,7 +361,7 @@ function Checkpoint({
                             onChange={(e) => setNotes(e.target.value)}
                         />
                         <label>
-                            <Trans i18nKey="checkpoint.modal4">Obstacle</Trans>
+                            <Trans i18nKey="checkpoint.obstacle">Obstacle</Trans>
                         </label>
                         <input
                             className="write-section"

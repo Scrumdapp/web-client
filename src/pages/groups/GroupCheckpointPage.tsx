@@ -18,10 +18,8 @@ import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
 import { User } from "../../js/models/user.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
 import { useTranslation, Trans } from "react-i18next";
-import { TFunction } from "i18next";
 
 export function GroupCheckpointPage() {
-    const { t } = useTranslation();
     const group = useGroup();
     const modal = useModalState();
     const [searchParams] = useSearchParams();
@@ -63,14 +61,16 @@ export function GroupCheckpointPage() {
     }
 
     return (
-        <Component {...{group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions: getCheckpointSessions.data!, groupUsers: getGroupUsers.data!, currentUser, modal, t}} />
+        <Component {...{group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions: getCheckpointSessions.data!, groupUsers: getGroupUsers.data!, currentUser, modal}} />
     );
 }
 
 function Component(
-    { group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions, groupUsers, currentUser, modal, t }:
-    { group: Group, date: string, prevDate: string, nextDate: string, currentDate: string, groupCreated: () => void, checkpointSessions: GroupCheckpointSession[], groupUsers: GroupUser[], currentUser: User, modal: ModalState, t: TFunction }
+    { group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions, groupUsers, currentUser, modal }:
+    { group: Group, date: string, prevDate: string, nextDate: string, currentDate: string, groupCreated: () => void, checkpointSessions: GroupCheckpointSession[], groupUsers: GroupUser[], currentUser: User, modal: ModalState }
 ) {
+    const { t } = useTranslation();
+
     return (
         <div className="space-y-3 ">
             <title>{group.name ? `${group.name} | Scrumdapp` : "Scrumdapp"}</title>
