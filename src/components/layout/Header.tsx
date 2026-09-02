@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
-import LanguageSwitch from "../generic/LanguageSwitch.tsx";
+import LanguageSwitch from "../translation/LanguageSwitch.tsx";
 import { useTranslation } from "react-i18next";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faPortrait } from "@fortawesome/free-solid-svg-icons";
