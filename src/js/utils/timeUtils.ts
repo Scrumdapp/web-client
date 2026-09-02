@@ -45,30 +45,31 @@ export function nextMonth(date: Date) {
 
 export function parseWeekDay(day: number) {
     switch (day) {
-        case 1: return "Mon"
-        case 2: return "Tue"
-        case 3: return "Wed"
-        case 4: return "Thu"
-        case 5: return "Fri"
-        case 6: return "Sat"
-        case 0: return "Sun"
+        case 1: return "date.mon"
+        case 2: return "date.tue"
+        case 3: return "date.wed"
+        case 4: return "date.thu"
+        case 5: return "date.fri"
+        case 6: return "date.sat"
+        case 0: return "date.sun"
+        default: return "date.unknown"
     }
 }
 
 export function parseMonthText(month: number) {
     switch (month) {
-        case 0: return "January"
-        case 1: return "February"
-        case 2: return "March"
-        case 3: return "April"
-        case 4: return "May"
-        case 5: return "June"
-        case 6: return "July"
-        case 7: return "August"
-        case 8: return "September"
-        case 9: return "Oktober"
-        case 10: return "November"
-        case 11: return "December"
+        case 0: return "date.jan"
+        case 1: return "date.feb"
+        case 2: return "date.mar"
+        case 3: return "date.apr"
+        case 4: return "date.may"
+        case 5: return "date.jun"
+        case 6: return "date.jul"
+        case 7: return "date.aug"
+        case 8: return "date.sep"
+        case 9: return "date.oct"
+        case 10: return "date.nov"
+        case 11: return "date.dec"
     }
 }
 

@@ -1,9 +1,9 @@
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import Checkpoint from "../../components/checkins/Checkpoint.tsx";
-import {Link, useSearchParams} from "react-router-dom";
-import {parseScrumdappDate, toScrumdappDate} from "../../js/utils/scrumdappDate.ts";
+import { Link, useSearchParams } from "react-router-dom";
+import { parseScrumdappDate, toScrumdappDate } from "../../js/utils/scrumdappDate.ts";
 import { useModalState } from "../../js/hooks/useModalState.ts";
-import {faAdd, faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
@@ -12,11 +12,12 @@ import { useUser } from "../../js/context/user/useUser.ts";
 import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
-import {parseWeekDay} from "../../js/utils/timeUtils.ts";
+import { parseWeekDay } from "../../js/utils/timeUtils.ts";
 import { Group, GroupUser } from "../../js/models/group.ts";
 import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
 import { User } from "../../js/models/user.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
+import { useTranslation } from "react-i18next";
 
 export function GroupCheckpointPage() {
     const group = useGroup();
@@ -68,6 +69,8 @@ function Component(
     { group, date, prevDate, nextDate, currentDate, groupCreated, checkpointSessions, groupUsers, currentUser, modal }:
     { group: Group, date: string, prevDate: string, nextDate: string, currentDate: string, groupCreated: () => void, checkpointSessions: GroupCheckpointSession[], groupUsers: GroupUser[], currentUser: User, modal: ModalState }
 ) {
+    const { t } = useTranslation();
+
     return (
         <div className="space-y-3 ">
             <title>{group.name ? `${group.name} | Scrumdapp` : "Scrumdapp"}</title>
@@ -76,7 +79,7 @@ function Component(
                     <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
                         <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
                     </Link>
-                    <h2 className="px-2">{parseWeekDay(parseScrumdappDate(date).getUTCDay())} {date}</h2>
+                    <h2 className="px-2">{t(parseWeekDay(parseScrumdappDate(date).getUTCDay()))} {date}</h2>
                     <Link
                         to={`/groups/${group.id}?date=${nextDate}`}
                         className={`btn ${date === currentDate ? "opacity-50 pointer-events-none" : ""}`}
@@ -89,7 +92,7 @@ function Component(
                 </div>
                 <ShowIf condition={currentDate == date}>
                     <button className="btn border" onClick={modal.open}>
-                        <FontAwesomeIcon icon={faAdd} className="text-blue" /> Create Checkpoint
+                        <FontAwesomeIcon icon={faAdd} className="text-blue" /> {t("checkpoint.create")}
                     </button>
                 </ShowIf>
             </div>
