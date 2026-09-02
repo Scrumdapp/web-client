@@ -11,7 +11,7 @@ import { CreateGroupModal } from "../components/modals/CreateGroupModal.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
 import { ShowIf } from "../components/utility/Conditional.tsx";
 import { hasRole, Role } from "../js/utils/userPermissions.ts";
-import {Trans, useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Groups() {
     const { t } = useTranslation();
@@ -35,7 +35,7 @@ export default function Groups() {
     return (
         <div className="app-container vertical gap-4">
             <title>
-                <Trans i18nKey="groups.title">Groups | Scrumdapp</Trans>
+                {t("groups.title")}
             </title>
             <div className="horizontal justify-between">
                 <h1 className="flex-1">Scrumdapp</h1>
@@ -54,7 +54,7 @@ export default function Groups() {
                     <ShowIf condition={hasRole(user, Role.Coach)}>
                         <button className="ml-auto btn btn-red border max-h-fit"
                             onClick={modal.open}>
-                            <Trans i18nKey="groups.newgroup">New Group </Trans><FontAwesomeIcon icon={faPlus} />
+                            {t("groups.newgroup")}<FontAwesomeIcon icon={faPlus} />
                         </button>
                     </ShowIf>
                 </div>
@@ -67,7 +67,7 @@ export default function Groups() {
                     return (
                         <ul className="grid gap-4 grid-cols-3 justify-center">
                             {filteredGroups.length === 0 && (
-                                <Trans i18nKey="groups.nogroups"><p className="text-fg">No groups have been found...</p></Trans>
+                                t("groups.nogroups")
                             )}
                             {filteredGroups.map((group) => (
                                 <li key={group.id}>

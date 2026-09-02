@@ -3,16 +3,16 @@ import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { GroupTimelineDisplayType } from "./GroupTimelineTrends"
-import {Trans} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
-
+const {t} = useTranslation();
 const options = [
     {
-        name: <Trans i18nKey="trends.periodic">Periodic</Trans>,
+        name: t("trends.periodic"),
         value: GroupTimelineDisplayType.Periodic
     },
     {
-        name: <Trans i18nKey="trends.cumulative">Cumulative</Trans>,
+        name: t("trends.cumulative"),
         value: GroupTimelineDisplayType.Cumulative
     },
 ]

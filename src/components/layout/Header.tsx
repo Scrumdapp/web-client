@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../generic/LanguageSwitch.tsx";
-import {Trans, useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,8 +11,8 @@ export default function Header() {
     const user = useUser()
 
     const links = [
-        { to: "/", label: <Trans i18nKey="header.home">Home</Trans> },
-        { to: "/groups", label: <Trans i18nKey="header.groups">Groups</Trans> },
+        { to: "/", label: t("header.home") },
+        { to: "/groups", label: t("header.groups") },
     ];
 
     return (<>
@@ -38,7 +38,7 @@ export default function Header() {
                     </div>
                     <div className="nav-dropdown-content -right-[0.5px]!">
                         <div className="my-4 px-1.5 text-center">
-                            {/*<Link to="/settings" className="btn-nav-dropdown hover:text-yellow"><FontAwesomeIcon icon={faPortrait} className="text-yellow" /><Trans i18nKey="header.profile">Profile</Trans></Link>*/}
+                            {/*<Link to="/settings" className="btn-nav-dropdown hover:text-yellow"><FontAwesomeIcon icon={faPortrait} className="text-yellow" />{t("header.profile")}</Link>*/}
                             <LanguageSwitch />
                             <LogoutButton />
                         </div>

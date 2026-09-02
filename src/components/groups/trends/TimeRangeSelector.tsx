@@ -4,17 +4,17 @@ import { toScrumdappDate } from "../../../js/utils/scrumdappDate"
 import { getWeekStart } from "../../../js/utils/timeUtils"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
-import {Trans} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
-
+const {t} = useTranslation();
 const options = [
     {
-        name: <Trans i18nKey="trends.twoweeks">Last 2 weeks</Trans>,
+        name: t("trends.twoweeks"),
         from: () => getWeekStart(new Date(new Date().getTime() - (14 * 24 * 60 * 60 * 1000))),
         to: () => new Date()
     },
     {
-        name: <Trans i18nKey="trends.sixmonths">Last 6 months</Trans>,
+        name: t("trends.sixmonths"),
         from: () => getWeekStart(new Date(new Date().getTime() - (6 * 4 * 7 * 24 * 60 * 60 * 1000))),
         to: () => new Date()
     },

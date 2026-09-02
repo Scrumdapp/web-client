@@ -71,7 +71,7 @@ export default {
             text11: {
                 point1: 'TLS: Alle (sub-)domeinen in gebruik door Scrumdapp bieden een geldig, sterk versleuteld ssl-certificaat.',
                 point2: 'Firewall: Scrumdapp wordt gehost achter firewalls die beheerd worden door de Hogeschool Utrecht en TandemIT.',
-                point3: 'Databases: All information and backups of this information are stored on databases hosted within the Open-ICT/TandemIt cloud environment.',
+                point3: 'Databases: Alle informatie en back-ups hiervan worden opgeslagen op databases binnen de Open-ICT/TandemIt cloudomgeving.',
             },
             text12: 'Als u vragen heeft over deze privacyverklaring, uw persoonlijke gegevens of hoe Scrumdapp informatie verwerkt, neem dan gerust contact met ons op via',
             text13: 'of op',

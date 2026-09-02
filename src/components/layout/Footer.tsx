@@ -1,20 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter, faYoutube, faInstagram, faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
-import { Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
-
+    const {t} = useTranslation();
     const links = [
-        { to: "/about", text: <Trans i18nKey="footer.about">About</Trans>, target: "_self" },
-        { to: "/privacy", text: <Trans i18nKey="footer.privacy">Privacy</Trans>, target: "_self" },
-        { to: "https://scrumdapp.com/#Contact", text: <Trans i18nKey="footer.support">Support</Trans>, target: "_blank" },
+        { to: "/about", text: t("footer.about"), target: "_self" },
+        { to: "/privacy", text: t("footer.privacy"), target: "_self" },
+        { to: "https://scrumdapp.com/#Contact", text: t("footer.support"), target: "_blank" },
     ]
 
     return (
         <footer className="mb-2 mx-2 card horizontal items-center justify-between">
             <span className="flex-1">
-                <Trans i18nKey="footer.rights">© 2026 Scrumdapp | All rights reserved</Trans>
+                {t("footer.rights")}
             </span>
             <div className="flex horizontal gap-4">
                 {links.map((link, i) => (

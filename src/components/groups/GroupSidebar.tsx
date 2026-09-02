@@ -1,22 +1,24 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCalendarDays} from "@fortawesome/free-regular-svg-icons";
-import {useGroup} from "../../js/context/group/useGroup.ts";
-import {Link} from "react-router"
-import {faChartSimple, faGear, faHouse} from "@fortawesome/free-solid-svg-icons";
-import {Trans} from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
+import { useGroup } from "../../js/context/group/useGroup.ts";
+import { Link } from "react-router"
+import { faChartSimple, faGear, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
+const {t} = useTranslation()
 const links = [
-    { path: "calendar", icon: faCalendarDays, color: "text-green", text: <Trans i18nKey="checkpoint.sidebar.calendar">Calendar</Trans> },
-    { path: "trends", icon: faChartSimple, color: "text-yellow", text: <Trans i18nKey="checkpoint.sidebar.trends">Trends</Trans> },
-    { path: "settings", icon: faGear, color: "text-red", text: <Trans i18nKey="checkpoint.sidebar.settings">Settings</Trans> },
+    { path: "calendar", icon: faCalendarDays, color: "text-green", text: t("checkpoint.sidebar.calendar") },
+    { path: "trends", icon: faChartSimple, color: "text-yellow", text: t("checkpoint.sidebar.trends") },
+    { path: "settings", icon: faGear, color: "text-red", text: t("checkpoint.sidebar.settings") },
 ]
 
 export function GroupSidebar() {
+    const {t} = useTranslation();
     const group = useGroup()
     return (
         <div className="card vertical gap-1">
             <Link to={`/groups/${group.id}`} className="btn justify-start!">
-                <FontAwesomeIcon icon={faHouse} className="text-blue"/> <Trans i18nKey="checkpoint.sidebar.today">Today</Trans>
+                <FontAwesomeIcon icon={faHouse} className="text-blue"/> {t("checkpoint.sidebar.today")}
             </Link>
             <hr className="text-gray" />
             {links.map((link, i) => (

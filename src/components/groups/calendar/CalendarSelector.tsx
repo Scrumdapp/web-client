@@ -14,7 +14,10 @@ export const CalendarSelector = memo(({ currentYearMonth }: { currentYearMonth: 
     const group = useGroup()
     const GetMonthsComponent = useApiComponent(ScrumdappApi.getCheckpointMonths())
 
-    const monthLabel = (date: Date) => t(parseMonthText(date.getUTCMonth()));
+    const monthLabel = (date: Date) => {
+        const key = parseMonthText(date.getUTCMonth())
+        return key ? t(key) : ""
+    }
 
     return (
         <div className="horizontal">

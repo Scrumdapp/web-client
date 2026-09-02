@@ -1,16 +1,16 @@
-import {ModalState} from "../../js/hooks/useModalState.ts";
+import { ModalState } from "../../js/hooks/useModalState.ts";
 import Modal from "../generic/modal/Modal.tsx";
 import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck} from "@fortawesome/free-solid-svg-icons";
-import {useState} from "react";
-import {ScrumdappApi} from "../../js/hooks/api/scrumdappApi.ts";
-import {GroupCheckpointSession} from "../../js/models/checkpoint.ts";
-import {useApi} from "../../js/hooks/api/useApi.ts";
-import {LoadScreen} from "../generic/LoadScreen.tsx";
-import {Trans, useTranslation} from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
+import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
+import { useApi } from "../../js/hooks/api/useApi.ts";
+import { LoadScreen } from "../generic/LoadScreen.tsx";
+import { useTranslation } from "react-i18next";
 
 export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }: { groupId: number, state: ModalState, onCreated?: (session: GroupCheckpointSession) => void }) {
     const { t } = useTranslation();
@@ -32,7 +32,7 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
         <Modal state={state}>
             <div className="space-y-5">
                 <ModalHeadText>
-                    <Trans i18nKey="checkpoint.modal.newcheckpoint">New Checkpoint</Trans>
+                    {t("checkpoint.modal.newcheckpoint")}
                 </ModalHeadText>
                 <input
                     type="text"
@@ -49,7 +49,7 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
                 />
                 {showWarning && (
                     <p className="text-red text-sm">
-                        <Trans i18nKey="checkpoint.modal.error">Only letters, numbers and spaces are allowed.</Trans>
+                        {t("checkpoint.modal.error")}
                     </p>
                 )}
                 <ModalActionRow>
@@ -60,7 +60,7 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
                         onClick={handleCreate}
                     >
                         <FontAwesomeIcon icon={faCheck} className="icon"/>
-                        {createCheckpointSession.loading ? (<LoadScreen />) : <Trans i18nKey="checkpoint.modal.create">Create</Trans>}
+                        {createCheckpointSession.loading ? (<LoadScreen />) : t("checkpoint.modal.create")}
                     </button>
                 </ModalActionRow>
             </div>

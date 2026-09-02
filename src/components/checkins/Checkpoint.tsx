@@ -14,7 +14,6 @@ import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
-import { Trans } from "react-i18next";
 import { useTranslation } from "react-i18next";
 import { getStarsColor, getAttendanceColor, getAttendanceLabelKey } from "../../js/utils/colorUtils.ts";
 
@@ -237,15 +236,15 @@ function Checkpoint({
                         onClick={() => fetch().catch(console.error)}
                         disabled={rowsLoading}
                     >
-                        <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" /> <Trans i18nKey="checkpoint.refresh">Refresh</Trans>
+                        <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" /> {t("checkpoint.refresh")}
                     </button>
                 </div>
             </div>
             <p>
                 {isLocked
-                    ? <Trans i18nKey="checkpoint.closed">Checkpoint closed</Trans>
+                    ? t("checkpoint.closed")
                     : <>
-                        <Trans i18nKey="checkpoint.closesin">Closes in</Trans>{" "}
+                        t("checkpoint.closesin"){" "}
                         {`${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
                     </>
                 }
@@ -261,23 +260,23 @@ function Checkpoint({
                         <thead>
                             <tr>
                                 <th className="p-2 text-left w-44">
-                                    <Trans i18nKey="checkpoint.name">Name</Trans>
+                                    {t("checkpoint.name")}
                                 </th>
                                 <th className="p-2 text-left border-l border-dotted w-28">
-                                    <Trans i18nKey="checkpoint.attendance">Attendance</Trans>
+                                    {t("checkpoint.attendance")}
                                 </th>
                                 <th className="p-2 items-center w-28">
-                                    <Trans i18nKey="checkpoint.stars">Stars</Trans>
+                                    {t("checkpoint.stars")}
                                 </th>
                                 <th className="p-2 text-left">
-                                    <Trans i18nKey="checkpoint.notes">Comment</Trans>
+                                    {t("checkpoint.notes")}
                                 </th>
                                 <th className="p-2 text-left">
-                                    <Trans i18nKey="checkpoint.obstacle">Obstacle</Trans>
+                                    {t("checkpoint.obstacle")}
                                 </th>
                                 {(isSessionmaster || isInGroup) && !isLocked && (
                                     <th className="p-2 pl-0 text-right w-14">
-                                        <Trans i18nKey="checkpoint.edit">Edit</Trans>
+                                        {t("checkpoint.edit")}
                                     </th>
                                 )}
                             </tr>
@@ -333,27 +332,27 @@ function Checkpoint({
             <Modal state={modal}>
                 <div className="space-y-5">
                     <ModalHeadText>
-                        <Trans i18nKey="checkpoint.modalheader" values={{ name: selectedUser ? `${selectedUser.first_name} ${selectedUser.last_name}` : "" }}>
-                            Edit Checkpoint for {"{{name}}"}
-                        </Trans>
+                        {t("checkpoint.modalheader", {
+                            name: selectedUser ? `${selectedUser.first_name} ${selectedUser.last_name}` : ""
+                        })}
                     </ModalHeadText>
                     <div className="flex flex-col space-y-2 w-full">
                         <label>
-                            <Trans i18nKey="checkpoint.attendance">Attendance</Trans>
+                            {t("checkpoint.attendance")}
                         </label>
                         <AttendanceDropDownMenu
                             value={selectedPresence}
                             onChange={setSelectedPresence}
                         />
                         <label>
-                            <Trans i18nKey="checkpoint.stars">Stars</Trans>
+                            {t("checkpoint.stars")}
                         </label>
                         <StarsDropDownMenu
                             value={selectedStar}
                             onChange={setSelectedStar}
                         />
                         <label>
-                            <Trans i18nKey="checkpoint.notes">Notes</Trans>
+                            {t("checkpoint.notes")}
                         </label>
                         <input
                             className="write-section"
@@ -363,7 +362,7 @@ function Checkpoint({
                             onChange={(e) => setNotes(e.target.value)}
                         />
                         <label>
-                            <Trans i18nKey="checkpoint.obstacle">Obstacle</Trans>
+                            {t("checkpoint.obstacle")}
                         </label>
                         <input
                             className="write-section"
@@ -382,7 +381,7 @@ function Checkpoint({
                             type="button"
                             disabled={applyLoading}
                         >
-                            {applyLoading ? <Trans i18nKey="checkpoint.saving">Saving...</Trans> : <Trans i18nKey="checkpoint.apply">Apply</Trans>}
+                            {applyLoading ? t("checkpoint.saving") : t("checkpoint.apply")}
                         </button>
                     </ModalActionRow>
                 </div>

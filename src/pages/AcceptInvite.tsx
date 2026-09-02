@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
 import { InviteResponse } from "../js/models/invites.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
-import {Trans, useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 export default function AcceptInvite() {
     const { t } = useTranslation();
@@ -49,14 +49,14 @@ export default function AcceptInvite() {
     return (
         <div className="app-container">
             <title>
-                <Trans i18nKey="invite.title">Accept Invite | Scrumdapp</Trans>
+                {t("invite.title")}
             </title>
             <div className="card flex flex-col">
                 <h1>
-                    <Trans i18nKey="invite.accept.header">You have been invited to join</Trans> {invite?.groupId}!
+                    {t("invite.accept.header")} {invite?.groupId}!
                 </h1>
                 <p>
-                    <Trans i18nKey="invite.accept.text">Enter your given password underneath.</Trans>
+                    {t("invite.accept.text")}
                 </p>
                 <div>
                     <div className="py-3">
@@ -70,7 +70,7 @@ export default function AcceptInvite() {
                     </div>
                     <div>
                         <button onClick={handleJoinInvite} className="btn btn-secondary border flex float-right">
-                            <Trans i18nKey="invite.accept.join">Join</Trans>
+                            {t("invite.accept.join")}
                         </button>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ import { LoadScreen } from "../../components/generic/LoadScreen.tsx"
 import { TimeRangeSelector } from "../../components/groups/trends/TimeRangeSelector.tsx"
 import { getGroupTimelineHeight, GroupTimelineDisplayType, GroupTimelineTrends } from "../../components/groups/trends/timeline/GroupTimelineTrends.tsx";
 import { TimelineSelector } from "../../components/groups/trends/timeline/TimelineSelector.tsx";
-import {Trans} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 export function TrendsPage() {
 
@@ -29,6 +29,7 @@ export function TrendsPage() {
 }
 
 export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
+    const {t} = useTranslation()
 
     const [dates, setDates] = useState({ from: "1970-01-01", to: "1970-01-01" })
     const [displayType, setDisplayType] = useState(GroupTimelineDisplayType.Periodic)
@@ -57,17 +58,17 @@ export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
     return (
         <div className="card">
             <title>
-                <Trans i18nKey="trends.title">Trends | Scrumdapp</Trans>
+                {t("trends.title")}
             </title>
             <div className="horizontal justify-between gap-2 items-center mb-4">
                 <h2>
-                    <Trans i18nKey="trends.header">Presence</Trans>
+                    {t("trends.header")}
                 </h2>
                 <div className="flex-1" />
                 <TimelineSelector onRangeSelected={displaySelected} />
                 <TimeRangeSelector onRangeSelected={rangeSelected} />
             </div>
             {component}
-        </div >
+        </div>
     )
 }

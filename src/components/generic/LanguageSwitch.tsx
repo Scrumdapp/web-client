@@ -10,12 +10,6 @@ type LngKey = keyof typeof lngs;
 function LanguageSwitch() {
     const { i18n } = useTranslation();
 
-    const handleChangeLanguage = (lng: LngKey) => {
-        i18n.changeLanguage(lng).then(() => {
-            window.location.reload();
-        });
-    };
-
     return (
         <div className="flex horizontal gap-4 justify-center items-center mb-2">
             {(Object.keys(lngs) as LngKey[]).map((lng) => (
@@ -26,7 +20,7 @@ function LanguageSwitch() {
                     type="button"
                     aria-label={lngs[lng].nativeName}
                     title={lngs[lng].nativeName}
-                    onClick={() => handleChangeLanguage(lng)}
+                    onClick={() => i18n.changeLanguage(lng)}
                 >
                     {lngs[lng].flag}
                 </button>

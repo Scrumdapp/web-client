@@ -1,4 +1,4 @@
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Privacy() {
     const { t } = useTranslation();
@@ -6,88 +6,85 @@ export default function Privacy() {
     return (
         <div className="app-container">
             <title>
-                <Trans i18nKey="privacy.title">Privacy | Scrumdapp</Trans>
+                {t("privacy.title")}
             </title>
             <div className="card text-block">
                 <h1>
-                    <Trans i18nKey="privacy.header">Privacy:</Trans>
+                    {t("privacy.header")}
                 </h1>
                 <h2>
-                    <Trans i18nKey="privacy.header1">What personal information do we collect?</Trans>
+                    {t("privacy.header1")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text1">To ensure that Scrumdapp functions we store the following personal information upon logging in:</Trans>
+                    {t("privacy.text1")}
                 </p>
                 <ul>
-                    <li><Trans i18nKey="privacy.text2.point1">Email Address</Trans></li>
+                    <li>{t("privacy.text2.point1")}</li>
                 </ul>
 
                 <h2>
-                    <Trans i18nKey="privacy.header2">Why do we collect this information?</Trans>
+                    {t("privacy.header2")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text3">We use the information mentioned above for the following goals:</Trans>
+                    {t("privacy.text3")}
                 </p>
                 <ul>
-                    <li><Trans i18nKey="privacy.text4.point1">To identify & authorize user</Trans></li>
-                    <li><Trans i18nKey="privacy.text4.point2">To ensure we can deliver our services</Trans></li>
+                    <li>{t("privacy.text4.point1")}</li>
+                    <li>{t("privacy.text4.point2")}</li>
                 </ul>
 
                 <h2>
-                    <Trans i18nKey="privacy.header3">Which personal information is visible to others?</Trans>
+                    {t("privacy.header3")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text5">Your name is visible for other users whenever you share a group with them.</Trans>
+                    {t("privacy.text5")}
                 </p>
 
                 <h2>
-                    <Trans i18nKey="privacy.header4">Lifetime personal information</Trans>
+                    {t("privacy.header4")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text6">We avoid storing your personal information longer than necessary in order to complete the above mentioned goals.</Trans>
+                    {t("privacy.text6")}
                 </p>
 
                 <h2>
-                    <Trans i18nKey="privacy.header5">Sharing data with third parties</Trans>
+                    {t("privacy.header5")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text7">We don't share your personal information to any third party.
-                        However, information may be shared with your explicit approval or due to legal obligations.</Trans>
+                    {t("privacy.text7")}
                 </p>
 
                 <h2>
-                    <Trans i18nKey="privacy.header6">Usage of cookies or similar technologies</Trans>
+                    {t("privacy.header6")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text8">We use cookies in our services. These cookies are purely functional and strictly necessary to deliver our services.</Trans>
+                    {t("privacy.text8")}
                 </p>
 
                 <h2>
-                    <Trans i18nKey="privacy.header7">Viewing, modifying & deleting your information</Trans>
+                    {t("privacy.header7")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text9">You have the right to see, adjust and delete your personal information.
-                        In addition, you have the right to lodge an objection against the use and/or processing of your personal information by Scrumdapp.</Trans>
+                    {t("privacy.text9")}
                 </p>
 
                 <h2>
-                    <Trans i18nKey="privacy.header8">How we protect personal information?</Trans>
+                    {t("privacy.header8")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text10">We take fitting measures to protect your personal information against malicious use, theft and loss.
-                        To do this we use a combination of the following measures:</Trans>
+                    {t("privacy.text10")}
                 </p>
                 <ul>
-                    <li><Trans i18nKey="privacy.text11.point1">TLS: All (sub-)domains in use by Scrumdapp provide a valid, strong encrypted ssl-certificate.</Trans></li>
-                    <li><Trans i18nKey="privacy.text11.point2">Firewall: Scrumdapp is hosted behind firewalls maintained by the University of Applied Sciences Utrecht and TandemIt.</Trans></li>
-                    <li><Trans i18nKey="privacy.text11.point3">Databases: All information and backups of this information are stored on databases hosted within the Open-ICT/TandemIt cloud environment.</Trans></li>
+                    <li>{t("privacy.text11.point1")}</li>
+                    <li>{t("privacy.text11.point2")}</li>
+                    <li>{t("privacy.text11.point3")}</li>
                 </ul>
 
                 <h2>
-                    <Trans i18nKey="privacy.header9">Questions & Complaints</Trans>
+                    {t("privacy.header9")}
                 </h2>
                 <p>
-                    <Trans i18nKey="privacy.text12">If you have questions about this privacy notice, your personal information or how Scrumdapp handles information, please reach out at:</Trans>
+                    {t("privacy.text12")}
                     <a
                         className="text-link"
                         href="mailto:info@scrumdapp.com"
@@ -95,7 +92,7 @@ export default function Privacy() {
                     >
                         {t("privacy.link1")}
                     </a>
-                    <Trans i18nKey="privacy.text13">or on </Trans>
+                    {t("privacy.text13")}
                     <a
                         className="text-link"
                         href="https://scrumdapp.com/#Contact"
