@@ -2,11 +2,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarDays} from "@fortawesome/free-regular-svg-icons";
 import {useGroup} from "../../js/context/group/useGroup.ts";
 import {Link} from "react-router"
-import {faChartSimple, faGear, faHouse} from "@fortawesome/free-solid-svg-icons";
+import {faChartSimple, faGear, faHouse, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 
 const links = [
     { path: "calendar", icon: faCalendarDays, color: "text-green", text: "Calendar" },
     { path: "trends", icon: faChartSimple, color: "text-yellow", text: "Trends" },
+    { path: "notes", icon: faPenToSquare, color: "text-blue", text: "Notes"},
     { path: "settings", icon: faGear, color: "text-red", text: "Settings" },
 ]
 
