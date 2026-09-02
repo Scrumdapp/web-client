@@ -244,7 +244,7 @@ function Checkpoint({
                 {isLocked
                     ? t("checkpoint.closed")
                     : <>
-                    {t("checkpoint.closesin")}{`${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
+                    {t("checkpoint.closesin")} {`${Math.floor(timeLeft / 60000)}:${String(Math.floor((timeLeft % 60000) / 1000)).padStart(2, "0")}`}
                     </>
                 }
             </p>
