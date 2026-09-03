@@ -10,14 +10,10 @@ export const attendanceOptions = [
 ];
 
 export function getAttendanceLabelKey(value: string | null | undefined): string {
-    return attendanceOptions.find(opt => opt.value === value)?.labelKey ?? "attendance.none";
-}
-
-export function getAttendanceLabel(id: string | null, t: (key: string) => string): string {
-    if (id == null) {
-        return t("checkpoint.attendanceOptions.noData")
+    if (value == null) {
+        return "checkpoint.attendanceOptions.noData";
     }
-    return t(getAttendanceLabelKey(id))
+    return attendanceOptions.find(opt => opt.value === value)?.labelKey ?? "checkpoint.attendanceOptions.none";
 }
 
 export function getAttendanceColor(value: string | null | undefined): string {
