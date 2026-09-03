@@ -3,7 +3,7 @@ import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/tr
 import {
     getAttendanceBackgroundColor,
     getAttendanceColorScrummaster,
-    getAttendanceLabel,
+    getAttendanceLabelKey,
 } from "../../../../js/utils/colorUtils"
 import { parseScrumdappDate, toScrumdappDate } from "../../../../js/utils/scrumdappDate"
 import { getWeekNumber, getWeekStart, parseWeekDay } from "../../../../js/utils/timeUtils"
@@ -59,7 +59,7 @@ function RenderTimelineTrend({ trend: trends }: { trend: PresenceTrendItem }) {
                                 <tr key={i}>
                                     <td className="text-nowrap pr-2">{it.name}</td>
                                     <td className={`text-nowrap ${getAttendanceColorScrummaster(it.presence)}`}>
-                                        {getAttendanceLabel(it.presence, t)}
+                                        {t(getAttendanceLabelKey(it.presence))}
                                     </td>
                                 </tr>
                             ))}
@@ -101,10 +101,9 @@ function TimelineWeekDisplays({ trends }: { trends: PresenceTrendItem }) {
                     width: `calc(${it.size / totalSize * 100}% - 4px)`,
                     marginLeft: "2px",
                     marginRight: "2px",
-                    marginBottom: "2px"
                 }}>
                     <span className="text-xs">W{getWeekNumber(it.date)}</span>
-                    <hr />
+                    <hr className="text-fg3" />
                 </div>
             ))}
         </div>
