@@ -2,21 +2,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 import { Link } from "react-router-dom";
-import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { useTranslation } from "react-i18next";
 
 export default function About() {
+    const {t} = useTranslation();
     return (
        <div className="app-container card horizontal gap-3 mb-4">
-           <title>About | Scrumdapp</title>
+           <title>
+               {t("about.title")}
+           </title>
            <div>
-            <h2 className="pb-3">About Scrumdapp</h2>
-            <h3 className="py-3">The Ultimate SCRUM tool for your team!</h3>
+            <h2 className="pb-3">
+                {t("about.header")}
+            </h2>
+            <h3 className="py-3">
+                {t("about.text1")}
+            </h3>
             <p className="py-3 wrap-break-word">
-                Scrumdapp was born out of frustration of not being able to easily manage the daily stand-ups from a team or project.
-                We have brought you an easy way to keep track of this using a easy-to-understand UI, great accessibility and many security and privacy features in the design.
+                {t("about.text2")}
             </p>
             <h3 className="py-3">
-                Our Team:
+                {t("about.team")}
             </h3>
             <div>
                 <Link to="https://www.linkedin.com/in/luc-van-ogtrop" target="_blank">Luc van Ogtrop</Link> <Link to="https://www.linkedin.com/in/luc-van-ogtrop" target="_blank" className="underline"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
@@ -28,7 +35,7 @@ export default function About() {
             </div>
            </div>
            <div className="my-auto">
-               <img src={`/ScrumdappLogoTransparent.webp`} alt="scrumdapp-logo" className="mx-auto" />
+               <img src={`/ScrumdappLogoTransparent.webp`} alt={t('about.logo')} className="mx-auto" />
            </div>
         </div>
     )

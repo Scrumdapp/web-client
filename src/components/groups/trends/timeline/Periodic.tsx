@@ -1,8 +1,13 @@
 import { GroupUser } from "../../../../js/models/group"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
-import { getAttendanceBackgroundColor, getAttendanceColorScrummaster, getAttendanceLabel } from "../../../../js/utils/colorUtils"
+import {
+    getAttendanceBackgroundColor,
+    getAttendanceColorScrummaster,
+    getAttendanceLabelKey,
+} from "../../../../js/utils/colorUtils"
 import { parseScrumdappDate, toScrumdappDate } from "../../../../js/utils/scrumdappDate"
 import { getWeekNumber, getWeekStart, parseWeekDay } from "../../../../js/utils/timeUtils"
+import {useTranslation} from "react-i18next";
 
 export function RenderTimelineGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
     const length = data.trends[0].days.length
@@ -36,6 +41,8 @@ export function RenderTimelineGraph({ users, data }: { users: GroupUser[], data:
 }
 
 function RenderTimelineTrend({ trend: trends }: { trend: PresenceTrendItem }) {
+    const { t } = useTranslation()
+
     return (
         <div className="horizontal gap-0.5 w-full flex-1">
             {trends.days.map((trend, i) => (
@@ -44,22 +51,23 @@ function RenderTimelineTrend({ trend: trends }: { trend: PresenceTrendItem }) {
                     key={i}
                 >
                     <div className="dropdown-content">
-                        <p>{parseWeekDay(parseScrumdappDate(trend.date).getUTCDay())} {trend.date}</p>
+                        <p>{t(parseWeekDay(parseScrumdappDate(trend.date).getUTCDay()))} {trend.date}</p>
                         <hr className="mt-1 mb-2 text-gray" />
                         <table>
                             <tbody>
-                                {trend.presences.map((it, i) => (
-                                    <tr key={i}>
-                                        <td className="text-nowrap pr-2">{it.name}</td>
-                                        <td className={`text-nowrap ${getAttendanceColorScrummaster(it.presence)}`}>{getAttendanceLabel(it.presence)}</td>
-                                    </tr>
-                                ))}
+                            {trend.presences.map((it, i) => (
+                                <tr key={i}>
+                                    <td className="text-nowrap pr-2">{it.name}</td>
+                                    <td className={`text-nowrap ${getAttendanceColorScrummaster(it.presence)}`}>
+                                        {t(getAttendanceLabelKey(it.presence))}
+                                    </td>
+                                </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
-            ))
-            }
+            ))}
         </div>
     )
 }
@@ -93,10 +101,9 @@ function TimelineWeekDisplays({ trends }: { trends: PresenceTrendItem }) {
                     width: `calc(${it.size / totalSize * 100}% - 4px)`,
                     marginLeft: "2px",
                     marginRight: "2px",
-                    marginBottom: "2px"
                 }}>
                     <span className="text-xs">W{getWeekNumber(it.date)}</span>
-                    <hr />
+                    <hr className="text-fg3" />
                 </div>
             ))}
         </div>

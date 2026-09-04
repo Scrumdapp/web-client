@@ -11,8 +11,11 @@ import { CreateGroupModal } from "../components/modals/CreateGroupModal.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
 import { ShowIf } from "../components/utility/Conditional.tsx";
 import { hasRole, Role } from "../js/utils/userPermissions.ts";
+import { useTranslation } from "react-i18next";
 
 export default function Groups() {
+    const { t } = useTranslation();
+
     const user = useUser()
     const modal = useModalState();
     const [search, setSearch] = useState("");
@@ -31,17 +34,19 @@ export default function Groups() {
 
     return (
         <div className="app-container vertical gap-4">
-            <title>Groups | Scrumdapp</title>
+            <title>
+                {t("groups.title")}
+            </title>
             <div className="horizontal justify-between">
                 <h1 className="flex-1">Scrumdapp</h1>
                 <div className="flex-1 horizontal center align-top">
                     <IconInput
                         icon={faMagnifyingGlass}
                         type="text"
-                        placeholder="Search for groups"
+                        placeholder={t('groups.searchPlaceholder')}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        alt="Search here for diffrent groups"
+                        alt={t('groups.searchAlt')}
                         className="bg-bg_h"
                     />
                 </div>
@@ -49,7 +54,7 @@ export default function Groups() {
                     <ShowIf condition={hasRole(user, Role.Coach)}>
                         <button className="ml-auto btn btn-red border max-h-fit"
                             onClick={modal.open}>
-                            New Group <FontAwesomeIcon icon={faPlus} />
+                            {t("groups.newgroup")}<FontAwesomeIcon icon={faPlus} />
                         </button>
                     </ShowIf>
                 </div>
@@ -62,7 +67,7 @@ export default function Groups() {
                     return (
                         <ul className="grid gap-4 grid-cols-3 justify-center">
                             {filteredGroups.length === 0 && (
-                                <p className="text-fg">No groups have been found...</p>
+                                t("groups.nogroups")
                             )}
                             {filteredGroups.map((group) => (
                                 <li key={group.id}>
