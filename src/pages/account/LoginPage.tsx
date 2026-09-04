@@ -1,8 +1,8 @@
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUserState } from "../../js/context/user/useUser.ts";
 import { useNavigate } from "react-router-dom";
 import { WebConfig } from "../../config.ts";
+import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
 
 export default function LoginPage() {
 
@@ -26,12 +26,12 @@ export default function LoginPage() {
     return (
         <div className="card m-auto">
             <div className="app-container vertical justify-center">
-                <h2 className="mb-4">Log in with your Discord account</h2>
+                <h2 className="mb-4">Log in with your account</h2>
                 <button
                     onClick={handleLogin}
                     className="btn border btn-secondary mx-auto w-fit"
                 >
-                    <FontAwesomeIcon icon={faDiscord} />
+                    <FontAwesomeIcon icon={faArrowRightToBracket} />
                     Login
                 </button>
             </div>
