@@ -1,50 +1,51 @@
-import { useParams, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
-import { InviteResponse } from "../js/models/invites.tsx";
-import { useUser } from "../js/context/user/useUser.ts";
 import { useTranslation } from "react-i18next";
+import { useApi } from "../js/hooks/api/useApi.ts";
+import { LoadScreen } from "../components/generic/LoadScreen.tsx";
+import { ErrorScreen } from "../components/generic/ErrorScreen.tsx";
+import { useState } from "react";
 
 export default function AcceptInvite() {
     const { t } = useTranslation();
-    const { inviteId } = useParams()
+    const { inviteId: unparsedInviteId } = useParams()
     const [searchParams] = useSearchParams()
-    const token = searchParams.get("token")
+    const navigate = useNavigate()
 
-    const currentUser = useUser()
+    const [password, setPassword] = useState("");
 
-    const [invite, setInvite] = useState<InviteResponse | null>(null)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState("")
-    const [password, setPassword] = useState("")
+    const token = searchParams.get("token") ?? ""
+    const inviteId = parseInt(unparsedInviteId!)
 
-    const getInvite = ScrumdappApi.GetGroupInvite()
-    const acceptInvite = ScrumdappApi.AcceptInvite()
+    const getGroupInvite = useApi(ScrumdappApi.GetGroupInvite(), {
+        fetchOnCreated: [inviteId, token]
+    })
 
-    useEffect(() => {
-        async function RetrieveInvite() {
-            try {
-                const result = await getInvite(Number(inviteId), token!)
-                setInvite(result)
-            } catch (e) {
-                setError("The invite seems invalid or has expired...")
-            } finally {
-                setLoading(false)
-            }
-        }
-        RetrieveInvite()
-    }, [inviteId])
+    const acceptInviteRequest = useApi(ScrumdappApi.AcceptInvite())
 
-    async function handleJoinInvite() {
-        try {
-            await acceptInvite(Number(inviteId), currentUser.id, token ?? "", password)
-        } catch (e) {
-            setError("Failed to join the group...")
-        }
+    const handleAcceptInvite = () => {
+        acceptInviteRequest.runCommand(inviteId, token, password)
+            .then(() => navigate(`/groups/${getGroupInvite.data?.groupId}`))
+            .catch((e) => console.error(e))
     }
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>{error}</p>
+    if (getGroupInvite.loading || acceptInviteRequest.loading) {
+        return (
+            <div className="app-container">
+                <LoadScreen />
+            </div>
+        )
+    }
+
+    if (getGroupInvite.error) {
+        return (
+            <div className="app-container">
+                <ErrorScreen error={getGroupInvite.error} />
+            </div>
+        )
+    }
+
+    const invite = getGroupInvite.data!
 
     return (
         <div className="app-container">
@@ -53,7 +54,7 @@ export default function AcceptInvite() {
             </title>
             <div className="card flex flex-col">
                 <h1>
-                    {t("invite.accept.header")} {invite?.groupId}!
+                    {t("invite.accept.header")} {invite.groupId}!
                 </h1>
                 <p>
                     {t("invite.accept.text")}
@@ -69,9 +70,14 @@ export default function AcceptInvite() {
                         />
                     </div>
                     <div>
-                        <button onClick={handleJoinInvite} className="btn btn-secondary border flex float-right">
+                        <button onClick={handleAcceptInvite} className="btn btn-secondary border flex float-right">
                             {t("invite.accept.join")}
                         </button>
+                        {acceptInviteRequest.error != null && (
+                            <p className="text-error">
+                                {acceptInviteRequest.error.message}
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>
