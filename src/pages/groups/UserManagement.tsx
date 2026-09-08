@@ -3,7 +3,7 @@ import { useUserManagement } from "../../js/hooks/useUserManagement";
 import { useTranslation } from "react-i18next";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import { UserManagementModal } from "../../components/modals/UserManagementModal.tsx";
-import {useUser} from "../../js/context/user/useUser.ts";
+import { useUser } from "../../js/context/user/useUser.ts";
 
 type Props = {
     groupId: number;
@@ -12,9 +12,8 @@ type Props = {
 export default function UserManagement({ groupId }: Props) {
     const { t } = useTranslation();
     const currentUser = useUser();
-    const canEditRoles = currentUser.roles.includes("Coach, UserManagement, Scrummaster");
+    const canEditRoles = currentUser.roles.includes("Coach");
     const modal = useModalState();
-
     const { rows, fetch: fetchUsers } = useUserManagement(groupId);
 
     useEffect(() => {
