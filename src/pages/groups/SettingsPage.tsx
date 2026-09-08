@@ -6,17 +6,22 @@ import {ShowIf} from "../../components/utility/Conditional.tsx";
 import {useUser} from "../../js/context/user/useUser.ts";
 import UserManagement from "./UserManagement.tsx";
 
+import { useTranslation } from "react-i18next";
 
 export function SettingsPage() {
-
+    const {t} = useTranslation();
     const group = useGroup()
     const user = useUser()
 
     return (
         <div className="vertical gap-4">
-            <title>Settings | Scrumdapp</title>
+            <title>
+                {t("settings.title")}
+            </title>
             <div className="card">
-                <h2>Settings</h2>
+                <h2>
+                    {t("settings.header")}
+                </h2>
             </div>
             <UserManagement groupId={group.id}/>
             <ShowIf condition={hasRole(user, Role.Coach)}>

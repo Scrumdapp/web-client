@@ -1,5 +1,7 @@
+import {ReactNode} from "react";
+
 interface ModalHeadTextProps {
-    children?: string
+    children?: ReactNode
 }
 
 export default function ModalHeadText({children}: ModalHeadTextProps) {

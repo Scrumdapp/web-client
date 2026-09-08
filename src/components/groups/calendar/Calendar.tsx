@@ -4,13 +4,14 @@ import { useApiComponent } from "../../../js/hooks/api/useApiComponent"
 import { firstDayOfMonth, getWeekEnd, getWeekNumber, getWeeksBetween, getWeekStart, lastDayOfMonth, parseYearMonth, WEEK } from "../../../js/utils/timeUtils"
 import { memo } from "react"
 import { CalendarDate } from "./CalendarDate"
+import { useTranslation } from "react-i18next";
 
 export interface CalendarProps {
     yearMonth: string
 }
 
 export const Calendar = memo(({ yearMonth }: CalendarProps) => {
-
+    const {t} = useTranslation()
     const group = useGroup()
     const GetCalendarDatesComponent = useApiComponent(ScrumdappApi.getCheckpointDatesInMonth())
 
@@ -27,13 +28,13 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                            <th>Sun</th>
+                            <th>{t("calendar.mon")}</th>
+                            <th>{t("calendar.tue")}</th>
+                            <th>{t("calendar.wed")}</th>
+                            <th>{t("calendar.thu")}</th>
+                            <th>{t("calendar.fri")}</th>
+                            <th>{t("calendar.sat")}</th>
+                            <th>{t("calendar.sun")}</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -3,18 +3,7 @@ import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { GroupTimelineDisplayType } from "./GroupTimelineTrends"
-
-
-const options = [
-    {
-        name: "Periodic",
-        value: GroupTimelineDisplayType.Periodic
-    },
-    {
-        name: "Cumelative",
-        value: GroupTimelineDisplayType.Cumelative
-    },
-]
+import { useTranslation } from "react-i18next";
 
 
 export function TimelineSelector(
@@ -25,6 +14,19 @@ export function TimelineSelector(
         onRangeSelected?: (type: GroupTimelineDisplayType) => void,
         defaultOption?: number
     }) {
+    
+    const {t} = useTranslation();
+
+    const options = [
+        {
+            name: t("trends.periodic"),
+            value: GroupTimelineDisplayType.Periodic,
+        },
+        {
+            name: t("trends.cumulative"),
+            value: GroupTimelineDisplayType.Cumulative,
+        },
+    ]
 
     const [selectedOption, setSelectedOption] = useState(defaultOption)
 

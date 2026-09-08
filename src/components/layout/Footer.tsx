@@ -1,30 +1,28 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXTwitter, faYoutube, faInstagram, faLinkedinIn, faGithub} from "@fortawesome/free-brands-svg-icons";
-
+import { faXTwitter, faYoutube, faInstagram, faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
-
+    const {t} = useTranslation();
     const links = [
-        { to: "/about", label: "About", external: false },
-        { to: "/privacy", label: "Privacy", external: false },
-        { to: "https://scrumdapp.com/#Contact", label: "Support", external: true },
-    ];
+        { to: "/about", text: t("footer.about"), target: "_self" },
+        { to: "/privacy", text: t("footer.privacy"), target: "_self" },
+        { to: "https://scrumdapp.com/#Contact", text: t("footer.support"), target: "_blank" },
+    ]
 
     return (
         <footer className="mb-2 mx-2 card horizontal items-center justify-between">
-            <span className="flex-1">© 2026 Scrumdapp | All rights reserved</span>
-            <span className="flex-1 flex flex-wrap justify-center gap-3">
-                {links.map(({ to, label, external }) => external ? (
-                    <a key={label} href={to} target="_blank" rel="noopener noreferrer" className="btn w-20 sm:text-sm md:text-start lg:text-lg">
-                        {label}
-                    </a>
-                ) : (
-                    <Link key={label} to={to} className="btn w-20 sm:text-sm md:text-start lg:text-lg">
-                        {label}
+            <span className="flex-1">
+                {t("footer.rights")}
+            </span>
+            <div className="flex horizontal gap-4">
+                {links.map((link, i) => (
+                    <Link key={i} to={link.to} target={link.target} className="btn justify-start!">
+                        {link.text}
                     </Link>
                 ))}
-            </span>
+            </div>
             <div className="flex-1 flex items-center gap-4 justify-end">
                 <Link to="https://www.linkedin.com/company/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faLinkedinIn} /></Link>
                 <Link to="https://x.com/scrumdapp" target="_blank" className="border btn aspect-square text-xl"><FontAwesomeIcon icon={faXTwitter} /></Link>

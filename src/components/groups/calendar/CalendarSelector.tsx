@@ -6,13 +6,18 @@ import { Link } from "react-router-dom"
 import { getYearMonth, nextMonth, parseMonthText, parseYearMonth, previousMonth } from "../../../js/utils/timeUtils"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faArrowRight, faChevronDown } from "@fortawesome/free-solid-svg-icons"
-
+import { useTranslation } from "react-i18next";
 
 export const CalendarSelector = memo(({ currentYearMonth }: { currentYearMonth: string }) => {
-
+    const { t } = useTranslation();
     const ym = parseYearMonth(currentYearMonth)
     const group = useGroup()
     const GetMonthsComponent = useApiComponent(ScrumdappApi.getCheckpointMonths())
+
+    const monthLabel = (date: Date) => {
+        const key = parseMonthText(date.getUTCMonth())
+        return key ? t(key) : ""
+    }
 
     return (
         <div className="horizontal">
@@ -23,26 +28,26 @@ export const CalendarSelector = memo(({ currentYearMonth }: { currentYearMonth: 
                             ? (
                                 <Link className="btn" to={`/groups/${group.id}/calendar?month=${getYearMonth(previousMonth(ym))}`}>
                                     <FontAwesomeIcon icon={faArrowLeft} className="text-blue" />
-                                    {parseMonthText(previousMonth(ym).getUTCMonth())}
+                                    {monthLabel(previousMonth(ym))}
                                 </Link>
                             ) : (
                                 <span className="btn pointer-events-none text-gray!">
                                     <FontAwesomeIcon icon={faArrowLeft} />
-                                    {parseMonthText(previousMonth(ym).getUTCMonth())}
+                                    {monthLabel(previousMonth(ym))}
                                 </span>
                             )
                         }
                     </div>
                     <div className="flex-2 flex justify-center items-center">
                         <div className="dropdown flex btn border w-32">
-                            {parseMonthText(ym.getUTCMonth())}
+                            {monthLabel(ym)}
                             <div className="flex-1" />
                             <FontAwesomeIcon icon={faChevronDown} />
                             <div className="dropdown-content w-32">
                                 <div className="vertical gap-2">
                                     {months.map((m) => (
-                                        <Link className="btn text-left! justify-start!" to={`/groups/${group.id}/calendar?month=${m}`}>
-                                            {parseMonthText(parseYearMonth(m).getUTCMonth())}
+                                        <Link key={m} className="btn text-left! justify-start!" to={`/groups/${group.id}/calendar?month=${m}`}>
+                                            {monthLabel(parseYearMonth(m))}
                                         </Link>
                                     ))}
                                 </div>
@@ -53,12 +58,12 @@ export const CalendarSelector = memo(({ currentYearMonth }: { currentYearMonth: 
                         {months.some(it => it == getYearMonth(nextMonth(ym)))
                             ? (
                                 <Link className="btn" to={`/groups/${group.id}/calendar?month=${getYearMonth(nextMonth(ym))}`}>
-                                    {parseMonthText(nextMonth(ym).getUTCMonth())}
+                                    {monthLabel(nextMonth(ym))}
                                     <FontAwesomeIcon icon={faArrowRight} className="text-blue" />
                                 </Link>
                             ) : (
                                 <span className="btn pointer-events-none text-gray!">
-                                    {parseMonthText(nextMonth(ym).getUTCMonth())}
+                                    {monthLabel(nextMonth(ym))}
                                     <FontAwesomeIcon icon={faArrowRight} />
                                 </span>
                             )

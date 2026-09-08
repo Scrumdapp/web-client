@@ -1,10 +1,11 @@
 import { GroupUser } from "../../../../js/models/group"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
-import { getAttendanceLabel } from "../../../../js/utils/colorUtils"
+import { getAttendanceLabelKey } from "../../../../js/utils/colorUtils"
 import { HideIf } from "../../../utility/Conditional"
 import { HideIfNotFullyVisible } from "../../../utility/Text"
+import { useTranslation } from "react-i18next";
 
-export function RenderCumelativeGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
+export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
     const length = data.trends[0].days.length
 
     if (length == 0) {
@@ -17,19 +18,63 @@ export function RenderCumelativeGraph({ users, data }: { users: GroupUser[], dat
 
     return (
         <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <div className="relative" style={{ height: "16px", marginLeft: "2px", marginRight: "2px", marginBottom: "4px"}}>
+                        {[0, 20, 40, 60, 80, 100].map((pct) => (
+                            <span
+                                key={pct}
+                                className="text-fg3 absolute"
+                                style={{
+                                    left: `${pct}%`,
+                                    transform:
+                                        pct === 0 ? "translateX(0%)" :
+                                            pct === 100 ? "translateX(-100%)" :
+                                                "translateX(-50%)",
+                                }}
+                            >
+                                    {pct}%
+                                </span>
+                        ))}
+                    </div>
+                    <div className="relative" style={{ height: "4px", marginLeft: "2px", marginRight: "2px" }}>
+                        {[0, 20, 40, 60, 80, 100].map((pct) => (
+                            <div
+                                key={pct}
+                                className="bg-fg3 absolute"
+                                style={{
+                                    left: `${pct}%`,
+                                    width: "1px",
+                                    height: "4px",
+                                    transform:
+                                        pct === 0 ? "translateX(0%)" :
+                                            pct === 100 ? "translateX(-100%)" :
+                                                "translateX(-50%)",
+                                }}
+                            />
+                        ))}
+                    </div>
+                    <hr className="text-fg3" />
+                </th>
+            </tr>
+            </thead>
             <tbody>
-                {users.map((user) => (
-                    <tr key={user.user_id}>
-                        <td className="w-48 pr-2">{user.first_name} {user.last_name}</td>
-                        <td className="py-1"><RenderCumelativeTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
-                    </tr>
-                ))}
+            {users.map((user) => (
+                <tr key={user.user_id}>
+                    <td className="w-48 pr-2">{user.first_name} {user.last_name}</td>
+                    <td className="py-1"><RenderCumulativeTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
+                </tr>
+            ))}
             </tbody>
         </table>
     )
 }
 
-function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) {
+function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) {
+
+    const { t } = useTranslation()
 
     const map = [
         { id: "ON_TIME", color: "bg-green", children: [{ id: "ONLINE", color: "bg-purple" }] },
@@ -74,7 +119,6 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                             width: `calc(${selfTotal / total * 100}% - 4px)`,
                             marginLeft: "2px",
                             marginRight: "2px",
-                            marginBottom: "2px",
                             paddingLeft: "4px"
                         }}
                     >
@@ -94,12 +138,12 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                         <div className="dropdown-content">
                             <HideIf condition={selfCount == 0}>
                                 <div>
-                                    {getLabelName(item.id)}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
+                                    {t(getAttendanceLabelKey(item.id))}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
                                 </div>
                             </HideIf>
                             {item.children.filter(it => (presenceData.get(it.id) ?? 0) != 0).map(it => (
                                 <div key={it.id}>
-                                    {getLabelName(it.id)}: <span className={it.color + " rounded-md text-bg_h px-1"}>{presenceData.get(it.id)}x</span>
+                                    {t(getAttendanceLabelKey(it.id))}: <span className={it.color + " rounded-md text-bg_h px-1"}>{presenceData.get(it.id)}x</span>
                                 </div>
                             ))}
                         </div>
@@ -108,9 +152,4 @@ function RenderCumelativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
             })}
         </div>
     )
-}
-
-function getLabelName(id: string | null) {
-    const n = getAttendanceLabel(id)
-    return n == "---" ? "No Data" : n
 }
