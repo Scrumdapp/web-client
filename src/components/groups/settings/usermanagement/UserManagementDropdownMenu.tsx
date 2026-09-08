@@ -1,8 +1,9 @@
-import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
-import {useEffect, useState} from "react";
-import {roleOptions, geRoleColorScrummaster} from "../../../../js/utils/colorUtils.ts";
-import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { useEffect, useState } from "react";
+import { roleOptions, getRoleColor } from "../../../../js/utils/colorUtils.ts";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "react-i18next";
 
 type UserManagementDropDownMenuProps = {
     value?: string | null;
@@ -10,6 +11,7 @@ type UserManagementDropDownMenuProps = {
 };
 
 export function UserManagementDropDownMenu({value, onChange,}: UserManagementDropDownMenuProps) {
+    const {t} = useTranslation();
     const [localValue, setLocalValue] = useState<string | null>(value ?? null);
 
     const updateValue = (value: string | null) => {
@@ -25,13 +27,13 @@ export function UserManagementDropDownMenu({value, onChange,}: UserManagementDro
 
     const resolvedValue = value !== null ? (value ?? null) : localValue;
     const currentOption = roleOptions.find((opt) => opt.value === resolvedValue) ?? roleOptions[0];
-    const currentColor = geRoleColorScrummaster(resolvedValue);
+    const currentColor = getRoleColor(resolvedValue);
 
     return (
         <Menu as="div" className="relative">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
-                    {currentOption.label}
+                    {t(currentOption.labelKey)}
                 </span>
                 <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`}/>
             </MenuButton>
@@ -39,12 +41,12 @@ export function UserManagementDropDownMenu({value, onChange,}: UserManagementDro
                 <div>
                     {roleOptions.map((opt) => (
                         <MenuItem
-                            key={opt.label}
+                            key={t(opt.labelKey)}
                             as="button"
                             type="button"
                             onClick={() => updateValue(opt.value)}
                             className={`btn-attendance-dropdown ${opt.color}`}>
-                            {opt.label}
+                            {t(opt.labelKey)}
                         </MenuItem>
                     ))}
                 </div>
