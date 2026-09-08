@@ -47,16 +47,15 @@ export default function UserManagement({ groupId }: Props) {
                 ))}
                 </tbody>
             </table>
-            <div className="flex justify-end">
-                <button
-                    className="btn btn-secondary border"
-                    onClick={() => modal.open()}
-                >
-                    {t("settings.users.modal.edit")}
-                </button>
-            </div>
             {canEditRoles && (
-                <div></div>
+                <div className="flex justify-end">
+                    <button
+                        className="btn btn-secondary border"
+                        onClick={() => modal.open()}
+                    >
+                        {t("settings.users.modal.edit")}
+                    </button>
+                </div>
             )}
             <UserManagementModal groupId={groupId} state={modal} onSaved={fetchUsers} />
         </div>
