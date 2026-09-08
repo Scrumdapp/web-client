@@ -25,10 +25,10 @@ export default {
             users: {
                 users: 'Users',
                 role: 'Role',
-                danger: 'Danger Zone',
                 modal: {
                     title: 'Edit Users',
                     edit: 'Edit',
+                    danger: 'Danger Zone',
                     confirm: 'Confirm',
                     remove: 'Remove',
                 },
@@ -68,10 +68,10 @@ export default {
             users: {
                 users: 'Gebruikers',
                 role: 'Rol',
-                danger: 'Gevaarlijke Zone',
                 modal: {
                     title: 'Bewerk Gebruikers',
                     edit: 'Bewerk',
+                    danger: 'Gevaarlijke Zone',
                     confirm: 'Bevestig',
                     remove: 'Verwijder',
                 },

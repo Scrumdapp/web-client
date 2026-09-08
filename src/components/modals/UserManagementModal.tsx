@@ -1,10 +1,10 @@
 import { ModalState } from "../../js/hooks/useModalState.ts";
 import { useTranslation } from "react-i18next";
-import Modal from "../generic/modal/Modal.tsx";
 import { UserManagementDropDownMenu } from "../groups/settings/usermanagement/UserManagementDropdownMenu.tsx";
+import Modal from "../generic/modal/Modal.tsx";
 import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
-import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx";
 import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
+import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -12,8 +12,8 @@ import { useUserManagement } from "../../js/hooks/useUserManagement";
 import { useEffect, useState } from "react";
 
 export function UserManagementModal({ state, groupId, onSaved }: { state: ModalState; groupId: number; onSaved: () => void }) {
-    const { t } = useTranslation();
 
+    const { t } = useTranslation();
     const { rows, loading, error, fetch: fetchUsers } = useUserManagement(groupId);
 
     useEffect(() => {
@@ -62,18 +62,19 @@ export function UserManagementModal({ state, groupId, onSaved }: { state: ModalS
 
     return (
         <Modal state={state}>
-            <div className="space-y-5">
-                <ModalHeadText>{t("settings.users.modal.title")}</ModalHeadText>
-                <div className="card">
-                    <table className="table-fixed w-full">
-                        <thead>
+            <div className="space-y-5 max-w-2xl">
+                <ModalHeadText>
+                    {t("settings.users.modal.title")}
+                </ModalHeadText>
+                <table className="table-fixed w-full">
+                    <thead>
                         <tr>
                             <th className="text-left px-2 py-1">{t("checkpoint.name")}</th>
                             <th className="text-left px-2 py-1 border-l border-dotted">{t("settings.users.role")}</th>
-                            <th className="text-right pl-2 pr-0 py-1 w-40">{t("settings.users.danger")}</th>
+                            <th className="text-right pl-2 pr-0 py-1 w-40">{t("settings.users.modal.danger")}</th>
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody>
                         {rows.map(user => (
                             <tr key={user.user_id}>
                                 <td className="p-2 text-left name-field border-r border-t border-dotted border-current!">
@@ -92,9 +93,8 @@ export function UserManagementModal({ state, groupId, onSaved }: { state: ModalS
                                 </td>
                             </tr>
                         ))}
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
                 <ModalActionRow>
                     <ModalCancelButton />
                     <button

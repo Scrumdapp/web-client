@@ -29,11 +29,10 @@ export default function UserManagement({ groupId }: Props) {
             <hr className="my-2 mr-0" />
             <table className="table-fixed w-full">
                 <thead>
-                <tr>
-                    <th className="text-left px-2 py-1">{t("checkpoint.name")}</th>
-                    <th className="text-left px-2 py-1 border-l border-dotted">{t("settings.users.role")}</th>
-                    <th className="text-right pl-2 pr-0 py-1 w-40">{t("settings.users.danger")}</th>
-                </tr>
+                    <tr>
+                        <th className="text-left px-2 py-1">{t("checkpoint.name")}</th>
+                        <th className="text-left px-2 py-1 border-l border-dotted">{t("settings.users.role")}</th>
+                    </tr>
                 </thead>
                 <tbody>
                 {rows.map(user => (
@@ -43,8 +42,6 @@ export default function UserManagement({ groupId }: Props) {
                         </td>
                         <td className={`p-2 text-left border-t border-dotted border-current ${user.role}`}>
                             {user.role ?? t("settings.users.roles.student")}
-                        </td>
-                        <td className="p-2 pr-0 border-t border-dotted border-current flex justify-end">
                         </td>
                     </tr>
                 ))}
