@@ -81,8 +81,13 @@ export const inviteHandlers = [
     http.get("/api/invites/:inviteId", ({ params }) => {
         return HttpResponse.json(inviteDataById[parseInt(params["inviteId"] as string)])
     }),
-    http.post("/api/invites/:inviteId/accept", ({ }) => {
-        return HttpResponse.json({ status: 200 })
+    http.post("/api/invites/:inviteId/accept", ({ params }) => {
+        const id = parseInt(params["inviteId"] as string)
+        if (id == 4) {
+            return HttpResponse.json({ error: true, status: 400, message: "Incorrect password", "detail": "The password was not correct!", extra: null }, { status: 400 })
+        }
+
+        return new HttpResponse(undefined, { status: 204 })
     }),
     http.delete("/api/invites/:inviteId", ({ }) => {
         return new HttpResponse()

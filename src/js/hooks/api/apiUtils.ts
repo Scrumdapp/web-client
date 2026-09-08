@@ -66,6 +66,9 @@ export async function makeApiRequest<T>(
                 }
                 throw new ApiError(json.status, json)
             }
+            if (it.status == 204) {
+                return null
+            }
             const json = await it.json()
             if (isErrorDto(json)) {
                 throw new ApiError(json.status, json)
