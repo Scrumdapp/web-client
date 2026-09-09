@@ -14,7 +14,7 @@ export function useUserManagement(groupId: number) {
         setError(null);
 
         try {
-            const users = await getGroupUsers()(groupId);
+            const users = await ScrumdappApi.getGroupUsers()(groupId);
             setRows(users);
         } catch (err) {
             setError(
