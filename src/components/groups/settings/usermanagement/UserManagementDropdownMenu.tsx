@@ -1,16 +1,16 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import { attendanceOptions, getAttendanceColorScrummaster } from "../../../js/utils/colorUtils.ts";
+import { roleOptions, getRoleColor } from "../../../../js/utils/colorUtils.ts";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
-type AttendanceDropDownMenuProps = {
+type UserManagementDropDownMenuProps = {
     value?: string | null;
     onChange?: (value: string | null) => void;
 };
 
-export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMenuProps) {
+export function UserManagementDropDownMenu({value, onChange,}: UserManagementDropDownMenuProps) {
     const {t} = useTranslation();
     const [localValue, setLocalValue] = useState<string | null>(value ?? null);
 
@@ -26,11 +26,11 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
     }, [value]);
 
     const resolvedValue = value !== null ? (value ?? null) : localValue;
-    const currentOption = attendanceOptions.find((opt) => opt.value === resolvedValue) ?? attendanceOptions[0];
-    const currentColor = getAttendanceColorScrummaster(resolvedValue);
+    const currentOption = roleOptions.find((opt) => opt.value === resolvedValue) ?? roleOptions[0];
+    const currentColor = getRoleColor(resolvedValue);
 
     return (
-        <Menu as="div" className="relative w-full">
+        <Menu as="div" className="relative">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
                     {t(currentOption.labelKey)}
@@ -39,9 +39,9 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 <div>
-                    {attendanceOptions.map((opt) => (
+                    {roleOptions.map((opt) => (
                         <MenuItem
-                            key={opt.labelKey}
+                            key={t(opt.labelKey)}
                             as="button"
                             type="button"
                             onClick={() => updateValue(opt.value)}

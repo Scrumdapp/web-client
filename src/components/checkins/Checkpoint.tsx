@@ -291,7 +291,7 @@ function Checkpoint({
                                             {t(getAttendanceLabelKey(item.presence))}
                                         </div>
                                     </td>
-                                    <td className={`p-2 border-t border-dotted border-current`}>
+                                    <td className="p-2 border-t border-dotted border-current">
                                         <div className={`flex justify-center items-center ${getStarsColor(item.stars)}`}>
                                             <Stars amount={item.stars} />
                                         </div>

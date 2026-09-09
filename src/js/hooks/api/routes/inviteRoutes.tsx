@@ -1,5 +1,5 @@
 import { createProcessor, makeApiRequest } from "../apiUtils.ts";
-import { InviteResponse } from "../../../models/invites.tsx";
+import { InviteResponse } from "../../../models/invites.ts";
 
 export function CreateInvite() {
     return createProcessor("createInvite", (groupId: number, expiresAt: Date, password: string) => {

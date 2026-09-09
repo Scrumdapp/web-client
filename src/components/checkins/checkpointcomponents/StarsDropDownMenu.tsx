@@ -28,7 +28,7 @@ export function StarsDropDownMenu({value, onChange,}: StarsDropDownMenuProps) {
     const currentColor = getStarsColor(resolvedValue);
 
     return (
-        <Menu as="div" className="relative w-full w-[10%]">
+        <Menu as="div" className="relative w-full">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
                     {currentOption.label}

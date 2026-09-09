@@ -46,3 +46,12 @@ export const starsOptions = [
 export function getStarsColor(value: number | null | undefined): string {
     return starsOptions.find(opt => opt.value === value)?.color ?? "text-gray";
 }
+
+export const roleOptions = [
+    { labelKey: "settings.users.roles.student", color: "text-green", background: "bg-green", value: "STUDENT" },
+    { labelKey: "settings.users.roles.coach", color: "text-blue", background: "bg-blue", value: "Coach" },
+];
+
+export function getRoleColor(value: string | null | undefined): string {
+    return roleOptions.find(opt => opt.value === value)?.color ?? "text-green";
+}
