@@ -17,7 +17,8 @@ export default function UserManagement({ groupId }: Props) {
     const user = useUser();
     const modal = useModalState();
     const getGroupUsers = useApi(ScrumdappApi.getGroupUsers());
-
+    const { data } = getGroupUsers;
+    const rows = data ?? [];
     useEffect(() => {
         void getGroupUsers.runCommand(groupId)
     }, [groupId]);

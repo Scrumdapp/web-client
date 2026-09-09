@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { ApiError } from "./api/apiError";
 import { GroupUser } from "../models/group";
-import {getGroupUsers} from "./api/routes/groupUserRoutes.tsx";
+import { ScrumdappApi } from "./api/scrumdappApi.ts";
 
 export function useUserManagement(groupId: number) {
     const [rows, setRows] = useState<GroupUser[]>([]);

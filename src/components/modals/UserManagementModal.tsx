@@ -13,13 +13,13 @@ import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { useApi } from "../../js/hooks/api/useApi.ts";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
-import error from "../../js/translations/pages/error";
 
 export function UserManagementModal({ state, groupId }: { state: ModalState; groupId: number }) {
 
     const { t } = useTranslation();
     const getGroupUsers = useApi(ScrumdappApi.getGroupUsers());
-
+    const { data, loading, error } = getGroupUsers;
+    const rows = data ?? [];
     useEffect(() => {
         void getGroupUsers.runCommand(groupId)
     }, [groupId]);
@@ -27,6 +27,7 @@ export function UserManagementModal({ state, groupId }: { state: ModalState; gro
     const [roleByUserId, setRoleByUserId] = useState<Record<number, string | null>>({});
 
     useEffect(() => {
+        if (!rows) return;
         setRoleByUserId(
             Object.fromEntries(rows.map(user => [user.user_id, user.role ?? null]))
         );
@@ -53,8 +54,6 @@ export function UserManagementModal({ state, groupId }: { state: ModalState; gro
                     })
                 )
             );
-            void fetchUsers();
-            void onSaved();
             state.close();
         } catch (err) {
             console.error("Failed to save roles", err);
