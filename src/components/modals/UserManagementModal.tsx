@@ -14,11 +14,11 @@ import { useEffect, useState } from "react";
 export function UserManagementModal({ state, groupId, onSaved }: { state: ModalState; groupId: number; onSaved: () => void }) {
 
     const { t } = useTranslation();
-    const { rows, loading, error, fetch: fetchUsers } = useUserManagement(groupId);
+    const getGroupUsers = useApi(ScrumdappApi.getGroupUsers());
 
     useEffect(() => {
-        void fetchUsers();
-    }, [fetchUsers]);
+        void getGroupUsers.runCommand(groupId)
+    }, [groupId]);
 
     const [roleByUserId, setRoleByUserId] = useState<Record<number, string | null>>({});
 
