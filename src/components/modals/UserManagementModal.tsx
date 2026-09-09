@@ -8,10 +8,14 @@ import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { useUserManagement } from "../../js/hooks/useUserManagement";
 import { useEffect, useState } from "react";
+import { LoadScreen } from "../generic/LoadScreen.tsx";
+import { ErrorScreen } from "../generic/ErrorScreen.tsx";
+import { useApi } from "../../js/hooks/api/useApi.ts";
+import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
+import error from "../../js/translations/pages/error";
 
-export function UserManagementModal({ state, groupId, onSaved }: { state: ModalState; groupId: number; onSaved: () => void }) {
+export function UserManagementModal({ state, groupId }: { state: ModalState; groupId: number }) {
 
     const { t } = useTranslation();
     const getGroupUsers = useApi(ScrumdappApi.getGroupUsers());
@@ -57,8 +61,8 @@ export function UserManagementModal({ state, groupId, onSaved }: { state: ModalS
         }
     };
 
-    if (loading) return <p>{t("error.loading")}</p>;
-    if (error) return <p>{error.message}</p>;
+    if (loading) return <LoadScreen />;
+    if (error) return <ErrorScreen error={error} />;
 
     return (
         <Modal state={state}>

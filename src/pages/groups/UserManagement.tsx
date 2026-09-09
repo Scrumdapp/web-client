@@ -1,9 +1,12 @@
 import { useEffect } from "react";
-import { useUserManagement } from "../../js/hooks/useUserManagement";
 import { useTranslation } from "react-i18next";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import { UserManagementModal } from "../../components/modals/UserManagementModal.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
+import { ShowIf } from "../../components/utility/Conditional.tsx";
+import { hasRole, Role } from "../../js/utils/userPermissions.ts";
+import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
+import { useApi } from "../../js/hooks/api/useApi.ts";
 
 type Props = {
     groupId: number;
@@ -11,8 +14,7 @@ type Props = {
 
 export default function UserManagement({ groupId }: Props) {
     const { t } = useTranslation();
-    const currentUser = useUser();
-    const canEditRoles = currentUser.roles.includes("Coach");
+    const user = useUser();
     const modal = useModalState();
     const getGroupUsers = useApi(ScrumdappApi.getGroupUsers());
 
@@ -46,7 +48,7 @@ export default function UserManagement({ groupId }: Props) {
                 ))}
                 </tbody>
             </table>
-            {canEditRoles && (
+            <ShowIf condition={hasRole(user, Role.Coach)}>
                 <div className="flex justify-end">
                     <button
                         className="btn btn-secondary border"
@@ -54,9 +56,9 @@ export default function UserManagement({ groupId }: Props) {
                     >
                         {t("settings.users.modal.edit")}
                     </button>
+                    <UserManagementModal groupId={groupId} state={modal} />
                 </div>
-            )}
-            <UserManagementModal groupId={groupId} state={modal} onSaved={fetchUsers} />
+            </ShowIf>
         </div>
     );
 }
