@@ -5,6 +5,7 @@ export default {
             goback: 'Go back',
             notfound: '404 error, page not found',
             loading: 'Loading...',
+            norolessaved: 'No roles have been saved',
         },
     },
     nl: {
@@ -13,6 +14,7 @@ export default {
             goback: 'Ga terug',
             notfound: '404, pagina niet gevonden',
             loading: 'Laden...',
+            norolessaved: 'Rollen zijn niet opgeslagen',
         },
     }
 }

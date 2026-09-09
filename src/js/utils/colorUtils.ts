@@ -49,10 +49,7 @@ export function getStarsColor(value: number | null | undefined): string {
 
 export const roleOptions = [
     { labelKey: "settings.users.roles.student", color: "text-green", background: "bg-green", value: "STUDENT" },
-    { labelKey: "settings.users.roles.usermanagement", color: "text-yellow", background: "bg-yellow", value: "USERMANAGEMENT" },
-    { labelKey: "settings.users.roles.checkpointmanagement", color: "text-blue", background: "bg-blue", value: "CHECKPOINTMANAGEMENT" },
-    { labelKey: "settings.users.roles.coach", color: "text-orange", background: "bg-orange", value: "COACH" },
-    { labelKey: "settings.users.roles.scrummaster", color: "text-purple", background: "bg-purple", value: "SCRUMMASTER" },
+    { labelKey: "settings.users.roles.coach", color: "text-blue", background: "bg-blue", value: "Coach" },
 ];
 
 export function getRoleColor(value: string | null | undefined): string {
