@@ -14,11 +14,11 @@ export default function UserManagement({ groupId }: Props) {
     const currentUser = useUser();
     const canEditRoles = currentUser.roles.includes("Coach");
     const modal = useModalState();
-    const { rows, fetch: fetchUsers } = useUserManagement(groupId);
+    const getGroupUsers = useApi(ScrumdappApi.getGroupUsers());
 
     useEffect(() => {
-        void fetchUsers();
-    }, [fetchUsers]);
+        void getGroupUsers.runCommand(groupId)
+    }, [groupId]);
 
     return (
         <div className="card">
