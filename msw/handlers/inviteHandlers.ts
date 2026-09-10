@@ -11,15 +11,21 @@ export type InviteResponseDB = InviteResponse & {
 export const inviteData: { [groupId: number]: InviteResponseDB[] } = {}
 export const inviteDataById: InviteResponseDB[] = []
 
+createInviteData(groupData.find(it => it.id === 4)!, 2)
+
 for (let group of groupData) {
     createInviteData(group)
 }
 
-function createInviteData(group: Group) {
+function createInviteData(group: Group, count = -1) {
     const invites: InviteResponseDB[] = []
     const now = parseScrumdappDate(toScrumdappDate(new Date()));
 
-    for (let i = Math.floor(Math.random() * 5); i-- > 0;) {
+    if (count == -1) {
+        count = Math.floor(Math.random() * 5)
+    }
+
+    for (let i = count; i-- > 0;) {
         const expires = parseScrumdappDate(toScrumdappDate(new Date(Math.random() * (7 * 24 * 60 * 60 * 1000) - (2 * 24 * 60 * 60 * 1000))))
         const expired = now >= expires;
 
