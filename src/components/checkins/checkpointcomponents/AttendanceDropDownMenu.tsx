@@ -28,13 +28,13 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
     const resolvedValue = value !== null ? (value ?? null) : localValue;
     const currentOption = attendanceOptions.find((opt) => opt.value === resolvedValue) ?? attendanceOptions[0];
     const currentColor = getAttendanceColorScrummaster(resolvedValue);
-    const hasClickedOption = resolvedValue !== null;
+    const isValueSet = resolvedValue !== null;
 
     return (
         <Menu as="div" className="relative w-full w-[20%]">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
-                    {hasClickedOption ? t(currentOption.labelKey) : "---"}
+                    {isValueSet ? t(currentOption.labelKey) : "---"}
                 </span>
                 <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`}/>
             </MenuButton>
