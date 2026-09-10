@@ -23,7 +23,7 @@ export default function About() {
                 {t("about.text2")}
             </p>
             <h3 className="py-3">
-                {t("about.team")}
+                {t("about.contributers")}
             </h3>
             <div>
                 <Link to="https://www.linkedin.com/in/luc-van-ogtrop" target="_blank">Luc van Ogtrop</Link> <Link to="https://www.linkedin.com/in/luc-van-ogtrop" target="_blank" className="underline"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
