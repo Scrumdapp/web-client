@@ -26,12 +26,13 @@ export function StarsDropDownMenu({value, onChange,}: StarsDropDownMenuProps) {
     const resolvedValue = value !== undefined ? (value ?? null) : localValue;
     const currentOption = starsOptions.find((opt) => opt.value === resolvedValue) ?? starsOptions[0];
     const currentColor = getStarsColor(resolvedValue);
+    const hasClickedOption = resolvedValue !== null;
 
     return (
         <Menu as="div" className="relative w-full w-[10%]">
             <MenuButton className="btn-attendance border cursor-pointer">
                 <span className={`text-left ${currentColor}`}>
-                    {currentOption.label}
+                    {hasClickedOption ? currentOption.label : "---"}
                 </span>
                 <FontAwesomeIcon icon={faChevronDown} className={`${currentColor} shrink-0`}/>
             </MenuButton>
