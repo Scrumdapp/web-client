@@ -1,3 +1,7 @@
 .stars>.icon {
     @apply text-xs
 }
+
+:focus {
+    @apply border-white
+}
