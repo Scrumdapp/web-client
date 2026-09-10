@@ -40,7 +40,7 @@ export function AttendanceDropDownMenu({value, onChange,}: AttendanceDropDownMen
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full">
                 <div>
-                    {attendanceOptions.slice(0, 7).map((opt) => (
+                    {attendanceOptions.slice(0, attendanceOptions.length - 1).map((opt) => (
                         <MenuItem
                             key={opt.labelKey}
                             as="button"
