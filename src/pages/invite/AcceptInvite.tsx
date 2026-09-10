@@ -52,8 +52,8 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
                         />
                     </div>
                     <div>
-                        <button onClick={handleAcceptInvite} className="btn border flex float-right">
-                            <FontAwesomeIcon icon={faUserPlus} className="text-blue" />
+                        <button onClick={handleAcceptInvite} className="btn btn-secondary border flex float-right">
+                            <FontAwesomeIcon icon={faUserPlus} />
                             {t("invite.accept.join")}
                         </button>
                         {acceptInviteRequest.error != null && (
