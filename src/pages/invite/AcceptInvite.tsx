@@ -5,6 +5,8 @@ import { useApi } from "../../js/hooks/api/useApi.ts";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
 import { useState } from "react";
 import { InviteResponse } from "../../js/models/invites.tsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
     const { t } = useTranslation();
@@ -50,7 +52,8 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
                         />
                     </div>
                     <div>
-                        <button onClick={handleAcceptInvite} className="btn btn-secondary border flex float-right">
+                        <button onClick={handleAcceptInvite} className="btn border flex float-right">
+                            <FontAwesomeIcon icon={faUserPlus} className="text-blue" />
                             {t("invite.accept.join")}
                         </button>
                         {acceptInviteRequest.error != null && (
