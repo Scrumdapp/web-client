@@ -40,7 +40,7 @@ export default function About() {
             </div>
            </div>
            <div className="my-auto">
-               <img src={`/ScrumdappLogoTransparent.webp`} alt={t('about.logo')} className="mx-auto" />
+               <img src={`/ScrumdappLogoTransparent.webp`} alt={t('about.logo')} className="mx-auto min-w-75" />
            </div>
         </div>
     )
