@@ -4,7 +4,7 @@ import { ApiError } from "../js/hooks/api/apiError.ts";
 import { TrendsPage } from "../pages/groups/TrendsPage.tsx";
 import { GroupCalendarPage } from "../pages/groups/GroupCalendarPage.tsx";
 import { SettingsPage } from "../pages/groups/SettingsPage.tsx";
-import { GroupCheckpointPageWrapper } from "../pages/groups/GroupCheckPointPageWrapper.tsx";
+import { GroupCheckpointPageWrapper } from "../pages/groups/GroupCheckpointPageWrapper.tsx";
 
 export function GroupRouter() {
   return (
