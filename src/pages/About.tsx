@@ -36,6 +36,7 @@ export default function About() {
                 <Link to="https://www.linkedin.com/in/jisse-brus/" target="_blank">Jisse Brus</Link> <Link to="https://www.linkedin.com/in/jisse-brus/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
                 <Link to="https://www.linkedin.com/in/jaymohabier/" target="_blank">Jay Mohabier</Link> <Link to="https://www.linkedin.com/in/jaymohabier/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
                 <Link to="https://www.linkedin.com/in/lilyleewis/" target="_blank">Lily Leewis</Link> <Link to="https://www.linkedin.com/in/lilyleewis/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
+                <Link to="https://www.linkedin.com/in/ashraf-vanrooijen/" target="_blank">Ashraf van Rooijen</Link> <Link to="https://www.linkedin.com/in/ashraf-vanrooijen/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
                 Jasper
             </div>
            </div>
