@@ -7,6 +7,7 @@ import { getYearMonth, nextMonth, parseMonthText, parseYearMonth, previousMonth 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faArrowRight, faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { useTranslation } from "react-i18next";
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 
 export const CalendarSelector = memo(({ currentYearMonth }: { currentYearMonth: string }) => {
     const { t } = useTranslation();
@@ -38,22 +39,31 @@ export const CalendarSelector = memo(({ currentYearMonth }: { currentYearMonth: 
                             )
                         }
                     </div>
-                    <div className="flex-2 flex justify-center items-center">
-                        <div className="dropdown flex btn border w-32">
-                            {monthLabel(ym)}
-                            <div className="flex-1" />
-                            <FontAwesomeIcon icon={faChevronDown} />
-                            <div className="dropdown-content w-32">
-                                <div className="vertical gap-2">
+
+                    <div className="flex-1 flex justify-center items-center">
+                        <Menu as="div" className="relative inline-block">
+                            <MenuButton>
+                                <span className="cursor-pointer btn border w-35 flex items-center justify-between gap-2 truncate">
+                                    {monthLabel(ym)} <FontAwesomeIcon icon={faChevronDown} />
+                                </span>
+                            </MenuButton>
+                            <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-35">
+                                <div>
                                     {months.map((m) => (
-                                        <Link key={m} className="btn text-left! justify-start!" to={`/groups/${group.id}/calendar?month=${m}`}>
+                                        <MenuItem
+                                            key={m}
+                                            as={Link}
+                                            to={`/groups/${group.id}/calendar?month=${m}`}
+                                            className="btn vertical items-start! text-left! w-35"
+                                        >
                                             {monthLabel(parseYearMonth(m))}
-                                        </Link>
+                                        </MenuItem>
                                     ))}
                                 </div>
-                            </div>
-                        </div>
+                            </MenuItems>
+                        </Menu>
                     </div>
+
                     <div className="flex-1 flex justify-end">
                         {months.some(it => it == getYearMonth(nextMonth(ym)))
                             ? (
