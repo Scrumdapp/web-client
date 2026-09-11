@@ -38,8 +38,8 @@ function useThemeColor(varName: string): string {
     }, [varName]);
 }
 
-export function StarsRating({ value, onChange, max = 5 }: StarsRatingProps) {
-    const [localValue, setLocalValue] = useState<number | null>(value ?? null);
+export function StarsRating({ defaultValue, onChange, max = 5 }: StarsRatingProps) {
+    const [currentValue, setCurrentValue] = useState<number | null>(defaultValue);
     const [hoverValue, setHoverValue] = useState<number | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -47,10 +47,6 @@ export function StarsRating({ value, onChange, max = 5 }: StarsRatingProps) {
     const colorMid = useThemeColor("--color-green");
     const colorHigh = useThemeColor("--color-blue");
     const colorEmpty = useThemeColor("--color-fg4");
-
-    useEffect(() => {
-        setLocalValue(value ?? null);
-    }, [value]);
 
     const resolvedValue = value !== undefined ? (value ?? null) : localValue;
     const displayValue = hoverValue ?? resolvedValue ?? 0;
