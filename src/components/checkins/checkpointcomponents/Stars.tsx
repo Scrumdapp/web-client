@@ -11,24 +11,30 @@ type StarsProps = {
 export function Stars({ amount, className }: StarsProps) {
   if (amount == null) {
     return (
-      <span className={className}>
+        <span className={className}>
         <span className="text-gray">---</span>
       </span>
     );
   }
 
   return (
-    <span className={`stars flex-wrap${className ? ` ${className}` : ""}`}>
-      {[1, 2, 3, 4, 5].map((i) => {
+      <span className={`stars flex-wrap${className ? ` ${className}` : ""}`}>
+      {[1, 2, 3, 4, 5].map((starPosition) => {
         const iconName =
-          (i - 1) * 2 + 1 > amount
-            ? faStarOutline
-            : i * 2 > amount
-              ? faStarHalfStroke
-              : faStarSolid;
+            amount >= starPosition
+                ? faStarSolid
+                : amount >= starPosition - 0.5
+                    ? faStarHalfStroke
+                    : faStarOutline;
+
+        const isEmpty = iconName === faStarOutline;
 
         return (
-            <FontAwesomeIcon icon={iconName} className="icon" />
+            <FontAwesomeIcon
+                key={starPosition}
+                icon={iconName}
+                className={`icon${isEmpty ? " text-fg4" : ""}`}
+            />
         );
       })}
     </span>

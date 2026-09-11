@@ -37,16 +37,16 @@ export function getAttendanceColorScrummaster(value: string | null | undefined):
 
 export const starsOptions = [
     { label: "0", color: "text-red-dim", value: 0 },
-    { label: "0,5", color: "text-red", value: 1 },
-    { label: "1", color: "text-orange-dim", value: 2 },
-    { label: "1,5", color: "text-orange", value: 3 },
-    { label: "2", color: "text-yellow-dim", value: 4 },
-    { label: "2,5", color: "text-yellow", value: 5 },
-    { label: "3", color: "text-green-dim", value: 6 },
-    { label: "3,5", color: "text-green", value: 7 },
-    { label: "4", color: "text-aqua-dim", value: 8 },
-    { label: "4,5", color: "text-aqua", value: 9 },
-    { label: "5", color: "text-blue", value: 10 },
+    { label: "0,5", color: "text-red", value: 0.5 },
+    { label: "1", color: "text-orange-dim", value: 1 },
+    { label: "1,5", color: "text-orange", value: 1.5 },
+    { label: "2", color: "text-yellow-dim", value: 2 },
+    { label: "2,5", color: "text-yellow", value: 2.5 },
+    { label: "3", color: "text-green-dim", value: 3 },
+    { label: "3,5", color: "text-green", value: 3.5 },
+    { label: "4", color: "text-aqua-dim", value: 4 },
+    { label: "4,5", color: "text-aqua", value: 4.5 },
+    { label: "5", color: "text-blue", value: 5 },
 ];
 
 export function getStarsColor(value: number | null | undefined): string {
