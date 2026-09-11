@@ -32,6 +32,11 @@ export default function About() {
                 <Link to="https://www.linkedin.com/in/ian-vd-werf/" target="_blank">Ian van der Werf</Link> <Link to="https://www.linkedin.com/in/ian-vd-werf/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
                 <Link to="https://www.linkedin.com/in/thomas-middelbos/" target="_blank">Thomas Middelbos</Link> <Link to="https://www.linkedin.com/in/thomas-middelbos/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
                 <Link to="https://www.jeroenvdg.com/" target="_blank">Jeroen van de Geest </Link><Link to="https://www.jeroenvdg.com" target="_blank"><FontAwesomeIcon icon={faArrowUpRightFromSquare} /></Link> <Link to="https://www.linkedin.com/in/jeroen-van-de-geest" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link> <Link to="https://github.com/JeroenoBoy" target="_blank" className="underline"><FontAwesomeIcon icon={faGithub} /></Link><br />
+                <Link to="https://www.linkedin.com/in/nick-veltheer/" target="_blank">Nick Veltheer</Link> <Link to="https://www.linkedin.com/in/nick-veltheer/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
+                <Link to="https://www.linkedin.com/in/jisse-brus/" target="_blank">Jisse Brus</Link> <Link to="https://www.linkedin.com/in/jisse-brus/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
+                <Link to="https://www.linkedin.com/in/jaymohabier/" target="_blank">Jay Mohabier</Link> <Link to="https://www.linkedin.com/in/jaymohabier/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
+                <Link to="https://www.linkedin.com/in/lilyleewis/" target="_blank">Lily Leewis</Link> <Link to="https://www.linkedin.com/in/lilyleewis/" target="_blank"><FontAwesomeIcon icon={faLinkedin} /></Link><br />
+                Jasper
             </div>
            </div>
            <div className="my-auto">
