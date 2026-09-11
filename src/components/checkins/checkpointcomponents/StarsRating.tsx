@@ -71,7 +71,7 @@ export function StarsRating({ value, onChange, max = 5 }: StarsRatingProps) {
             onChange(newValue);
         }
     };
-
+    
     const getValueFromEvent = (
         e: React.MouseEvent<HTMLButtonElement>,
         starIndex: number
@@ -103,13 +103,17 @@ export function StarsRating({ value, onChange, max = 5 }: StarsRatingProps) {
                     <button
                         key={starIndex}
                         type="button"
-                        className="cursor-pointer text-2xl transition-transform hover:scale-110"
-                        style={{ color: isFilled ? activeColor : colorEmpty }}
+                        className="cursor-pointer text-2xl"
                         onMouseMove={(e) => setHoverValue(getValueFromEvent(e, starIndex))}
                         onClick={(e) => updateValue(getValueFromEvent(e, starIndex))}
                         aria-label={`Rate ${starIndex + 1} out of ${max}`}
                     >
-                        <FontAwesomeIcon icon={getStarIcon(starIndex)} />
+                        <span
+                            className="inline-block transition-transform hover:scale-110"
+                            style={{ color: isFilled ? activeColor : colorEmpty }}
+                        >
+                            <FontAwesomeIcon icon={getStarIcon(starIndex)} />
+                        </span>
                     </button>
                 );
             })}
