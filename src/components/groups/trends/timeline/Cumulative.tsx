@@ -1,6 +1,6 @@
 import { GroupUser } from "../../../../js/models/group"
 import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
-import { getAttendanceLabelKey } from "../../../../js/utils/colorUtils"
+import { getAttendanceLabelKeyTrends } from "../../../../js/utils/colorUtils"
 import { HideIf } from "../../../utility/Conditional"
 import { HideIfNotFullyVisible } from "../../../utility/Text"
 import { useTranslation } from "react-i18next";
@@ -138,12 +138,12 @@ function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) 
                         <div className="dropdown-content">
                             <HideIf condition={selfCount == 0}>
                                 <div>
-                                    {t(getAttendanceLabelKey(item.id))}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
+                                    {t(getAttendanceLabelKeyTrends(item.id))}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
                                 </div>
                             </HideIf>
                             {item.children.filter(it => (presenceData.get(it.id) ?? 0) != 0).map(it => (
                                 <div key={it.id}>
-                                    {t(getAttendanceLabelKey(it.id))}: <span className={it.color + " rounded-md text-bg_h px-1"}>{presenceData.get(it.id)}x</span>
+                                    {t(getAttendanceLabelKeyTrends(it.id))}: <span className={it.color + " rounded-md text-bg_h px-1"}>{presenceData.get(it.id)}x</span>
                                 </div>
                             ))}
                         </div>
