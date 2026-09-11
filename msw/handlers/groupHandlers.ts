@@ -13,11 +13,7 @@ export const groupData: Group[] = [
             "checkins.presence",
             "checkins.presence_comment",
             "checkins.checkin_stars",
-            "checkins.checkup_stars",
-            "checkins.checkout_stars",
             "checkins.checkin_comment",
-            "checkins.checkup_comment",
-            "checkins.checkout_comment",
             "checkins.obstacle_comment"
         ]
     },
@@ -31,9 +27,7 @@ export const groupData: Group[] = [
             "checkins.presence",
             "checkins.presence_comment",
             "checkins.checkin_stars",
-            "checkins.checkup_stars",
             "checkins.checkin_comment",
-            "checkins.checkup_comment",
         ]
     },
     {
@@ -46,12 +40,23 @@ export const groupData: Group[] = [
             "checkins.presence",
             "checkins.presence_comment",
         ]
+    },
+    {
+        id: 4,
+        name: "Observable Space",
+        background_preference: '14_2',
+        icon_preference: undefined,
+        enabled_features: [
+            "checkins",
+            "checkins.presence",
+            "checkins.presence_comment",
+        ]
     }
 ]
 
 export const groupHandlers = [
     http.get("/api/groups", async ({ }) => {
-        return HttpResponse.json(groupData)
+        return HttpResponse.json(groupData.filter(it => it.id < 4))
     }),
     http.post("/api/groups", ({ }) => {
         const group = groupUserData[0]
