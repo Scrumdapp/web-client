@@ -1,3 +1,7 @@
 .stars>.icon {
     @apply text-xs
 }
+
+:focus {
+    @apply outline-fg outline-dotted outline-2
+}

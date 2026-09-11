@@ -358,6 +358,7 @@ function Checkpoint({
                             placeholder={t('checkpoint.notes')}
                             alt={t('checkpoint.notes')}
                             value={notes}
+                            maxLength={2000}
                             onChange={(e) => setNotes(e.target.value)}
                         />
                         <label>
@@ -368,6 +369,7 @@ function Checkpoint({
                             placeholder={t('checkpoint.obstacle')}
                             alt={t('checkpoint.obstacle')}
                             value={obstacle}
+                            maxLength={2000}
                             onChange={(e) => setObstacle(e.target.value)}
                         />
                     </div>
