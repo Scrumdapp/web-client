@@ -30,16 +30,12 @@ function interpolateColor(t: number, from: string, to: string): string {
 }
 
 function useThemeColor(varName: string): string {
-    const [color, setColor] = useState("#928374");
-
-    useEffect(() => {
+    return useMemo(() => {
         const resolved = getComputedStyle(document.documentElement)
             .getPropertyValue(varName)
             .trim();
-        if (resolved) setColor(resolved);
+        return resolved ? resolved : "#928374"
     }, [varName]);
-
-    return color;
 }
 
 export function StarsRating({ value, onChange, max = 5 }: StarsRatingProps) {
