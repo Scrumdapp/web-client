@@ -51,12 +51,10 @@ export default function Groups() {
                     />
                 </div>
                 <div className="flex-1">
-                    <ShowIf condition={hasRole(user, Role.Coach)}>
-                        <button className="ml-auto btn btn-red border max-h-fit"
-                            onClick={modal.open}>
-                            {t("groups.newgroup")}<FontAwesomeIcon icon={faPlus} />
-                        </button>
-                    </ShowIf>
+                    <button className="ml-auto btn btn-red border max-h-fit"
+                        onClick={modal.open}>
+                        {t("groups.newgroup")}<FontAwesomeIcon icon={faPlus} />
+                    </button>
                 </div>
             </div>
             <GetGroupsComponent input={[]}>
