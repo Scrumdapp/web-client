@@ -75,7 +75,7 @@ export function GroupCheckpointPage({
           <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
             <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
           </Link>
-          <h2 className="px-2">
+          <h2 className="w-3xs flex justify-center px-2">
             {t(parseWeekDay(parseScrumdappDate(date).getUTCDay()))} {date}
           </h2>
           <Link
