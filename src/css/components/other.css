@@ -3,5 +3,5 @@
 }
 
 :focus {
-    @apply border-white
+    @apply outline-fg outline-dotted outline-2
 }
