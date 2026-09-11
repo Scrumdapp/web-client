@@ -8,6 +8,7 @@ import { useModalState } from "../../js/hooks/useModalState.ts";
 import { GroupCheckpointPage } from "./GroupCheckpointPage";
 import { useTranslation } from "react-i18next";
 import CustomErrorScreen from "../../components/generic/CustomErrorScreen.tsx";
+import { isDateInFuture } from "../../js/utils/timeUtils.ts";
 
 export function GroupCheckpointPageWrapper() {
   const group = useGroup();
@@ -22,6 +23,8 @@ export function GroupCheckpointPageWrapper() {
   let parsedDate: Date;
   try {
     parsedDate = parseScrumdappDate(date);
+    if (isDateInFuture(parsedDate))
+      throw new Error("Date can not be in the future");
   } catch {
     return (
       <CustomErrorScreen
@@ -31,11 +34,13 @@ export function GroupCheckpointPageWrapper() {
     );
   }
 
+  const parsedDateStr = toScrumdappDate(parsedDate);
+
   return (
     <GroupCheckpointPage
       {...{
         group,
-        date,
+        date: parsedDateStr,
         currentDate,
         modal,
       }}

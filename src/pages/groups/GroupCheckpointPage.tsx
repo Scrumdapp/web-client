@@ -29,7 +29,6 @@ export function GroupCheckpointPage({
   currentDate: string;
   modal: ModalState;
 }) {
-  console.log(group);
   const { t } = useTranslation();
 
   const prev = new Date(date);
