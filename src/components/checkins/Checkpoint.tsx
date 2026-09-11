@@ -8,7 +8,7 @@ import { useModalState } from "../../js/hooks/useModalState.ts";
 import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../../components/generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../components/generic/modal/components/ModalCancelButton.tsx";
-import { StarsDropDownMenu } from "./checkpointcomponents/StarsDropDownMenu.tsx";
+import { StarsRating } from "./checkpointcomponents/StarsRating.tsx";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
@@ -346,7 +346,7 @@ function Checkpoint({
                         <label>
                             {t("checkpoint.stars")}
                         </label>
-                        <StarsDropDownMenu
+                        <StarsRating
                             value={selectedStar}
                             onChange={setSelectedStar}
                         />
