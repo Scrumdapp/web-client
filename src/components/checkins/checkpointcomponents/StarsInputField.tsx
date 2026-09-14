@@ -39,7 +39,7 @@ export function StarsInputField({ value = null, onChange, max = 5 }: StarsInputF
         setLocalValue(value);
     }, [value]);
 
-    const maxValue = max * POINTS_PER_STAR; // 10
+    const maxValue = max * POINTS_PER_STAR;
     const displayValue = hoverValue ?? localValue ?? 0;
 
     const midpoint = maxValue / 2;
