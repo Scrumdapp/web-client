@@ -17,7 +17,7 @@ export function GroupCalendarPage() {
         </title>
         <div className="card">
             <CalendarSelector currentYearMonth={yearMonth} />
-            <div className="max-h-70">
+            <div className="min-h-60">
                 <Calendar yearMonth={yearMonth} />
             </div>
         </div>
