@@ -3,8 +3,6 @@ import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
 import { useTranslation } from "react-i18next";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPortrait } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -36,8 +34,8 @@ export default function Header() {
               </Link>
             ))}
           </div>
-          <div className="flex-1 nav-dropdown cursor-default">
-            <div className="horizontal justify-end items-center gap-1">
+          <div className="flex-1 nav-dropdown cursor-default h-full my-4">
+            <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
               <span>{`${user.first_name} ${user.last_name}`}</span>
               <img
                 src={user.avatar ?? "/Scrumdaddy.png"}
@@ -47,7 +45,6 @@ export default function Header() {
             </div>
             <div className="nav-dropdown-content -right-[0.5px]!">
               <div className="my-4 px-1.5 text-center">
-                {/*<Link to="/settings" className="btn-nav-dropdown hover:text-yellow"><FontAwesomeIcon icon={faPortrait} className="text-yellow" />{t("header.profile")}</Link>*/}
                 <LanguageSwitch />
                 <LogoutButton />
               </div>
