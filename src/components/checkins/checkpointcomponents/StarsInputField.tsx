@@ -1,45 +1,32 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { faStar as faStarSolid, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { interpolateColor } from "../../../js/utils/starsMath.ts";
 
-type StarsRatingProps = {
+type StarsInputFieldProps = {
     value?: number | null;
-    onChange?: (value: number | null) => void;
+    onChange?: (value: number) => void;
     max?: number;
 };
 
-function hexToRgb(hex: string): [number, number, number] {
-    const sanitized = hex.replace("#", "");
-    const bigint = parseInt(sanitized, 16);
-    return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
-}
-
-function lerp(a: number, b: number, t: number): number {
-    return a + (b - a) * t;
-}
-
-function interpolateColor(t: number, from: string, to: string): string {
-    const clampedT = Math.min(1, Math.max(0, t));
-    const [r1, g1, b1] = hexToRgb(from);
-    const [r2, g2, b2] = hexToRgb(to);
-    const r = Math.round(lerp(r1, r2, clampedT));
-    const g = Math.round(lerp(g1, g2, clampedT));
-    const b = Math.round(lerp(b1, b2, clampedT));
-    return `rgb(${r}, ${g}, ${b})`;
-}
+const POINTS_PER_STAR = 2;
 
 function useThemeColor(varName: string): string {
-    return useMemo(() => {
+    const [color, setColor] = useState("#928374");
+
+    useEffect(() => {
         const resolved = getComputedStyle(document.documentElement)
             .getPropertyValue(varName)
             .trim();
-        return resolved ? resolved : "#928374"
+        if (resolved) setColor(resolved);
     }, [varName]);
+
+    return color;
 }
 
-export function StarsRating({ defaultValue, onChange, max = 5 }: StarsRatingProps) {
-    const [currentValue, setCurrentValue] = useState<number | null>(defaultValue);
+export function StarsInputField({ value = null, onChange, max = 5 }: StarsInputFieldProps) {
+    const [localValue, setLocalValue] = useState<number | null>(value);
     const [hoverValue, setHoverValue] = useState<number | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -48,10 +35,14 @@ export function StarsRating({ defaultValue, onChange, max = 5 }: StarsRatingProp
     const colorHigh = useThemeColor("--color-blue");
     const colorEmpty = useThemeColor("--color-fg4");
 
-    const resolvedValue = value !== undefined ? (value ?? null) : localValue;
-    const displayValue = hoverValue ?? resolvedValue ?? 0;
+    useEffect(() => {
+        setLocalValue(value);
+    }, [value]);
 
-    const midpoint = max / 2;
+    const maxValue = max * POINTS_PER_STAR; // 10
+    const displayValue = hoverValue ?? localValue ?? 0;
+
+    const midpoint = maxValue / 2;
     const activeColor =
         displayValue <= midpoint
             ? interpolateColor(displayValue / midpoint, colorLow, colorMid)
@@ -63,7 +54,7 @@ export function StarsRating({ defaultValue, onChange, max = 5 }: StarsRatingProp
             onChange(newValue);
         }
     };
-    
+
     const getValueFromEvent = (
         e: React.MouseEvent<HTMLButtonElement>,
         starIndex: number
@@ -71,13 +62,13 @@ export function StarsRating({ defaultValue, onChange, max = 5 }: StarsRatingProp
         const rect = e.currentTarget.getBoundingClientRect();
         const relativeX = e.clientX - rect.left;
         const isLeftHalf = relativeX < rect.width / 2;
-        return starIndex + (isLeftHalf ? 0.5 : 1);
+        return starIndex * POINTS_PER_STAR + (isLeftHalf ? 1 : 2);
     };
 
     const getStarIcon = (starIndex: number) => {
-        const starPosition = starIndex + 1;
-        if (displayValue >= starPosition) return faStarSolid;
-        if (displayValue >= starPosition - 0.5) return faStarHalfStroke;
+        const starFullValue = (starIndex + 1) * POINTS_PER_STAR;
+        if (displayValue >= starFullValue) return faStarSolid;
+        if (displayValue >= starFullValue - 1) return faStarHalfStroke;
         return faStarRegular;
     };
 
@@ -88,14 +79,14 @@ export function StarsRating({ defaultValue, onChange, max = 5 }: StarsRatingProp
             onMouseLeave={() => setHoverValue(null)}
         >
             {Array.from({ length: max }, (_, i) => i).map((starIndex) => {
-                const starPosition = starIndex + 1;
-                const isFilled = displayValue >= starPosition - 0.5;
+                const starFullValue = (starIndex + 1) * POINTS_PER_STAR;
+                const isFilled = displayValue >= starFullValue - 1;
 
                 return (
                     <button
                         key={starIndex}
                         type="button"
-                        className="cursor-pointer text-2xl"
+                        className="cursor-pointer text-2xl focus:outline-none"
                         onMouseMove={(e) => setHoverValue(getValueFromEvent(e, starIndex))}
                         onClick={(e) => updateValue(getValueFromEvent(e, starIndex))}
                         aria-label={`Rate ${starIndex + 1} out of ${max}`}

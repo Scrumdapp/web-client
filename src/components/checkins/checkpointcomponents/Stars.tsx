@@ -21,11 +21,11 @@ export function Stars({ amount, className }: StarsProps) {
       <span className={`stars flex-wrap${className ? ` ${className}` : ""}`}>
       {[1, 2, 3, 4, 5].map((starPosition) => {
         const iconName =
-            amount >= starPosition
-                ? faStarSolid
-                : amount >= starPosition - 0.5
+            (starPosition - 1) * 2 + 1 > amount
+                ? faStarOutline
+                : starPosition * 2 > amount
                     ? faStarHalfStroke
-                    : faStarOutline;
+                    : faStarSolid;
 
         const isEmpty = iconName === faStarOutline;
 
