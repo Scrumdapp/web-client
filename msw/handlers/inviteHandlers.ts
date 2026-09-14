@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { InviteResponse } from "../../src/js/models/invites.tsx";
+import { InviteResponse } from "../../src/js/models/invites.ts";
 import { groupData } from "./groupHandlers";
 import { Group } from "../../src/js/models/group";
 import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
