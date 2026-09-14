@@ -23,7 +23,7 @@ export default function Invites({ groupId }: InvitesProps) {
     const [step, setStep] = useState<1 | 2>(1);
     const [password, setPassword] = useState("");
     const [showWarning, setShowWarning] = useState(false);
-    const [expireHours] = useState(12);
+    const [expireHours, setExpireHours] = useState(12);
     const [generatedLink, setGeneratedLink] = useState("");
     const createInvite = useApi(ScrumdappApi.CreateInvite());
     const getGroupInvites = useApi(ScrumdappApi.GetGroupInvites());
@@ -101,9 +101,9 @@ export default function Invites({ groupId }: InvitesProps) {
                                             <td className="p-2">{new Date(invite.expiresAt).toLocaleString()}</td>
                                             <td>
                                                 <button onClick={() => handleCopyInvite(invite)}
-                                                    className={`btn btn-secondary border my-1 float-right ${expired? "opacity-50 cursor-not-allowed!" : ""}`}
+                                                    className={`btn btn-secondary border my-1 float-right ${expired ? "opacity-50 cursor-not-allowed!" : ""}`}
                                                     disabled={expired}>
-                                                    <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy}/>
+                                                    <FontAwesomeIcon icon={copiedId === invite.id ? faCheck : faCopy} />
                                                     {copiedId === invite.id ? " Copied!" : expired ? t("invite.expired") : t("invite.modal.copy")}
                                                 </button>
                                             </td>
@@ -135,7 +135,7 @@ export default function Invites({ groupId }: InvitesProps) {
                                 required
                             />
                             <div className="flex flex-3">
-                                <TimeDurationDropdownMenu />
+                                <TimeDurationDropdownMenu onChange={(v) => setExpireHours(v ?? 12)} />
                             </div>
                         </div>
                         <ModalActionRow>
@@ -147,7 +147,7 @@ export default function Invites({ groupId }: InvitesProps) {
                                 )}
                                 <ModalCancelButton />
                                 <button onClick={handleCreateInvite} className={`btn btn-secondary border ${!password ? "opacity-50 cursor-not-allowed!" : ""}`}
-                                        disabled={!password.trim()}
+                                    disabled={!password.trim()}
                                 >
                                     <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.create")}
                                 </button>
