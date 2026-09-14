@@ -1,10 +1,12 @@
-function hexToRgb(hex: string): [number, number, number] {
+export type RGB = [r: number, g: number, b: number];
+
+export function hexToRgb(hex: string): RGB {
     const sanitized = hex.replace("#", "");
     const bigint = parseInt(sanitized, 16);
     return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
 }
 
-function lerp(a: number, b: number, t: number): number {
+export function lerp(a: number, b: number, t: number): number {
     return a + (b - a) * t;
 }
 
