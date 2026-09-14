@@ -1,39 +1,51 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import { Link } from "react-router"
-import { faChartSimple, faGear, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faGear, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
-import { ShowIf } from "../utility/Conditional.tsx";
-import { useUser } from "../../js/context/user/useUser.ts";
-import { hasRole, Role } from "../../js/utils/userPermissions.ts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export function GroupSidebar() {
-    const { t } = useTranslation();
     const group = useGroup();
-    const user = useUser();
 
     return (
         <div className="card vertical gap-1">
-            <Link to={`/groups/${group.id}`} className="btn justify-start!">
-                <FontAwesomeIcon icon={faHouse} className="text-blue" /> {t("checkpoint.sidebar.today")}
-            </Link>
+            <SidebarLink to={`/groups/${group.id}`}
+                translationKey="checkpoint.sidebar.today"
+                icon={faHouse}
+                className="text-blue"
+            />
             <hr className="text-gray" />
-
-            <Link to={`/groups/${group.id}/calendar`} className="btn">
-                <FontAwesomeIcon icon={faCalendarDays} className="text-green" />
-                {t("checkpoint.sidebar.calendar")}
-            </Link>
-            <Link to={`/groups/${group.id}/trends`} className="btn">
-                <FontAwesomeIcon icon={faChartSimple} className="text-yellow" />
-                {t("checkpoint.sidebar.trends")}
-            </Link>
-            <ShowIf condition={hasRole(user, Role.Coach)}>
-                <Link to={`/groups/${group.id}/settings`} className="btn">
-                    <FontAwesomeIcon icon={faGear} className="text-red" />
-                    {t("checkpoint.sidebar.settings")}
-                </Link>
-            </ShowIf>
+            <SidebarLink to={`/groups/${group.id}/calendar`}
+                translationKey="checkpoint.sidebar.calendar"
+                icon={faCalendarDays}
+                className="text-green"
+            />
+            <SidebarLink to={`/groups/${group.id}/trends`}
+                translationKey="checkpoint.sidebar.trends"
+                icon={faGear}
+                className="text-yellow"
+            />
+            <SidebarLink to={`/groups/${group.id}/settings`}
+                translationKey="checkpoint.sidebar.settings"
+                icon={faGear}
+                className="text-red"
+            />
         </div>
+    )
+}
+
+
+function SidebarLink(
+    { to, translationKey, icon, className }: { to: string, translationKey: string, icon: IconProp, className: string }
+) {
+    const { t } = useTranslation();
+
+    return (
+        <Link to={to} className="btn justify-start">
+            <FontAwesomeIcon icon={icon} className={className} />
+            {t(translationKey)}
+        </Link>
     )
 }
