@@ -75,7 +75,7 @@ export function StarsInputField({ value = null, onChange, max = 5 }: StarsInputF
     return (
         <div
             ref={containerRef}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 w-fit"
             onMouseLeave={() => setHoverValue(null)}
         >
             {Array.from({ length: max }, (_, i) => i).map((starIndex) => {
