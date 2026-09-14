@@ -8,7 +8,7 @@ import { useModalState } from "../../js/hooks/useModalState.ts";
 import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
 import ModalActionRow from "../../components/generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../components/generic/modal/components/ModalCancelButton.tsx";
-import { StarsDropDownMenu } from "./checkpointcomponents/StarsDropDownMenu.tsx";
+import { StarsInputField } from "./checkpointcomponents/StarsInputField.tsx";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
@@ -346,7 +346,7 @@ function Checkpoint({
                         <label>
                             {t("checkpoint.stars")}
                         </label>
-                        <StarsDropDownMenu
+                        <StarsInputField
                             value={selectedStar}
                             onChange={setSelectedStar}
                         />
@@ -358,6 +358,7 @@ function Checkpoint({
                             placeholder={t('checkpoint.notes')}
                             alt={t('checkpoint.notes')}
                             value={notes}
+                            maxLength={2000}
                             onChange={(e) => setNotes(e.target.value)}
                         />
                         <label>
@@ -368,6 +369,7 @@ function Checkpoint({
                             placeholder={t('checkpoint.obstacle')}
                             alt={t('checkpoint.obstacle')}
                             value={obstacle}
+                            maxLength={2000}
                             onChange={(e) => setObstacle(e.target.value)}
                         />
                     </div>

@@ -11,6 +11,13 @@ export const attendanceOptions = [
 
 export function getAttendanceLabelKey(value: string | null | undefined): string {
     if (value == null) {
+        return "checkpoint.attendanceOptions.none";
+    }
+    return attendanceOptions.find(opt => opt.value === value)?.labelKey ?? "checkpoint.attendanceOptions.none";
+}
+
+export function getAttendanceLabelKeyTrends(value: string | null | undefined): string {
+    if (value == null) {
         return "checkpoint.attendanceOptions.noData";
     }
     return attendanceOptions.find(opt => opt.value === value)?.labelKey ?? "checkpoint.attendanceOptions.none";
@@ -29,7 +36,6 @@ export function getAttendanceColorScrummaster(value: string | null | undefined):
 }
 
 export const starsOptions = [
-    { label: "---", color: "text-gray", value: null },
     { label: "0", color: "text-red-dim", value: 0 },
     { label: "0,5", color: "text-red", value: 1 },
     { label: "1", color: "text-orange-dim", value: 2 },

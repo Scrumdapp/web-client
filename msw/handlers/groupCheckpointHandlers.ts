@@ -267,4 +267,14 @@ export const groupCheckpointHandlers = [
 
         return HttpResponse.json(checkpoints)
     }),
+    http.patch("/api/groups/:gid/checkpoints", async ({ params, request }) => {
+        const body = await request.json();
+
+        // @ts-ignore
+        const session = groupCheckpoints.map(it => it.sessions).filter(it => it.groupId == parseInt(params.gid) && it.id == parseInt(body.sessionId))[0]
+
+        const checkpoints = groupCheckpoints.map(it => it.checkpoints).flat().filter(it => it.sessionId == session.id)
+
+        return HttpResponse.json(checkpoints)
+    }),
 ]
