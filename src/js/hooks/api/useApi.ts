@@ -39,6 +39,9 @@ export function useApi<Ti extends any[], Tr, Tm = Tr>(
             .catch((error) => {
                 if (error instanceof ApiError) {
                     setError(error)
+                    if (error.status == 401) {
+                        userContext.notifyLoggedOut()
+                    }
                 } else {
                     console.log(error)
                 }
