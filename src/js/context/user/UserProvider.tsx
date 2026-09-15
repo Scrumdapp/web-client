@@ -1,29 +1,39 @@
-import type {PropsWithChildren, ReactNode} from "react";
-import {useEffect, useState} from "react";
-import {userContext, UserContextState} from "./userContext.ts";
-import {useApi} from "../../hooks/api/useApi.ts";
-import {ScrumdappApi} from "../../hooks/api/scrumdappApi.ts";
-import type {ApiError} from "../../hooks/api/apiError.ts";
+import type { PropsWithChildren, ReactNode } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { userContext, UserContextState } from "./userContext.ts";
+import { useApi } from "../../hooks/api/useApi.ts";
+import { ScrumdappApi } from "../../hooks/api/scrumdappApi.ts";
+import type { ApiError } from "../../hooks/api/apiError.ts";
+import { useModalState } from "../../hooks/useModalState.ts";
+import { LoginModal } from "../../../components/modals/LoginModal.tsx";
 
-export function UserProvider({ children, loading, error } : PropsWithChildren<{ loading: ReactNode, error: (error: ApiError) => ReactNode }> ): ReactNode {
-    const [ didInitialLoad, setDidDoneInitialLoad ] = useState(false)
-    const [ state, setState ] = useState(new UserContextState())
-
+export function UserProvider({ children, loading, error }: PropsWithChildren<{ loading: ReactNode, error: (error: ApiError) => ReactNode }>): ReactNode {
+    const loginModalState = useModalState()
+    const [didInitialLoad, setDidDoneInitialLoad] = useState(false)
     const getUserData = useApi(ScrumdappApi.getCurrentUser())
 
-    useEffect(() => {
-        getUserData.runCommand()
+    const notifyLoggedOut = useCallback(() => {
+        loginModalState.open()
+    }, [])
+
+    const refresh = useCallback(() => {
+        return getUserData.runCommand()
             .then(user => {
                 setState(it => {
                     it.user = user
                     return it
                 })
+                loginModalState.close()
             })
-            .catch(() => {})
+            .catch(() => { })
             .finally(() => {
                 setDidDoneInitialLoad(true)
             })
-    }, [getUserData.runCommand])
+    }, [])
+
+    const [state, setState] = useState(new UserContextState(notifyLoggedOut, refresh))
+
+    useEffect(() => { refresh() }, [])
 
     if (getUserData.loading) {
         return loading
@@ -40,6 +50,7 @@ export function UserProvider({ children, loading, error } : PropsWithChildren<{ 
     return (
         <userContext.Provider value={state}>
             {children}
+            <LoginModal state={loginModalState} />
         </userContext.Provider>
     )
 }

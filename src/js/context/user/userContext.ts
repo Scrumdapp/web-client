@@ -5,9 +5,11 @@ export class UserContextState {
     user?: User
     loggedIn?: boolean
     notifyLoggedOut: () => void
+    refresh: () => Promise<void>
 
-    constructor(notifyLoggedOut: () => void) {
+    constructor(notifyLoggedOut: () => void, refresh: () => Promise<void>) {
         this.notifyLoggedOut = notifyLoggedOut
+        this.refresh = refresh
     }
 }
 
