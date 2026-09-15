@@ -1,6 +1,7 @@
-import {useCallback, useEffect, useState} from "react";
-import {ApiError} from "./apiError.ts";
-import {RequestProcessor} from "./apiUtils.ts";
+import { useCallback, useEffect, useState } from "react";
+import { ApiError } from "./apiError.ts";
+import { RequestProcessor } from "./apiUtils.ts";
+import { useUserState } from "../../context/user/useUser.ts";
 
 export interface UseApiReturnType<TInput extends any[], Tm> {
     loading: boolean,
@@ -22,6 +23,7 @@ export function useApi<Ti extends any[], Tr, Tm = Tr>(
     const [data, setData] = useState<Tm | null>(null)
     const [loading, setLoading] = useState<boolean>(options.fetchOnCreated ? true : false)
     const [error, setError] = useState<ApiError | null>(null)
+    const userContext = useUserState()
 
     const command = useCallback((...params: Ti) => {
         setData(null)
@@ -37,6 +39,9 @@ export function useApi<Ti extends any[], Tr, Tm = Tr>(
             .catch((error) => {
                 if (error instanceof ApiError) {
                     setError(error)
+                    if (error.status == 401) {
+                        userContext.notifyLoggedOut()
+                    }
                 } else {
                     console.log(error)
                 }
