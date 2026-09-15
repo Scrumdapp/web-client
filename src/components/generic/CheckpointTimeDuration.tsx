@@ -4,7 +4,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
 
-type TimeDurationDropdownMenuProps = {
+type CheckpointTimeDurationDropdownMenuProps = {
     value?: number | null;
     onChange?: (value: number | null) => void;
 };
@@ -18,8 +18,8 @@ export const CheckpointTimeDuration = [
     { labelKey: "checkpoint.modal.duration.onehour", minutes: 60 },
 ];
 
-export function CheckpointTimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdownMenuProps) {
-    const {t} = useTranslation();
+export function CheckpointTimeDurationDropdownMenu({ value, onChange }: CheckpointTimeDurationDropdownMenuProps) {
+    const { t } = useTranslation();
     const [localValue, setLocalValue] = useState<number | null>(value ?? null);
 
     const updateValue = (value: number | null) => {
@@ -45,7 +45,7 @@ export function CheckpointTimeDurationDropdownMenu({ value, onChange }: TimeDura
                 <div>
                     {CheckpointTimeDuration.map(opt => (
                         <MenuItem
-                            key={t(opt.labelKey)}
+                            key={opt.labelKey}
                             as="button"
                             type="button"
                             onClick={() => updateValue(opt.minutes)}

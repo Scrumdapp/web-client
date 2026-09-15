@@ -96,14 +96,14 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
     return sessions
 }
 
-function generateSession(id: number, gId: number, oId: number, date: Date, time?: Date, name?: string): GroupCheckpointSession {
+function generateSession(id: number, gId: number, oId: number, date: Date, time?: Date, name?: string, duration?: number): GroupCheckpointSession {
     return {
         id: id,
         groupId: gId,
         ownerId: oId,
         name: name != null ? name : "Checkpoint",
         startTime: time != null ? time.toISOString() : generateRandomTime(date),
-        duration: 15,
+        duration: duration ?? 15,
     }
 }
 

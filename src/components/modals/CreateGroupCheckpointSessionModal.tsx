@@ -23,11 +23,9 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
     const handleCreate = async () => {
         if (!checkpointName.trim()) return;
 
-        const expiresAt = new Date(Date.now() + expireMinutes * 60 * 1000);
-
         const session = await createCheckpointSession.runCommand(groupId, {
             name: checkpointName,
-            expiresAt,
+            duration: expireMinutes,
         });
 
         onCreated?.(session);
