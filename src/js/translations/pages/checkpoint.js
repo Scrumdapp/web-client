@@ -19,6 +19,8 @@ export default {
         error: "Only letters, numbers and spaces are allowed.",
         create: "Create",
         name: "Checkpoint Name",
+        readmore: "Read more",
+        close: "Close"
       },
       sidebar: {
         today: "Today",
@@ -65,6 +67,8 @@ export default {
         error: "Alleen letters, cijfers en spaties zijn toegestaan.",
         create: "Maak aan",
         name: "Checkpoint Naam",
+        readmore: "Lees meer",
+        close: "Sluiten"
       },
       sidebar: {
         today: "Vandaag",

@@ -16,6 +16,7 @@ import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
 import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
 import { useTranslation } from "react-i18next";
 import { getStarsColor, getAttendanceColor, getAttendanceLabelKey } from "../../js/utils/colorUtils.ts";
+import TruncatedText from "../../js/hooks/useTruncatedText.tsx";
 
 type CheckpointUser = { user_id: number; first_name: string; last_name: string };
 
@@ -297,10 +298,11 @@ function Checkpoint({
                                         </div>
                                     </td>
                                     <td className="p-2 break-words border-t border-dotted">
-                                        {item.comment}
+                                        <TruncatedText modalTitle={`${item.first_name} ${item.last_name} ${t("checkpoint.notes")}`} text={item.comment ?? ""} />
                                     </td>
                                     <td className="p-2 break-words border-t border-dotted">
-                                        {item.impediment}
+                                        <TruncatedText modalTitle={`${item.first_name} ${item.last_name} ${t("checkpoint.obstacle")}`} text={item.impediment ?? ""} />
+
                                     </td>
                                     {(isSessionmaster || isInGroup) && !isLocked && (
                                         <td className="border-t border-dotted p-2 pl-0">
