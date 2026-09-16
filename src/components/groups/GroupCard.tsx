@@ -1,5 +1,5 @@
 import { PartialGroup } from "../../js/models/group.ts";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 interface GroupCardProps {
     group: PartialGroup;
@@ -14,7 +14,7 @@ export function GroupCard({ group }: GroupCardProps) {
             <p className="text-lg pb-2">{group.name}</p>
             <img
                 src={backgroundUrl}
-                alt={t('groups.image')}
+                alt={t('groups.image', { groupname: group.name })}
                 className="aspect-4/3 object-cover h-full rounded overflow-hidden"
             />
         </div >

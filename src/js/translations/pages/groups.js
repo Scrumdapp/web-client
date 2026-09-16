@@ -7,7 +7,7 @@ export default {
             searchPlaceholder: 'Search for groups',
             searchAlt: 'Search here for groups',
             creategroup: 'Create Name',
-            image: 'Group image for {{group.name}}',
+            image: 'Group image for {{groupname}}',
             submit: 'Submit',
         },
     },
@@ -19,7 +19,7 @@ export default {
             searchPlaceholder: 'Zoek naar groepen',
             searchAlt: 'Zoek hier naar groepen',
             creategroup: 'Groep Naam',
-            image: 'Groepsafbeelding voor {{group.name}}',
+            image: 'Groepsafbeelding voor {{groupname}}',
             submit: 'Maak aan',
         },
     }
