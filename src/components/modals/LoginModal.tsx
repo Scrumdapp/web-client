@@ -6,7 +6,7 @@ import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import ModalHeadText from "../generic/modal/components/ModalHeadText";
 import ModalActionRow from "../generic/modal/components/ModalActionRow";
 import { useUserState } from "../../js/context/user/useUser";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useBrowserFocus } from "../../js/hooks/useBrowserFocus";
 
 export function LoginModal({ state }: { state: ModalState }) {
@@ -27,14 +27,13 @@ export function LoginModal({ state }: { state: ModalState }) {
 
         const id = setInterval(() => {
             userState.refresh()
-            console.log(new Date())
         }, focussed ? 2000 : 10000)
 
         return () => clearInterval(id)
     }, [state.isOpen, focussed])
 
     return (
-        <Modal state={state}>
+        <Modal state={state} backgroundClickClose={false}>
             <ModalHeadText>
                 Log in with your account
             </ModalHeadText>
