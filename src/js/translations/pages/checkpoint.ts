@@ -26,9 +26,9 @@ export default {
           twentyminutes: "20 minutes",
           thirtyminutes: "30 minutes",
           onehour: "1 hour",
-        }
+        },
         readmore: "Read more",
-        close: "Close"
+        close: "Close",
       },
       sidebar: {
         today: "Today",
@@ -82,9 +82,9 @@ export default {
           twentyminutes: "20 minuten",
           thirtyminutes: "30 minuten",
           onehour: "1 uur",
-        }
+        },
         readmore: "Lees meer",
-        close: "Sluiten"
+        close: "Sluiten",
       },
       sidebar: {
         today: "Vandaag",
