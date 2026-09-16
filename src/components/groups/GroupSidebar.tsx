@@ -1,32 +1,51 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import { Link } from "react-router"
 import { faChartSimple, faGear, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export function GroupSidebar() {
-    const { t } = useTranslation();
-    const group = useGroup()
-
-    const links = [
-        { path: "calendar", icon: faCalendarDays, color: "text-green", text: t("checkpoint.sidebar.calendar") },
-        { path: "trends", icon: faChartSimple, color: "text-yellow", text: t("checkpoint.sidebar.trends") },
-        { path: "settings", icon: faGear, color: "text-red", text: t("checkpoint.sidebar.settings") },
-    ]
+    const group = useGroup();
 
     return (
         <div className="card vertical gap-1">
-            <Link to={`/groups/${group.id}`} className="btn justify-start!">
-                <FontAwesomeIcon icon={faHouse} className="text-blue"/> {t("checkpoint.sidebar.today")}
-            </Link>
+            <SidebarLink to={`/groups/${group.id}`}
+                translationKey="checkpoint.sidebar.today"
+                icon={faHouse}
+                className="text-blue"
+            />
             <hr className="text-gray" />
-            {links.map((link, i) => (
-                <Link key={i} to={`/groups/${group.id}/${link.path}`} className="btn justify-start!">
-                    <FontAwesomeIcon icon={link.icon} className={link.color} />
-                    {link.text}
-                </Link>
-            ))}
+            <SidebarLink to={`/groups/${group.id}/calendar`}
+                translationKey="checkpoint.sidebar.calendar"
+                icon={faCalendarDays}
+                className="text-green"
+            />
+            <SidebarLink to={`/groups/${group.id}/trends`}
+                translationKey="checkpoint.sidebar.trends"
+                icon={faChartSimple}
+                className="text-yellow"
+            />
+            <SidebarLink to={`/groups/${group.id}/settings`}
+                translationKey="checkpoint.sidebar.settings"
+                icon={faGear}
+                className="text-red"
+            />
         </div>
+    )
+}
+
+
+function SidebarLink(
+    { to, translationKey, icon, className }: { to: string, translationKey: string, icon: IconProp, className: string }
+) {
+    const { t } = useTranslation();
+
+    return (
+        <Link to={to} className="btn justify-start">
+            <FontAwesomeIcon icon={icon} className={className} />
+            {t(translationKey)}
+        </Link>
     )
 }

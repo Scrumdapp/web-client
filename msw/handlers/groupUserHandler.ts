@@ -1,20 +1,24 @@
-import {GroupUser} from "../../src/js/models/group";
+import { GroupUser } from "../../src/js/models/group";
 import { userData } from "./userHandlers";
-import {http, HttpResponse} from "msw";
+import { http, HttpResponse } from "msw";
 
 
 export const groupUserData: GroupUserCollection[] = [
     {
         groupId: 1,
-        users: [ 1, 2, 3, 4, 5, 6 ]
+        users: [1, 2, 3, 4, 5, 6]
     },
     {
         groupId: 2,
-        users: [ 2, 3 ]
+        users: [2, 3]
     },
     {
         groupId: 3,
-        users: [ 3, 4 ]
+        users: [3, 4]
+    },
+    {
+        groupId: 4,
+        users: [4, 5]
     }
 ]
 
@@ -35,7 +39,7 @@ function getGroupUsers(collection: GroupUserCollection): GroupUser[] {
 
 
 export const groupUserHandler = [
-    http.get("/api/groups/:gid/users", ({params}) => {
+    http.get("/api/groups/:gid/users", ({ params }) => {
         // @ts-ignore
         const group = groupUserData.find(it => it.groupId == params.gid)
         if (group) {
@@ -50,7 +54,7 @@ export const groupUserHandler = [
             status: 404
         })
     }),
-    http.post("/api/groups/:gid/users", ({params}) => {
+    http.post("/api/groups/:gid/users", ({ params }) => {
         // @ts-ignore
         const group = groupUserData.find(it => it.groupId == params.gid)
         if (group) {
@@ -65,7 +69,7 @@ export const groupUserHandler = [
             status: 404
         })
     }),
-    http.get("/api/groups/:gid/users/:uid", ({params}) => {
+    http.get("/api/groups/:gid/users/:uid", ({ params }) => {
         // @ts-ignore
         const group = groupUserData.find(it => it.groupId == params.gid as String)
         if (!group) {
@@ -94,7 +98,7 @@ export const groupUserHandler = [
 
         return HttpResponse.json(user)
     }),
-    http.delete("/api/groups/:gid/users/:uid", ({params}) => {
+    http.delete("/api/groups/:gid/users/:uid", ({ params }) => {
         // @ts-ignore
         const group = groupUserData.find(it => it.groupId == params.gid as String)
         if (!group) {
@@ -121,7 +125,7 @@ export const groupUserHandler = [
             })
         }
 
-        return HttpResponse.json({success: true})
+        return HttpResponse.json({ success: true })
     }),
 ]
 

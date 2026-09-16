@@ -26,19 +26,16 @@ export function GroupProvider({
     runCommand();
   }, [runCommand]);
 
-  if (
-    (getGroupData.loading || getGroupData.data == null) &&
-    !getGroupData.error
-  ) {
-    return <LoadScreen />;
-  }
-
   if (getGroupData.error) {
     return getGroupData.error?.status === 404 ? (
       <ErrorPage />
     ) : (
       <ErrorScreen error={getGroupData.error} />
     );
+  }
+
+  if (getGroupData.loading || getGroupData.data == null) {
+    return <LoadScreen />
   }
 
   const Provider = groupContext.Provider;
