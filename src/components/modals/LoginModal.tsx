@@ -11,7 +11,7 @@ import { useBrowserFocus } from "../../js/hooks/useBrowserFocus";
 
 export function LoginModal({ state }: { state: ModalState }) {
     const userState = useUserState();
-    const focussed = useBrowserFocus();
+    const focused = useBrowserFocus();
 
     // Unfortunately, there is no other way to handle the request
     const handleLogin = () => {
@@ -27,10 +27,10 @@ export function LoginModal({ state }: { state: ModalState }) {
 
         const id = setInterval(() => {
             userState.refresh()
-        }, focussed ? 2000 : 10000)
+        }, focused ? 2000 : 10000)
 
         return () => clearInterval(id)
-    }, [state.isOpen, focussed])
+    }, [state.isOpen, focused])
 
     return (
         <Modal state={state} backgroundClickClose={false}>
