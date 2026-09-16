@@ -12,6 +12,7 @@ import { EventBus } from "../../events/eventBus.ts";
 export function UserProvider({ children, loading, error }: PropsWithChildren<{ loading: ReactNode, error: (error: ApiError) => ReactNode }>): ReactNode {
     const loginModalState = useModalState()
     const [didInitialLoad, setDidDoneInitialLoad] = useState(false)
+    const [hasLoadedWithUser, setHasLoadedWithUser] = useState(false)
     const getUserData = useApi(ScrumdappApi.getCurrentUser())
 
     const refresh = useCallback(() => {
@@ -26,6 +27,9 @@ export function UserProvider({ children, loading, error }: PropsWithChildren<{ l
             .catch(() => { })
             .finally(() => {
                 setDidDoneInitialLoad(true)
+                if (state.user != null) {
+                    setHasLoadedWithUser(true)
+                }
             })
     }, [])
 
@@ -51,7 +55,7 @@ export function UserProvider({ children, loading, error }: PropsWithChildren<{ l
 
     return (
         <userContext.Provider value={state}>
-            {children}
+            {hasLoadedWithUser && children}
             <LoginModal state={loginModalState} />
         </userContext.Provider>
     )
