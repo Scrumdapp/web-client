@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../../../js/hooks/api/scrumdappApi.ts";
 import ModalActionRow from "../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../generic/modal/components/ModalCancelButton.tsx";
-import { TimeDurationDropdownMenu } from "../../generic/TimeDuration.tsx";
+import { InviteTimeDurationDropdownMenu } from "../../generic/InviteTimeDuration.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
@@ -135,7 +135,7 @@ export default function Invites({ groupId }: InvitesProps) {
                                 required
                             />
                             <div className="flex flex-3">
-                                <TimeDurationDropdownMenu onChange={(v) => setExpireHours(v ?? 12)} />
+                                <InviteTimeDurationDropdownMenu onChange={(v) => setExpireHours(v ?? 12)} />
                             </div>
                         </div>
                         <ModalActionRow>
