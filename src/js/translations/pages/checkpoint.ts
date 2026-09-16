@@ -19,6 +19,14 @@ export default {
         error: "Only letters, numbers and spaces are allowed.",
         create: "Create",
         name: "Checkpoint Name",
+        duration: {
+          fiveminutes: "5 minutes",
+          tenminutes: "10 minutes",
+          fifteenminutes: "15 minutes",
+          twentyminutes: "20 minutes",
+          thirtyminutes: "30 minutes",
+          onehour: "1 hour",
+        }
         readmore: "Read more",
         close: "Close"
       },
@@ -67,6 +75,14 @@ export default {
         error: "Alleen letters, cijfers en spaties zijn toegestaan.",
         create: "Maak aan",
         name: "Checkpoint Naam",
+        duration: {
+          fiveminutes: "5 minuten",
+          tenminutes: "10 minuten",
+          fifteenminutes: "15 minuten",
+          twentyminutes: "20 minuten",
+          thirtyminutes: "30 minuten",
+          onehour: "1 uur",
+        }
         readmore: "Lees meer",
         close: "Sluiten"
       },
