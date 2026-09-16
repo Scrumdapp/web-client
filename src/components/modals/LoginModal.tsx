@@ -6,9 +6,12 @@ import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import ModalHeadText from "../generic/modal/components/ModalHeadText";
 import ModalActionRow from "../generic/modal/components/ModalActionRow";
 import { useUserState } from "../../js/context/user/useUser";
+import { useEffect, useState } from "react";
+import { useBrowserFocus } from "../../js/hooks/useBrowserFocus";
 
 export function LoginModal({ state }: { state: ModalState }) {
-    const userState = useUserState()
+    const userState = useUserState();
+    const focussed = useBrowserFocus();
 
     // Unfortunately, there is no other way to handle the request
     const handleLogin = () => {
@@ -19,15 +22,29 @@ export function LoginModal({ state }: { state: ModalState }) {
         }
     }
 
+    useEffect(() => {
+        if (!state.isOpen) { return; }
+
+        const id = setInterval(() => {
+            userState.refresh()
+            console.log(new Date())
+        }, focussed ? 2000 : 10000)
+
+        return () => clearInterval(id)
+    }, [state.isOpen, focussed])
+
     return (
         <Modal state={state}>
             <ModalHeadText>
                 Log in with your account
             </ModalHeadText>
+            <p className="pb-4">
+                Your session has expired. Please log-in again
+            </p>
             <ModalActionRow>
                 <button
                     onClick={handleLogin}
-                    className="btn border btn-secondary mx-auto w-fit"
+                    className="btn border btn-secondary"
                 >
                     <FontAwesomeIcon icon={faArrowRightToBracket} />
                     Login
