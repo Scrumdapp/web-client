@@ -1,13 +1,15 @@
 import { useEffect, useRef } from "react";
 import { ModalState } from "../../../js/hooks/useModalState.ts";
 import ModalContext from "./components/ModalContext.tsx";
+import { cn } from "../../../js/utils/tw.ts";
 
 interface ModalProps {
     state: ModalState
-    children: React.ReactNode
+    children: React.ReactNode,
+    className?: string
 }
 
-export default function Modal({ state, children }: ModalProps) {
+export default function Modal({ state, children, className }: ModalProps) {
     const ref = useRef<HTMLDialogElement>(null)
 
     useEffect(() => {
@@ -31,7 +33,7 @@ export default function Modal({ state, children }: ModalProps) {
                 open={false}
             >
                 <div
-                    className="m-auto bg-bg_h rounded-lg p-6 min-w-96 w-fit border"
+                    className={cn("m-auto bg-bg_h rounded-lg p-6 min-w-96 w-fit border", className)}
                     onClick={(e) => e.stopPropagation()}
                 >
                     {children}

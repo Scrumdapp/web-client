@@ -6,6 +6,10 @@
     @apply bg-blue-dim hover:bg-blue;
 }
 
+.btn-text {
+    @apply hover:underline text-fg2 cursor-pointer
+}
+
 .btn-red {
     @apply bg-red-dim hover:bg-red;
 }
