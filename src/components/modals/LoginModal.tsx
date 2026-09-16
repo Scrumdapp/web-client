@@ -16,9 +16,9 @@ export function LoginModal({ state }: { state: ModalState }) {
     // Unfortunately, there is no other way to handle the request
     const handleLogin = () => {
         if (import.meta.env.DEV) {
-            fetch(WebConfig.discordLoginUrl).then(() => { userState.refresh() })
+            fetch(WebConfig.oauthLoginUrl).then(() => { userState.refresh() })
         } else {
-            location.href = WebConfig.discordLoginUrl;
+            location.href = WebConfig.oauthLoginUrl;
         }
     }
 
