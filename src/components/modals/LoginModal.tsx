@@ -8,8 +8,10 @@ import ModalActionRow from "../generic/modal/components/ModalActionRow";
 import { useUserState } from "../../js/context/user/useUser";
 import { useEffect } from "react";
 import { useBrowserFocus } from "../../js/hooks/useBrowserFocus";
+import {useTranslation} from "react-i18next";
 
 export function LoginModal({ state }: { state: ModalState }) {
+    const { t } = useTranslation();
     const userState = useUserState();
     const focused = useBrowserFocus();
 
@@ -35,10 +37,10 @@ export function LoginModal({ state }: { state: ModalState }) {
     return (
         <Modal state={state} backgroundClickClose={false}>
             <ModalHeadText>
-                Log in with your account
+                {t('login.modal.headtext')}
             </ModalHeadText>
             <p className="pb-4">
-                Your session has expired. Please log-in again
+                {t('login.modal.expired')}
             </p>
             <ModalActionRow>
                 <button
@@ -46,7 +48,7 @@ export function LoginModal({ state }: { state: ModalState }) {
                     className="btn border btn-secondary"
                 >
                     <FontAwesomeIcon icon={faArrowRightToBracket} />
-                    Login
+                    {t('login.modal.login')}
                 </button>
             </ModalActionRow>
         </Modal >
