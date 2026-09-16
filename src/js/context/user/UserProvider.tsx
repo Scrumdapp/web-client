@@ -22,14 +22,14 @@ export function UserProvider({ children, loading, error }: PropsWithChildren<{ l
                     it.user = user
                     return it
                 })
+                if (user != null) {
+                    setHasLoadedWithUser(true)
+                }
                 loginModalState.close()
             })
             .catch(() => { })
             .finally(() => {
                 setDidDoneInitialLoad(true)
-                if (state.user != null) {
-                    setHasLoadedWithUser(true)
-                }
             })
     }, [])
 
