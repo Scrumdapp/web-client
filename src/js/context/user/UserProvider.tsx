@@ -6,15 +6,13 @@ import { ScrumdappApi } from "../../hooks/api/scrumdappApi.ts";
 import type { ApiError } from "../../hooks/api/apiError.ts";
 import { useModalState } from "../../hooks/useModalState.ts";
 import { LoginModal } from "../../../components/modals/LoginModal.tsx";
+import { useEventChannel } from "../../events/useEventChannel.ts";
+import { EventBus } from "../../events/eventBus.ts";
 
 export function UserProvider({ children, loading, error }: PropsWithChildren<{ loading: ReactNode, error: (error: ApiError) => ReactNode }>): ReactNode {
     const loginModalState = useModalState()
     const [didInitialLoad, setDidDoneInitialLoad] = useState(false)
     const getUserData = useApi(ScrumdappApi.getCurrentUser())
-
-    const notifyLoggedOut = useCallback(() => {
-        loginModalState.open()
-    }, [])
 
     const refresh = useCallback(() => {
         return getUserData.runCommand()
@@ -31,11 +29,15 @@ export function UserProvider({ children, loading, error }: PropsWithChildren<{ l
             })
     }, [])
 
-    const [state, setState] = useState(new UserContextState(notifyLoggedOut, refresh))
+    const [state, setState] = useState(new UserContextState(refresh))
 
     useEffect(() => { refresh() }, [])
 
-    if (getUserData.loading) {
+    useEventChannel(EventBus.on401Detected, () => {
+        loginModalState.open()
+    }, [])
+
+    if (getUserData.loading && !loginModalState.isOpen) {
         return loading
     }
 

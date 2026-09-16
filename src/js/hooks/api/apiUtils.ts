@@ -1,3 +1,4 @@
+import { EventBus } from "../../events/eventBus.ts";
 import { isErrorDto } from "../../models/dto/errorDto.ts";
 import { ApiError, RequestException } from "./apiError.ts";
 
@@ -77,6 +78,9 @@ export async function makeApiRequest<T>(
         })
         .catch(it => {
             if (it instanceof ApiError) {
+                if (it.status == 401) {
+                    EventBus.on401Detected.emit()
+                }
                 throw it
             }
             if (it instanceof Error) {
