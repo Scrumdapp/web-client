@@ -15,6 +15,7 @@ import header from './pages/header';
 import footer from './pages/footer';
 import date from './pages/date';
 import modal from './pages/modal';
+import login from './pages/login';
 
 type TranslationStrings = Record<string, unknown>;
 type PageModule = Record<string, TranslationStrings>;
@@ -22,7 +23,7 @@ type Resources = Record<string, { translation: TranslationStrings }>;
 
 const pages: PageModule[] = [
     privacy, about, settings, invite, groups, checkpoint,
-    calendar, trends, error, header, footer, date, modal,
+    calendar, trends, error, header, footer, date, modal, login,
 ];
 
 const resources = pages.reduce<Resources>((acc, page) => {

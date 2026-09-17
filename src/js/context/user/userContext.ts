@@ -4,11 +4,9 @@ import type { User } from "../../models/user.ts";
 export class UserContextState {
     user?: User
     loggedIn?: boolean
-    notifyLoggedOut: () => void
     refresh: () => Promise<void>
 
-    constructor(notifyLoggedOut: () => void, refresh: () => Promise<void>) {
-        this.notifyLoggedOut = notifyLoggedOut
+    constructor(refresh: () => Promise<void>) {
         this.refresh = refresh
     }
 }
