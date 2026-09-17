@@ -34,19 +34,21 @@ export default function Header() {
               </Link>
             ))}
           </div>
-          <div className="flex-1 nav-dropdown cursor-default h-full my-4">
-            <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
-              <span>{`${user.first_name} ${user.last_name}`}</span>
-              <img
-                src={user.avatar ?? "/Scrumdaddy.png"}
-                alt={t("header.profileAlt")}
-                className="nav-icon"
-              />
-            </div>
-            <div className="nav-dropdown-content -right-[0.5px]!">
-              <div className="my-4 px-1.5 text-center">
-                <LanguageSwitch />
-                <LogoutButton />
+          <div className="flex-1 flex justify-end h-full my-4">
+            <div className="nav-dropdown cursor-default">
+              <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
+                <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
+                <img
+                  src={user.avatar ?? "/Scrumdaddy.png"}
+                  alt={t("header.profileAlt")}
+                  className="nav-icon"
+                />
+              </div>
+              <div className="nav-dropdown-content -right-[0.5px]!">
+                <div className="my-4 px-1.5 text-center">
+                  <LanguageSwitch />
+                  <LogoutButton />
+                </div>
               </div>
             </div>
           </div>
