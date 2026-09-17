@@ -4,10 +4,11 @@ import ModalContext from "./components/ModalContext.tsx";
 
 interface ModalProps {
     state: ModalState
+    backgroundClickClose?: boolean
     children: React.ReactNode
 }
 
-export default function Modal({ state, children }: ModalProps) {
+export default function Modal({ state, backgroundClickClose = true, children }: ModalProps) {
     const ref = useRef<HTMLDialogElement>(null)
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export default function Modal({ state, children }: ModalProps) {
         <ModalContext.Provider value={state}>
             <dialog
                 className="flex backdrop-blur-lg bg-[unset] w-full h-full max-w-screen max-h-screen"
-                onClick={state.close}
+                onClick={() => backgroundClickClose && state.close()}
                 onClose={(e) => e.preventDefault()}
                 closedby="none"
                 ref={ref}

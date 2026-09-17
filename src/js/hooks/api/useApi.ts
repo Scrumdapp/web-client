@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useState} from "react";
-import {ApiError} from "./apiError.ts";
-import {RequestProcessor} from "./apiUtils.ts";
+import { useCallback, useEffect, useState } from "react";
+import { ApiError } from "./apiError.ts";
+import { RequestProcessor } from "./apiUtils.ts";
 
 export interface UseApiReturnType<TInput extends any[], Tm> {
     loading: boolean,

@@ -5,8 +5,8 @@ export const COOKIE_NAME = "ALLINDADDY";
 const COOKIE_DAYS = 30;
 
 export const userCookieHandler = [
-    http.get(WebConfig.discordLoginUrl, (req) => {
-        const expires = new Date(Date.now() + COOKIE_DAYS * 864e5).toUTCString();
+    http.get(WebConfig.oauthLoginUrl, (req) => {
+        const expires = new Date(Date.now() + COOKIE_DAYS * 86400).toUTCString();
         const userId = req.params["userId"] as string ?? "1"
 
         return new HttpResponse(null, {

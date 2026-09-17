@@ -9,7 +9,7 @@ type TimeDurationDropdownMenuProps = {
     onChange?: (value: number | null) => void;
 };
 
-export const TimeDuration = [
+export const InviteTimeDuration = [
     { labelKey: "invite.duration.twelvehours", hours: 12 },
     { labelKey: "invite.duration.oneday", hours: 24 },
     { labelKey: "invite.duration.twodays", hours: 48 },
@@ -17,7 +17,7 @@ export const TimeDuration = [
     { labelKey: "invite.duration.oneweek", hours: 168 },
 ];
 
-export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdownMenuProps) {
+export function InviteTimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdownMenuProps) {
     const {t} = useTranslation();
     const [localValue, setLocalValue] = useState<number | null>(value ?? null);
 
@@ -30,7 +30,7 @@ export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdo
         setLocalValue(value ?? null);
     }, [value]);
 
-    const currentOption = TimeDuration.find((opt) => opt.hours === localValue) ?? TimeDuration[0];
+    const currentOption = InviteTimeDuration.find((opt) => opt.hours === localValue) ?? InviteTimeDuration[0];
 
     return (
         <Menu as="div" className="relative w-full">
@@ -42,7 +42,7 @@ export function TimeDurationDropdownMenu({ value, onChange }: TimeDurationDropdo
             </MenuButton>
             <MenuItems transition className="absolute z-10 mt-2 border rounded-md bg-bg w-full py-1">
                 <div>
-                    {TimeDuration.map(opt => (
+                    {InviteTimeDuration.map(opt => (
                         <MenuItem
                             key={t(opt.labelKey)}
                             as="button"

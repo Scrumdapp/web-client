@@ -11,19 +11,24 @@ import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
 import { useApi } from "../../js/hooks/api/useApi.ts";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { useTranslation } from "react-i18next";
+import { CheckpointTimeDurationDropdownMenu } from "../generic/CheckpointTimeDuration.tsx";
 
 export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }: { groupId: number, state: ModalState, onCreated?: (session: GroupCheckpointSession) => void }) {
     const { t } = useTranslation();
     const [checkpointName, setCheckpointName] = useState("");
     const [showWarning, setShowWarning] = useState(false);
+    const [expireMinutes, setExpireMinutes] = useState(15);
     const createCheckpointSession = useApi(ScrumdappApi.createCheckpointSessions());
 
     const handleCreate = async () => {
         if (!checkpointName.trim()) return;
 
-        const session = await createCheckpointSession.runCommand(groupId, { name: checkpointName })
+        const session = await createCheckpointSession.runCommand(groupId, {
+            name: checkpointName,
+            duration: expireMinutes,
+        });
 
-        onCreated?.(session)
+        onCreated?.(session);
         setCheckpointName("");
         state.accept();
     };
@@ -34,19 +39,25 @@ export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }:
                 <ModalHeadText>
                     {t("checkpoint.modal.newcheckpoint")}
                 </ModalHeadText>
-                <input
-                    type="text"
-                    className="write-section w-full!"
-                    placeholder={t('checkpoint.modal.name')}
-                    alt={t('checkpoint.modal.name')}
-                    value={checkpointName}
-                    maxLength={32}
-                    onChange={(e) => {
-                        setShowWarning(!/^[a-zA-Z0-9 \-]{1,32}$/.test(e.target.value))
-                        setCheckpointName(e.target.value);
-                    }}
-                    required
-                />
+                <div className="horizontal flex-1 gap-2">
+                    <input
+                        type="text"
+                        className="write-section w-full!"
+                        placeholder={t('checkpoint.modal.name')}
+                        alt={t('checkpoint.modal.name')}
+                        value={checkpointName}
+                        maxLength={32}
+                        onChange={(e) => {
+                            setShowWarning(!/^[a-zA-Z0-9 \-]{1,32}$/.test(e.target.value))
+                            setCheckpointName(e.target.value);
+                        }}
+                        required
+                    />
+                    <CheckpointTimeDurationDropdownMenu
+                        value={expireMinutes}
+                        onChange={(v) => setExpireMinutes(v ?? 15)}
+                    />
+                </div>
                 {showWarning && (
                     <p className="text-red text-sm">
                         {t("checkpoint.modal.error")}
