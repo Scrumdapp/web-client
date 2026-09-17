@@ -34,8 +34,8 @@ export default function Header() {
               </Link>
             ))}
           </div>
-          <div className="flex-1 items-end">
-            <div className="nav-dropdown cursor-default h-full my-4">
+          <div className="flex-1 flex justify-end h-full my-4">
+            <div className="nav-dropdown cursor-default">
               <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
                 <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
                 <img
