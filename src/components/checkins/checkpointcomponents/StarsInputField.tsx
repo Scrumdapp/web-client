@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { faStar as faStarSolid, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { interpolateColor } from "../../../js/utils/starsMath.ts";
+import { getStarsColor } from "../../../js/utils/colorUtils.ts";
 
 type StarsInputFieldProps = {
     value?: number | null;
@@ -30,23 +30,13 @@ export function StarsInputField({ value = null, onChange, max = 5 }: StarsInputF
     const [hoverValue, setHoverValue] = useState<number | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const colorLow = useThemeColor("--color-red");
-    const colorMid = useThemeColor("--color-green");
-    const colorHigh = useThemeColor("--color-blue");
     const colorEmpty = useThemeColor("--color-fg4");
 
     useEffect(() => {
         setLocalValue(value);
     }, [value]);
 
-    const maxValue = max * POINTS_PER_STAR;
     const displayValue = hoverValue ?? localValue ?? 0;
-
-    const midpoint = maxValue / 2;
-    const activeColor =
-        displayValue <= midpoint
-            ? interpolateColor(displayValue / midpoint, colorLow, colorMid)
-            : interpolateColor((displayValue - midpoint) / midpoint, colorMid, colorHigh);
 
     const updateValue = (newValue: number) => {
         setLocalValue(newValue);
@@ -92,8 +82,7 @@ export function StarsInputField({ value = null, onChange, max = 5 }: StarsInputF
                         aria-label={`Rate ${starIndex + 1} out of ${max}`}
                     >
                         <span
-                            className="inline-block transition-transform hover:scale-110"
-                            style={{ color: isFilled ? activeColor : colorEmpty }}
+                            className={`inline-block transition-transform hover:scale-110 ${isFilled ? getStarsColor(displayValue) : colorEmpty}`}
                         >
                             <FontAwesomeIcon icon={getStarIcon(starIndex)} />
                         </span>
