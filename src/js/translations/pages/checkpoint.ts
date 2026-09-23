@@ -14,6 +14,12 @@ export default {
       apply: "Apply",
       closed: "Checkpoint closed",
       closesin: "Checkpoint closes in",
+      nocheckpoint: {
+        today: "It's awfully quiet in here...",
+        todaydescription: "Create your first checkpoint for this date by clicking the button below.",
+        past: "No checkpoints available",
+        pastdescription: "There are no checkpoints available for this date. Please select a different date.",
+      },
       modal: {
         newcheckpoint: "New checkpoint",
         error: "Only letters, numbers and spaces are allowed.",
@@ -68,6 +74,12 @@ export default {
       apply: "Opslaan",
       closed: "Checkpoint gesloten",
       closesin: "Checkpoint sluit over",
+      nocheckpoint: {
+        today: "Het is hier akelig stil...",
+        todaydescription: "Maak je eerste checkpoint voor deze datum door op de knop hieronder te klikken.",
+        past: "Geen checkpoints beschikbaar",
+        pastdescription: "Er zijn geen checkpoints beschikbaar voor deze datum. Kies een andere datum.",
+      },
       modal: {
         newcheckpoint: "Nieuw checkpoint",
         error: "Alleen letters, cijfers en spaties zijn toegestaan.",

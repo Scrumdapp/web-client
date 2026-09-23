@@ -97,7 +97,7 @@ export function GroupCheckpointPage({
           </button>
         </ShowIf>
       </div>
-      {[...checkpointSessions].reverse().map((session, index) => (
+      {checkpointSessions?.length > 0 ? [...checkpointSessions].reverse().map((session, index) => (
         <div key={session.id} className="w-full">
           <Checkpoint
             groupId={group.id}
@@ -112,7 +112,24 @@ export function GroupCheckpointPage({
             isMostRecent={index === 0}
           />
         </div>
-      ))}
+      )) : currentDate == date ? (
+        <div className="card min-h-90 flex flex-col items-center justify-center gap-2">
+          <h2>{t("checkpoint.nocheckpoint.today")}</h2>
+          <p>{t("checkpoint.nocheckpoint.todaydescription")}</p>
+          <ShowIf condition={currentDate == date}>
+            <button className="btn border mt-3" onClick={modal.open}>
+              <FontAwesomeIcon icon={faAdd} className="text-blue" />{" "}
+              {t("checkpoint.create")}
+            </button>
+          </ShowIf>
+        </div>
+      ) : (
+        <div className="card min-h-90 flex flex-col items-center justify-center gap-2">
+          <h2>{t("checkpoint.nocheckpoint.past")}</h2>
+          <p >{t("checkpoint.nocheckpoint.pastdescription")}</p>
+        </div>
+
+      )}
       <CreateGroupCheckpointSessionModal
         groupId={group.id}
         state={modal}
