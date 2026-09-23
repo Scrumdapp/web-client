@@ -9,12 +9,12 @@ import { inviteHandlers } from "./handlers/inviteHandlers.ts";
 import { trendsHandlers } from "./handlers/trendsHandlers.ts";
 
 export const worker = setupWorker(
-    ...userHandlers,
-    ...groupHandlers,
-    ...groupUserHandler,
-    ...groupCheckinsHandlers,
-    ...groupCheckpointHandlers,
-    ...userCookieHandler,
-    ...inviteHandlers,
-    ...trendsHandlers
-)
+  ...userHandlers,
+  ...groupHandlers,
+  ...groupUserHandler,
+  ...groupCheckinsHandlers,
+  ...groupCheckpointHandlers,
+  ...userCookieHandler,
+  ...inviteHandlers,
+  ...trendsHandlers,
+);

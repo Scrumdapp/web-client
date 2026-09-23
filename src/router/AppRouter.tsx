@@ -9,15 +9,15 @@ import { InviteRouter } from "../pages/invite/InviteRouter.tsx";
 // ^^^ Add new pages here ^^^
 
 export default function AppRouter() {
-    return (
-        <Routes>
-            <Route path="" element={<Navigate to="/groups" replace />} />
-            <Route path="/groups" element={<Groups />} />
-            <Route path="/groups/:groupId/*" element={<GroupLayout />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/invites/:inviteId" element={<InviteRouter />} />
-            <Route path="*" element={<ErrorPage />} />
-        </Routes>
-    );
+  return (
+    <Routes>
+      <Route path="" element={<Navigate to="/groups" replace />} />
+      <Route path="/groups" element={<Groups />} />
+      <Route path="/groups/:groupId/*" element={<GroupLayout />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/invites/:inviteId" element={<InviteRouter />} />
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
+  );
 }

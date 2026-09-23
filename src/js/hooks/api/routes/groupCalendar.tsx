@@ -1,5 +1,1 @@
-
-
-export function GroupCalendar() {
-
-}
+export function GroupCalendar() {}

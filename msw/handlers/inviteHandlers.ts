@@ -2,100 +2,126 @@ import { http, HttpResponse } from "msw";
 import { InviteResponse } from "../../src/js/models/invites.tsx";
 import { groupData } from "./groupHandlers";
 import { Group } from "../../src/js/models/group";
-import { parseScrumdappDate, toScrumdappDate } from "../../src/js/utils/scrumdappDate";
+import {
+  parseScrumdappDate,
+  toScrumdappDate,
+} from "../../src/js/utils/scrumdappDate";
 
 export type InviteResponseDB = InviteResponse & {
-    password: string
-}
+  password: string;
+};
 
-export const inviteData: { [groupId: number]: InviteResponseDB[] } = {}
-export const inviteDataById: InviteResponseDB[] = []
+export const inviteData: { [groupId: number]: InviteResponseDB[] } = {};
+export const inviteDataById: InviteResponseDB[] = [];
 
-createInviteData(groupData.find(it => it.id === 4)!, 2)
+createInviteData(
+  groupData.find((it) => it.id === 4)!,
+  2,
+);
 
 for (let group of groupData) {
-    createInviteData(group)
+  createInviteData(group);
 }
 
 function createInviteData(group: Group, count = -1) {
-    const invites: InviteResponseDB[] = []
-    const now = parseScrumdappDate(toScrumdappDate(new Date()));
+  const invites: InviteResponseDB[] = [];
+  const now = parseScrumdappDate(toScrumdappDate(new Date()));
 
-    if (count == -1) {
-        count = Math.floor(Math.random() * 5)
-    }
+  if (count == -1) {
+    count = Math.floor(Math.random() * 5);
+  }
 
-    for (let i = count; i-- > 0;) {
-        const expires = parseScrumdappDate(toScrumdappDate(new Date(Math.random() * (7 * 24 * 60 * 60 * 1000) - (2 * 24 * 60 * 60 * 1000))))
-        const expired = now >= expires;
+  for (let i = count; i-- > 0;) {
+    const expires = parseScrumdappDate(
+      toScrumdappDate(
+        new Date(
+          Math.random() * (7 * 24 * 60 * 60 * 1000) - 2 * 24 * 60 * 60 * 1000,
+        ),
+      ),
+    );
+    const expired = now >= expires;
 
-        const invite = {
-            id: 0,
-            groupId: group.id,
-            token: generateInsecureTestToken(),
-            expiresAt: toScrumdappDate(expires),
-            password: "123",
-            isActive: expired
-        }
-        const id = inviteDataById.push(invite)
-        invite.id = id;
-        invites.push(invite);
-    }
+    const invite = {
+      id: 0,
+      groupId: group.id,
+      token: generateInsecureTestToken(),
+      expiresAt: toScrumdappDate(expires),
+      password: "123",
+      isActive: expired,
+    };
+    const id = inviteDataById.push(invite);
+    invite.id = id;
+    invites.push(invite);
+  }
 
-    inviteData[group.id] = invites;
+  inviteData[group.id] = invites;
 }
 
 function generateInsecureTestToken() {
-    let s = "TEST-"
-    for (let i = 24; i-- > 0;) {
-        s += "abcABC1230"[Math.floor(Math.random() * 10)]
-    }
-    return s;
+  let s = "TEST-";
+  for (let i = 24; i-- > 0;) {
+    s += "abcABC1230"[Math.floor(Math.random() * 10)];
+  }
+  return s;
 }
 
 export const inviteHandlers = [
-    http.post("/api/invites", async ({ request }) => {
-        const json: any = await request.json()
-        const params = new URL(request.url).searchParams
-        //@ts-ignore
-        const group = groupData.find(it => it.id == params.get("group") as string)!
+  http.post("/api/invites", async ({ request }) => {
+    const json: any = await request.json();
+    const params = new URL(request.url).searchParams;
+    //@ts-ignore
+    const group = groupData.find(
+      (it) => it.id == (params.get("group") as string),
+    )!;
 
+    const expires = json.expiresAt as string;
+    const password = json.password as string;
+    const invite: InviteResponseDB = {
+      id: 0,
+      groupId: group.id,
+      token: generateInsecureTestToken(),
+      expiresAt: expires,
+      password: password,
+      isActive: true,
+    };
 
-        const expires = json.expiresAt as string;
-        const password = json.password as string;
-        const invite: InviteResponseDB = {
-            id: 0,
-            groupId: group.id,
-            token: generateInsecureTestToken(),
-            expiresAt: expires,
-            password: password,
-            isActive: true
-        }
+    const id = inviteDataById.push(invite);
+    invite.id = id;
+    inviteData[group.id].push(invite);
 
-        const id = inviteDataById.push(invite)
-        invite.id = id;
-        inviteData[group.id].push(invite)
+    return HttpResponse.json(invite);
+  }),
+  http.get("/api/invites", ({ request }) => {
+    const params = new URL(request.url).searchParams;
+    //@ts-ignore
+    const group = groupData.find(
+      (it) => it.id == (params.get("group") as string),
+    )!;
+    return HttpResponse.json(inviteData[group.id]);
+  }),
+  http.get("/api/invites/:inviteId", ({ params }) => {
+    return HttpResponse.json(
+      inviteDataById[parseInt(params["inviteId"] as string)],
+    );
+  }),
+  http.post("/api/invites/:inviteId/accept", ({ params }) => {
+    const id = parseInt(params["inviteId"] as string);
+    if (id == 4) {
+      return HttpResponse.json(
+        {
+          error: true,
+          status: 400,
+          message: "Incorrect password",
+          detail: "The password was not correct!",
+          extra: null,
+        },
+        { status: 400 },
+      );
+    }
 
-        return HttpResponse.json(invite);
-    }),
-    http.get("/api/invites", ({ request }) => {
-        const params = new URL(request.url).searchParams
-        //@ts-ignore
-        const group = groupData.find(it => it.id == params.get("group") as string)!
-        return HttpResponse.json(inviteData[group.id])
-    }),
-    http.get("/api/invites/:inviteId", ({ params }) => {
-        return HttpResponse.json(inviteDataById[parseInt(params["inviteId"] as string)])
-    }),
-    http.post("/api/invites/:inviteId/accept", ({ params }) => {
-        const id = parseInt(params["inviteId"] as string)
-        if (id == 4) {
-            return HttpResponse.json({ error: true, status: 400, message: "Incorrect password", "detail": "The password was not correct!", extra: null }, { status: 400 })
-        }
-
-        return new HttpResponse(undefined, { status: 204 })
-    }),
-    http.delete("/api/invites/:inviteId", ({ }) => {
-        return new HttpResponse()
-    }),
-]
+    return new HttpResponse(undefined, { status: 204 });
+  }),
+  http.delete("/api/invites/:inviteId", ({}) => {
+    return new HttpResponse();
+  }),
+];
