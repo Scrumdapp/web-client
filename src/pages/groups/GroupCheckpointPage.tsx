@@ -113,7 +113,7 @@ export function GroupCheckpointPage({
           />
         </div>
       )) : currentDate == date ? (
-        <div className="card min-h-90 flex flex-col items-center justify-center gap-2">
+        <div className="min-h-50 flex flex-col items-center justify-center gap-2">
           <h2>{t("checkpoint.nocheckpoint.today")}</h2>
           <p>{t("checkpoint.nocheckpoint.todaydescription")}</p>
           <ShowIf condition={currentDate == date}>
