@@ -14,17 +14,9 @@ export type MRP<Ti extends any[], Tr> = ((...inputs: Ti) => Tr) & {
   id: string;
 };
 
-export interface DateRangeParams {
-  start_date: string;
-  end_date: string;
-}
-
-export type GetCheckpointQueryOptions =
-  { range: DateRangeParams } | { date: string };
-
 export async function makeApiRequest<T>(
   method: RequestMethod,
-  url: String,
+  url: string,
   {
     params,
     query,
@@ -33,14 +25,15 @@ export async function makeApiRequest<T>(
 ): Promise<T> {
   let actualUrl = API_URL + "/" + url.replace(/^\//, "");
   if (params) {
-    for (let paramsKey in params) {
+    for (const paramsKey in params) {
       actualUrl = actualUrl.replace(paramsKey, params[paramsKey] as string);
     }
   }
 
   if (query) {
     const q: { [key: string]: string } = {};
-    for (let queryKey in query) {
+    for (const queryKey in query) {
+      C;
       const v = query[queryKey];
 
       if (v === undefined) {
@@ -51,7 +44,7 @@ export async function makeApiRequest<T>(
         q[queryKey] = String(v);
       }
     }
-    let urlParams = new URLSearchParams(q);
+    const urlParams = new URLSearchParams(q);
     actualUrl = actualUrl + "?" + urlParams.toString();
   }
 
@@ -103,7 +96,7 @@ export async function makeApiRequest<T>(
 }
 
 export function createProcessor<TParams extends any[], TReturn>(
-  name: String,
+  name: string,
   fn: (...TParams: TParams) => TReturn,
 ): MRP<TParams, TReturn> {
   // @ts-ignore
