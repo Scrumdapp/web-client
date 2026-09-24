@@ -33,7 +33,6 @@ export async function makeApiRequest<T>(
   if (query) {
     const q: { [key: string]: string } = {};
     for (const queryKey in query) {
-      C;
       const v = query[queryKey];
 
       if (v === undefined) {
