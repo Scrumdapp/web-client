@@ -34,5 +34,7 @@
     --color-orange-dim: #d65d0e;
 
     --breakpoint-*: initial;
-    
+    --breakpoint-sm: 256px;
+    --breakpoint-md: 512px;
+    --breakpoint-lg: 768px;
 }
