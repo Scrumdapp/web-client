@@ -2,47 +2,56 @@ import { createProcessor, makeApiRequest } from "../apiUtils.ts";
 import { InviteResponse } from "../../../models/invites.tsx";
 
 export function CreateInvite() {
-    return createProcessor("createInvite", (groupId: number, expiresAt: Date, password: string) => {
-        return makeApiRequest<InviteResponse>("POST", "/invites", {
-            query: { group: groupId },
-            body: {
-                password,
-                expiresAt
-            }
-        })
-    })
+  return createProcessor(
+    "createInvite",
+    (groupId: number, expiresAt: Date, password: string) => {
+      return makeApiRequest<InviteResponse>("POST", "/invites", {
+        query: { group: groupId },
+        body: {
+          password,
+          expiresAt,
+        },
+      });
+    },
+  );
 }
 
 export function GetGroupInvites() {
-    return createProcessor("getGroupInvites", (groupId: number) => {
-        return makeApiRequest<InviteResponse[]>("GET", "/invites", {
-            query: { group: groupId },
-        })
-    })
+  return createProcessor("getGroupInvites", (groupId: number) => {
+    return makeApiRequest<InviteResponse[]>("GET", "/invites", {
+      query: { group: groupId },
+    });
+  });
 }
 
 export function GetGroupInvite() {
-    return createProcessor("getGroupInvite", (inviteId: number, token: string) => {
-        return makeApiRequest<InviteResponse>("GET", "/invites/{inviteId}", {
-            params: { "{inviteId}": inviteId },
-            query: { token }
-        })
-    })
+  return createProcessor(
+    "getGroupInvite",
+    (inviteId: number, token: string) => {
+      return makeApiRequest<InviteResponse>("GET", "/invites/{inviteId}", {
+        params: { "{inviteId}": inviteId },
+        query: { token },
+      });
+    },
+  );
 }
 
 export function DeleteInvite() {
-    return createProcessor("deleteInvite", (inviteId: number) => {
-        return makeApiRequest("DELETE", "/invites/{inviteId}", {
-            params: { "{inviteId}": inviteId }
-        })
-    })
+  return createProcessor("deleteInvite", (inviteId: number) => {
+    return makeApiRequest("DELETE", "/invites/{inviteId}", {
+      params: { "{inviteId}": inviteId },
+    });
+  });
 }
 
 export function AcceptInvite() {
-    return createProcessor("acceptInvite", (inviteId: number, token: string, password: string) => {
-        return makeApiRequest("POST", "/invites/{inviteId}/accept", {
-            params: { "{inviteId}": inviteId },
-            body: { token, password }
-        })
-    })
+  return createProcessor(
+    "acceptInvite",
+    (inviteId: number, token: string, password: string) => {
+      return makeApiRequest("POST", "/invites/{inviteId}/accept", {
+        params: { "{inviteId}": inviteId },
+        body: { token, password },
+      });
+    },
+  );
 }

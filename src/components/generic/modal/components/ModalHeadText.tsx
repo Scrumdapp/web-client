@@ -1,11 +1,9 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 
 interface ModalHeadTextProps {
-    children?: ReactNode
+  children?: ReactNode;
 }
 
-export default function ModalHeadText({children}: ModalHeadTextProps) {
-    return (
-        <h2 className="text-fg mb-4">{children}</h2>
-    )
+export default function ModalHeadText({ children }: ModalHeadTextProps) {
+  return <h2 className="text-fg mb-4">{children}</h2>;
 }

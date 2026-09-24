@@ -1,64 +1,63 @@
-
 export interface GroupCheckpointSession {
-    id: number,
-    startTime: string,
-    name: string,
-    duration: number,
-    groupId: number,
-    ownerId: number,
+  id: number;
+  startTime: string;
+  name: string;
+  duration: number;
+  groupId: number;
+  ownerId: number;
 }
 
 export interface GroupCheckpointSessionCreate {
-    name: string,
-    duration?: number
+  name: string;
+  duration?: number;
 }
 
 export interface PartialGroupCheckpointSession {
-    id: number,
-    startTime: string
-    duration: number
-    remainingTime: number
+  id: number;
+  startTime: string;
+  duration: number;
+  remainingTime: number;
 }
 
 export interface GroupCheckpoint {
-    id: number
-    groupUser: number
-    sessionId: number
-    presence?: string | null
-    impediment?: string | null
-    stars?: number | null
-    comment?: string | null
+  id: number;
+  groupUser: number;
+  sessionId: number;
+  presence?: string | null;
+  impediment?: string | null;
+  stars?: number | null;
+  comment?: string | null;
 }
 
 export interface PartialGroupCheckpoint {
-    id: number
-    groupUser: number
-    presence?: string | null
-    impediment?: string | null
-    stars?: number | null
-    comment?: string | null
+  id: number;
+  groupUser: number;
+  presence?: string | null;
+  impediment?: string | null;
+  stars?: number | null;
+  comment?: string | null;
 }
 
 export interface CheckpointSessionFlags {
-    date?: string | null
+  date?: string | null;
 }
 
 export interface UpdateGroupCheckpoint {
-    userId: number
-    sessionId: number
-    presence?: string | null
-    impediment?: string | null
-    stars?: number | null
-    comment?: string | null
+  userId: number;
+  sessionId: number;
+  presence?: string | null;
+  impediment?: string | null;
+  stars?: number | null;
+  comment?: string | null;
 }
 
 export interface SessionDates {
-    fromDate: string
-    toDate: string
-    dates: SessionDate[]
+  fromDate: string;
+  toDate: string;
+  dates: SessionDate[];
 }
 
 export interface SessionDate {
-    date: string,
-    sessions: number[]
+  date: string;
+  sessions: number[];
 }

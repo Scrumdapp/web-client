@@ -6,15 +6,18 @@ import { LoadScreen } from "./components/generic/LoadScreen.tsx";
 import { ErrorScreen } from "./components/generic/ErrorScreen.tsx";
 
 function App() {
-    return (
-        <BrowserRouter>
-            <UserProvider loading={<LoadScreen />} error={(e) => <ErrorScreen error={e} />}>
-                <Layout>
-                    <AppRouter />
-                </Layout>
-            </UserProvider>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <UserProvider
+        loading={<LoadScreen />}
+        error={(e) => <ErrorScreen error={e} />}
+      >
+        <Layout>
+          <AppRouter />
+        </Layout>
+      </UserProvider>
+    </BrowserRouter>
+  );
 }
 
 export default App;

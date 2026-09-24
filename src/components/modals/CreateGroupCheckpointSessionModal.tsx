@@ -13,68 +13,78 @@ import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { useTranslation } from "react-i18next";
 import { CheckpointTimeDurationDropdownMenu } from "../generic/CheckpointTimeDuration.tsx";
 
-export function CreateGroupCheckpointSessionModal({ groupId, state, onCreated }: { groupId: number, state: ModalState, onCreated?: (session: GroupCheckpointSession) => void }) {
-    const { t } = useTranslation();
-    const [checkpointName, setCheckpointName] = useState("");
-    const [showWarning, setShowWarning] = useState(false);
-    const [expireMinutes, setExpireMinutes] = useState(15);
-    const createCheckpointSession = useApi(ScrumdappApi.createCheckpointSessions());
+export function CreateGroupCheckpointSessionModal({
+  groupId,
+  state,
+  onCreated,
+}: {
+  groupId: number;
+  state: ModalState;
+  onCreated?: (session: GroupCheckpointSession) => void;
+}) {
+  const { t } = useTranslation();
+  const [checkpointName, setCheckpointName] = useState("");
+  const [showWarning, setShowWarning] = useState(false);
+  const [expireMinutes, setExpireMinutes] = useState(15);
+  const createCheckpointSession = useApi(
+    ScrumdappApi.createCheckpointSessions(),
+  );
 
-    const handleCreate = async () => {
-        if (!checkpointName.trim()) return;
+  const handleCreate = async () => {
+    if (!checkpointName.trim()) return;
 
-        const session = await createCheckpointSession.runCommand(groupId, {
-            name: checkpointName,
-            duration: expireMinutes,
-        });
+    const session = await createCheckpointSession.runCommand(groupId, {
+      name: checkpointName,
+      duration: expireMinutes,
+    });
 
-        onCreated?.(session);
-        setCheckpointName("");
-        state.accept();
-    };
+    onCreated?.(session);
+    setCheckpointName("");
+    state.accept();
+  };
 
-    return (
-        <Modal state={state}>
-            <div className="space-y-5">
-                <ModalHeadText>
-                    {t("checkpoint.modal.newcheckpoint")}
-                </ModalHeadText>
-                <div className="horizontal flex-1 gap-2">
-                    <input
-                        type="text"
-                        className="write-section w-full!"
-                        placeholder={t('checkpoint.modal.name')}
-                        alt={t('checkpoint.modal.name')}
-                        value={checkpointName}
-                        maxLength={32}
-                        onChange={(e) => {
-                            setShowWarning(!/^[a-zA-Z0-9 \-]{1,32}$/.test(e.target.value))
-                            setCheckpointName(e.target.value);
-                        }}
-                        required
-                    />
-                    <CheckpointTimeDurationDropdownMenu
-                        value={expireMinutes}
-                        onChange={(v) => setExpireMinutes(v ?? 15)}
-                    />
-                </div>
-                {showWarning && (
-                    <p className="text-red text-sm">
-                        {t("checkpoint.modal.error")}
-                    </p>
-                )}
-                <ModalActionRow>
-                    <ModalCancelButton/>
-                    <button
-                        className={`btn btn-secondary border ${!checkpointName ? "opacity-50 cursor-not-allowed!" : ""}`}
-                        disabled={!checkpointName.trim() || createCheckpointSession.loading}
-                        onClick={handleCreate}
-                    >
-                        <FontAwesomeIcon icon={faCheck} className="icon"/>
-                        {createCheckpointSession.loading ? (<LoadScreen />) : t("checkpoint.modal.create")}
-                    </button>
-                </ModalActionRow>
-            </div>
-        </Modal>
-    )
+  return (
+    <Modal state={state}>
+      <div className="space-y-5">
+        <ModalHeadText>{t("checkpoint.modal.newcheckpoint")}</ModalHeadText>
+        <div className="horizontal flex-1 gap-2">
+          <input
+            type="text"
+            className="write-section w-full!"
+            placeholder={t("checkpoint.modal.name")}
+            alt={t("checkpoint.modal.name")}
+            value={checkpointName}
+            maxLength={32}
+            onChange={(e) => {
+              setShowWarning(!/^[a-zA-Z0-9 \-]{1,32}$/.test(e.target.value));
+              setCheckpointName(e.target.value);
+            }}
+            required
+          />
+          <CheckpointTimeDurationDropdownMenu
+            value={expireMinutes}
+            onChange={(v) => setExpireMinutes(v ?? 15)}
+          />
+        </div>
+        {showWarning && (
+          <p className="text-red text-sm">{t("checkpoint.modal.error")}</p>
+        )}
+        <ModalActionRow>
+          <ModalCancelButton />
+          <button
+            className={`btn btn-secondary border ${!checkpointName ? "opacity-50 cursor-not-allowed!" : ""}`}
+            disabled={!checkpointName.trim() || createCheckpointSession.loading}
+            onClick={handleCreate}
+          >
+            <FontAwesomeIcon icon={faCheck} className="icon" />
+            {createCheckpointSession.loading ? (
+              <LoadScreen />
+            ) : (
+              t("checkpoint.modal.create")
+            )}
+          </button>
+        </ModalActionRow>
+      </div>
+    </Modal>
+  );
 }

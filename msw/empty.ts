@@ -2,5 +2,5 @@
 // Build might fail normally though
 
 export const worker = {
-    start: () => {}
-}
+  start: () => {},
+};
