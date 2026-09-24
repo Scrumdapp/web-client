@@ -1,13 +1,23 @@
-import {
-  createProcessor,
-  GetCheckpointQueryOptions,
-  makeApiRequest,
-} from "../apiUtils.ts";
-import {
-  GroupCheckpointSession,
-  GroupCheckpointSessionCreate,
-  SessionDates,
-} from "../../../models/checkpoint.ts";
+import { createProcessor, makeApiRequest } from "../apiUtils.ts";
+import { GroupCheckpointSession, GroupCheckpointSessionCreate, SessionDates } from "../../../models/checkpoint.ts";
+
+
+export interface DateRangeParams {
+  start_date: string;
+  end_date: string;
+}
+
+export type GetCheckpointRangeParam = { range: DateRangeParams }
+export type GetCheckpointDateParam = { date: string }
+export type GetCheckpointQueryOptions = GetCheckpointRangeParam | GetCheckpointDateParam
+
+export function isRangeParam(params: GetCheckpointQueryOptions): params is GetCheckpointRangeParam {
+  return "range" in params
+}
+
+export function isDateParam(params: GetCheckpointQueryOptions): params is GetCheckpointDateParam {
+  return "date" in params && typeof params.date === "string"
+}
 
 export function getCheckpointSessions() {
   return createProcessor(
@@ -18,14 +28,11 @@ export function getCheckpointSessions() {
         "/groups/{group.id}/sessions",
         {
           params: { "{group.id}": groupId.toString() },
-          query: {
-            // @ts-ignore
-            ...(queryOptions.hasOwnProperty("range") ? queryOptions.range : {}),
-            // @ts-ignore
-            ...(queryOptions.hasOwnProperty("date")
+          query: isRangeParam(queryOptions)
+            ? { ...queryOptions.range }
+            : isDateParam(queryOptions)
               ? { date: queryOptions.date }
-              : {}),
-          },
+              : (() => {throw new Error("expected date or range in queryOptions but got neither")})()
         },
       );
     },
