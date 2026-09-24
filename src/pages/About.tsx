@@ -138,7 +138,7 @@ export default function About() {
         <img
           src={`/ScrumdappLogoTransparent.webp`}
           alt={t("about.logo")}
-          className="mx-auto min-w-75"
+          className="mx-auto max-w-full"
         />
       </div>
     </div>

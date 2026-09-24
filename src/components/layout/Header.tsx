@@ -22,7 +22,7 @@ export default function Header() {
               <img
                 src={`/ScrumdappLogoTransparent.webp`}
                 alt={t("about.logo")}
-                className="nav-icon"
+                className="nav-icon max-w-full"
               />
               Scrumdapp
             </Link>
@@ -41,7 +41,7 @@ export default function Header() {
                 <img
                   src={user.avatar ?? "/Scrumdaddy.png"}
                   alt={t("header.profileAlt")}
-                  className="nav-icon"
+                  className="nav-icon max-w-full"
                 />
               </div>
               <div className="nav-dropdown-content -right-[0.5px]!">

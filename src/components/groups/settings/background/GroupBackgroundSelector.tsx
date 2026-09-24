@@ -101,7 +101,7 @@ export function BackgroundSelector() {
       <h3>{t("settings.background.header")}</h3>
       <p>{t("settings.background.text")}</p>
       <img
-        className="rounded-md w-1/2"
+        className="rounded-md w-1/2 max-w-full"
         src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`}
         alt={t("settings.background.current")}
       />

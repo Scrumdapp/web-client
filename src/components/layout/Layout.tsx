@@ -24,7 +24,7 @@ function BackgroundDisplayer() {
   return (
     <img
       src={`/backgrounds/${bg ?? "1"}.webp`}
-      className="fixed object-cover right-0 left-0 top-0 bottom-0 w-full h-full -z-1 opacity-15"
+      className="fixed object-cover right-0 left-0 top-0 bottom-0 w-full max-w-full h-full -z-1 opacity-15"
       alt={t("settings.background.header")}
     />
   );

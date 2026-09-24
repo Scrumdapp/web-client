@@ -17,7 +17,7 @@ export function GroupCard({ group }: GroupCardProps) {
       <img
         src={backgroundUrl}
         alt={t("groups.image", { groupname: group.name })}
-        className="aspect-4/3 object-cover h-full rounded overflow-hidden"
+        className="aspect-4/3 object-cover h-full rounded overflow-hidden max-w-full"
       />
     </div>
   );
