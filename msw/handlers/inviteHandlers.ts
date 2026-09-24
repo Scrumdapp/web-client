@@ -19,7 +19,7 @@ createInviteData(
   2,
 );
 
-for (let group of groupData) {
+for (const group of groupData) {
   createInviteData(group);
 }
 
@@ -67,15 +67,14 @@ function generateInsecureTestToken() {
 
 export const inviteHandlers = [
   http.post("/api/invites", async ({ request }) => {
-    const json: any = await request.json();
+    const json = await request.json()! as object;
     const params = new URL(request.url).searchParams;
-    //@ts-ignore
     const group = groupData.find(
-      (it) => it.id == (params.get("group") as string),
+      (it) => it.id == parseInt(params.get("group") as string),
     )!;
 
-    const expires = json.expiresAt as string;
-    const password = json.password as string;
+    const expires = "expiresAt" in json ? json.expiresAt as string : "";
+    const password = "password" in json ? json.password as string : "";
     const invite: InviteResponseDB = {
       id: 0,
       groupId: group.id,
@@ -93,10 +92,7 @@ export const inviteHandlers = [
   }),
   http.get("/api/invites", ({ request }) => {
     const params = new URL(request.url).searchParams;
-    //@ts-ignore
-    const group = groupData.find(
-      (it) => it.id == (params.get("group") as string),
-    )!;
+    const group = groupData.find((it) => it.id == parseInt(params.get("group") as string))!;
     return HttpResponse.json(inviteData[group.id]);
   }),
   http.get("/api/invites/:inviteId", ({ params }) => {
