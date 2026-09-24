@@ -37,20 +37,20 @@ export function StarsInputField({
   const [hoverValue, setHoverValue] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-    const colorEmpty = useThemeColor("--color-fg4");
+  const colorEmpty = useThemeColor("--color-fg4");
 
   useEffect(() => {
     setLocalValue(value);
   }, [value]);
 
-    const displayValue = hoverValue ?? localValue ?? 0;
+  const displayValue = hoverValue ?? localValue ?? 0;
 
-    const updateValue = (newValue: number) => {
-        setLocalValue(newValue);
-        if (onChange != null) {
-            onChange(newValue);
-        }
-    };
+  const updateValue = (newValue: number) => {
+    setLocalValue(newValue);
+    if (onChange != null) {
+      onChange(newValue);
+    }
+  };
 
   const getValueFromEvent = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -79,23 +79,23 @@ export function StarsInputField({
         const starFullValue = (starIndex + 1) * POINTS_PER_STAR;
         const isFilled = displayValue >= starFullValue - 1;
 
-                return (
-                    <button
-                        key={starIndex}
-                        type="button"
-                        className="cursor-pointer text-2xl focus:outline-none"
-                        onMouseMove={(e) => setHoverValue(getValueFromEvent(e, starIndex))}
-                        onClick={(e) => updateValue(getValueFromEvent(e, starIndex))}
-                        aria-label={`Rate ${starIndex + 1} out of ${max}`}
-                    >
-                        <span
-                            className={`inline-block transition-transform hover:scale-110 ${isFilled ? getStarsColor(displayValue) : colorEmpty}`}
-                        >
-                            <FontAwesomeIcon icon={getStarIcon(starIndex)} />
-                        </span>
-                    </button>
-                );
-            })}
-        </div>
-    );
+        return (
+          <button
+            key={starIndex}
+            type="button"
+            className="cursor-pointer text-2xl focus:outline-none"
+            onMouseMove={(e) => setHoverValue(getValueFromEvent(e, starIndex))}
+            onClick={(e) => updateValue(getValueFromEvent(e, starIndex))}
+            aria-label={`Rate ${starIndex + 1} out of ${max}`}
+          >
+            <span
+              className={`inline-block transition-transform hover:scale-110 ${isFilled ? getStarsColor(displayValue) : colorEmpty}`}
+            >
+              <FontAwesomeIcon icon={getStarIcon(starIndex)} />
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
 }
