@@ -16,9 +16,11 @@ export default {
       closesin: "Checkpoint closes in",
       nocheckpoint: {
         today: "It's awfully quiet in here...",
-        todaydescription: "Create your first checkpoint for this date by clicking the button below.",
+        todaydescription:
+          "Create your first checkpoint for today by clicking the button above.",
         past: "No checkpoints available",
-        pastdescription: "There are no checkpoints available for this date. Please select a different date.",
+        pastdescription:
+          "There are no checkpoints available for this date. Please select a different date.",
       },
       modal: {
         newcheckpoint: "New checkpoint",
@@ -32,7 +34,7 @@ export default {
           twentyminutes: "20 minutes",
           thirtyminutes: "30 minutes",
           onehour: "1 hour",
-        }
+        },
       },
       sidebar: {
         today: "Today",
@@ -75,10 +77,12 @@ export default {
       closed: "Checkpoint gesloten",
       closesin: "Checkpoint sluit over",
       nocheckpoint: {
-        today: "Het is hier akelig stil...",
-        todaydescription: "Maak je eerste checkpoint voor deze datum door op de knop hieronder te klikken.",
+        today: "Het is hier erg stil...",
+        todaydescription:
+          "Maak je eerste checkpoint voor vandaag door op de knop hierboven te klikken.",
         past: "Geen checkpoints beschikbaar",
-        pastdescription: "Er zijn geen checkpoints beschikbaar voor deze datum. Kies een andere datum.",
+        pastdescription:
+          "Er zijn geen checkpoints beschikbaar voor deze datum. Kies een andere datum.",
       },
       modal: {
         newcheckpoint: "Nieuw checkpoint",
@@ -92,7 +96,7 @@ export default {
           twentyminutes: "20 minuten",
           thirtyminutes: "30 minuten",
           onehour: "1 uur",
-        }
+        },
       },
       sidebar: {
         today: "Vandaag",
