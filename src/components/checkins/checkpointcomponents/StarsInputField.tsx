@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { interpolateColor } from "../../../js/utils/starsMath.ts";
+import { getStarsColor } from "../../../js/utils/colorUtils.ts";
 
 type StarsInputFieldProps = {
   value?: number | null;
@@ -37,34 +37,20 @@ export function StarsInputField({
   const [hoverValue, setHoverValue] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const colorLow = useThemeColor("--color-red");
-  const colorMid = useThemeColor("--color-green");
-  const colorHigh = useThemeColor("--color-blue");
-  const colorEmpty = useThemeColor("--color-fg4");
+    const colorEmpty = useThemeColor("--color-fg4");
 
   useEffect(() => {
     setLocalValue(value);
   }, [value]);
 
-  const maxValue = max * POINTS_PER_STAR;
-  const displayValue = hoverValue ?? localValue ?? 0;
+    const displayValue = hoverValue ?? localValue ?? 0;
 
-  const midpoint = maxValue / 2;
-  const activeColor =
-    displayValue <= midpoint
-      ? interpolateColor(displayValue / midpoint, colorLow, colorMid)
-      : interpolateColor(
-          (displayValue - midpoint) / midpoint,
-          colorMid,
-          colorHigh,
-        );
-
-  const updateValue = (newValue: number) => {
-    setLocalValue(newValue);
-    if (onChange != null) {
-      onChange(newValue);
-    }
-  };
+    const updateValue = (newValue: number) => {
+        setLocalValue(newValue);
+        if (onChange != null) {
+            onChange(newValue);
+        }
+    };
 
   const getValueFromEvent = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -93,24 +79,23 @@ export function StarsInputField({
         const starFullValue = (starIndex + 1) * POINTS_PER_STAR;
         const isFilled = displayValue >= starFullValue - 1;
 
-        return (
-          <button
-            key={starIndex}
-            type="button"
-            className="cursor-pointer text-2xl focus:outline-none"
-            onMouseMove={(e) => setHoverValue(getValueFromEvent(e, starIndex))}
-            onClick={(e) => updateValue(getValueFromEvent(e, starIndex))}
-            aria-label={`Rate ${starIndex + 1} out of ${max}`}
-          >
-            <span
-              className="inline-block transition-transform hover:scale-110"
-              style={{ color: isFilled ? activeColor : colorEmpty }}
-            >
-              <FontAwesomeIcon icon={getStarIcon(starIndex)} />
-            </span>
-          </button>
-        );
-      })}
-    </div>
-  );
+                return (
+                    <button
+                        key={starIndex}
+                        type="button"
+                        className="cursor-pointer text-2xl focus:outline-none"
+                        onMouseMove={(e) => setHoverValue(getValueFromEvent(e, starIndex))}
+                        onClick={(e) => updateValue(getValueFromEvent(e, starIndex))}
+                        aria-label={`Rate ${starIndex + 1} out of ${max}`}
+                    >
+                        <span
+                            className={`inline-block transition-transform hover:scale-110 ${isFilled ? getStarsColor(displayValue) : colorEmpty}`}
+                        >
+                            <FontAwesomeIcon icon={getStarIcon(starIndex)} />
+                        </span>
+                    </button>
+                );
+            })}
+        </div>
+    );
 }
