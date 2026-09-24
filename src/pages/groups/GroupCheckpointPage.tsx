@@ -124,7 +124,7 @@ export function GroupCheckpointPage({
           </ShowIf>
         </div>
       ) : (
-        <div className="card min-h-90 flex flex-col items-center justify-center gap-2">
+        <div className="min-h-50 flex flex-col items-center justify-center gap-2">
           <h2>{t("checkpoint.nocheckpoint.past")}</h2>
           <p >{t("checkpoint.nocheckpoint.pastdescription")}</p>
         </div>
