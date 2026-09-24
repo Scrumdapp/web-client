@@ -11,7 +11,6 @@ export const worker = setupWorker(
   ...userHandlers,
   ...groupHandlers,
   ...groupUserHandler,
-  ...groupCheckinsHandlers,
   ...groupCheckpointHandlers,
   ...userCookieHandler,
   ...inviteHandlers,
