@@ -23,7 +23,7 @@ export const groupUserData: GroupUserCollection[] = [
 
 function getGroupUsers(collection: GroupUserCollection): GroupUser[] {
   const r: GroupUser[] = [];
-  for (let userId of collection.users) {
+  for (const userId of collection.users) {
     const user = userData.find((it) => it.id == userId);
     if (!user) continue;
     r.push({
@@ -38,8 +38,7 @@ function getGroupUsers(collection: GroupUserCollection): GroupUser[] {
 
 export const groupUserHandler = [
   http.get("/api/groups/:gid/users", ({ params }) => {
-    // @ts-ignore
-    const group = groupUserData.find((it) => it.groupId == params.gid);
+    const group = groupUserData.find((it) => it.groupId == parseInt(params.gid as string));
     if (group) {
       return HttpResponse.json(getGroupUsers(group));
     }
@@ -56,8 +55,7 @@ export const groupUserHandler = [
     );
   }),
   http.post("/api/groups/:gid/users", ({ params }) => {
-    // @ts-ignore
-    const group = groupUserData.find((it) => it.groupId == params.gid);
+    const group = groupUserData.find((it) => it.groupId == parseInt(params.gid as string));
     if (group) {
       return HttpResponse.json(getGroupUsers(group));
     }
@@ -74,10 +72,7 @@ export const groupUserHandler = [
     );
   }),
   http.get("/api/groups/:gid/users/:uid", ({ params }) => {
-    // @ts-ignore
-    const group = groupUserData.find(
-      (it) => it.groupId == (params.gid as String),
-    );
+    const group = groupUserData.find((it) => it.groupId == parseInt(params.gid as string));
     if (!group) {
       return HttpResponse.json(
         {
@@ -92,8 +87,7 @@ export const groupUserHandler = [
       );
     }
     const users = getGroupUsers(group);
-    // @ts-ignore
-    const user = users.find((it) => it.user_id == params.uid);
+    const user = users.find((it) => it.user_id == parseInt(params.uid as string));
     if (!user) {
       return HttpResponse.json(
         {
@@ -111,10 +105,7 @@ export const groupUserHandler = [
     return HttpResponse.json(user);
   }),
   http.delete("/api/groups/:gid/users/:uid", ({ params }) => {
-    // @ts-ignore
-    const group = groupUserData.find(
-      (it) => it.groupId == (params.gid as String),
-    );
+    const group = groupUserData.find((it) => it.groupId == parseInt(params.gid as string));
     if (!group) {
       return HttpResponse.json(
         {
@@ -129,8 +120,7 @@ export const groupUserHandler = [
       );
     }
     const users = getGroupUsers(group);
-    // @ts-ignore
-    const user = users.find((it) => it.user_id == params.uid);
+    const user = users.find((it) => it.user_id == parseInt(params.uid as string));
     if (!user) {
       return HttpResponse.json(
         {
