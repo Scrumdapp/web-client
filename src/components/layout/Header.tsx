@@ -98,7 +98,7 @@ export default function Header() {
         </nav>
 
         {menuOpen && (
-          <div className="bg-bg_h mt-2 rounded-2xl border shadow-xl w-full md:hidden overflow-hidden">
+          <div className="bg-bg_h mt-4 rounded-xl border shadow-xl w-full md:hidden overflow-hidden">
             <div className="flex flex-col divide-y">
               <div className="flex items-center justify-between gap-2 px-4 py-3">
                 <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
@@ -130,7 +130,7 @@ export default function Header() {
           </div>
         )}
       </header>
-      <div className="h-20" />
+      <div className="h-15 md:h-20" />
     </>
   );
 }
