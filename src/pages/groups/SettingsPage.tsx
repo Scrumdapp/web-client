@@ -1,4 +1,4 @@
-import Invites from "../../components/groups/Invites/InviteComponent.tsx";
+import Invites from "../../components/groups/settings/invites/InviteComponent.tsx";
 import { BackgroundSelector } from "../../components/groups/settings/background/GroupBackgroundSelector.tsx";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
 import { useGroup } from "../../js/context/group/useGroup.ts";
