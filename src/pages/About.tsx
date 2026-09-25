@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 export default function About() {
   const { t } = useTranslation();
   return (
-    <div className="app-container card horizontal gap-3 mb-4">
+    <div className="text-sm md:text-base card vertical md:horizontal gap-3 mb-4 mx-2">
       <title>{t("about.title")}</title>
       <div>
         <h2 className="pb-3">{t("about.header")}</h2>
@@ -138,7 +138,7 @@ export default function About() {
         <img
           src={`/ScrumdappLogoTransparent.webp`}
           alt={t("about.logo")}
-          className="mx-auto min-w-75"
+          className="mx-auto max-w-full"
         />
       </div>
     </div>
