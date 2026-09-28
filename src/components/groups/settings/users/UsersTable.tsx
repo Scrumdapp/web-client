@@ -11,7 +11,7 @@ export function UsersTable() {
 
   return (
     <div className="card">
-      <h3>Users</h3>
+      <h3>{t("settings.users.title")}</h3>
       <GetGroupUsersComponent input={[group.id]}>
         {(users) => (
           <table className="table-fixed">

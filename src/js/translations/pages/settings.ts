@@ -23,7 +23,8 @@ export default {
         },
       },
       users: {
-        name: "Group member",
+        title: "Group Members",
+        name: "Member",
         actions: "Actions",
         updateTitle: "Edit settings for {{user}}",
         save: "Save",
@@ -60,7 +61,8 @@ export default {
         },
       },
       users: {
-        name: "Groepsgenoot",
+        title: "Groeps genoten",
+        name: "User",
         actions: "Acties",
         updateTitle: "Bewerk instellingen voor {{user}}",
         save: "Opslaan",
