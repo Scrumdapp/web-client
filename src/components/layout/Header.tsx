@@ -59,13 +59,13 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="hidden md:flex gap-4">
+          <h2 className="hidden md:flex gap-4">
             {links.map((link, i) => (
-              <Link key={i} to={link.to} className="btn py-1!">
+              <Link key={i} to={link.to} className="btn md:text-lg py-1!">
                 {link.label}
               </Link>
             ))}
-          </div>
+          </h2>
 
           <div className="hidden md:flex md:flex-1 justify-end h-full my-4">
             <div className="nav-dropdown cursor-default">

@@ -42,7 +42,7 @@ export function GroupLayout() {
                     <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
                   </button>
                 </div>
-                <div className="text-xl md:text-2xl"> {ctx!!.group!!.name} </div>
+                <h1 className="text-xl md:text-2xl"> {ctx!!.group!!.name} </h1>
               </div>
             </>
           )}

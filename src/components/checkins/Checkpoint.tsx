@@ -281,7 +281,7 @@ function Checkpoint({
             className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
           />
           <div className="gap-3 flex items-center justify-between w-full">
-            <h2 className="text-lg md:text-base">{name}</h2>
+            <h2 className="text-lg md:text-2xl">{name}</h2>
           </div>
         </button>
         <div className="flex items-center gap-3">
@@ -295,7 +295,7 @@ function Checkpoint({
           </button>
         </div>
       </div>
-      <p className="text-xs md:text-xs">
+      <p className="text-xs md:text-lg">
         {isLocked ? (
           t("checkpoint.closed")
         ) : (

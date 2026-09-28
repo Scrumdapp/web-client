@@ -71,16 +71,16 @@ export function GroupCheckpointPage({
   return (
     <div className="space-y-3">
       <title>{group.name ? `${group.name} | Scrumdapp` : "Scrumdapp"}</title>
-      <div className="flex justify-between card w-full h-25 md:h-20 bg-bg_h border rounded-lg p-2 items-center">
+      <div className="flex justify-between card w-full max-h-20 md:h-20 bg-bg_h border rounded-lg p-2 items-center">
         <div className="horizontal items-center">
           <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
             <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
           </Link>
-          <h2 className="text-lg md:text-base w-fit flex justify-center px-0 md:px-2">
+          <h2 className="text-lg md:text-xl w-fit flex justify-center px-0 md:px-2">
             <span className="md:hidden">
               {t(parseWeekDayMobile(parseScrumdappDate(date).getUTCDay()))}
             </span>
-                      <span className="hidden md:inline">
+            <span className="hidden md:inline">
               {t(parseWeekDay(parseScrumdappDate(date).getUTCDay()))}
             </span>
             &nbsp;{date}
@@ -122,12 +122,12 @@ export function GroupCheckpointPage({
           </div>
         ))
       ) : currentDate == date ? (
-        <div className="min-h-50 flex flex-col items-center justify-center gap-2">
+        <div className="py-4 flex flex-col items-center justify-center gap-2">
           <h2>{t("checkpoint.nocheckpoint.today")}</h2>
           <p>{t("checkpoint.nocheckpoint.todaydescription")}</p>
         </div>
       ) : (
-        <div className="min-h-50 flex flex-col items-center justify-center gap-2">
+        <div className="py-4 flex flex-col items-center justify-center gap-2">
           <h2>{t("checkpoint.nocheckpoint.past")}</h2>
           <p>{t("checkpoint.nocheckpoint.pastdescription")}</p>
         </div>
