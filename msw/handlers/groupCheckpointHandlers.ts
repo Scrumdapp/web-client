@@ -101,13 +101,13 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
         const session = generateSession(
           Math.floor(Math.random() * 6900),
           group!.id,
-          users[randomUser],
+          users[randomUser].user_id,
           day,
         );
 
         const checkpoints: GroupCheckpoint[] = [];
         for (const u of users) {
-          checkpoints.push(generateCheckpoint(session.id, u));
+          checkpoints.push(generateCheckpoint(session.id, u.user_id));
         }
 
         sessions.push({

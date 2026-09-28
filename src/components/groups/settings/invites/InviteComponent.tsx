@@ -1,16 +1,16 @@
-import Modal from "../../generic/modal/Modal.tsx";
-import { useModalState } from "../../../js/hooks/useModalState.ts";
+import Modal from "../../../generic/modal/Modal.tsx";
+import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { useEffect, useState } from "react";
-import { ScrumdappApi } from "../../../js/hooks/api/scrumdappApi.ts";
-import ModalActionRow from "../../generic/modal/components/ModalActionRow.tsx";
-import ModalCancelButton from "../../generic/modal/components/ModalCancelButton.tsx";
-import { InviteTimeDurationDropdownMenu } from "../../generic/InviteTimeDuration.tsx";
+import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
+import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx";
+import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
+import { InviteTimeDurationDropdownMenu } from "../../../generic/InviteTimeDuration.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
-import { useApi } from "../../../js/hooks/api/useApi.ts";
-import { InviteResponse } from "../../../js/models/invites.tsx";
-import useTempState from "../../../js/hooks/useTempState.ts";
+import { useApi } from "../../../../js/hooks/api/useApi.ts";
+import { InviteResponse } from "../../../../js/models/invites.tsx";
+import useTempState from "../../../../js/hooks/useTempState.ts";
 import { useTranslation } from "react-i18next";
 
 interface InvitesProps {

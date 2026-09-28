@@ -37,4 +37,9 @@ export interface GroupUser {
   group_id: number;
   first_name: string;
   last_name: string;
+  is_ghost: boolean;
+}
+
+export interface PatchGroupUser {
+  is_ghost?: boolean;
 }
