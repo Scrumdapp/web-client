@@ -1,9 +1,24 @@
 import { http, HttpResponse } from "msw";
-import { GroupCheckpoint, GroupCheckpointSession, SessionDates } from "../../src/js/models/checkpoint";
+import {
+  GroupCheckpoint,
+  GroupCheckpointSession,
+  SessionDates,
+} from "../../src/js/models/checkpoint";
 import { groupData } from "./groupHandlers";
 import { groupUserData } from "./groupUserHandler";
-import { parseScrumdappDate, toScrumdappDate, } from "../../src/js/utils/scrumdappDate";
-import { DAY, firstDayOfMonth, getWeekEnd, getWeekStart, getYearMonth, lastDayOfMonth, parseYearMonth } from "../../src/js/utils/timeUtils";
+import {
+  parseScrumdappDate,
+  toScrumdappDate,
+} from "../../src/js/utils/scrumdappDate";
+import {
+  DAY,
+  firstDayOfMonth,
+  getWeekEnd,
+  getWeekStart,
+  getYearMonth,
+  lastDayOfMonth,
+  parseYearMonth,
+} from "../../src/js/utils/timeUtils";
 
 export const PRESENCE_FIELDS = [
   "ON_TIME",
@@ -207,7 +222,7 @@ export const groupCheckpointHandlers = [
   http.post("/api/groups/:gid/sessions", async ({ params, request }) => {
     const today = new Date();
     const time = today;
-    const body = await request.json() as { name: string };
+    const body = (await request.json()) as { name: string };
 
     const sessionName = body.name as string;
 
@@ -230,7 +245,9 @@ export const groupCheckpointHandlers = [
     return HttpResponse.json(newSession, { status: 201 });
   }),
   http.get("/api/groups/:gid/sessions/months", ({ params }) => {
-    const sessions = groupCheckpoints.filter((it) => it.sessions.groupId == parseInt(params.gid as string));
+    const sessions = groupCheckpoints.filter(
+      (it) => it.sessions.groupId == parseInt(params.gid as string),
+    );
 
     const uniqueMonths = new Set<string>(
       sessions.map((it) => getYearMonth(new Date(it.sessions.startTime))),
@@ -240,7 +257,9 @@ export const groupCheckpointHandlers = [
     return HttpResponse.json<string[]>(dates);
   }),
   http.get("/api/groups/:gid/sessions/dates", ({ params, request }) => {
-    const sessions = groupCheckpoints.filter((it) => it.sessions.groupId == parseInt(params.gid as string));
+    const sessions = groupCheckpoints.filter(
+      (it) => it.sessions.groupId == parseInt(params.gid as string),
+    );
     const url = new URL(request.url);
 
     const uniqueDates = new Set<string>(
@@ -281,7 +300,11 @@ export const groupCheckpointHandlers = [
   http.get("/api/groups/:gid/sessions/:sid", ({ params }) => {
     const sessions = groupCheckpoints
       .map((it) => it.sessions)
-      .filter((it) => it.groupId == parseInt(params.gid as string) && it.id == parseInt(params.sid as string));
+      .filter(
+        (it) =>
+          it.groupId == parseInt(params.gid as string) &&
+          it.id == parseInt(params.sid as string),
+      );
     return HttpResponse.json(sessions);
   }),
   http.get("/api/groups/:gid/checkpoints", ({ params, request }) => {
@@ -316,7 +339,11 @@ export const groupCheckpointHandlers = [
   http.get("/api/groups/:gid/checkpoints/:cid", ({ params }) => {
     const session = groupCheckpoints
       .map((it) => it.sessions)
-      .filter((it) => it.groupId == parseInt(params.gid as string) && it.id == parseInt(params.cid as string))[0];
+      .filter(
+        (it) =>
+          it.groupId == parseInt(params.gid as string) &&
+          it.id == parseInt(params.cid as string),
+      )[0];
     const checkpoints = groupCheckpoints
       .map((it) => it.checkpoints)
       .flat()
@@ -327,7 +354,11 @@ export const groupCheckpointHandlers = [
   http.patch("/api/groups/:gid/checkpoints/:cid", ({ params }) => {
     const session = groupCheckpoints
       .map((it) => it.sessions)
-      .filter((it) => it.groupId == parseInt(params.gid as string) && it.id == parseInt(params.cid as string))[0];
+      .filter(
+        (it) =>
+          it.groupId == parseInt(params.gid as string) &&
+          it.id == parseInt(params.cid as string),
+      )[0];
 
     const checkpoints = groupCheckpoints
       .map((it) => it.checkpoints)
@@ -337,11 +368,15 @@ export const groupCheckpointHandlers = [
     return HttpResponse.json(checkpoints);
   }),
   http.patch("/api/groups/:gid/checkpoints", async ({ params, request }) => {
-    const body = await request.json()! as { sessionId: string };
+    const body = (await request.json()!) as { sessionId: string };
 
     const session = groupCheckpoints
       .map((it) => it.sessions)
-      .filter((it) => it.groupId == parseInt(params.gid as string) && it.id == parseInt(body.sessionId))[0];
+      .filter(
+        (it) =>
+          it.groupId == parseInt(params.gid as string) &&
+          it.id == parseInt(body.sessionId),
+      )[0];
 
     const checkpoints = groupCheckpoints
       .map((it) => it.checkpoints)
