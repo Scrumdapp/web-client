@@ -108,7 +108,7 @@ export const groupUserHandler = [
     return HttpResponse.json(user);
   }),
   http.patch("/api/groups/:gid/users/:uid", async ({ params, request }) => {
-    const body = await request.json() as PatchGroupUser;
+    const body = (await request.json()) as PatchGroupUser;
     const group = groupUserData.find(
       (it) => it.groupId == parseInt(params.gid as string),
     )!;
