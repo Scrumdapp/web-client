@@ -44,6 +44,7 @@ export function GroupCheckpointPage({
   const getGroupUsers = useApi(ScrumdappApi.getGroupUsers(), {
     fetchOnCreated: [group.id],
   });
+
   const getCheckpointSessions = useApi(ScrumdappApi.getCheckpointSessions(), {
     fetchOnCreated: [group.id, { date }],
   });
@@ -61,7 +62,7 @@ export function GroupCheckpointPage({
   }
 
   const checkpointSessions = getCheckpointSessions.data!;
-  const groupUsers = getGroupUsers.data!;
+  const groupUsers = getGroupUsers.data!.filter(it => !it.is_ghost);
 
   const groupCreated = () => {
     getCheckpointSessions.runCommand(group.id, { date });
