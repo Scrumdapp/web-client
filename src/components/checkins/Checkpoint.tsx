@@ -483,25 +483,25 @@ function Checkpoint({
           </ModalHeadText>
           <div className="flex flex-col space-y-2 w-full">
             <div className="grid grid-cols-2 gap-x-8 space-y-2 w-full">
-              <label>{t("checkpoint.attendance")}</label>
-              <label>{t("checkpoint.stars")}</label>
+              <h3>{t("checkpoint.attendance")}</h3>
+              <h3>{t("checkpoint.stars")}</h3>
 
               <AttendanceReadOnlyField value={selectedPresence} />
               <StarsReadOnlyField value={selectedStar ?? 0} />
             </div>
-            <label className="mt-2">{t("checkpoint.notes")}</label>
+            <h3 className="mt-2">{t("checkpoint.notes")}</h3>
             {notes && notes?.length > 0 ? (
-              <div className="p-3 text-fg4 border max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
+              <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
                 {notes}
-              </div>
+              </p>
             ) : (
               <span className="text-fg4 italic">{t("checkpoint.nonotes")}</span>
             )}
-            <label className="mt-2">{t("checkpoint.obstacle")}</label>
+            <h3 className="mt-2">{t("checkpoint.obstacle")}</h3>
             {obstacle && obstacle?.length > 0 ? (
-              <div className="p-3 text-fg4 border max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
+              <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
                 {obstacle}
-              </div>
+              </p>
             ) : (
               <span className="text-fg4 italic">
                 {t("checkpoint.noobstacles")}
