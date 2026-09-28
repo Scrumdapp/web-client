@@ -5,6 +5,7 @@ import { useGroup } from "../../js/context/group/useGroup.ts";
 import { useTranslation } from "react-i18next";
 import { useUser } from "../../js/context/user/useUser.ts";
 import { hasRole, Role } from "../../js/utils/userPermissions.ts";
+import { UsersTable } from "../../components/groups/settings/users/UsersTable.tsx";
 
 export function SettingsPage() {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ export function SettingsPage() {
       <div className="card">
         <h2>{t("settings.header")}</h2>
       </div>
+      <UsersTable />
       <ShowIf condition={hasRole(user, Role.Coach)}>
         <Invites groupId={group.id} />
       </ShowIf>
