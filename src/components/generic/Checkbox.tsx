@@ -29,7 +29,6 @@ export function Checkbox({
   const [v, setV] = useState(checked);
 
   const changed = (it: ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
-    console.log("changed");
     setV(it.target.checked);
     onChange?.(it);
   };
