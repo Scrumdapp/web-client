@@ -145,7 +145,9 @@ function ModalPage3({ onSucceedCalled, user }: ModalPageProps) {
       <ModalHeadText>
         {t("settings.users.delete.deleted.title", { user: fullName })}
       </ModalHeadText>
-      {t("settings.users.delete.deleted.desc", { user: fullName })}
+      <p className="mb-4">
+        {t("settings.users.delete.deleted.desc", { user: fullName })}
+      </p>
       <ModalActionRow>
         <button className="btn btn-secondary border" onClick={onSucceedCalled}>
           <FontAwesomeIcon icon={faCheck} />
