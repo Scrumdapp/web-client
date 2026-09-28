@@ -21,3 +21,7 @@
 .btn-attendance-dropdown {
   @apply block px-2 focus:border-dashed text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer w-full text-left;
 }
+
+.btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
