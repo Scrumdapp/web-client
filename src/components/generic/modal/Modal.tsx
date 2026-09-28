@@ -6,8 +6,8 @@ import { cn } from "../../../js/utils/tw.ts";
 interface ModalProps {
   state: ModalState;
   backgroundClickClose?: boolean;
-  children: React.ReactNode;,
-    className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
 export default function Modal({
