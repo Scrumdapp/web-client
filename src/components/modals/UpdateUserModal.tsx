@@ -1,18 +1,20 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ModalState } from "../../js/hooks/useModalState";
 import { GroupUser } from "../../js/models/group";
 import ModalActionRow from "../generic/modal/components/ModalActionRow";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton";
 import ModalHeadText from "../generic/modal/components/ModalHeadText";
 import Modal from "../generic/modal/Modal";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export function UpdateGroupUserModal({
   user,
   state,
-  onSaved,
+  onSaved = () => {},
 }: {
   user: GroupUser;
   state: ModalState;
-  onSaved: () => void;
+  onSaved?: () => void;
 }) {
   return (
     <Modal state={state}>
@@ -20,7 +22,9 @@ export function UpdateGroupUserModal({
 
       <ModalActionRow>
         <ModalCancelButton />
-        <button>Save</button>
+        <button className="btn btn-secondary">
+          <FontAwesomeIcon icon={faCheck} /> Save
+        </button>
       </ModalActionRow>
     </Modal>
   );
