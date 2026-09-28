@@ -90,6 +90,24 @@ export default {
           labelInput: "Gebruiker is zichtbaar: ",
           labelTable: "Zichtbaarheid",
         },
+        delete: {
+          title: "Verwijder {{user}} van de groep",
+          steps: "stap {{index}}/{{total}}",
+          warn: {
+            desc: "Weet je zeker dat je '{{user}}' wilt verwijderen van de groep? Dit verwijdert alle checkpoints van deze gebruiker. Daarnaast verliest de gebruiker direct toegang tot de groep",
+            next: "Volgende",
+          },
+          confirm: {
+            desc: "Typ '{{target}}' om de gebruiker uit de groep te verwijderen",
+            placeholder: "Typ de naam in dit veld",
+            next: "Verwijder",
+          },
+          deleted: {
+            title: "Gebruiker verwijdert",
+            desc: "De gebruiker '{{user}}' is verwijdert van de groep",
+            close: "Sluit",
+          },
+        },
       },
     },
   },
