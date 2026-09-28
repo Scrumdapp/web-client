@@ -3,8 +3,10 @@ import { GroupUser } from "../../../../js/models/group";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { useModalState } from "../../../../js/hooks/useModalState";
 import { UpdateGroupUserModal } from "../../../modals/UpdateUserModal";
+import { useTranslation } from "react-i18next";
 
 export function UsersTableUserRow({ user }: { user: GroupUser }) {
+  const { t } = useTranslation()
   const state = useModalState();
 
   return (
@@ -13,7 +15,7 @@ export function UsersTableUserRow({ user }: { user: GroupUser }) {
         {user.first_name} {user.last_name}
       </td>
       <td className="p-2 border-t border-dotted">
-        {user.is_ghost ? "Hidden" : "Visible"}
+        {t(user.is_ghost ? "settings.users.ghost.hidden" : "settings.users.ghost.visible")}
       </td>
       <td className="flex justify-end p-2 border-t border-dotted">
         <button className="btn border btn-secondary" onClick={state.open}>

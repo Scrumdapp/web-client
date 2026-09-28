@@ -15,6 +15,7 @@ import { ShowIf } from "../utility/Conditional";
 import useTempState from "../../js/hooks/useTempState";
 import { ApiError } from "../../js/hooks/api/apiError";
 import { Checkbox } from "../generic/Checkbox";
+import { useTranslation } from "react-i18next";
 
 export function UpdateGroupUserModal({
   user,
@@ -30,6 +31,8 @@ export function UpdateGroupUserModal({
   const [isHidden, setIsHidden] = useState(!user.is_ghost);
   const [updated, setUpdated] = useState(false);
   const [errorValue, setErrorValue] = useTempState<ApiError>();
+
+  const { t } = useTranslation()
 
   const updateUser = () => {
     if (!updated) return;
@@ -47,7 +50,7 @@ export function UpdateGroupUserModal({
 
   return (
     <Modal state={state}>
-      <ModalHeadText>Update user {user.first_name}</ModalHeadText>
+      <ModalHeadText>{t("settings.users.updateTitle", { user: user.first_name })}</ModalHeadText>
 
       <div className="vertical gap-4 mb-2">
         <div className="horizontal gap-2 flex-1">
@@ -74,7 +77,7 @@ export function UpdateGroupUserModal({
             <LoadScreen />
           ) : (
             <>
-              <FontAwesomeIcon icon={faCheck} /> Save
+              <FontAwesomeIcon icon={faCheck} /> {t("settings.users.save")}
             </>
           )}
         </button>

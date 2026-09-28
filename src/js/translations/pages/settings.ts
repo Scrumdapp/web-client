@@ -23,13 +23,17 @@ export default {
         },
       },
       users: {
+        name: "Group member",
+        actions: "Actions",
+        updateTitle: "Editing user {{user}}",
+        save: "Save",
         ghost: {
           visible: "Visible",
           hidden: "Hidden",
           labelInput: "User visibility",
-          labelTable: "Visibility"
-        }
-      }
+          labelTable: "Visibility",
+        },
+      },
     },
   },
   nl: {
@@ -56,13 +60,17 @@ export default {
         },
       },
       users: {
+        name: "Groepsgenoot",
+        actions: "Acties",
+        updateTitle: "{{user}} aan het aanpassen",
+        save: "Opslaan",
         ghost: {
           visible: "Zichtbaar",
           hidden: "Verstopt",
           labelInput: "Gebruiker zichtbaar",
-          labelTable: "Zichtbaarheid"
-        }
-      }
+          labelTable: "Zichtbaarheid",
+        },
+      },
     },
   },
 };
