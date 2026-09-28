@@ -97,22 +97,34 @@ export function GroupCheckpointPage({
           </button>
         </ShowIf>
       </div>
-      {[...checkpointSessions].reverse().map((session, index) => (
-        <div key={session.id} className="w-full">
-          <Checkpoint
-            groupId={group.id}
-            key={session.id}
-            name={session.name}
-            startTime={new Date(session.startTime).getTime()}
-            duration={session.duration * 60_000}
-            sessionId={session.id}
-            users={groupUsers}
-            currentUser={currentUser}
-            ownerId={session.ownerId}
-            isMostRecent={index === 0}
-          />
+      {checkpointSessions?.length > 0 ? (
+        [...checkpointSessions].reverse().map((session, index) => (
+          <div key={session.id} className="w-full">
+            <Checkpoint
+              groupId={group.id}
+              key={session.id}
+              name={session.name}
+              startTime={new Date(session.startTime).getTime()}
+              duration={session.duration * 60_000}
+              sessionId={session.id}
+              users={groupUsers}
+              currentUser={currentUser}
+              ownerId={session.ownerId}
+              isMostRecent={index === 0}
+            />
+          </div>
+        ))
+      ) : currentDate == date ? (
+        <div className="min-h-50 flex flex-col items-center justify-center gap-2">
+          <h2>{t("checkpoint.nocheckpoint.today")}</h2>
+          <p>{t("checkpoint.nocheckpoint.todaydescription")}</p>
         </div>
-      ))}
+      ) : (
+        <div className="min-h-50 flex flex-col items-center justify-center gap-2">
+          <h2>{t("checkpoint.nocheckpoint.past")}</h2>
+          <p>{t("checkpoint.nocheckpoint.pastdescription")}</p>
+        </div>
+      )}
       <CreateGroupCheckpointSessionModal
         groupId={group.id}
         state={modal}
