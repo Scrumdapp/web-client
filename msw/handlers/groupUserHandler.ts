@@ -120,7 +120,7 @@ export const groupUserHandler = [
       user.is_ghost = body.is_ghost!;
     }
 
-    return new HttpResponse({ status: 204 });
+    return new HttpResponse({}, { status: 204 });
   }),
   http.delete("/api/groups/:gid/users/:uid", ({ params }) => {
     const group = groupUserData.find(
