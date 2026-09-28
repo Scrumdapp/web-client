@@ -24,7 +24,7 @@ export function UsersTable() {
             </thead>
             <tbody>
               {users.map((it) => (
-                <UsersTableUserRow key={it.user_id} user={it} />
+                <UsersTableUserRow key={it.user_id} user={it} onUpdated={() => GetGroupUsersComponent.refresh()} />
               ))}
             </tbody>
           </table>

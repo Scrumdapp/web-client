@@ -5,7 +5,7 @@ import { useModalState } from "../../../../js/hooks/useModalState";
 import { UpdateGroupUserModal } from "../../../modals/UpdateUserModal";
 import { useTranslation } from "react-i18next";
 
-export function UsersTableUserRow({ user }: { user: GroupUser }) {
+export function UsersTableUserRow({ user, onUpdated = () => {} }: { user: GroupUser, onUpdated?: () => void }) {
   const { t } = useTranslation()
   const state = useModalState();
 
@@ -21,7 +21,7 @@ export function UsersTableUserRow({ user }: { user: GroupUser }) {
         <button className="btn border btn-secondary" onClick={state.open}>
           <FontAwesomeIcon icon={faPencil} />
         </button>
-        <UpdateGroupUserModal user={user} state={state} onSaved={state.close} />
+        <UpdateGroupUserModal user={user} state={state} onSaved={() => {state.close(); onUpdated()}} />
       </td>
     </tr>
   );
