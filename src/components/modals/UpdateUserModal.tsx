@@ -54,7 +54,7 @@ export function UpdateGroupUserModal({
         {t("settings.users.updateTitle", { user: `${user.first_name} ${user.last_name}` })}
       </ModalHeadText>
 
-      <div className="vertical gap-4 mb-2">
+      <div className="vertical gap-4 mb-4">
         <div className="horizontal gap-2 flex-1">
           <Checkbox
             name="is_ghost"
