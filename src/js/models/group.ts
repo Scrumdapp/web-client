@@ -41,5 +41,5 @@ export interface GroupUser {
 }
 
 export interface PatchGroupUser {
-  is_ghost?: boolean
+  is_ghost?: boolean;
 }
