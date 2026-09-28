@@ -35,7 +35,7 @@ export function GroupProvider({
   }
 
   if (getGroupData.loading || getGroupData.data == null) {
-    return <LoadScreen />
+    return <LoadScreen />;
   }
 
   const Provider = groupContext.Provider;

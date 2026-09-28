@@ -3,118 +3,130 @@ import { Group } from "../../src/js/models/group";
 import { groupUserData } from "./groupUserHandler.ts";
 
 export const groupData: Group[] = [
-    {
-        id: 1,
-        name: "Final Space",
-        background_preference: undefined,
-        icon_preference: undefined,
-        enabled_features: [
-            "checkins",
-            "checkins.presence",
-            "checkins.presence_comment",
-            "checkins.checkin_stars",
-            "checkins.checkin_comment",
-            "checkins.obstacle_comment"
-        ]
-    },
-    {
-        id: 2,
-        name: "Outer Space",
-        background_preference: 'color_green',
-        icon_preference: undefined,
-        enabled_features: [
-            "checkins",
-            "checkins.presence",
-            "checkins.presence_comment",
-            "checkins.checkin_stars",
-            "checkins.checkin_comment",
-        ]
-    },
-    {
-        id: 3,
-        name: "Inner Space",
-        background_preference: '14_2',
-        icon_preference: undefined,
-        enabled_features: [
-            "checkins",
-            "checkins.presence",
-            "checkins.presence_comment",
-        ]
-    },
-    {
-        id: 4,
-        name: "Observable Space",
-        background_preference: '14_2',
-        icon_preference: undefined,
-        enabled_features: [
-            "checkins",
-            "checkins.presence",
-            "checkins.presence_comment",
-        ]
-    }
-]
+  {
+    id: 1,
+    name: "Final Space",
+    background_preference: undefined,
+    icon_preference: undefined,
+    enabled_features: [
+      "checkins",
+      "checkins.presence",
+      "checkins.presence_comment",
+      "checkins.checkin_stars",
+      "checkins.checkin_comment",
+      "checkins.obstacle_comment",
+    ],
+  },
+  {
+    id: 2,
+    name: "Outer Space",
+    background_preference: "color_green",
+    icon_preference: undefined,
+    enabled_features: [
+      "checkins",
+      "checkins.presence",
+      "checkins.presence_comment",
+      "checkins.checkin_stars",
+      "checkins.checkin_comment",
+    ],
+  },
+  {
+    id: 3,
+    name: "Inner Space",
+    background_preference: "14_2",
+    icon_preference: undefined,
+    enabled_features: [
+      "checkins",
+      "checkins.presence",
+      "checkins.presence_comment",
+    ],
+  },
+  {
+    id: 4,
+    name: "Observable Space",
+    background_preference: "14_2",
+    icon_preference: undefined,
+    enabled_features: [
+      "checkins",
+      "checkins.presence",
+      "checkins.presence_comment",
+    ],
+  },
+];
 
 export const groupHandlers = [
-    http.get("/api/groups", async ({ }) => {
-        return HttpResponse.json(groupData.filter(it => it.id < 4))
-    }),
-    http.post("/api/groups", ({ }) => {
-        const group = groupUserData[0]
-        if (group) {
-            return HttpResponse.json(group)
-        }
-        return HttpResponse.json({
-            error: true,
-            status: 404,
-            message: "Not found",
-            detail: "The group with this ID does not exist"
-        } as object, {
-            status: 404
-        })
-    }),
-    http.get("/api/groups/:gid", async ({ params }) => {
-        // @ts-ignore
-        const group = groupData.find(it => it.id == params.gid)
-        if (group) {
-            return HttpResponse.json(group as object)
-        }
-        return HttpResponse.json({
-            error: true,
-            status: 404,
-            message: "Not found",
-            detail: "The group with this ID does not exist"
-        } as object, {
-            status: 404
-        })
-    }),
-    http.patch("/api/groups/:gid", ({ params }) => {
-        // @ts-ignore
-        const group = groupData.find(it => it.id == params.gid)
-        if (group) {
-            return HttpResponse.json(group as object)
-        }
-        return HttpResponse.json({
-            error: true,
-            status: 404,
-            message: "Not found",
-            detail: "The group with this ID does not exist"
-        } as object, {
-            status: 404
-        })
-    }),
-    http.delete("/api/groups/:gid", ({ params }) => {
-        // @ts-ignore
-        const group = groupData.find(it => it.id == params.gid)
-        if (group) {
-            return HttpResponse.json({ success: true })
-        }
-        return HttpResponse.json({
-            error: true,
-            status: 404,
-            message: "Not found",
-            detail: "The group with this ID does not exist"
-        } as object, {
-            status: 404
-        })
-    })
-]
+  http.get("/api/groups", async ({}) => {
+    return HttpResponse.json(groupData.filter((it) => it.id < 4));
+  }),
+  http.post("/api/groups", ({}) => {
+    const group = groupUserData[0];
+    if (group) {
+      return HttpResponse.json(group);
+    }
+    return HttpResponse.json(
+      {
+        error: true,
+        status: 404,
+        message: "Not found",
+        detail: "The group with this ID does not exist",
+      } as object,
+      {
+        status: 404,
+      },
+    );
+  }),
+  http.get("/api/groups/:gid", async ({ params }) => {
+    // @ts-ignore
+    const group = groupData.find((it) => it.id == params.gid);
+    if (group) {
+      return HttpResponse.json(group as object);
+    }
+    return HttpResponse.json(
+      {
+        error: true,
+        status: 404,
+        message: "Not found",
+        detail: "The group with this ID does not exist",
+      } as object,
+      {
+        status: 404,
+      },
+    );
+  }),
+  http.patch("/api/groups/:gid", ({ params }) => {
+    // @ts-ignore
+    const group = groupData.find((it) => it.id == params.gid);
+    if (group) {
+      return HttpResponse.json(group as object);
+    }
+    return HttpResponse.json(
+      {
+        error: true,
+        status: 404,
+        message: "Not found",
+        detail: "The group with this ID does not exist",
+      } as object,
+      {
+        status: 404,
+      },
+    );
+  }),
+  http.delete("/api/groups/:gid", ({ params }) => {
+    // @ts-ignore
+    const group = groupData.find((it) => it.id == params.gid);
+    if (group) {
+      return HttpResponse.json({ success: true });
+    }
+    return HttpResponse.json(
+      {
+        error: true,
+        status: 404,
+        message: "Not found",
+        detail: "The group with this ID does not exist",
+      } as object,
+      {
+        status: 404,
+      },
+    );
+  }),
+];

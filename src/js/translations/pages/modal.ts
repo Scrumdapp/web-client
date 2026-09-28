@@ -1,12 +1,12 @@
 export default {
-    en: {
-        modal: {
-            cancel: 'Cancel',
-        },
+  en: {
+    modal: {
+      cancel: "Cancel",
     },
-    nl: {
-        modal: {
-            cancel: 'Annuleer',
-        },
-    }
-}
+  },
+  nl: {
+    modal: {
+      cancel: "Annuleer",
+    },
+  },
+};

@@ -1,155 +1,213 @@
-import { GroupUser } from "../../../../js/models/group"
-import { GroupPresenceTrends, PresenceTrendItem } from "../../../../js/models/trends"
-import { getAttendanceLabelKeyTrends } from "../../../../js/utils/colorUtils"
-import { HideIf } from "../../../utility/Conditional"
-import { HideIfNotFullyVisible } from "../../../utility/Text"
+import { GroupUser } from "../../../../js/models/group";
+import {
+  GroupPresenceTrends,
+  PresenceTrendItem,
+} from "../../../../js/models/trends";
+import { getAttendanceLabelKeyTrends } from "../../../../js/utils/colorUtils";
+import { HideIf } from "../../../utility/Conditional";
+import { HideIfNotFullyVisible } from "../../../utility/Text";
 import { useTranslation } from "react-i18next";
 
-export function RenderCumulativeGraph({ users, data }: { users: GroupUser[], data: GroupPresenceTrends }) {
-    const length = data.trends[0].days.length
+export function RenderCumulativeGraph({
+  users,
+  data,
+}: {
+  users: GroupUser[];
+  data: GroupPresenceTrends;
+}) {
+  const length = data.trends[0].days.length;
 
-    if (length == 0) {
-        return (
-            <div className="center">
-                No data available
+  if (length == 0) {
+    return <div className="center">No data available</div>;
+  }
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <div
+              className="relative"
+              style={{
+                height: "16px",
+                marginLeft: "2px",
+                marginRight: "2px",
+                marginBottom: "4px",
+              }}
+            >
+              {[0, 20, 40, 60, 80, 100].map((pct) => (
+                <span
+                  key={pct}
+                  className="text-fg3 absolute"
+                  style={{
+                    left: `${pct}%`,
+                    transform:
+                      pct === 0
+                        ? "translateX(0%)"
+                        : pct === 100
+                          ? "translateX(-100%)"
+                          : "translateX(-50%)",
+                  }}
+                >
+                  {pct}%
+                </span>
+              ))}
             </div>
-        )
-    }
-
-    return (
-        <table>
-            <thead>
-            <tr>
-                <th></th>
-                <th>
-                    <div className="relative" style={{ height: "16px", marginLeft: "2px", marginRight: "2px", marginBottom: "4px"}}>
-                        {[0, 20, 40, 60, 80, 100].map((pct) => (
-                            <span
-                                key={pct}
-                                className="text-fg3 absolute"
-                                style={{
-                                    left: `${pct}%`,
-                                    transform:
-                                        pct === 0 ? "translateX(0%)" :
-                                            pct === 100 ? "translateX(-100%)" :
-                                                "translateX(-50%)",
-                                }}
-                            >
-                                    {pct}%
-                                </span>
-                        ))}
-                    </div>
-                    <div className="relative" style={{ height: "4px", marginLeft: "2px", marginRight: "2px" }}>
-                        {[0, 20, 40, 60, 80, 100].map((pct) => (
-                            <div
-                                key={pct}
-                                className="bg-fg3 absolute"
-                                style={{
-                                    left: `${pct}%`,
-                                    width: "1px",
-                                    height: "4px",
-                                    transform:
-                                        pct === 0 ? "translateX(0%)" :
-                                            pct === 100 ? "translateX(-100%)" :
-                                                "translateX(-50%)",
-                                }}
-                            />
-                        ))}
-                    </div>
-                    <hr className="text-fg3" />
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {users.map((user) => (
-                <tr key={user.user_id}>
-                    <td className="w-48 pr-2">{user.first_name} {user.last_name}</td>
-                    <td className="py-1"><RenderCumulativeTrend trend={data.trends.find(it => it.userId == user.user_id)!} /></td>
-                </tr>
-            ))}
-            </tbody>
-        </table>
-    )
+            <div
+              className="relative"
+              style={{ height: "4px", marginLeft: "2px", marginRight: "2px" }}
+            >
+              {[0, 20, 40, 60, 80, 100].map((pct) => (
+                <div
+                  key={pct}
+                  className="bg-fg3 absolute"
+                  style={{
+                    left: `${pct}%`,
+                    width: "1px",
+                    height: "4px",
+                    transform:
+                      pct === 0
+                        ? "translateX(0%)"
+                        : pct === 100
+                          ? "translateX(-100%)"
+                          : "translateX(-50%)",
+                  }}
+                />
+              ))}
+            </div>
+            <hr className="text-fg3" />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((user) => (
+          <tr key={user.user_id}>
+            <td className="w-48 pr-2">
+              {user.first_name} {user.last_name}
+            </td>
+            <td className="py-1">
+              <RenderCumulativeTrend
+                trend={data.trends.find((it) => it.userId == user.user_id)!}
+              />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
-function RenderCumulativeTrend({ trend: trends }: { trend: PresenceTrendItem }) {
+function RenderCumulativeTrend({
+  trend: trends,
+}: {
+  trend: PresenceTrendItem;
+}) {
+  const { t } = useTranslation();
 
-    const { t } = useTranslation()
+  const map = [
+    {
+      id: "ON_TIME",
+      color: "bg-green",
+      children: [{ id: "ONLINE", color: "bg-purple" }],
+    },
+    {
+      id: "VERIFIED_LATE",
+      color: "bg-orange",
+      children: [{ id: "LATE", color: "bg-orange-dim" }],
+    },
+    {
+      id: "VERIFIED_ABSENT",
+      color: "bg-red",
+      children: [{ id: "ABSENT", color: "bg-red-dim" }],
+    },
+    { id: "SICK", color: "bg-blue", children: [] },
+    { id: null, color: "bg-gray-dim", children: [] },
+  ];
 
-    const map = [
-        { id: "ON_TIME", color: "bg-green", children: [{ id: "ONLINE", color: "bg-purple" }] },
-        { id: "VERIFIED_LATE", color: "bg-orange", children: [{ id: "LATE", color: "bg-orange-dim" }] },
-        { id: "VERIFIED_ABSENT", color: "bg-red", children: [{ id: "ABSENT", color: "bg-red-dim" }] },
-        { id: "SICK", color: "bg-blue", children: [] },
-        { id: null, color: "bg-gray-dim", children: [] }
-    ]
+  let total = 0;
+  const presenceData = new Map<string | null, number>();
 
-    let total = 0;
-    const presenceData = new Map<string | null, number>()
-
-    for (const day of trends.days) {
-        for (const presence of day.presences) {
-            presenceData.set(presence.presence, (presenceData.get(presence.presence) ?? 0) + 1)
-            total++
-        }
+  for (const day of trends.days) {
+    for (const presence of day.presences) {
+      presenceData.set(
+        presence.presence,
+        (presenceData.get(presence.presence) ?? 0) + 1,
+      );
+      total++;
     }
+  }
 
-    return (
-        <div className="horizontal w-full flex-1">
-            {map.map((item, i) => {
-                let selfTotal = presenceData.get(item.id) ?? 0
-                let selfCount = selfTotal
+  return (
+    <div className="horizontal w-full flex-1">
+      {map.map((item, i) => {
+        let selfTotal = presenceData.get(item.id) ?? 0;
+        let selfCount = selfTotal;
 
-                for (const child of item.children) {
-                    if ((presenceData.get(child.id) ?? 0) == 0) {
-                        continue
-                    }
-                    selfTotal += presenceData.get(child.id) ?? 0
-                }
+        for (const child of item.children) {
+          if ((presenceData.get(child.id) ?? 0) == 0) {
+            continue;
+          }
+          selfTotal += presenceData.get(child.id) ?? 0;
+        }
 
-                if (selfTotal == 0) {
-                    return null
-                }
+        if (selfTotal == 0) {
+          return null;
+        }
 
-                return (
-                    <div
-                        className={`timeline-item dropdown relative ${item.color} hover:outline`}
-                        key={i}
-                        style={{
-                            width: `calc(${selfTotal / total * 100}% - 4px)`,
-                            marginLeft: "2px",
-                            marginRight: "2px",
-                            paddingLeft: "4px"
-                        }}
-                    >
-                        <div className="absolute bottom-0 top-0 left-0 right-0 flex">
-                            <div style={{ width: `${selfCount / selfTotal * 100}%` }}></div>
-                            {item.children.filter(it => (presenceData.get(it.id) ?? 0) != 0).map(it => (
-                                <div key={it.id} className={it.color} style={{
-                                    width: `calc(${(presenceData.get(it.id) ?? 0) / selfTotal * 100}%)`,
-                                }} />
-                            ))}
-                        </div>
-                        <HideIf condition={selfTotal == 0}>
-                            <HideIfNotFullyVisible className="absolute text-bg_h">
-                                {selfTotal}x
-                            </HideIfNotFullyVisible>
-                        </HideIf>
-                        <div className="dropdown-content">
-                            <HideIf condition={selfCount == 0}>
-                                <div>
-                                    {t(getAttendanceLabelKeyTrends(item.id))}: <span className={item.color + " rounded-md text-bg_h px-1"}>{selfCount}x</span>
-                                </div>
-                            </HideIf>
-                            {item.children.filter(it => (presenceData.get(it.id) ?? 0) != 0).map(it => (
-                                <div key={it.id}>
-                                    {t(getAttendanceLabelKeyTrends(it.id))}: <span className={it.color + " rounded-md text-bg_h px-1"}>{presenceData.get(it.id)}x</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )
-            })}
-        </div>
-    )
+        return (
+          <div
+            className={`timeline-item dropdown relative ${item.color} hover:outline`}
+            key={i}
+            style={{
+              width: `calc(${(selfTotal / total) * 100}% - 4px)`,
+              marginLeft: "2px",
+              marginRight: "2px",
+              paddingLeft: "4px",
+            }}
+          >
+            <div className="absolute bottom-0 top-0 left-0 right-0 flex">
+              <div style={{ width: `${(selfCount / selfTotal) * 100}%` }}></div>
+              {item.children
+                .filter((it) => (presenceData.get(it.id) ?? 0) != 0)
+                .map((it) => (
+                  <div
+                    key={it.id}
+                    className={it.color}
+                    style={{
+                      width: `calc(${((presenceData.get(it.id) ?? 0) / selfTotal) * 100}%)`,
+                    }}
+                  />
+                ))}
+            </div>
+            <HideIf condition={selfTotal == 0}>
+              <HideIfNotFullyVisible className="absolute text-bg_h">
+                {selfTotal}x
+              </HideIfNotFullyVisible>
+            </HideIf>
+            <div className="dropdown-content">
+              <HideIf condition={selfCount == 0}>
+                <div>
+                  {t(getAttendanceLabelKeyTrends(item.id))}:{" "}
+                  <span className={item.color + " rounded-md text-bg_h px-1"}>
+                    {selfCount}x
+                  </span>
+                </div>
+              </HideIf>
+              {item.children
+                .filter((it) => (presenceData.get(it.id) ?? 0) != 0)
+                .map((it) => (
+                  <div key={it.id}>
+                    {t(getAttendanceLabelKeyTrends(it.id))}:{" "}
+                    <span className={it.color + " rounded-md text-bg_h px-1"}>
+                      {presenceData.get(it.id)}x
+                    </span>
+                  </div>
+                ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
