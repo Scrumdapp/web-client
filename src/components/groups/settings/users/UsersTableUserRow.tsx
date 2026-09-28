@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GroupUser } from "../../../../js/models/group";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useModalState } from "../../../../js/hooks/useModalState";
 import { UpdateGroupUserModal } from "../../../modals/UpdateUserModal";
 import { useTranslation } from "react-i18next";
+import { DeleteGroupUserModal } from "../../../modals/DeleteGroupUserModal";
 
 export function UsersTableUserRow({
   user,
@@ -13,7 +14,8 @@ export function UsersTableUserRow({
   onUpdated?: () => void;
 }) {
   const { t } = useTranslation();
-  const state = useModalState();
+  const updateState = useModalState();
+  const deleteState = useModalState();
 
   return (
     <tr>
@@ -27,15 +29,26 @@ export function UsersTableUserRow({
             : "settings.users.ghost.visible",
         )}
       </td>
-      <td className="flex justify-end p-2 border-t border-dotted">
-        <button className="btn border btn-secondary" onClick={state.open}>
+      <td className="flex justify-end gap-1 p-2 border-t border-dotted">
+        <button className="btn border btn-secondary" onClick={updateState.open}>
           <FontAwesomeIcon icon={faPencil} />
+        </button>
+        <button className="btn border btn-red" onClick={deleteState.open}>
+          <FontAwesomeIcon icon={faTrashCan} />
         </button>
         <UpdateGroupUserModal
           user={user}
-          state={state}
+          state={updateState}
           onSaved={() => {
-            state.close();
+            updateState.close();
+            onUpdated();
+          }}
+        />
+        <DeleteGroupUserModal
+          groupUser={user}
+          state={deleteState}
+          onUserDeleted={() => {
+            deleteState.close();
             onUpdated();
           }}
         />
