@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 export default function About() {
   const { t } = useTranslation();
   return (
-    <div className="text-sm md:text-base card vertical md:horizontal gap-3 mb-4 mx-2">
+    <div className="app-container mx-2 md:mx-auto text-sm md:text-base card horizontal gap-3 mb-4">
       <title>{t("about.title")}</title>
       <div>
         <h2 className="pb-3">{t("about.header")}</h2>

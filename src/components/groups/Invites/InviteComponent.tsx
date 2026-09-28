@@ -69,7 +69,7 @@ export default function Invites({ groupId }: InvitesProps) {
   }
   return (
     <>
-      <div className="card flex flex-col items-center">
+      <div className="card flex flex-col items-center gap-2">
         <div className="flex flex-row w-full justify-between items-center py-3">
           <h3>{t("invite.header")}</h3>
           <button

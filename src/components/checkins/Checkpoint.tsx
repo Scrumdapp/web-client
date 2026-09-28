@@ -269,7 +269,7 @@ function Checkpoint({
   const isInGroup = users.some((user) => user.user_id === myUserId);
 
   return (
-    <div className="card w-full space-x-5">
+    <div className="card w-full space-x-0 md:space-x-5">
       <div className="flex flex-row items-center justify-between mr-0">
         <button
           className="flex items-center gap-2 text-left cursor-pointer w-full"
@@ -281,7 +281,7 @@ function Checkpoint({
             className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
           />
           <div className="gap-3 flex items-center justify-between w-full">
-            <h2>{name}</h2>
+            <h2 className="text-lg md:text-base">{name}</h2>
           </div>
         </button>
         <div className="flex items-center gap-3">
@@ -295,7 +295,7 @@ function Checkpoint({
           </button>
         </div>
       </div>
-      <p>
+      <p className="text-xs md:text-xs">
         {isLocked ? (
           t("checkpoint.closed")
         ) : (

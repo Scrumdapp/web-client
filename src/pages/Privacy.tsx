@@ -4,7 +4,7 @@ export default function Privacy() {
   const { t } = useTranslation();
 
   return (
-      <div className="text-sm md:text-base card vertical md:horizontal gap-3 mb-4 mx-2">
+    <div className="app-container mx-2 md:mx-auto text-sm md:text-base card horizontal gap-3 mb-4">
       <title>{t("privacy.title")}</title>
       <div>
         <h1>{t("privacy.header")}</h1>
