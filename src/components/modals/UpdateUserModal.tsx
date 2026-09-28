@@ -51,7 +51,7 @@ export function UpdateGroupUserModal({
   return (
     <Modal state={state}>
       <ModalHeadText>
-        {t("settings.users.updateTitle", { user: user.first_name })}
+        {t("settings.users.updateTitle", { user: `${user.first_name} ${user.last_name}` })}
       </ModalHeadText>
 
       <div className="vertical gap-4 mb-2">
