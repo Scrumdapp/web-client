@@ -14,6 +14,7 @@ import { useGroup } from "../../js/context/group/useGroup";
 import { ShowIf } from "../utility/Conditional";
 import useTempState from "../../js/hooks/useTempState";
 import { ApiError } from "../../js/hooks/api/apiError";
+import { Checkbox } from "../generic/Checkbox";
 
 export function UpdateGroupUserModal({
   user,
@@ -48,12 +49,11 @@ export function UpdateGroupUserModal({
     <Modal state={state}>
       <ModalHeadText>Update user {user.first_name}</ModalHeadText>
 
-      <div className="vertical gap-4">
+      <div className="vertical gap-4 mb-2">
         <div className="horizontal gap-2 flex-1">
-          <label htmlFor="is_ghost">User Visible</label>
-          <input
+          <Checkbox
             name="is_ghost"
-            type="checkbox"
+            labelKey="settings.users.ghost.labelInput"
             checked={isHidden}
             onChange={(it) => {
               setIsHidden(it.target.checked);

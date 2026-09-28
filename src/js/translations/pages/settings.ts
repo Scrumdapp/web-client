@@ -22,6 +22,14 @@ export default {
           apply: "Kies",
         },
       },
+      users: {
+        ghost: {
+          visible: "Visible",
+          hidden: "Hidden",
+          labelInput: "User visibility",
+          labelTable: "Visibility"
+        }
+      }
     },
   },
   nl: {
@@ -47,6 +55,14 @@ export default {
           apply: "Kies",
         },
       },
+      users: {
+        ghost: {
+          visible: "Zichtbaar",
+          hidden: "Verstopt",
+          labelInput: "Gebruiker zichtbaar",
+          labelTable: "Zichtbaarheid"
+        }
+      }
     },
   },
 };
