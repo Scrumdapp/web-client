@@ -1,5 +1,5 @@
 import { createProcessor, makeApiRequest } from "../apiUtils.ts";
-import { GroupUser } from "../../../models/group.ts";
+import { GroupUser, PatchGroupUser } from "../../../models/group.ts";
 
 export function getGroupUsers() {
   return createProcessor("getGoupUsers", (groupId: number) => {
@@ -16,6 +16,21 @@ export function addUser() {
       params: { "{id}": groupId.toString() },
     });
   });
+}
+
+export function updateGroupUser() {
+  return createProcessor(
+    "updateGroupUser",
+    (groupId: number, userId: number, payload: PatchGroupUser) => {
+      return makeApiRequest("PATCH", "/groups/{group.id}/users/{user.id}", {
+        params: {
+          "{group.id}": groupId.toString(),
+          "{user.id}": userId.toString(),
+        },
+        body: payload,
+      });
+    },
+  );
 }
 
 export function deleteGroupUser() {

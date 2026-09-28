@@ -13,6 +13,7 @@
 @import "./components/background-grid.css" layer(components);
 @import "./components/btn.css" layer(components);
 @import "./components/card.css" layer(components);
+@import "./components/checkbox.css" layer(components);
 @import "./components/checkpoint-table.css" layer(components);
 @import "./components/dropdown.css" layer(components);
 @import "./components/other.css" layer(components);
