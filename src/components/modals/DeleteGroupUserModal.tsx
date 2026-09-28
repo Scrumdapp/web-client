@@ -124,6 +124,11 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
           {t("settings.users.delete.confirm.next")}
         </button>
       </ModalActionRow>
+      {deleteGroupUser.error && (
+        <p className="text-red text-right">
+          {deleteGroupUser.error.status}: {deleteGroupUser.error.message}
+        </p>
+      )}
       <p className="muted text-right">
         {t("settings.users.delete.steps", { index: 2, total: 3 })}
       </p>
