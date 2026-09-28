@@ -25,12 +25,12 @@ export default {
       users: {
         name: "Group member",
         actions: "Actions",
-        updateTitle: "Editing user {{user}}",
+        updateTitle: "Edit settings for {{user}}",
         save: "Save",
         ghost: {
           visible: "Visible",
           hidden: "Hidden",
-          labelInput: "User visibility",
+          labelInput: "User is visible: ",
           labelTable: "Visibility",
         },
       },
@@ -62,12 +62,12 @@ export default {
       users: {
         name: "Groepsgenoot",
         actions: "Acties",
-        updateTitle: "{{user}} aan het aanpassen",
+        updateTitle: "Bewerk instellingen voor {{user}}",
         save: "Opslaan",
         ghost: {
           visible: "Zichtbaar",
-          hidden: "Verstopt",
-          labelInput: "Gebruiker zichtbaar",
+          hidden: "Verborgen",
+          labelInput: "Gebruiker is zichtbaar: ",
           labelTable: "Zichtbaarheid",
         },
       },

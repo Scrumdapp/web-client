@@ -39,7 +39,7 @@ export function Checkbox({
   }, [checked]);
 
   return (
-    <label className={clsx("checkbox-container", className)}>
+    <label className={clsx("checkbox-container w-full", className)}>
       {labelKey && t(labelKey)}
       <input type={type} checked={v} onChange={changed} {...inputProps} />
       <span className="checkmark">
