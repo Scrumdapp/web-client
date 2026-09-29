@@ -141,10 +141,10 @@ export const groupUserHandler = [
     }
 
     const users = group.users;
-    const user = users.find(
+    const userIndex = users.findIndex(
       (it) => it.user_id == parseInt(params.uid as string),
     );
-    if (!user) {
+    if (userIndex == -1) {
       return HttpResponse.json(
         {
           error: true,
@@ -158,7 +158,9 @@ export const groupUserHandler = [
       );
     }
 
-    return HttpResponse.json({ success: true });
+    users.splice(userIndex, 1);
+
+    return HttpResponse.json({}, { status: 204 });
   }),
 ];
 
