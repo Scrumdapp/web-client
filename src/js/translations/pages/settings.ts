@@ -36,7 +36,7 @@ export default {
         },
         delete: {
           title: "Remove {{user}} from this group",
-          steps: "step {{index}}/{{total}}",
+          steps: "Step {{index}}/{{total}}",
           warn: {
             desc: "Do you want to remove {{user}}? This will permanently delete all their data in this group, and this user will no longer be able to access it",
             next: "Continue",
@@ -91,10 +91,10 @@ export default {
           labelTable: "Zichtbaarheid",
         },
         delete: {
-          title: "Verwijder {{user}} van de groep",
-          steps: "stap {{index}}/{{total}}",
+          title: "Verwijder {{user}} uit de groep",
+          steps: "Stap {{index}}/{{total}}",
           warn: {
-            desc: "Weet je zeker dat je '{{user}}' wilt verwijderen van de groep? Dit verwijdert alle checkpoints van deze gebruiker. Daarnaast verliest de gebruiker direct toegang tot de groep",
+            desc: "Weet je zeker dat je '{{user}}' wilt verwijderen uit de groep? Dit verwijdert alle checkpoints van deze gebruiker. Daarnaast verliest de gebruiker direct toegang tot de groep",
             next: "Volgende",
           },
           confirm: {
@@ -104,7 +104,7 @@ export default {
           },
           deleted: {
             title: "Gebruiker verwijdert",
-            desc: "De gebruiker '{{user}}' is verwijdert van de groep",
+            desc: "De gebruiker '{{user}}' is verwijdert uit de groep",
             close: "Sluit",
           },
         },
