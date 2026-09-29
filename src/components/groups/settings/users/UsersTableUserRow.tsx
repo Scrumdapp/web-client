@@ -36,9 +36,6 @@ export function UsersTableUserRow({
         <button className="btn border btn-secondary" onClick={updateState.open}>
           <FontAwesomeIcon icon={faPencil} />
         </button>
-        <button className="btn border btn-red" onClick={deleteState.open}>
-          <FontAwesomeIcon icon={faTrashCan} />
-        </button>
         <UpdateGroupUserModal
           user={groupUser}
           state={updateState}
@@ -47,7 +44,10 @@ export function UsersTableUserRow({
             onUpdated();
           }}
         />
-        { hasRole(user, Role.Coach) && (
+        { hasRole(user, Role.Coach) && (<>
+          <button className="btn border btn-red" onClick={deleteState.open}>
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
           <DeleteGroupUserModal
             groupUser={groupUser}
             state={deleteState}
@@ -56,7 +56,7 @@ export function UsersTableUserRow({
               onUpdated();
             }}
           />
-        )}
+        </>)}
       </td>
     </tr>
   );
