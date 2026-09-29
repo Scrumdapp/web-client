@@ -122,12 +122,12 @@ export function GroupCheckpointPage({
           </div>
         ))
       ) : currentDate == date ? (
-        <div className="py-4 flex flex-col items-center justify-center gap-2">
+        <div className="py-4 flex flex-col items-center text-center justify-center gap-2">
           <h2>{t("checkpoint.nocheckpoint.today")}</h2>
           <p>{t("checkpoint.nocheckpoint.todaydescription")}</p>
         </div>
       ) : (
-        <div className="py-4 flex flex-col items-center justify-center gap-2">
+        <div className="py-4 flex flex-col items-center text-center justify-center gap-2">
           <h2>{t("checkpoint.nocheckpoint.past")}</h2>
           <p>{t("checkpoint.nocheckpoint.pastdescription")}</p>
         </div>

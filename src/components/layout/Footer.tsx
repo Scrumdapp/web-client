@@ -22,7 +22,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mb-2 mx-2 card horizontal items-center justify-between gap-2">
+    <footer className="mb-2 mx-2 mt-2 md:mt-0 card horizontal items-center justify-between gap-2">
       <span className="flex-1 text-xs md:text-xl">{t("footer.rights")}</span>
       <div className="hidden md:horizontal md:flex gap-4">
         {links.map((link, i) => (
@@ -30,7 +30,7 @@ export default function Footer() {
             key={i}
             to={link.to}
             target={link.target}
-            className="btn justify-start!"
+            className="btn justify-start"
           >
             {link.text}
           </Link>
