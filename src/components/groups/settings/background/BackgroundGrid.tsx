@@ -39,9 +39,7 @@ function BackgroundTile({
       <img
         src={`/backgrounds/thumbnails/${id}.webp`}
         alt={t("settings.background.alt")}
-        className={` inset-0 h-full max-w-full object-cover transition-opacity duration-300 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
+        className="inset-0 h-full max-w-full object-cover transition-opacity duration-300"
         onLoad={() => setIsLoaded(true)}
       />
 

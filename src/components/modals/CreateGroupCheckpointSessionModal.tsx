@@ -72,7 +72,7 @@ export function CreateGroupCheckpointSessionModal({
         <ModalActionRow>
           <ModalCancelButton />
           <button
-            className={`btn btn-secondary border ${!checkpointName ? "opacity-50 cursor-not-allowed!" : ""}`}
+            className="btn btn-secondary border"
             disabled={!checkpointName.trim() || createCheckpointSession.loading}
             onClick={handleCreate}
           >
