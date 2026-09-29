@@ -5,14 +5,17 @@ import { useModalState } from "../../../../js/hooks/useModalState";
 import { UpdateGroupUserModal } from "../../../modals/UpdateUserModal";
 import { useTranslation } from "react-i18next";
 import { DeleteGroupUserModal } from "../../../modals/DeleteGroupUserModal";
+import { hasRole, Role } from "../../../../js/utils/userPermissions";
+import { useUser } from "../../../../js/context/user/useUser";
 
 export function UsersTableUserRow({
-  user,
+  groupUser,
   onUpdated = () => {},
 }: {
-  user: GroupUser;
+  groupUser: GroupUser;
   onUpdated?: () => void;
 }) {
+  const user = useUser();
   const { t } = useTranslation();
   const updateState = useModalState();
   const deleteState = useModalState();
@@ -20,11 +23,11 @@ export function UsersTableUserRow({
   return (
     <tr>
       <td className="p-2 border-r border-t border-dotted">
-        {user.first_name} {user.last_name}
+        {groupUser.first_name} {groupUser.last_name}
       </td>
       <td className="p-2 border-t border-dotted">
         {t(
-          user.is_ghost
+          groupUser.is_ghost
             ? "settings.users.ghost.hidden"
             : "settings.users.ghost.visible",
         )}
@@ -37,21 +40,23 @@ export function UsersTableUserRow({
           <FontAwesomeIcon icon={faTrashCan} />
         </button>
         <UpdateGroupUserModal
-          user={user}
+          user={groupUser}
           state={updateState}
           onSaved={() => {
             updateState.close();
             onUpdated();
           }}
         />
-        <DeleteGroupUserModal
-          groupUser={user}
-          state={deleteState}
-          onUserDeleted={() => {
-            deleteState.close();
-            onUpdated();
-          }}
-        />
+        { hasRole(user, Role.Coach) && (
+          <DeleteGroupUserModal
+            groupUser={groupUser}
+            state={deleteState}
+            onUserDeleted={() => {
+              deleteState.close();
+              onUpdated();
+            }}
+          />
+        )}
       </td>
     </tr>
   );

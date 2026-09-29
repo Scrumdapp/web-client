@@ -30,7 +30,7 @@ export function UsersTable() {
               {users.map((it) => (
                 <UsersTableUserRow
                   key={it.user_id}
-                  user={it}
+                  groupUser={it}
                   onUpdated={() => GetGroupUsersComponent.refresh()}
                 />
               ))}
