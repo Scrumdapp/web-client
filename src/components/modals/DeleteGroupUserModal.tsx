@@ -74,7 +74,7 @@ function ModalPage1({ onNextCalled, user }: ModalPageProps) {
         </button>
       </ModalActionRow>
       <p className="muted text-right">
-        {t("settings.users.delete.steps", { index: 2, total: 3 })}
+        {t("settings.users.delete.steps", { index: 1, total: 3 })}
       </p>
     </>
   );
