@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { ModalState } from "../../js/hooks/useModalState";
 import Modal from "../generic/modal/Modal";
 import { GroupUser } from "../../js/models/group";
