@@ -42,7 +42,7 @@ export function LoginModal({ state }: { state: ModalState }) {
   }, [state.isOpen, focused]);
 
   return (
-    <Modal state={state} backgroundClickClose={false}>
+    <Modal state={state} backgroundClickClose={false} className="w-full mx-2">
       <ModalHeadText>{t("login.modal.headtext")}</ModalHeadText>
       <p className="pb-4">{t("login.modal.expired")}</p>
       <ModalActionRow>

@@ -71,7 +71,7 @@ export function GroupCheckpointPage({
   return (
     <div className="space-y-3">
       <title>{group.name ? `${group.name} | Scrumdapp` : "Scrumdapp"}</title>
-      <div className="flex justify-between card w-full max-h-20 md:h-20 bg-bg_h border rounded-lg p-2 items-center">
+      <div className="flex justify-between card w-full max-h-20 md:h-20 bg-bg_h border rounded-lg p-1 md:p-2 items-center">
         <div className="horizontal items-center">
           <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
             <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
@@ -98,7 +98,7 @@ export function GroupCheckpointPage({
           </Link>
         </div>
         <ShowIf condition={currentDate == date}>
-          <button className="btn border" onClick={modal.open}>
+          <button className="btn border p-1! md:p-2" onClick={modal.open}>
             <FontAwesomeIcon icon={faAdd} className="text-blue" />{" "}
             {t("checkpoint.create")}
           </button>
