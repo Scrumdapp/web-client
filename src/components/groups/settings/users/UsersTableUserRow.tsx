@@ -44,19 +44,21 @@ export function UsersTableUserRow({
             onUpdated();
           }}
         />
-        { hasRole(user, Role.Coach) && (<>
-          <button className="btn border btn-red" onClick={deleteState.open}>
-            <FontAwesomeIcon icon={faTrashCan} />
-          </button>
-          <DeleteGroupUserModal
-            groupUser={groupUser}
-            state={deleteState}
-            onUserDeleted={() => {
-              deleteState.close();
-              onUpdated();
-            }}
-          />
-        </>)}
+        {hasRole(user, Role.Coach) && user.id != groupUser.user_id && (
+          <>
+            <button className="btn border btn-red" onClick={deleteState.open}>
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+            <DeleteGroupUserModal
+              groupUser={groupUser}
+              state={deleteState}
+              onUserDeleted={() => {
+                deleteState.close();
+                onUpdated();
+              }}
+            />
+          </>
+        )}
       </td>
     </tr>
   );
