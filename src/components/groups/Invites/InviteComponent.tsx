@@ -151,6 +151,14 @@ export default function Invites({ groupId }: InvitesProps) {
                 {showWarning && (
                   <p className="text-red text-sm">{t("invite.modal.error")}</p>
                 )}
+                {createInvite.error && (
+                  <p className="text-red text-right mb-3">
+                    {t(
+                      createInvite?.error?.titleTranslationKey ||
+                        "error.generic.unknown.title",
+                    )}
+                  </p>
+                )}
                 <ModalCancelButton />
                 <button
                   onClick={handleCreateInvite}

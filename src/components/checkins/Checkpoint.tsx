@@ -78,7 +78,11 @@ function useGroupCheckpoints(
       setError(
         err instanceof ApiError
           ? err
-          : new ApiError(999, "Unhandled error", err as Error),
+          : new ApiError(
+              999,
+              "Unhandled error while fetching checkpoints",
+              err as Error,
+            ),
       );
     } finally {
       setLoading(false);
@@ -190,7 +194,14 @@ function Checkpoint({
       modal.close();
     } catch (err) {
       if (err instanceof ApiError) setApplyError(err);
-      else setApplyError(new ApiError(999, "Unhandled error", err as Error));
+      else
+        setApplyError(
+          new ApiError(
+            999,
+            "Unhandled error while saving checkpoint",
+            err as Error,
+          ),
+        );
     } finally {
       setApplyLoading(false);
     }
@@ -228,7 +239,11 @@ function Checkpoint({
       setApplyError(
         err instanceof ApiError
           ? err
-          : new ApiError(999, "Unhandled error", err as Error),
+          : new ApiError(
+              999,
+              "Unhandled error while saving checkpoint",
+              err as Error,
+            ),
       );
     } finally {
       setApplyLoading(false);
@@ -261,8 +276,8 @@ function Checkpoint({
     setIsExpanded((prev) => !prev);
   };
 
-  if (rowsLoading || rows === null) return <LoadScreen />;
   if (rowsError) return <ErrorScreen error={rowsError} />;
+  if (rowsLoading || rows === null) return <LoadScreen />;
 
   const isSessionmaster = myUserId === ownerId;
 
@@ -431,7 +446,9 @@ function Checkpoint({
             />
           </div>
           {applyError && (
-            <p className="text-red text-right">{applyError.message}</p>
+            <p className="text-red text-right">
+              {t(applyError.titleTranslationKey)}
+            </p>
           )}
           <ModalActionRow>
             <ModalCancelButton />

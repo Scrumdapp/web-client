@@ -19,6 +19,7 @@ import {
   lastDayOfMonth,
   parseYearMonth,
 } from "../../src/js/utils/timeUtils";
+import { ErrorDto } from "../../src/js/models/dto/errorDto.ts";
 
 export const PRESENCE_FIELDS = [
   "ON_TIME",
@@ -262,6 +263,7 @@ export const groupCheckpointHandlers = [
   }),
   http.get("/api/groups/:gid/sessions/dates", ({ params, request }) => {
     // @ts-ignore
+
     const sessions = groupCheckpoints.filter(
       (it) => it.sessions.groupId == params["gid"],
     );

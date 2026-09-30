@@ -65,10 +65,10 @@ export const groupHandlers = [
     }
     return HttpResponse.json(
       {
-        error: true,
         status: 404,
-        message: "Not found",
-        detail: "The group with this ID does not exist",
+        code: "GROUP_NOT_FOUND",
+        titleTranslationKey: "error.group.notFound.title",
+        descriptionTranslationKey: "error.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -83,10 +83,10 @@ export const groupHandlers = [
     }
     return HttpResponse.json(
       {
-        error: true,
         status: 404,
-        message: "Not found",
-        detail: "The group with this ID does not exist",
+        code: "GROUP_NOT_FOUND",
+        titleTranslationKey: "error.group.notFound.title",
+        descriptionTranslationKey: "error.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -101,10 +101,10 @@ export const groupHandlers = [
     }
     return HttpResponse.json(
       {
-        error: true,
         status: 404,
-        message: "Not found",
-        detail: "The group with this ID does not exist",
+        code: "GROUP_NOT_FOUND",
+        titleTranslationKey: "error.group.notFound.title",
+        descriptionTranslationKey: "error.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -119,10 +119,10 @@ export const groupHandlers = [
     }
     return HttpResponse.json(
       {
-        error: true,
         status: 404,
-        message: "Not found",
-        detail: "The group with this ID does not exist",
+        code: "GROUP_NOT_FOUND",
+        titleTranslationKey: "error.group.notFound.title",
+        descriptionTranslationKey: "error.group.notFound.description",
       } as object,
       {
         status: 404,

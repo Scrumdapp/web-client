@@ -15,7 +15,18 @@ export function GroupRouter() {
       <Route path="settings" element={<SettingsPage />} />
       <Route
         path="*"
-        element={<ErrorScreen error={new ApiError(404, "Page Not Found")} />}
+        element={
+          <ErrorScreen
+            error={
+              new ApiError(404, {
+                status: 404,
+                code: "PAGE_NOT_FOUND",
+                titleTranslationKey: "error.generic.notFound.title",
+                descriptionTranslationKey: "error.generic.notFound.description",
+              })
+            }
+          />
+        }
       />
     </Routes>
   );

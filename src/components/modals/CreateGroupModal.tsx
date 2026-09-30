@@ -40,6 +40,14 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
           required
         />
       </form>
+      {createGroupCommand.error && (
+        <p className="text-red text-right mb-3">
+          {t(
+            createGroupCommand?.error?.titleTranslationKey ||
+              "error.generic.unknown.title",
+          )}
+        </p>
+      )}
       <ModalActionRow>
         <ModalCancelButton />
         <button

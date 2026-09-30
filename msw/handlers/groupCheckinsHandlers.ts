@@ -227,12 +227,15 @@ export const groupCheckinsHandlers = [
           it.date == date,
       );
       if (typeof checkin !== "object") {
-        return HttpResponse.json({
-          error: true,
-          status: 404,
-          message: "Not Found",
-          detail: "Checkin could not be found",
-        });
+        return HttpResponse.json(
+          {
+            status: 404,
+            titleTranslationKey: "error.generic.notFound.title",
+            descriptionTranslationKey: "error.generic.notFound.description",
+            code: "CHECKIN_NOT_FOUND",
+          },
+          { status: 404 },
+        );
       }
       return HttpResponse.json(parseCheckinFields(fields, checkin));
     },

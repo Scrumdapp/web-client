@@ -67,14 +67,17 @@ export const userHandlers = [
         setTimeout(() => res(), 2000);
       });
     }
-
     if (user == null) {
-      return HttpResponse.json({
-        error: true,
-        status: 401,
-        message: "Not Auhtorized",
-        detail: "You are not authorized to make this request",
-      } as ErrorDto) as HttpResponse<any>;
+      return HttpResponse.json(
+        {
+          status: 401,
+          code: "AUTHENTICATION_REQUIRED",
+          titleTranslationKey: "error.generic.authenticationRequired.title",
+          descriptionTranslationKey:
+            "error.generic.authenticationRequired.description",
+        } as ErrorDto,
+        { status: 401 },
+      ) as HttpResponse<any>;
     }
 
     return HttpResponse.json(user) as HttpResponse<any>;

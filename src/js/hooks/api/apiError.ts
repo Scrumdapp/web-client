@@ -5,16 +5,21 @@ export class RequestException extends Error {}
 
 export class ApiError extends Error {
   status: number;
-  detail?: string;
-  extra?: object;
+  code: string;
+  titleTranslationKey: string;
+  descriptionTranslationKey: string;
 
   constructor(status: number, message: string | ErrorDto, cause?: Error) {
     if (isErrorDto(message)) {
-      super(message.message);
-      this.detail = message.detail;
-      this.extra = message.extra;
+      super(message.code);
+      this.code = message.code;
+      this.titleTranslationKey = message.titleTranslationKey;
+      this.descriptionTranslationKey = message.descriptionTranslationKey;
     } else {
       super(message);
+      this.code = "UNKNOWN_ERROR";
+      this.titleTranslationKey = "error.generic.unknown.title";
+      this.descriptionTranslationKey = "error.generic.unknown.description";
     }
     this.status = status;
     this.name = "ApiError " + status;

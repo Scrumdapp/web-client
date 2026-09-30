@@ -67,6 +67,16 @@ function generateInsecureTestToken() {
 
 export const inviteHandlers = [
   http.post("/api/invites", async ({ request }) => {
+    return HttpResponse.json(
+      {
+        status: 400,
+        code: "BAD_REQUEST",
+        titleTranslationKey: "error.validation.checkpoint.stars.tooLarge",
+        descriptionTranslationKey: "",
+      } as ErrorDto,
+      { status: 400 },
+    );
+
     const json: any = await request.json();
     const params = new URL(request.url).searchParams;
     //@ts-ignore
@@ -109,11 +119,11 @@ export const inviteHandlers = [
     if (id == 4) {
       return HttpResponse.json(
         {
-          error: true,
           status: 400,
-          message: "Incorrect password",
-          detail: "The password was not correct!",
-          extra: null,
+          code: "INVITE_PASSWORD_INCORRECT",
+          titleTranslationKey: "error.invite.passwordIncorrect.title",
+          descriptionTranslationKey:
+            "error.invite.passwordIncorrect.description",
         },
         { status: 400 },
       );

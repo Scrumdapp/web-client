@@ -1,17 +1,14 @@
+import { useTranslation } from "react-i18next";
 import type { ApiError } from "../../js/hooks/api/apiError.ts";
 
 export function ErrorScreen({ error }: { error: ApiError }) {
+  const { t } = useTranslation();
   return (
     <div className="center fade-in">
-      {error.status == 999 ? (
-        <h2>Error!</h2>
-      ) : (
-        <h2>
-          Error: <strong>{error.status}</strong>
-        </h2>
-      )}
-      <p>{error.message}</p>
-      <p>{error.detail}</p>
+      <h2>
+        <strong>{t(error.titleTranslationKey)}</strong>
+      </h2>
+      <p>{t(error.descriptionTranslationKey)}</p>
     </div>
   );
 }
