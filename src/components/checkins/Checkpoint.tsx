@@ -83,7 +83,11 @@ function useGroupCheckpoints(
       setError(
         err instanceof ApiError
           ? err
-          : new ApiError(999, "Unhandled error", err as Error),
+          : new ApiError(
+              999,
+              "Unhandled error while fetching checkpoints",
+              err as Error,
+            ),
       );
     } finally {
       setLoading(false);
@@ -196,7 +200,14 @@ function Checkpoint({
       modal.close();
     } catch (err) {
       if (err instanceof ApiError) setApplyError(err);
-      else setApplyError(new ApiError(999, "Unhandled error", err as Error));
+      else
+        setApplyError(
+          new ApiError(
+            999,
+            "Unhandled error while saving checkpoint",
+            err as Error,
+          ),
+        );
     } finally {
       setApplyLoading(false);
     }
@@ -234,7 +245,11 @@ function Checkpoint({
       setApplyError(
         err instanceof ApiError
           ? err
-          : new ApiError(999, "Unhandled error", err as Error),
+          : new ApiError(
+              999,
+              "Unhandled error while saving checkpoint",
+              err as Error,
+            ),
       );
     } finally {
       setApplyLoading(false);
@@ -278,8 +293,8 @@ function Checkpoint({
     setIsExpanded((prev) => !prev);
   };
 
-  if (rowsLoading || rows === null) return <LoadScreen />;
   if (rowsError) return <ErrorScreen error={rowsError} />;
+  if (rowsLoading || rows === null) return <LoadScreen />;
 
   const isSessionmaster = myUserId === ownerId;
 
@@ -420,7 +435,7 @@ function Checkpoint({
           </table>
         </div>
       </div>
-      <Modal state={modal}>
+      <Modal state={modal} className="max-w-xl">
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheader", {
@@ -457,7 +472,19 @@ function Checkpoint({
             />
           </div>
           {applyError && (
-            <p className="text-red text-right">{applyError.message}</p>
+            <div className="flex flex-col gap-1 items-start">
+              <h3 className="text-red">{t(applyError.titleTranslationKey)}</h3>
+              <p className="text-red">
+                {t(applyError.descriptionTranslationKey)}
+              </p>
+              {applyError.errors && applyError.errors.length > 0 && (
+                <ul className="text-red list-disc list-inside">
+                  {applyError.errors?.map((err, idx) => (
+                    <li key={idx}>{t(err.translationKey)}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
           <ModalActionRow>
             <ModalCancelButton />
