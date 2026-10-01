@@ -1,47 +1,43 @@
-import { GroupUser } from "../../src/js/models/group";
+import { GroupUser, PatchGroupUser } from "../../src/js/models/group";
 import { userData } from "./userHandlers";
 import { http, HttpResponse } from "msw";
 
 export const groupUserData: GroupUserCollection[] = [
-  {
-    groupId: 1,
-    users: [1, 2, 3, 4, 5, 6],
-  },
-  {
-    groupId: 2,
-    users: [2, 3],
-  },
-  {
-    groupId: 3,
-    users: [3, 4],
-  },
-  {
-    groupId: 4,
-    users: [4, 5],
-  },
+  createGroupCollection(1, [1, 2, 3, 4, 5, 6]),
+  createGroupCollection(2, [2, 3]),
+  createGroupCollection(3, [3, 4]),
+  createGroupCollection(4, [4, 5]),
 ];
 
-function getGroupUsers(collection: GroupUserCollection): GroupUser[] {
+function createGroupCollection(
+  groupId: number,
+  userIds: number[],
+): GroupUserCollection {
   const r: GroupUser[] = [];
-  for (let userId of collection.users) {
+  for (const userId of userIds) {
     const user = userData.find((it) => it.id == userId);
     if (!user) continue;
     r.push({
       user_id: userId,
-      group_id: collection.groupId,
+      group_id: groupId,
       first_name: user.first_name,
       last_name: user.last_name,
+      is_ghost: false,
     });
   }
-  return r;
+  return {
+    groupId,
+    users: r,
+  };
 }
 
 export const groupUserHandler = [
   http.get("/api/groups/:gid/users", ({ params }) => {
-    // @ts-ignore
-    const group = groupUserData.find((it) => it.groupId == params.gid);
+    const group = groupUserData.find(
+      (it) => it.groupId == parseInt(params.gid as string),
+    );
     if (group) {
-      return HttpResponse.json(getGroupUsers(group));
+      return HttpResponse.json(group.users);
     }
     return HttpResponse.json(
       {
@@ -56,10 +52,11 @@ export const groupUserHandler = [
     );
   }),
   http.post("/api/groups/:gid/users", ({ params }) => {
-    // @ts-ignore
-    const group = groupUserData.find((it) => it.groupId == params.gid);
+    const group = groupUserData.find(
+      (it) => it.groupId == parseInt(params.gid as string),
+    );
     if (group) {
-      return HttpResponse.json(getGroupUsers(group));
+      return HttpResponse.json(group.users);
     }
     return HttpResponse.json(
       {
@@ -74,9 +71,8 @@ export const groupUserHandler = [
     );
   }),
   http.get("/api/groups/:gid/users/:uid", ({ params }) => {
-    // @ts-ignore
     const group = groupUserData.find(
-      (it) => it.groupId == (params.gid as String),
+      (it) => it.groupId == parseInt(params.gid as string),
     );
     if (!group) {
       return HttpResponse.json(
@@ -91,9 +87,10 @@ export const groupUserHandler = [
         },
       );
     }
-    const users = getGroupUsers(group);
-    // @ts-ignore
-    const user = users.find((it) => it.user_id == params.uid);
+    const users = group.users;
+    const user = users.find(
+      (it) => it.user_id == parseInt(params.uid as string),
+    );
     if (!user) {
       return HttpResponse.json(
         {
@@ -110,10 +107,24 @@ export const groupUserHandler = [
 
     return HttpResponse.json(user);
   }),
-  http.delete("/api/groups/:gid/users/:uid", ({ params }) => {
-    // @ts-ignore
+  http.patch("/api/groups/:gid/users/:uid", async ({ params, request }) => {
+    const body = (await request.json()) as PatchGroupUser;
     const group = groupUserData.find(
-      (it) => it.groupId == (params.gid as String),
+      (it) => it.groupId == parseInt(params.gid as string),
+    )!;
+    const user = group.users.find(
+      (it) => it.user_id == parseInt(params.uid as string),
+    )!;
+
+    if (body.is_ghost != null) {
+      user.is_ghost = body.is_ghost!;
+    }
+
+    return new HttpResponse({}, { status: 204 });
+  }),
+  http.delete("/api/groups/:gid/users/:uid", ({ params }) => {
+    const group = groupUserData.find(
+      (it) => it.groupId == parseInt(params.gid as string),
     );
     if (!group) {
       return HttpResponse.json(
@@ -128,10 +139,12 @@ export const groupUserHandler = [
         },
       );
     }
-    const users = getGroupUsers(group);
-    // @ts-ignore
-    const user = users.find((it) => it.user_id == params.uid);
-    if (!user) {
+
+    const users = group.users;
+    const userIndex = users.findIndex(
+      (it) => it.user_id == parseInt(params.uid as string),
+    );
+    if (userIndex == -1) {
       return HttpResponse.json(
         {
           status: 404,
@@ -145,11 +158,13 @@ export const groupUserHandler = [
       );
     }
 
-    return HttpResponse.json({ success: true });
+    users.splice(userIndex, 1);
+
+    return HttpResponse.json({}, { status: 204 });
   }),
 ];
 
 export interface GroupUserCollection {
   groupId: number;
-  users: number[];
+  users: GroupUser[];
 }

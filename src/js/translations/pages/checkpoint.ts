@@ -5,15 +5,27 @@ export default {
       refresh: "Refresh",
       name: "Name",
       edit: "Edit",
+      actions: "Actions",
       modalheader: "Edit Checkpoint for {{name}}",
+      modalheaderreadonly: "View Checkpoint for {{name}}",
       attendance: "Attendance",
       stars: "Stars",
       notes: "Notes",
+      nonotes: "No notes available",
       obstacle: "Obstacle",
+      noobstacles: "No obstacles available",
       saving: "Saving...",
       apply: "Apply",
       closed: "Checkpoint closed",
       closesin: "Checkpoint closes in",
+      nocheckpoint: {
+        today: "It's awfully quiet in here...",
+        todaydescription:
+          "Create your first checkpoint for today by clicking the button above.",
+        past: "No checkpoints available",
+        pastdescription:
+          "There are no checkpoints available for this date. Please select a different date.",
+      },
       modal: {
         newcheckpoint: "New checkpoint",
         error: "Only letters, numbers and spaces are allowed.",
@@ -27,6 +39,8 @@ export default {
           thirtyminutes: "30 minutes",
           onehour: "1 hour",
         },
+        readmore: "Read more",
+        close: "Close",
       },
       sidebar: {
         today: "Today",
@@ -61,13 +75,25 @@ export default {
       attendance: "Aanwezigheid",
       stars: "Sterren",
       notes: "Opmerking",
+      nonotesavailable: "Geen opmerkingen beschikbaar",
       obstacle: "Obstakel",
+      noobstaclesavailable: "Geen obstakels beschikbaar",
       edit: "Bewerk",
+      actions: "Acties",
       modalheader: "Bewerk checkpoint voor {{name}}",
+      modalheaderreadonly: "Bekijk checkpoint van {{name}}",
       saving: "Opslaan...",
       apply: "Opslaan",
       closed: "Checkpoint gesloten",
       closesin: "Checkpoint sluit over",
+      nocheckpoint: {
+        today: "Het is hier erg stil...",
+        todaydescription:
+          "Maak je eerste checkpoint voor vandaag door op de knop hierboven te klikken.",
+        past: "Geen checkpoints beschikbaar",
+        pastdescription:
+          "Er zijn geen checkpoints beschikbaar voor deze datum. Kies een andere datum.",
+      },
       modal: {
         newcheckpoint: "Nieuw checkpoint",
         error: "Alleen letters, cijfers en spaties zijn toegestaan.",
@@ -81,6 +107,8 @@ export default {
           thirtyminutes: "30 minuten",
           onehour: "1 uur",
         },
+        readmore: "Lees meer",
+        close: "Sluiten",
       },
       sidebar: {
         today: "Vandaag",

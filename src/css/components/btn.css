@@ -6,6 +6,10 @@
   @apply bg-blue-dim hover:bg-blue;
 }
 
+.btn-text {
+    @apply hover:underline text-fg2 cursor-pointer
+}
+
 .btn-red {
   @apply bg-red-dim hover:bg-red;
 }
@@ -20,4 +24,8 @@
 
 .btn-attendance-dropdown {
   @apply block px-2 focus:border-dashed text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer w-full text-left;
+}
+
+.btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
 }

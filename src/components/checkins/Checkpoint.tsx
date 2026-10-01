@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowsRotate,
   faChevronDown,
+  faEye,
   faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useCallback } from "react";
@@ -24,6 +25,10 @@ import {
   getAttendanceColor,
   getAttendanceLabelKey,
 } from "../../js/utils/colorUtils.ts";
+import {
+  StarsReadOnlyField,
+  AttendanceReadOnlyField,
+} from "./checkpointcomponents/ReadOnlyFields.tsx";
 
 type CheckpointUser = {
   user_id: number;
@@ -114,6 +119,7 @@ function Checkpoint({
   isMostRecent?: boolean;
 }) {
   const modal = useModalState();
+  const modalReadOnly = useModalState();
 
   const { t } = useTranslation();
 
@@ -272,6 +278,17 @@ function Checkpoint({
     modal.open();
   };
 
+  const handleModalReadOnlyOpen = (row: SessionCheckpointRow) => {
+    if (rows == null) return;
+    setApplyError(null);
+    setSelectedUser(row);
+    setSelectedPresence(row.presence ? String(row.presence) : null);
+    setSelectedStar(row.stars ?? null);
+    setNotes(row.comment ?? "");
+    setObstacle(row.impediment ?? "");
+    modalReadOnly.open();
+  };
+
   const handleToggle = () => {
     setIsExpanded((prev) => !prev);
   };
@@ -339,11 +356,9 @@ function Checkpoint({
                 </th>
                 <th className="p-2 text-left">{t("checkpoint.notes")}</th>
                 <th className="p-2 text-left">{t("checkpoint.obstacle")}</th>
-                {(isSessionmaster || isInGroup) && !isLocked && (
-                  <th className="p-2 pl-0 text-right w-14">
-                    {t("checkpoint.edit")}
-                  </th>
-                )}
+                <th className="p-2 pl-0 text-right w-14">
+                  {t("checkpoint.actions")}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -370,17 +385,29 @@ function Checkpoint({
                     </div>
                   </td>
                   <td className="p-2 break-words border-t border-dotted">
-                    {item.comment}
+                    <p className={`break-words line-clamp-2`}>{item.comment}</p>
                   </td>
                   <td className="p-2 break-words border-t border-dotted">
-                    {item.impediment}
+                    <p className={`break-words line-clamp-2`}>
+                      {item.impediment}
+                    </p>
                   </td>
-                  {(isSessionmaster || isInGroup) && !isLocked && (
-                    <td className="border-t border-dotted p-2 pl-0">
-                      {!isLocked ? (
+                  <td className="border-t border-dotted p-2 pl-0">
+                    <button
+                      className="btn border aspect-square ml-auto mr-0"
+                      onClick={() => handleModalReadOnlyOpen(item)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faEye}
+                        className="icon text-blue"
+                      />
+                    </button>
+                    {(isSessionmaster || isInGroup) &&
+                      !isLocked &&
+                      (!isLocked ? (
                         isSessionmaster ? (
                           <button
-                            className="btn border aspect-square ml-auto mr-0"
+                            className="btn border aspect-square ml-auto mr-0 mt-2"
                             onClick={() => handleModalOpen(item)}
                           >
                             <FontAwesomeIcon
@@ -391,7 +418,7 @@ function Checkpoint({
                         ) : item.groupUser === myUserId ||
                           item.id === myUserId ? (
                           <button
-                            className="btn border aspect-square ml-auto mr-0"
+                            className="btn border aspect-square ml-auto mr-0 mt-2"
                             onClick={handleOwnModalOpen}
                           >
                             <FontAwesomeIcon
@@ -400,9 +427,8 @@ function Checkpoint({
                             />
                           </button>
                         ) : null
-                      ) : null}
-                    </td>
-                  )}
+                      ) : null)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -459,6 +485,53 @@ function Checkpoint({
               disabled={applyLoading}
             >
               {applyLoading ? t("checkpoint.saving") : t("checkpoint.apply")}
+            </button>
+          </ModalActionRow>
+        </div>
+      </Modal>
+      <Modal state={modalReadOnly} className="max-w-xl">
+        <div className="space-y-5">
+          <ModalHeadText>
+            {t("checkpoint.modalheaderreadonly", {
+              name: selectedUser
+                ? `${selectedUser.first_name} ${selectedUser.last_name}`
+                : "",
+            })}
+          </ModalHeadText>
+          <div className="flex flex-col space-y-2 w-full">
+            <div className="grid grid-cols-2 gap-x-8 space-y-2 w-full">
+              <h3>{t("checkpoint.attendance")}</h3>
+              <h3>{t("checkpoint.stars")}</h3>
+
+              <AttendanceReadOnlyField value={selectedPresence} />
+              <StarsReadOnlyField value={selectedStar ?? 0} />
+            </div>
+            <h3 className="mt-2">{t("checkpoint.notes")}</h3>
+            {notes && notes?.length > 0 ? (
+              <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
+                {notes}
+              </p>
+            ) : (
+              <span className="text-fg4 italic">{t("checkpoint.nonotes")}</span>
+            )}
+            <h3 className="mt-2">{t("checkpoint.obstacle")}</h3>
+            {obstacle && obstacle?.length > 0 ? (
+              <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
+                {obstacle}
+              </p>
+            ) : (
+              <span className="text-fg4 italic">
+                {t("checkpoint.noobstacles")}
+              </span>
+            )}
+          </div>
+          <ModalActionRow>
+            <button
+              className="btn border"
+              onClick={() => modalReadOnly.close()}
+              type="button"
+            >
+              {t("checkpoint.modal.close")}
             </button>
           </ModalActionRow>
         </div>

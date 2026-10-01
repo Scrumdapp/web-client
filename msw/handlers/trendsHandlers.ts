@@ -44,7 +44,7 @@ function createFakeTrendsData(group: GroupUserCollection) {
   };
 
   for (let i = 0; i < group.users.length; i++) {
-    const userId = group.users[i];
+    const user = group.users[i];
     const daysData: PresenceTrendDay[] = [];
 
     for (let day = 0; day < days; day++) {
@@ -67,7 +67,7 @@ function createFakeTrendsData(group: GroupUserCollection) {
     }
 
     data.trends.push({
-      userId: userId,
+      userId: user.user_id,
       days: daysData,
     });
   }

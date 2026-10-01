@@ -19,7 +19,6 @@ import {
   lastDayOfMonth,
   parseYearMonth,
 } from "../../src/js/utils/timeUtils";
-import { ErrorDto } from "../../src/js/models/dto/errorDto.ts";
 
 export const PRESENCE_FIELDS = [
   "ON_TIME",
@@ -97,7 +96,7 @@ const groupCheckpoints: GenCheckpoints[] = generateCheckpoints(
 function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
   const sessions: GenCheckpoints[] = [];
 
-  for (let session of data) {
+  for (const session of data) {
     const group = groupData.find((it) => it.id == session.gId);
     if (typeof group === "undefined") {
       continue;
@@ -117,13 +116,13 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
         const session = generateSession(
           Math.floor(Math.random() * 6900),
           group!.id,
-          users[randomUser],
+          users[randomUser].user_id,
           day,
         );
 
         const checkpoints: GroupCheckpoint[] = [];
-        for (let u of users) {
-          checkpoints.push(generateCheckpoint(session.id, u));
+        for (const u of users) {
+          checkpoints.push(generateCheckpoint(session.id, u.user_id));
         }
 
         sessions.push({
@@ -204,8 +203,7 @@ export const groupCheckpointHandlers = [
     const sessions = groupCheckpoints.map((it) => it.sessions);
 
     const filteredSession = sessions.filter((it) => {
-      // @ts-ignore
-      if (it.groupId !== parseInt(params.gid)) return false;
+      if (it.groupId !== parseInt(params.gid as string)) return false;
 
       const startDayTime = parseScrumdappDate(
         toScrumdappDate(new Date(it.startTime)),
@@ -224,15 +222,13 @@ export const groupCheckpointHandlers = [
   http.post("/api/groups/:gid/sessions", async ({ params, request }) => {
     const today = new Date();
     const time = today;
-    const body = await request.json();
+    const body = (await request.json()) as { name: string };
 
-    // @ts-ignore
     const sessionName = body.name as string;
 
-    // @ts-ignore
     const newSession = generateSession(
       Math.floor(Math.random() * 6969699),
-      parseInt(params.gid),
+      parseInt(params.gid as string),
       1,
       today,
       time,
@@ -249,23 +245,20 @@ export const groupCheckpointHandlers = [
     return HttpResponse.json(newSession, { status: 201 });
   }),
   http.get("/api/groups/:gid/sessions/months", ({ params }) => {
-    // @ts-ignore
     const sessions = groupCheckpoints.filter(
-      (it) => it.sessions.groupId == params["gid"],
+      (it) => it.sessions.groupId == parseInt(params.gid as string),
     );
 
     const uniqueMonths = new Set<string>(
       sessions.map((it) => getYearMonth(new Date(it.sessions.startTime))),
     );
-    let dates = Array.from(uniqueMonths).sort().reverse();
+    const dates = Array.from(uniqueMonths).sort().reverse();
 
     return HttpResponse.json<string[]>(dates);
   }),
   http.get("/api/groups/:gid/sessions/dates", ({ params, request }) => {
-    // @ts-ignore
-
     const sessions = groupCheckpoints.filter(
-      (it) => it.sessions.groupId == params["gid"],
+      (it) => it.sessions.groupId == parseInt(params.gid as string),
     );
     const url = new URL(request.url);
 
@@ -305,12 +298,12 @@ export const groupCheckpointHandlers = [
     });
   }),
   http.get("/api/groups/:gid/sessions/:sid", ({ params }) => {
-    // @ts-ignore
     const sessions = groupCheckpoints
       .map((it) => it.sessions)
       .filter(
         (it) =>
-          it.groupId == parseInt(params.gid) && it.id == parseInt(params.sid),
+          it.groupId == parseInt(params.gid as string) &&
+          it.id == parseInt(params.sid as string),
       );
     return HttpResponse.json(sessions);
   }),
@@ -329,8 +322,7 @@ export const groupCheckpointHandlers = [
     } else {
       sessionIds = groupCheckpoints
         .flatMap((it) => it.sessions)
-        // @ts-ignore
-        .filter((it) => it.groupId == parseInt(params.gid))
+        .filter((it) => it.groupId == parseInt(params.gid as string))
         .map((it) => it.id);
     }
 
@@ -345,12 +337,12 @@ export const groupCheckpointHandlers = [
     return HttpResponse.json(filtered);
   }),
   http.get("/api/groups/:gid/checkpoints/:cid", ({ params }) => {
-    // @ts-ignore
     const session = groupCheckpoints
       .map((it) => it.sessions)
       .filter(
         (it) =>
-          it.groupId == parseInt(params.gid) && it.id == parseInt(params.cid),
+          it.groupId == parseInt(params.gid as string) &&
+          it.id == parseInt(params.cid as string),
       )[0];
     const checkpoints = groupCheckpoints
       .map((it) => it.checkpoints)
@@ -360,12 +352,12 @@ export const groupCheckpointHandlers = [
     return HttpResponse.json(checkpoints);
   }),
   http.patch("/api/groups/:gid/checkpoints/:cid", ({ params }) => {
-    // @ts-ignore
     const session = groupCheckpoints
       .map((it) => it.sessions)
       .filter(
         (it) =>
-          it.groupId == parseInt(params.gid) && it.id == parseInt(params.cid),
+          it.groupId == parseInt(params.gid as string) &&
+          it.id == parseInt(params.cid as string),
       )[0];
 
     const checkpoints = groupCheckpoints
@@ -376,14 +368,13 @@ export const groupCheckpointHandlers = [
     return HttpResponse.json(checkpoints);
   }),
   http.patch("/api/groups/:gid/checkpoints", async ({ params, request }) => {
-    const body = await request.json();
+    const body = (await request.json()!) as { sessionId: string };
 
-    // @ts-ignore
     const session = groupCheckpoints
       .map((it) => it.sessions)
       .filter(
         (it) =>
-          it.groupId == parseInt(params.gid) &&
+          it.groupId == parseInt(params.gid as string) &&
           it.id == parseInt(body.sessionId),
       )[0];
 

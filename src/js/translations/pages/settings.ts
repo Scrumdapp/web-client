@@ -22,6 +22,37 @@ export default {
           apply: "Kies",
         },
       },
+      users: {
+        title: "Group Members",
+        name: "Member",
+        actions: "Actions",
+        updateTitle: "Edit settings for {{user}}",
+        save: "Save",
+        ghost: {
+          visible: "Visible",
+          hidden: "Hidden",
+          labelInput: "User is visible: ",
+          labelTable: "Visibility",
+        },
+        delete: {
+          title: "Remove {{user}} from this group",
+          steps: "Step {{index}}/{{total}}",
+          warn: {
+            desc: "Do you want to remove {{user}}? This will permanently delete all their data in this group, and this user will no longer be able to access it",
+            next: "Continue",
+          },
+          confirm: {
+            desc: "Type '{{target}}' to permanently delete this member from the group",
+            placeholder: "Type the users first name here",
+            next: "Delete",
+          },
+          deleted: {
+            title: "Member has been removed",
+            desc: "'{{user}}' has been removed from this group",
+            close: "Close",
+          },
+        },
+      },
     },
   },
   nl: {
@@ -45,6 +76,37 @@ export default {
             other: "Overig",
           },
           apply: "Kies",
+        },
+      },
+      users: {
+        title: "Groeps genoten",
+        name: "Gebruiker",
+        actions: "Acties",
+        updateTitle: "Bewerk instellingen voor {{user}}",
+        save: "Opslaan",
+        ghost: {
+          visible: "Zichtbaar",
+          hidden: "Verborgen",
+          labelInput: "Gebruiker is zichtbaar: ",
+          labelTable: "Zichtbaarheid",
+        },
+        delete: {
+          title: "Verwijder {{user}} uit de groep",
+          steps: "Stap {{index}}/{{total}}",
+          warn: {
+            desc: "Weet je zeker dat je '{{user}}' wilt verwijderen uit de groep? Dit verwijdert alle checkpoints van deze gebruiker. Daarnaast verliest de gebruiker direct toegang tot de groep",
+            next: "Volgende",
+          },
+          confirm: {
+            desc: "Typ '{{target}}' om de gebruiker uit de groep te verwijderen",
+            placeholder: "Typ de naam in dit veld",
+            next: "Verwijder",
+          },
+          deleted: {
+            title: "Gebruiker verwijdert",
+            desc: "De gebruiker '{{user}}' is verwijdert uit de groep",
+            close: "Sluit",
+          },
         },
       },
     },
