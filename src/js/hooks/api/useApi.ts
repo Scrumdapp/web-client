@@ -37,7 +37,6 @@ export function useApi<Ti extends any[], Tr, Tm = Tr>(
           return d;
         })
         .catch((error) => {
-          console.log(error);
           if (error instanceof ApiError) {
             setError(error);
           } else {

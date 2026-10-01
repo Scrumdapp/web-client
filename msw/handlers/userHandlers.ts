@@ -72,9 +72,9 @@ export const userHandlers = [
         {
           status: 401,
           code: "AUTHENTICATION_REQUIRED",
-          titleTranslationKey: "error.generic.authenticationRequired.title",
+          titleTranslationKey: "errors.generic.authenticationRequired.title",
           descriptionTranslationKey:
-            "error.generic.authenticationRequired.description",
+            "errors.generic.authenticationRequired.description",
         } as ErrorDto,
         { status: 401 },
       ) as HttpResponse<any>;

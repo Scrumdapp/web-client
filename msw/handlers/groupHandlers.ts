@@ -67,8 +67,8 @@ export const groupHandlers = [
       {
         status: 404,
         code: "GROUP_NOT_FOUND",
-        titleTranslationKey: "error.group.notFound.title",
-        descriptionTranslationKey: "error.group.notFound.description",
+        titleTranslationKey: "errors.group.notFound.title",
+        descriptionTranslationKey: "errors.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -85,8 +85,8 @@ export const groupHandlers = [
       {
         status: 404,
         code: "GROUP_NOT_FOUND",
-        titleTranslationKey: "error.group.notFound.title",
-        descriptionTranslationKey: "error.group.notFound.description",
+        titleTranslationKey: "errors.group.notFound.title",
+        descriptionTranslationKey: "errors.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -103,8 +103,8 @@ export const groupHandlers = [
       {
         status: 404,
         code: "GROUP_NOT_FOUND",
-        titleTranslationKey: "error.group.notFound.title",
-        descriptionTranslationKey: "error.group.notFound.description",
+        titleTranslationKey: "errors.group.notFound.title",
+        descriptionTranslationKey: "errors.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -121,8 +121,8 @@ export const groupHandlers = [
       {
         status: 404,
         code: "GROUP_NOT_FOUND",
-        titleTranslationKey: "error.group.notFound.title",
-        descriptionTranslationKey: "error.group.notFound.description",
+        titleTranslationKey: "errors.group.notFound.title",
+        descriptionTranslationKey: "errors.group.notFound.description",
       } as object,
       {
         status: 404,

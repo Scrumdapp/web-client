@@ -435,7 +435,7 @@ function Checkpoint({
           </table>
         </div>
       </div>
-      <Modal state={modal}>
+      <Modal state={modal} className="max-w-xl">
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheader", {
@@ -472,9 +472,19 @@ function Checkpoint({
             />
           </div>
           {applyError && (
-            <p className="text-red text-right">
-              {t(applyError.titleTranslationKey)}
-            </p>
+            <div className="flex flex-col gap-1 items-start">
+              <h3 className="text-red">{t(applyError.titleTranslationKey)}</h3>
+              <p className="text-red">
+                {t(applyError.descriptionTranslationKey)}
+              </p>
+              {applyError.errors && applyError.errors.length > 0 && (
+                <ul className="text-red list-disc list-inside">
+                  {applyError.errors?.map((err, idx) => (
+                    <li key={idx}>{t(err.translationKey)}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
           <ModalActionRow>
             <ModalCancelButton />

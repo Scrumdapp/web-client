@@ -67,14 +67,14 @@ function generateInsecureTestToken() {
 
 export const inviteHandlers = [
   http.post("/api/invites", async ({ request }) => {
-    const json = await request.json()! as object;
+    const json = (await request.json()!) as object;
     const params = new URL(request.url).searchParams;
     const group = groupData.find(
       (it) => it.id == parseInt(params.get("group") as string),
     )!;
 
-    const expires = "expiresAt" in json ? json.expiresAt as string : "";
-    const password = "password" in json ? json.password as string : "";
+    const expires = "expiresAt" in json ? (json.expiresAt as string) : "";
+    const password = "password" in json ? (json.password as string) : "";
     const invite: InviteResponseDB = {
       id: 0,
       groupId: group.id,
@@ -92,7 +92,9 @@ export const inviteHandlers = [
   }),
   http.get("/api/invites", ({ request }) => {
     const params = new URL(request.url).searchParams;
-    const group = groupData.find((it) => it.id == parseInt(params.get("group") as string))!;
+    const group = groupData.find(
+      (it) => it.id == parseInt(params.get("group") as string),
+    )!;
     return HttpResponse.json(inviteData[group.id]);
   }),
   http.get("/api/invites/:inviteId", ({ params }) => {
@@ -107,9 +109,9 @@ export const inviteHandlers = [
         {
           status: 400,
           code: "INVITE_PASSWORD_INCORRECT",
-          titleTranslationKey: "error.invite.passwordIncorrect.title",
+          titleTranslationKey: "errors.invite.passwordIncorrect.title",
           descriptionTranslationKey:
-            "error.invite.passwordIncorrect.description",
+            "errors.invite.passwordIncorrect.description",
         },
         { status: 400 },
       );

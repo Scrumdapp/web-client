@@ -3,6 +3,7 @@ export interface ErrorDto {
   code: string;
   titleTranslationKey: string;
   descriptionTranslationKey: string;
+  errors?: Array<{ field: string; translationKey: string }>;
 }
 
 export function isErrorDto(obj: any): obj is ErrorDto {

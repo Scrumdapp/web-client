@@ -1,6 +1,6 @@
 export default {
   en: {
-    error: {
+    errors: {
       title: "Page not found | Scrumdapp",
       goback: "Go back",
       notfound: "404 error, page not found",
@@ -36,6 +36,7 @@ export default {
         notFound: {
           title: "Page not found",
           description: "The requested page could not be found.",
+          goback: "Go back",
         },
         unknown: {
           title: "Unknown error",
@@ -66,38 +67,37 @@ export default {
           },
         },
 
-        checkpoint: {
-          userId: {
-            required: "User ID is required.",
-            invalid: "Please provide a valid user ID.",
-          },
+        userId: {
+          required: "User ID is required.",
+          invalid: "Please provide a valid user ID.",
+        },
 
-          sessionId: {
-            required: "Session ID is required.",
-            invalid: "Please provide a valid session ID.",
-          },
+        sessionId: {
+          required: "Session ID is required.",
+          invalid: "Please provide a valid session ID.",
+        },
 
-          presence: {
-            invalid: "Please select a valid presence status.",
-          },
+        presence: {
+          invalid: "Please select a valid presence status.",
+        },
 
-          impediment: {
-            maxLength: "Impediment cannot be longer than 2,000 characters.",
-          },
+        impediment: {
+          maxLength: "Impediment cannot be longer than 2,000 characters.",
+        },
 
-          stars: {
-            tooSmall: "Stars cannot be less than 0.",
-            tooLarge: "Stars cannot be more than 10.",
-          },
+        stars: {
+          tooSmall: "Stars cannot be less than 0.",
+          tooLarge: "Stars cannot be more than 10.",
+        },
 
-          comment: {
-            maxLength: "Comment cannot be longer than 2,000 characters.",
-          },
+        comment: {
+          maxLength: "Comment cannot be longer than 2,000 characters.",
+        },
 
-          name: {
-            maxLength: "Name cannot be longer than 32 characters.",
-            invalid: "Please enter a valid name.",
-          },
+        name: {
+          maxLength: "Name cannot be longer than 32 characters.",
+          invalid: "Please enter a valid name.",
+          required: "Please enter a name.",
         },
 
         invite: {
@@ -170,11 +170,7 @@ export default {
   },
 
   nl: {
-    error: {
-      title: "Pagina niet gevonden | Scrumdapp",
-      goback: "Ga terug",
-      notfound: "404-fout, pagina niet gevonden",
-
+    errors: {
       generic: {
         badRequest: {
           title: "Ongeldig verzoek",
@@ -206,6 +202,7 @@ export default {
         notFound: {
           title: "Pagina niet gevonden",
           description: "De gevraagde pagina kon niet worden gevonden.",
+          goback: "Ga terug",
         },
         unknown: {
           title: "Onbekende fout",
@@ -237,38 +234,37 @@ export default {
           },
         },
 
-        checkpoint: {
-          userId: {
-            required: "Gebruikers-ID is verplicht.",
-            invalid: "Vul een geldige gebruikers-ID in.",
-          },
+        userId: {
+          required: "Gebruikers-ID is verplicht.",
+          invalid: "Vul een geldige gebruikers-ID in.",
+        },
 
-          sessionId: {
-            required: "Sessie-ID is verplicht.",
-            invalid: "Vul een geldige sessie-ID in.",
-          },
+        sessionId: {
+          required: "Sessie-ID is verplicht.",
+          invalid: "Vul een geldige sessie-ID in.",
+        },
 
-          presence: {
-            invalid: "Selecteer een geldige aanwezigheidsstatus.",
-          },
+        presence: {
+          invalid: "Selecteer een geldige aanwezigheidsstatus.",
+        },
 
-          impediment: {
-            maxLength: "Een belemmering mag niet langer zijn dan 2.000 tekens.",
-          },
+        impediment: {
+          maxLength: "Een belemmering mag niet langer zijn dan 2.000 tekens.",
+        },
 
-          stars: {
-            tooSmall: "Het aantal sterren kan niet lager zijn dan 0.",
-            tooLarge: "Het aantal sterren kan niet hoger zijn dan 10.",
-          },
+        stars: {
+          tooSmall: "Het aantal sterren kan niet lager zijn dan 0.",
+          tooLarge: "Het aantal sterren kan niet hoger zijn dan 10.",
+        },
 
-          comment: {
-            maxLength: "Een opmerking mag niet langer zijn dan 2.000 tekens.",
-          },
+        comment: {
+          maxLength: "Een opmerking mag niet langer zijn dan 2.000 tekens.",
+        },
 
-          name: {
-            maxLength: "De naam mag niet langer zijn dan 32 tekens.",
-            invalid: "Vul een geldige naam in.",
-          },
+        name: {
+          maxLength: "De naam mag niet langer zijn dan 32 tekens.",
+          invalid: "Vul een geldige naam in.",
+          required: "Vul een naam in.",
         },
 
         invite: {

@@ -43,8 +43,8 @@ export const groupUserHandler = [
       {
         status: 404,
         code: "GROUP_NOT_FOUND",
-        titleTranslationKey: "error.group.notFound.title",
-        descriptionTranslationKey: "error.group.notFound.description",
+        titleTranslationKey: "errors.group.notFound.title",
+        descriptionTranslationKey: "errors.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -62,8 +62,8 @@ export const groupUserHandler = [
       {
         status: 404,
         code: "GROUP_NOT_FOUND",
-        titleTranslationKey: "error.group.notFound.title",
-        descriptionTranslationKey: "error.group.notFound.description",
+        titleTranslationKey: "errors.group.notFound.title",
+        descriptionTranslationKey: "errors.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -79,8 +79,8 @@ export const groupUserHandler = [
         {
           status: 404,
           code: "GROUP_NOT_FOUND",
-          titleTranslationKey: "error.group.notFound.title",
-          descriptionTranslationKey: "error.group.notFound.description",
+          titleTranslationKey: "errors.group.notFound.title",
+          descriptionTranslationKey: "errors.group.notFound.description",
         } as object,
         {
           status: 404,
@@ -96,8 +96,8 @@ export const groupUserHandler = [
         {
           status: 404,
           code: "USER_NOT_FOUND",
-          titleTranslationKey: "error.user.notFound.title",
-          descriptionTranslationKey: "error.user.notFound.description",
+          titleTranslationKey: "errors.user.notFound.title",
+          descriptionTranslationKey: "errors.user.notFound.description",
         } as object,
         {
           status: 404,
@@ -131,8 +131,8 @@ export const groupUserHandler = [
         {
           status: 404,
           code: "GROUP_NOT_FOUND",
-          titleTranslationKey: "error.group.notFound.title",
-          descriptionTranslationKey: "error.group.notFound.description",
+          titleTranslationKey: "errors.group.notFound.title",
+          descriptionTranslationKey: "errors.group.notFound.description",
         } as object,
         {
           status: 404,
@@ -149,8 +149,8 @@ export const groupUserHandler = [
         {
           status: 404,
           code: "USER_NOT_FOUND",
-          titleTranslationKey: "error.user.notFound.title",
-          descriptionTranslationKey: "error.user.notFound.description",
+          titleTranslationKey: "errors.user.notFound.title",
+          descriptionTranslationKey: "errors.user.notFound.description",
         } as object,
         {
           status: 404,

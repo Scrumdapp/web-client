@@ -8,6 +8,7 @@ export class ApiError extends Error {
   code: string;
   titleTranslationKey: string;
   descriptionTranslationKey: string;
+  errors?: Array<{ field: string; translationKey: string }>;
 
   constructor(status: number, message: string | ErrorDto, cause?: Error) {
     if (isErrorDto(message)) {
@@ -15,11 +16,12 @@ export class ApiError extends Error {
       this.code = message.code;
       this.titleTranslationKey = message.titleTranslationKey;
       this.descriptionTranslationKey = message.descriptionTranslationKey;
+      this.errors = message.errors;
     } else {
       super(message);
       this.code = "UNKNOWN_ERROR";
-      this.titleTranslationKey = "error.generic.unknown.title";
-      this.descriptionTranslationKey = "error.generic.unknown.description";
+      this.titleTranslationKey = "errors.generic.unknown.title";
+      this.descriptionTranslationKey = "errors.generic.unknown.description";
     }
     this.status = status;
     this.name = "ApiError " + status;

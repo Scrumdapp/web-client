@@ -121,7 +121,7 @@ export default function Invites({ groupId }: InvitesProps) {
           )}
         </div>
       </div>
-      <Modal state={modal}>
+      <Modal state={modal} className="max-w-xl">
         {step === 1 && (
           <>
             <h1>{t("invite.createPassword")}</h1>
@@ -146,18 +146,28 @@ export default function Invites({ groupId }: InvitesProps) {
                 />
               </div>
             </div>
+            {createInvite.error && (
+              <div className="flex flex-col gap-1 items-start">
+                <h3 className="text-red">
+                  {t(createInvite.error.titleTranslationKey)}
+                </h3>
+                <p className="text-red">
+                  {t(createInvite.error.descriptionTranslationKey)}
+                </p>
+                {createInvite.error.errors &&
+                  createInvite.error.errors.length > 0 && (
+                    <ul className="text-red list-disc list-inside">
+                      {createInvite.error.errors?.map((err, idx) => (
+                        <li key={idx}>{t(err.translationKey)}</li>
+                      ))}
+                    </ul>
+                  )}
+              </div>
+            )}
             <ModalActionRow>
               <div className="py-2 flex gap-x-2">
                 {showWarning && (
                   <p className="text-red text-sm">{t("invite.modal.error")}</p>
-                )}
-                {createInvite.error && (
-                  <p className="text-red text-right mb-3">
-                    {t(
-                      createInvite?.error?.titleTranslationKey ||
-                        "error.generic.unknown.title",
-                    )}
-                  </p>
                 )}
                 <ModalCancelButton />
                 <button
