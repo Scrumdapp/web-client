@@ -22,7 +22,7 @@ export default {
         },
         accessDenied: {
           title: "Access denied",
-          description: "You do not have permission to access this resource.",
+          description: "There is no permission to access this resource.",
         },
         internal: {
           title: "Internal server error",
@@ -48,13 +48,13 @@ export default {
         failed: {
           title: "Invalid input",
           description:
-            "Some of the information you entered is invalid. Please check your input and try again.",
+            "Some of the information that is entered is invalid. Please check the input and try again.",
         },
 
         email: {
           title: "Invalid email address",
           description: "Please enter a valid email address.",
-          required: "Please enter your email address.",
+          required: "Please enter an email address.",
           invalid: "Please enter a valid email address.",
         },
 
@@ -82,7 +82,7 @@ export default {
         },
 
         impediment: {
-          maxLength: "Impediment cannot be longer than 2,000 characters.",
+          maxLength: "Obstacles cannot be longer than 2,000 characters.",
         },
 
         stars: {
@@ -91,7 +91,7 @@ export default {
         },
 
         comment: {
-          maxLength: "Comment cannot be longer than 2,000 characters.",
+          maxLength: "Comments cannot be longer than 2,000 characters.",
         },
 
         name: {
@@ -103,7 +103,7 @@ export default {
         invite: {
           password: {
             invalid: "Please enter a valid password.",
-            required: "Please enter your password.",
+            required: "Please enter a password.",
             minLength: "Password must be at least 1 character long.",
             maxLength: "Password cannot be longer than 100 characters.",
           },
@@ -128,14 +128,7 @@ export default {
         },
         passwordIncorrect: {
           title: "Incorrect password",
-          description: "The password entered for this invite is incorrect.",
-        },
-      },
-
-      checkin: {
-        notFound: {
-          title: "Check-in not found",
-          description: "The requested check-in could not be found.",
+          description: "The entered password for this invite is incorrect.",
         },
       },
 
@@ -143,6 +136,10 @@ export default {
         expired: {
           title: "Checkpoint expired",
           description: "This checkpoint has expired and is no longer valid.",
+        },
+        notFound: {
+          title: "Check-in not found",
+          description: "The requested check-in could not be found.",
         },
       },
 
@@ -188,7 +185,7 @@ export default {
         },
         accessDenied: {
           title: "Toegang geweigerd",
-          description: "Je hebt geen toestemming om deze bron te bekijken.",
+          description: "Er is geen toestemming om deze bron te bekijken.",
         },
         internal: {
           title: "Interne serverfout",
@@ -201,7 +198,7 @@ export default {
         },
         notFound: {
           title: "Pagina niet gevonden",
-          description: "De gevraagde pagina kon niet worden gevonden.",
+          description: "De gevraagde pagina is niet gevonden.",
           goback: "Ga terug",
         },
         unknown: {
@@ -215,13 +212,13 @@ export default {
         failed: {
           title: "Ongeldige invoer",
           description:
-            "Een deel van de ingevoerde informatie is ongeldig. Controleer je invoer en probeer het opnieuw.",
+            "Een deel van de ingevoerde informatie is ongeldig. Controleer de invoer en probeer het opnieuw.",
         },
 
         email: {
           title: "Ongeldig e-mailadres",
           description: "Vul een geldig e-mailadres in.",
-          required: "Vul je e-mailadres in.",
+          required: "Vul een e-mailadres in.",
           invalid: "Vul een geldig e-mailadres in.",
         },
 
@@ -249,7 +246,7 @@ export default {
         },
 
         impediment: {
-          maxLength: "Een belemmering mag niet langer zijn dan 2.000 tekens.",
+          maxLength: "Een obstakel mag niet langer zijn dan 2.000 tekens.",
         },
 
         stars: {
@@ -270,11 +267,13 @@ export default {
         invite: {
           password: {
             invalid: "Vul een geldig wachtwoord in.",
-            required: "Vul je wachtwoord in.",
+            required: "Vul het wachtwoord in.",
             minLength: "Het wachtwoord moet minimaal 1 teken bevatten.",
             maxLength: "Het wachtwoord mag niet langer zijn dan 100 tekens.",
           },
-          expiresAt: { invalid: "Vul een geldige vervaldatum in." },
+          expiresAt: {
+            invalid: "Vul een geldige vervaldatum in."
+          },
           firstName: {
             maxLength: "De voornaam mag niet langer zijn dan 64 tekens.",
           },
@@ -287,7 +286,7 @@ export default {
       invite: {
         notFound: {
           title: "Uitnodiging niet gevonden",
-          description: "De gevraagde uitnodiging kon niet worden gevonden.",
+          description: "De gevraagde uitnodiging is niet gevonden.",
         },
         expired: {
           title: "Uitnodiging verlopen",
@@ -300,38 +299,35 @@ export default {
         },
       },
 
-      checkin: {
-        notFound: {
-          title: "Check-in niet gevonden",
-          description: "De gevraagde check-in kon niet worden gevonden.",
-        },
-      },
-
       checkpoint: {
         expired: {
           title: "Checkpoint verlopen",
           description: "Dit checkpoint is verlopen en niet meer geldig.",
+        },
+        notFound: {
+          title: "Check-in niet gevonden",
+          description: "De gevraagde check-in is niet gevonden.",
         },
       },
 
       user: {
         notFound: {
           title: "Gebruiker niet gevonden",
-          description: "De gevraagde gebruiker kon niet worden gevonden.",
+          description: "De gevraagde gebruiker is niet gevonden.",
         },
       },
 
       group: {
         notFound: {
           title: "Groep niet gevonden",
-          description: "De gevraagde groep kon niet worden gevonden.",
+          description: "De gevraagde groep is niet gevonden.",
         },
       },
 
       trends: {
         notFound: {
           title: "Trends niet gevonden",
-          description: "De gevraagde trends konden niet worden gevonden.",
+          description: "De gevraagde trends zijn niet gevonden.",
         },
       },
     },
