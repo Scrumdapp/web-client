@@ -57,7 +57,7 @@ export function StarsReadOnlyField({ value = 0, max = 5 }: StarsReadOnlyFieldPro
     return (
         <div
             ref={containerRef}
-            className="flex items-center gap-1 w-fit"
+            className="flex items-center w-fit"
         >
             {Array.from({ length: max }, (_, i) => i).map((starIndex) => {
                 const starFullValue = (starIndex + 1) * POINTS_PER_STAR;
@@ -67,7 +67,7 @@ export function StarsReadOnlyField({ value = 0, max = 5 }: StarsReadOnlyFieldPro
                     <button
                         key={starIndex}
                         type="button"
-                        className="text-2xl outline-none"
+                        className="text-lg md:text-2xl outline-none"
                         aria-label={`Rate ${starIndex + 1} out of ${max}`}
                     >
                         <span
@@ -91,7 +91,7 @@ export function AttendanceReadOnlyField({value,}: AttendanceReadOnlyFieldProps) 
     const isValueSet = value !== null;
 
     return (
-        <span className={`text-left ${currentColor}`}>
+        <span className={`text-left text-lg md:text-2xl ${currentColor}`}>
             {isValueSet ? t(currentOption.labelKey) : "---"}
         </span>
     )

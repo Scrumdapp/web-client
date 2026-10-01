@@ -474,7 +474,7 @@ function Checkpoint({
           </ModalActionRow>
         </div>
       </Modal>
-      <Modal state={modalReadOnly} className="max-w-xl">
+      <Modal state={modalReadOnly} className="w-fill mx-2">
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheaderreadonly", {
