@@ -33,11 +33,11 @@ export function GroupLayout() {
               <div className="flex horizontal justify-start gap-1">
                 <div>
                   <button
-                      type="button"
-                      onClick={() => setMenuOpen((open) => !open)}
-                      className="btn aspect-square md:hidden"
-                      aria-label={t("header.menuToggle")}
-                      aria-expanded={menuOpen}
+                    type="button"
+                    onClick={() => setMenuOpen((open) => !open)}
+                    className="btn aspect-square md:hidden"
+                    aria-label={t("header.menuToggle")}
+                    aria-expanded={menuOpen}
                   >
                     <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
                   </button>
@@ -48,13 +48,13 @@ export function GroupLayout() {
           )}
         </GroupConsumer>
         {menuOpen && (
-            <div className="bg-bg_h mt-2 rounded-xl border shadow-xl w-full md:hidden overflow-hidden">
-              <div className="flex flex-col divide-y">
-                <div>
-                  <GroupSidebar />
-                </div>
+          <div className="bg-bg_h mt-2 rounded-xl border shadow-xl w-full md:hidden overflow-hidden">
+            <div className="flex flex-col divide-y">
+              <div>
+                <GroupSidebar />
               </div>
             </div>
+          </div>
         )}
         <div className="flex gap-4">
           <div className="hidden md:flex flex-col gap-4">

@@ -13,7 +13,8 @@ interface ModalProps {
 export default function Modal({
   state,
   backgroundClickClose = true,
-  children, className,
+  children,
+  className,
 }: ModalProps) {
   const ref = useRef<HTMLDialogElement>(null);
 
@@ -38,7 +39,10 @@ export default function Modal({
         open={false}
       >
         <div
-          className={cn("m-auto bg-bg_h rounded-lg p-6 md:min-w-96 w-fit border", className)}
+          className={cn(
+            "m-auto bg-bg_h rounded-lg p-6 md:min-w-96 w-fit border",
+            className,
+          )}
           onClick={(e) => e.stopPropagation()}
         >
           {children}

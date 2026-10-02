@@ -332,15 +332,21 @@ function Checkpoint({
           <table className="table-fixed w-full">
             <thead>
               <tr>
-                <th className="p-1 md:p-2 text-left w-16 md:w-44">{t("checkpoint.name")}</th>
+                <th className="p-1 md:p-2 text-left w-16 md:w-44">
+                  {t("checkpoint.name")}
+                </th>
                 <th className="p-1 md:p-2 text-left border-l border-dotted w-16 md:w-28">
                   {t("checkpoint.attendance")}
                 </th>
                 <th className="p-2 items-center w-20 md:w-28">
                   {t("checkpoint.stars")}
                 </th>
-                <th className="p-1 md:p-2 text-left hidden md:table-cell md:w-28">{t("checkpoint.notes")}</th>
-                <th className="p-1 md:p-2 text-left hidden md:table-cell md:w-28">{t("checkpoint.obstacle")}</th>
+                <th className="p-1 md:p-2 text-left hidden md:table-cell md:w-28">
+                  {t("checkpoint.notes")}
+                </th>
+                <th className="p-1 md:p-2 text-left hidden md:table-cell md:w-28">
+                  {t("checkpoint.obstacle")}
+                </th>
                 <th className="p-1 md:p-2 pl-0 text-right w-10">
                   {t("checkpoint.actions")}
                 </th>
@@ -352,12 +358,10 @@ function Checkpoint({
                   key={`${item.groupUser === item.id ? "u" : "cp"}-${item.id}`}
                   className="align-top"
                 >
-                  <td className="p-2 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
+                  <td className="p-2 text-left name-field border-r border-t border-dotted border-current! max-h-14">
                     {item.first_name} {item.last_name}
                   </td>
-                  <td
-                    className="text-left p-2 border-t border-dotted border-current"
-                  >
+                  <td className="text-left p-2 border-t border-dotted border-current">
                     <div className={getAttendanceColor(item.presence)}>
                       {t(getAttendanceLabelKey(item.presence))}
                     </div>
@@ -370,9 +374,7 @@ function Checkpoint({
                     </div>
                   </td>
                   <td className="p-2 break-words border-t border-dotted hidden md:table-cell">
-                    <p className="break-words line-clamp-2">
-                      {item.comment}
-                    </p>
+                    <p className="break-words line-clamp-2">{item.comment}</p>
                   </td>
                   <td className="p-2 break-words border-t border-dotted hidden md:table-cell">
                     <p className="break-words line-clamp-2">
@@ -474,7 +476,7 @@ function Checkpoint({
           </ModalActionRow>
         </div>
       </Modal>
-      <Modal state={modalReadOnly} className="w-fill mx-2">
+      <Modal state={modalReadOnly} className="w-fill mx-auto">
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheaderreadonly", {

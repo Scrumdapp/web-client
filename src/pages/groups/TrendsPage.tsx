@@ -20,15 +20,16 @@ export function TrendsPage() {
   return (
     <GetUsersApiComponent input={[group.id]}>
       {(allUsers) => {
-        const users = allUsers.filter(it => !it.is_ghost)
+        const users = allUsers.filter((it) => !it.is_ghost);
         return (
-        <div className="vertical gap-4">
-          <div className="card">
-            <h2>Trends</h2>
+          <div className="vertical gap-4">
+            <div className="card">
+              <h2>Trends</h2>
+            </div>
+            <TimelineTrendsWrapper users={users} />
           </div>
-          <TimelineTrendsWrapper users={users} />
-        </div>
-      )}}
+        );
+      }}
     </GetUsersApiComponent>
   );
 }

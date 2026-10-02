@@ -9,24 +9,24 @@ import HeaderMobile from "./HeaderMobile.tsx";
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-      <BackgroundProvider initialBackground={"1"}>
-        <div className="min-h-screen flex flex-col">
-          <div className="hidden md:block">
-            <Header />
-          </div>
-          <div className="block md:hidden">
-            <HeaderMobile />
-          </div>
-          <main className="flex-1 flex flex-col">{children}</main>
-          <div className="hidden md:block">
-            <Footer />
-          </div>
-          <div className="block md:hidden">
-            <FooterMobile />
-          </div>
-          <BackgroundDisplayer />
+    <BackgroundProvider initialBackground={"1"}>
+      <div className="min-h-screen flex flex-col">
+        <div className="hidden md:block">
+          <Header />
         </div>
-      </BackgroundProvider>
+        <div className="block md:hidden">
+          <HeaderMobile />
+        </div>
+        <main className="flex-1 flex flex-col">{children}</main>
+        <div className="hidden md:block">
+          <Footer />
+        </div>
+        <div className="block md:hidden">
+          <FooterMobile />
+        </div>
+        <BackgroundDisplayer />
+      </div>
+    </BackgroundProvider>
   );
 }
 
