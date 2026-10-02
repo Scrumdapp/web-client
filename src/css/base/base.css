@@ -14,3 +14,19 @@ table {
 body:has(dialog[open]) {
   overflow: hidden;
 }
+
+:root {
+  font-size: 12px;
+}
+
+@media (width < var(--breakpoint-sm)) {
+  :root {
+    font-size: 10px;
+  }
+}
+
+@media (width < var(--breakpoint-md)) {
+  :root {
+    font-size: 14px;
+  }
+}

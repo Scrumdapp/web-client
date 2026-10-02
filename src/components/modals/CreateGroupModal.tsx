@@ -46,7 +46,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
           type="submit"
           form="create-group-form"
           disabled={!name}
-          className={`btn border ${!name ? "opacity-50 cursor-not-allowed!" : ""}`}
+          className="btn border"
         >
           {createGroupCommand.loading ? <LoadScreen /> : t("groups.submit")}
         </button>

@@ -33,11 +33,11 @@ export default function Groups() {
   }, []);
 
   return (
-    <div className="app-container vertical gap-4">
+    <div className="app-container vertical gap-4 pt-0! md:pt-4">
       <title>{t("groups.title")}</title>
-      <div className="horizontal justify-between">
-        <h1 className="flex-1">Scrumdapp</h1>
-        <div className="flex-1 horizontal center align-top">
+      <div className="vertical md:horizontal justify-between">
+        <h1 className="hidden md:flex-1">Scrumdapp</h1>
+        <div className="flex-1 horizontal center align-top max-w-full text-xs md:text-base">
           <IconInput
             icon={faMagnifyingGlass}
             type="text"
@@ -51,7 +51,7 @@ export default function Groups() {
         <div className="flex-1">
           <ShowIf condition={hasRole(user, Role.Coach)}>
             <button
-              className="ml-auto btn btn-red border max-h-fit"
+              className="ml-auto btn btn-red border max-h-fit mt-2 md:mt-0 text-xs md:text-base"
               onClick={modal.open}
             >
               {t("groups.newgroup")}
@@ -66,7 +66,7 @@ export default function Groups() {
             group.name.toLowerCase().includes(search.toLowerCase().trim()),
           );
           return (
-            <ul className="grid gap-4 grid-cols-3 justify-center">
+            <ul className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 justify-center">
               {filteredGroups.length === 0 && t("groups.nogroups")}
               {filteredGroups.map((group) => (
                 <li key={group.id}>
