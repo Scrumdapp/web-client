@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 
 export default function FooterMobile() {
   const { t } = useTranslation();
+
   const links = [
     { to: "/about", text: t("footer.about"), target: "_self" },
     { to: "/privacy", text: t("footer.privacy"), target: "_self" },

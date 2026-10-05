@@ -9,8 +9,8 @@ export default function Header() {
   const user = useUser();
 
   const links = [
-    { to: "/", label: t("header.home") },
-    { to: "/groups", label: t("header.groups") },
+    { to: "/", label: t("header.home"), target: "_self" },
+    { to: "/groups", label: t("header.groups"), target: "_self" },
   ];
 
   return (
@@ -33,7 +33,12 @@ export default function Header() {
 
           <h2 className="horizontal gap-4">
             {links.map((link, i) => (
-              <Link key={i} to={link.to} className="btn py-1!">
+              <Link
+                key={i}
+                to={link.to}
+                target={link.target}
+                className="btn py-1!"
+              >
                 {link.label}
               </Link>
             ))}

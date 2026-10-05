@@ -13,15 +13,15 @@ export default function HeaderMobile() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const links = [
-    { to: "/", label: t("header.home") },
-    { to: "/groups", label: t("header.groups") },
+    { to: "/", label: t("header.home"), target: "_self" },
+    { to: "/groups", label: t("header.groups"), target: "_self" },
   ];
 
   const mobileLinks = [
-    { to: "/", label: t("header.home") },
-    { to: "/groups", label: t("header.groups") },
-    { to: "/about", label: t("footer.about") },
-    { to: "/privacy", label: t("footer.privacy") },
+    { to: "/", label: t("header.home"), target: "_self" },
+    { to: "/groups", label: t("header.groups"), target: "_self" },
+    { to: "/about", label: t("footer.about"), target: "_self" },
+    { to: "/privacy", label: t("footer.privacy"), target: "_self" },
     {
       to: "https://scrumdapp.com/#Contact",
       label: t("footer.support"),
@@ -44,7 +44,7 @@ export default function HeaderMobile() {
   return (
     <>
       <header className="flex flex-col mx-2 fixed top-0 left-0 right-0 z-50 text-sm lg:text-xl">
-        <nav className="bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center">
+        <nav className="relative z-20 bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center">
           <div className="flex-1 min-w-0 text-fg text-xl md:text-2xl font-bold">
             <Link
               to="/groups"
@@ -98,33 +98,42 @@ export default function HeaderMobile() {
         </nav>
 
         {menuOpen && (
-          <div className="bg-bg_h mt-4 rounded-xl border shadow-xl w-full md:hidden overflow-hidden">
-            <div className="flex flex-col divide-y">
-              <div className="flex items-center justify-between gap-2 px-4 py-3">
-                <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
-                <img
-                  src={user.avatar ?? "/Scrumdaddy.png"}
-                  alt={t("header.profileAlt")}
-                  className="nav-icon max-w-full"
-                />
-              </div>
+          <div
+            className="fixed inset-0 z-10 flex px-2 pt-16 backdrop-blur-lg bg-[unset] w-full max-w-screen md:hidden"
+            onClick={() => setMenuOpen(false)}
+          >
+            <div
+              className="bg-bg_h rounded-xl border shadow-xl w-full overflow-hidden h-fit"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex flex-col divide-y">
+                <div className="flex items-center justify-between gap-2 px-4 py-3">
+                  <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
+                  <img
+                    src={user.avatar ?? "/Scrumdaddy.png"}
+                    alt={t("header.profileAlt")}
+                    className="nav-icon max-w-full"
+                  />
+                </div>
 
-              <div className="flex flex-col py-1">
-                {mobileLinks.map((link, i) => (
-                  <Link
-                    key={i}
-                    to={link.to}
-                    onClick={() => setMenuOpen(false)}
-                    className="btn justify-start! rounded-none py-1 px-4"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
+                <div className="flex flex-col py-1">
+                  {mobileLinks.map((link, i) => (
+                    <Link
+                      key={i}
+                      to={link.to}
+                      onClick={() => setMenuOpen(false)}
+                      className="btn justify-start! rounded-none py-1 px-4"
+                      target={link.target}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
 
-              <div className="flex flex-col items-center gap-2 py-4 px-4">
-                <LanguageSwitch />
-                <LogoutButton />
+                <div className="flex flex-col items-center gap-2 py-4 px-4">
+                  <LanguageSwitch />
+                  <LogoutButton />
+                </div>
               </div>
             </div>
           </div>
