@@ -190,9 +190,9 @@ export default function About() {
             <div className="flex justify-between items-center">
               <h2 className="pb-3">{t("about.header")}</h2>
               <img
-                  src={`/ScrumdappLogoTransparent.webp`}
-                  alt={t("about.logo")}
-                  className="max-w-20"
+                src={`/ScrumdappLogoTransparent.webp`}
+                alt={t("about.logo")}
+                className="max-w-20"
               />
             </div>
             <div>
