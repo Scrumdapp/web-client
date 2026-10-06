@@ -38,7 +38,7 @@ export const CalendarSelector = memo(
         <GetMonthsComponent input={[group.id]}>
           {(months) => (
             <>
-              <div className="flex-1 flex justify-start">
+              <div className="flex-1 flex justify-start ">
                 {months.some((it) => it == getYearMonth(previousMonth(ym))) ? (
                   <Link
                     className="btn"
@@ -58,13 +58,13 @@ export const CalendarSelector = memo(
               <div className="flex-1 flex justify-center items-center">
                 <Menu as="div" className="relative inline-block">
                   <MenuButton>
-                    <span className="cursor-pointer btn border w-35 flex items-center justify-between gap-2 truncate">
+                    <span className="cursor-pointer btn border w-25 md:w-35 flex items-center justify-between gap-2 truncate">
                       {monthLabel(ym)} <FontAwesomeIcon icon={faChevronDown} />
                     </span>
                   </MenuButton>
                   <MenuItems
                     transition
-                    className="absolute z-10 mt-2 border rounded-md bg-bg w-35"
+                    className="absolute z-10 mt-2 border rounded-md bg-bg w-25 md:w-35"
                   >
                     <div>
                       {months.map((m) => (

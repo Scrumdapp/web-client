@@ -13,7 +13,7 @@ export function GroupCalendarPage() {
   return (
     <>
       <title>{t("calendar.title")}</title>
-      <div className="card">
+      <div className="card p-1 md:p-4">
         <CalendarSelector currentYearMonth={yearMonth} />
         <div className="min-h-60">
           <Calendar yearMonth={yearMonth} />

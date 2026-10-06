@@ -53,7 +53,7 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
               .map((_, w) => new Date(firstDay.getTime() + w * WEEK))
               .map((weekStart) => (
                 <tr key={weekStart.getTime()}>
-                  <td className="text-gray max-w-6">
+                  <td className="text-gray md:max-w-6">
                     W{getWeekNumber(weekStart)}
                   </td>
                   <CalendarDate
