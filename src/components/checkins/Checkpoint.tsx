@@ -425,7 +425,7 @@ function Checkpoint({
           </table>
         </div>
       </div>
-      <Modal state={modal}>
+      <Modal state={modal} className="mx-2! md:mx-auto">
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheader", {

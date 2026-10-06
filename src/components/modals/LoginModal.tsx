@@ -45,7 +45,7 @@ export function LoginModal({ state }: { state: ModalState }) {
     <Modal
       state={state}
       backgroundClickClose={false}
-      className="w-fit mx-2 md:mx-auto"
+      className="w-fit"
     >
       <ModalHeadText>{t("login.modal.headtext")}</ModalHeadText>
       <p className="pb-4">{t("login.modal.expired")}</p>
