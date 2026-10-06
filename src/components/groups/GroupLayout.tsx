@@ -45,35 +45,40 @@ export function GroupLayout() {
                 </div>
                 <h1 className="text-xl md:text-2xl"> {ctx!!.group!!.name} </h1>
               </div>
-        {menuOpen && (
-            <div
-                className="fixed inset-0 z-40 flex px-2 pt-16 backdrop-blur-lg bg-[unset] w-full max-w-screen md:hidden"
-                onClick={() => setMenuOpen(false)}
-            >
-              <div
-                  className="bg-bg_h rounded-xl border shadow-xl w-full overflow-hidden h-fit"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if ((e.target as HTMLElement).closest("a, button")) {
-                      setMenuOpen(false);
-                    }
-                  }}
-              >
-                <div className="flex flex-col divide-y">
-                  <div className="p-2">
-                    <div className="flex justify-between">
-                      <h1 className="pl-2 p-1 text-xl md:text-2xl"> {ctx!!.group!!.name} </h1>
-                      <button className="pr-2 p-1"><FontAwesomeIcon icon={faXmark} /></button>
+              {menuOpen && (
+                <div
+                  className="fixed inset-0 z-40 flex px-2 pt-16 backdrop-blur-lg bg-[unset] w-full max-w-screen md:hidden"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <div
+                    className="bg-bg_h rounded-xl border shadow-xl w-full overflow-hidden h-fit"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if ((e.target as HTMLElement).closest("a, button")) {
+                        setMenuOpen(false);
+                      }
+                    }}
+                  >
+                    <div className="flex flex-col divide-y">
+                      <div className="p-2">
+                        <div className="flex justify-between">
+                          <h1 className="pl-2 p-1 text-xl md:text-2xl">
+                            {" "}
+                            {ctx!!.group!!.name}{" "}
+                          </h1>
+                          <button className="pr-2 p-1">
+                            <FontAwesomeIcon icon={faXmark} />
+                          </button>
+                        </div>
+                        <GroupSidebarMobile />
+                      </div>
                     </div>
-                    <GroupSidebarMobile />
                   </div>
                 </div>
-              </div>
-            </div>
-        )}
+              )}
             </>
-      )}
-    </GroupConsumer>
+          )}
+        </GroupConsumer>
         <div className="flex gap-4">
           <div className="hidden md:flex flex-col gap-4">
             <GroupSidebar />
