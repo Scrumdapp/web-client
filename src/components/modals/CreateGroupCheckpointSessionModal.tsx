@@ -44,7 +44,7 @@ export function CreateGroupCheckpointSessionModal({
   };
 
   return (
-    <Modal state={state}>
+    <Modal state={state} className="max-w-xs">
       <div className="space-y-5">
         <ModalHeadText>{t("checkpoint.modal.newcheckpoint")}</ModalHeadText>
         <div className="horizontal flex-1 gap-2">
@@ -69,6 +69,25 @@ export function CreateGroupCheckpointSessionModal({
         {showWarning && (
           <p className="text-red text-sm">{t("checkpoint.modal.error")}</p>
         )}
+        {createCheckpointSession.error && (
+          <div className="flex flex-col gap-1 items-start">
+            <h3 className="text-red">
+              {t(createCheckpointSession.error.titleTranslationKey)}
+            </h3>
+            <p className="text-red">
+              {t(createCheckpointSession.error.descriptionTranslationKey)}
+            </p>
+            {createCheckpointSession.error.errors &&
+              createCheckpointSession.error.errors.length > 0 && (
+                <ul className="text-red list-disc list-inside">
+                  {createCheckpointSession.error.errors?.map((err, idx) => (
+                    <li key={idx}>{t(err.translationKey)}</li>
+                  ))}
+                </ul>
+              )}
+          </div>
+        )}
+
         <ModalActionRow>
           <ModalCancelButton />
           <button

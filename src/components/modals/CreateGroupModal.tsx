@@ -15,7 +15,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
   const createGroupCommand = useApi(ScrumdappApi.createGroup());
 
   return (
-    <Modal state={state}>
+    <Modal state={state} className="max-w-xs">
       <ModalHeadText>{t("groups.newgroup")}</ModalHeadText>
       <form
         id="create-group-form"
@@ -40,6 +40,26 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
           required
         />
       </form>
+
+      {createGroupCommand.error && (
+        <div className="flex flex-col gap-1 items-start">
+          <h3 className="text-red">
+            {t(createGroupCommand.error.titleTranslationKey)}
+          </h3>
+          <p className="text-red">
+            {t(createGroupCommand.error.descriptionTranslationKey)}
+          </p>
+          {createGroupCommand.error.errors &&
+            createGroupCommand.error.errors.length > 0 && (
+              <ul className="text-red list-disc list-inside">
+                {createGroupCommand.error.errors?.map((err, idx) => (
+                  <li key={idx}>{t(err.translationKey)}</li>
+                ))}
+              </ul>
+            )}
+        </div>
+      )}
+
       <ModalActionRow>
         <ModalCancelButton />
         <button

@@ -10,7 +10,7 @@ const CustomErrorScreen = ({
 }) => {
   return (
     <div className="center fade-in">
-      <div className="border p-4 rounded-full mb-8">
+      <div className="flex w-20 h-20 items-center justify-center border rounded-full mb-8">
         <FontAwesomeIcon icon={faTriangleExclamation} size={"2x"} />
       </div>
       <h2>{errorTitle}</h2>

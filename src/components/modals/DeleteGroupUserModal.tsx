@@ -113,6 +113,25 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
           onChange={(e) => setName(e.target.value)}
         />
       </div>
+      {deleteGroupUser.error && (
+        <div className="flex flex-col gap-1 items-start">
+          <h3 className="text-red">
+            {t(deleteGroupUser.error.titleTranslationKey)}
+          </h3>
+          <p className="text-red">
+            {t(deleteGroupUser.error.descriptionTranslationKey)}
+          </p>
+          {deleteGroupUser.error.errors &&
+            deleteGroupUser.error.errors.length > 0 && (
+              <ul className="text-red list-disc list-inside">
+                {deleteGroupUser.error.errors?.map((err, idx) => (
+                  <li key={idx}>{t(err.translationKey)}</li>
+                ))}
+              </ul>
+            )}
+        </div>
+      )}
+
       <ModalActionRow>
         <ModalCancelButton />
         <button
@@ -124,11 +143,6 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
           {t("settings.users.delete.confirm.next")}
         </button>
       </ModalActionRow>
-      {deleteGroupUser.error && (
-        <p className="text-red text-right">
-          {deleteGroupUser.error.status}: {deleteGroupUser.error.message}
-        </p>
-      )}
       <p className="muted text-right">
         {t("settings.users.delete.steps", { index: 2, total: 3 })}
       </p>
