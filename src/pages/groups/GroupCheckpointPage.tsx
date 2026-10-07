@@ -118,12 +118,16 @@ export function GroupCheckpointPage({
       ) : currentDate == date ? (
         <div className="min-h-50 flex flex-col items-center justify-center gap-2">
           <h2>{t("checkpoint.nocheckpoint.today")}</h2>
-          <p>{t("checkpoint.nocheckpoint.todaydescription")}</p>
+          <p className="text-center">
+            {t("checkpoint.nocheckpoint.todaydescription")}
+          </p>
         </div>
       ) : (
         <div className="min-h-50 flex flex-col items-center justify-center gap-2">
           <h2>{t("checkpoint.nocheckpoint.past")}</h2>
-          <p>{t("checkpoint.nocheckpoint.pastdescription")}</p>
+          <p className="text-center">
+            {t("checkpoint.nocheckpoint.pastdescription")}
+          </p>
         </div>
       )}
       <CreateGroupCheckpointSessionModal
