@@ -27,7 +27,7 @@ export default function CheckpointNamesField({
           maxLength={32}
           onChange={(e) => onChange(e.target.value)}
           placeholder={t("settings.checkpointNames.placeholder")}
-          className="w-full write-section m-1 border-transparent!"
+          className="w-full write-section border-transparent!"
         />
         {onRemove && (
           <button className="btn text-red" onClick={onRemove}>

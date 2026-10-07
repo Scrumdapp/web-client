@@ -37,13 +37,19 @@ export default function CheckpointNames() {
   ]);
 
   const handleAdd = () =>
-    setFields((prev) => [...prev, { id: crypto.randomUUID(), value: "" }]);
+    setFields((prev) =>
+      prev.length >= MAX_CHECKPOINT_NAMES
+        ? prev
+        : [...prev, { id: crypto.randomUUID(), value: "" }],
+    );
 
   const handleChange = (id: string, value: string) =>
     setFields((prev) => prev.map((f) => (f.id === id ? { ...f, value } : f)));
 
   const handleRemove = (id: string) =>
     setFields((prev) => prev.filter((f) => f.id !== id));
+
+  const MAX_CHECKPOINT_NAMES = 10;
 
   return (
     <div className="card">
@@ -82,10 +88,12 @@ export default function CheckpointNames() {
             />
           ))}
 
-          <button className="btn border mt-2" onClick={handleAdd}>
-            <FontAwesomeIcon icon={faPlus} />{" "}
-            {t("settings.checkpointNames.add")}
-          </button>
+          {fields.length < MAX_CHECKPOINT_NAMES && (
+            <button className="btn border mt-2" onClick={handleAdd}>
+              <FontAwesomeIcon icon={faPlus} />{" "}
+              {t("settings.checkpointNames.add")}
+            </button>
+          )}
         </div>
         <ModalActionRow>
           <ModalCancelButton />
