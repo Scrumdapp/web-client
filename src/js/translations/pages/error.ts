@@ -272,7 +272,7 @@ export default {
             maxLength: "Het wachtwoord mag niet langer zijn dan 100 tekens.",
           },
           expiresAt: {
-            invalid: "Vul een geldige vervaldatum in."
+            invalid: "Vul een geldige vervaldatum in.",
           },
           firstName: {
             maxLength: "De voornaam mag niet langer zijn dan 64 tekens.",
