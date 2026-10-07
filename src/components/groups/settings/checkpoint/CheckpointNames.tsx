@@ -95,7 +95,7 @@ export default function CheckpointNames() {
           ))}
 
           {fields.length < MAX_CHECKPOINT_NAMES && (
-            <button className="btn border mt-2" onClick={handleAdd}>
+            <button className="btn border mt-2 m-1" onClick={handleAdd}>
               <FontAwesomeIcon icon={faPlus} />{" "}
               {t("settings.checkpointNames.add")}
             </button>
