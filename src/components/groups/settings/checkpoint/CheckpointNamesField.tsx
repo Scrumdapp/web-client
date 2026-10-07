@@ -8,12 +8,14 @@ type Props = {
   value: string;
   onChange: (value: string) => void;
   onRemove?: () => void;
+  autoFocus?: boolean;
 };
 
 export default function CheckpointNamesField({
   value,
   onChange,
   onRemove,
+  autoFocus,
 }: Props) {
   const { t } = useTranslation();
   const showWarning = value !== "" && !CHECKPOINT_NAME_REGEX.test(value);
@@ -25,6 +27,7 @@ export default function CheckpointNamesField({
           type="text"
           value={value}
           maxLength={32}
+          autoFocus={autoFocus}
           onChange={(e) => onChange(e.target.value)}
           placeholder={t("settings.checkpointNames.placeholder")}
           className="w-full write-section border-transparent!"

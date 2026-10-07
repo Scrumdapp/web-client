@@ -16,6 +16,7 @@ export default function CheckpointNames() {
   const modal = useModalState();
 
   function handleOpenModal() {
+    setFocusId(null);
     setFields(
       savedNames.length > 0
         ? savedNames.map((value) => ({ id: crypto.randomUUID(), value }))
@@ -36,12 +37,14 @@ export default function CheckpointNames() {
     { id: crypto.randomUUID(), value: "" },
   ]);
 
-  const handleAdd = () =>
-    setFields((prev) =>
-      prev.length >= MAX_CHECKPOINT_NAMES
-        ? prev
-        : [...prev, { id: crypto.randomUUID(), value: "" }],
-    );
+  const [focusId, setFocusId] = useState<string | null>(null);
+
+  const handleAdd = () => {
+    if (fields.length >= MAX_CHECKPOINT_NAMES) return;
+    const id = crypto.randomUUID();
+    setFields((prev) => [...prev, { id, value: "" }]);
+    setFocusId(id);
+  };
 
   const handleChange = (id: string, value: string) =>
     setFields((prev) => prev.map((f) => (f.id === id ? { ...f, value } : f)));
@@ -79,12 +82,15 @@ export default function CheckpointNames() {
           {t("settings.checkpointNames.editHeader")}
         </ModalHeadText>
         <div className="flex vertical my-3">
-          {fields.map((field, index) => (
+          {fields.map((field) => (
             <CheckpointNamesField
               key={field.id}
               value={field.value}
               onChange={(value) => handleChange(field.id, value)}
-              onRemove={index > 0 ? () => handleRemove(field.id) : undefined}
+              onRemove={
+                fields.length >= 2 ? () => handleRemove(field.id) : undefined
+              }
+              autoFocus={field.id === focusId}
             />
           ))}
 
