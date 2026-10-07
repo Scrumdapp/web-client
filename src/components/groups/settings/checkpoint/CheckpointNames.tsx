@@ -6,22 +6,32 @@ import ModalCancelButton from "../../../generic/modal/components/ModalCancelButt
 import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
-import CheckpointNamesList from "./CheckpointNamesList.tsx";
 import { useState } from "react";
-import CheckpointNamesField from "./CheckpointNamesField.tsx";
+import CheckpointNamesField, {
+  CHECKPOINT_NAME_REGEX,
+} from "./CheckpointNamesField.tsx";
 
 export default function CheckpointNames() {
   const { t } = useTranslation();
   const modal = useModalState();
 
   function handleOpenModal() {
+    setFields(
+      savedNames.length > 0
+        ? savedNames.map((value) => ({ id: crypto.randomUUID(), value }))
+        : [{ id: crypto.randomUUID(), value: "" }],
+    );
     modal.open();
   }
 
   function handleDone() {
+    const names = fields.map((f) => f.value.trim()).filter(Boolean);
+    if (names.some((n) => !CHECKPOINT_NAME_REGEX.test(n))) return; // invalid input, keep modal open
+    setSavedNames(names);
     modal.close();
   }
 
+  const [savedNames, setSavedNames] = useState<string[]>([]);
   const [fields, setFields] = useState([
     { id: crypto.randomUUID(), value: "" },
   ]);
@@ -29,27 +39,39 @@ export default function CheckpointNames() {
   const handleAdd = () =>
     setFields((prev) => [...prev, { id: crypto.randomUUID(), value: "" }]);
 
-  const handleChange = (id, value) =>
+  const handleChange = (id: string, value: string) =>
     setFields((prev) => prev.map((f) => (f.id === id ? { ...f, value } : f)));
 
-  const handleRemove = (id) =>
+  const handleRemove = (id: string) =>
     setFields((prev) => prev.filter((f) => f.id !== id));
 
   return (
-    <div className="card flex flex-col">
-      <div className="flex flex-row w-full justify-between items-center py-3">
+    <div className="card">
+      <div className="flex flex-row w-full justify-between items-center">
         <h3>{t("settings.checkpointNames.header")}</h3>
         <button onClick={handleOpenModal} className="btn btn-secondary border">
           {t("settings.checkpointNames.edit")}
         </button>
       </div>
-      <div>
-        <p>{t("settings.checkpointNames.description")}</p>
+      <p>{t("settings.checkpointNames.description")}</p>
+      <div className="pl-2 mt-1">
+        {savedNames.length > 0 ? (
+          <ul className="list-disc pl-5">
+            {savedNames.map((name, i) => (
+              <li key={i}>{name}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>
+            <i>{t("settings.checkpointNames.noNames")}</i>
+          </p>
+        )}
       </div>
-      <CheckpointNamesList />
 
       <Modal state={modal}>
-        <ModalHeadText>{t("settings.checkpointNames.header")}</ModalHeadText>
+        <ModalHeadText>
+          {t("settings.checkpointNames.editHeader")}
+        </ModalHeadText>
         <div className="flex vertical my-3">
           {fields.map((field, index) => (
             <CheckpointNamesField

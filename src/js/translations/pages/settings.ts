@@ -55,11 +55,13 @@ export default {
       },
       checkpointNames: {
         header: "Checkpoint Names",
-        edit: "Edit",
+        edit: "Edit names",
+        editHeader: "Edit checkpoint names",
         description:
           "These are all the checkpoint names that are used in this group:",
         placeholder: "Type a checkpoint name here",
         add: "Add a new checkpoint name",
+        noNames: "No checkpoint names have been added yet",
       },
     },
   },
@@ -119,11 +121,13 @@ export default {
       },
       checkpointNames: {
         header: "Checkpoint Names",
-        edit: "Pas aan",
+        edit: "Pas namen aan",
+        editHeader: "Pas checkpoint namen aan",
         description:
           "Dit zijn alle checkpoint namen die gebruikt worden in deze groep:",
         placeholder: "Type een checkpoint naam hier",
         add: "Voeg een nieuwe checkpoint naam toe",
+        noNames: "Er zijn nog geen checkpoint namen toegevoegd",
       },
     },
   },
