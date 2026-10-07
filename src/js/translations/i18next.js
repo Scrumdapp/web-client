@@ -10,6 +10,7 @@ import groups from './pages/groups.js';
 import checkpoint from './pages/checkpoint.js';
 import calendar from './pages/calendar.js';
 import trends from './pages/trends.js';
+import analytics from './pages/analytics.js';
 import error from './pages/error.js';
 import header from './pages/header.js';
 import footer from './pages/footer.js';
@@ -18,7 +19,7 @@ import modal from './pages/modal.js';
 
 const pages = [
     privacy, about, settings, invite, groups, checkpoint,
-    calendar, trends, error, header, footer, date, modal,
+    calendar, trends, analytics, error, header, footer, date, modal,
 ];
 
 const resources = pages.reduce((acc, page) => {
