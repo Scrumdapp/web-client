@@ -19,9 +19,8 @@ export function SettingsPage() {
       <div className="card">
         <h2>{t("settings.header")}</h2>
       </div>
-      <CheckpointNames />
-
       <UsersTable />
+      <CheckpointNames />
       <ShowIf condition={hasRole(user, Role.Coach)}>
         <Invites groupId={group.id} />
       </ShowIf>
