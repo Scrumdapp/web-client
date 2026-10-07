@@ -53,6 +53,14 @@ export default {
           },
         },
       },
+      checkpointNames: {
+        header: "Checkpoint Names",
+        edit: "Edit",
+        description:
+          "These are all the checkpoint names that are used in this group:",
+        placeholder: "Type a checkpoint name here",
+        add: "Add a new checkpoint name",
+      },
     },
   },
   nl: {
@@ -108,6 +116,14 @@ export default {
             close: "Sluit",
           },
         },
+      },
+      checkpointNames: {
+        header: "Checkpoint Names",
+        edit: "Pas aan",
+        description:
+          "Dit zijn alle checkpoint namen die gebruikt worden in deze groep:",
+        placeholder: "Type een checkpoint naam hier",
+        add: "Voeg een nieuwe checkpoint naam toe",
       },
     },
   },
