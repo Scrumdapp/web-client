@@ -24,7 +24,7 @@ export function CreateGroupCheckpointSessionModal({
 }) {
   const { t } = useTranslation();
   const [checkpointName, setCheckpointName] = useState("");
-  const [showWarning, setShowWarning] = useState(false);
+  const [showWarning] = useState(false);
   const [expireMinutes, setExpireMinutes] = useState(15);
   const createCheckpointSession = useApi(
     ScrumdappApi.createCheckpointSessions(),
@@ -43,24 +43,35 @@ export function CreateGroupCheckpointSessionModal({
     state.accept();
   };
 
+  const { names } = useCheckpointNames();
+  const hasNames = names.length > 0;
+
   return (
     <Modal state={state}>
       <div className="space-y-5">
         <ModalHeadText>{t("checkpoint.modal.newcheckpoint")}</ModalHeadText>
         <div className="horizontal flex-1 gap-2">
-          <input
-            type="text"
+          {!hasNames && (
+            <p className="text-red text-sm">{t("checkpoint.modal.error")}</p>
+          )}
+
+          <select
             className="write-section w-full!"
-            placeholder={t("checkpoint.modal.name")}
-            alt={t("checkpoint.modal.name")}
+            aria-label={t("checkpoint.modal.name")}
             value={checkpointName}
-            maxLength={32}
-            onChange={(e) => {
-              setShowWarning(!/^[a-zA-Z0-9 \-]{1,32}$/.test(e.target.value));
-              setCheckpointName(e.target.value);
-            }}
+            onChange={(e) => setCheckpointName(e.target.value)}
+            disabled={!hasNames}
             required
-          />
+          >
+            <option value="" disabled>
+              {t("checkpoint.modal.name")}
+            </option>
+            {names.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
           <CheckpointTimeDurationDropdownMenu
             value={expireMinutes}
             onChange={(v) => setExpireMinutes(v ?? 15)}
@@ -73,7 +84,9 @@ export function CreateGroupCheckpointSessionModal({
           <ModalCancelButton />
           <button
             className={`btn btn-secondary border ${!checkpointName ? "opacity-50 cursor-not-allowed!" : ""}`}
-            disabled={!checkpointName.trim() || createCheckpointSession.loading}
+            disabled={
+              !hasNames || !checkpointName || createCheckpointSession.loading
+            }
             onClick={handleCreate}
           >
             <FontAwesomeIcon icon={faCheck} className="icon" />

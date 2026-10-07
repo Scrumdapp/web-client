@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export const CHECKPOINT_NAME_REGEX = /^[a-zA-Z0-9 !@#$%^&]{1,32}$/;
 
@@ -31,7 +31,7 @@ export default function CheckpointNamesField({
         />
         {onRemove && (
           <button className="btn text-red" onClick={onRemove}>
-            <FontAwesomeIcon icon={faTrash} />
+            <FontAwesomeIcon icon={faTrashCan} />
           </button>
         )}
       </div>
