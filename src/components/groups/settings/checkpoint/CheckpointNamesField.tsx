@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-export const CHECKPOINT_NAME_REGEX = /^[a-zA-Z0-9 !@#$%^&]{1,32}$/;
+export const CHECKPOINT_NAME_REGEX = /^[a-zA-Z0-9 \-]{1,32}$/;
 
 type Props = {
   value: string;

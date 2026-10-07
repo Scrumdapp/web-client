@@ -55,7 +55,7 @@ export default {
       },
       checkpointNames: {
         header: "Checkpoint Names",
-        edit: "Edit names",
+        edit: "Edit",
         editHeader: "Edit checkpoint names",
         description:
           "These are all the checkpoint names that are used in this group:",
@@ -121,7 +121,7 @@ export default {
       },
       checkpointNames: {
         header: "Checkpoint namen",
-        edit: "Bewerk namen",
+        edit: "Bewerk",
         editHeader: "Pas checkpoint namen aan",
         description:
           "Dit zijn alle checkpoint namen die gebruikt worden in deze groep:",
