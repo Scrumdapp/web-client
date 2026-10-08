@@ -407,12 +407,12 @@ function getNames(gid: number): string[] {
 }
 
 export const checkpointNamesHandlers = [
-  http.get("/api/:gid/sessions/names", ({ params }) => {
+  http.get("/api/groups/:gid/checkpoints/names", ({ params }) => {
     const gid = Number(params.gid);
     return HttpResponse.json(getNames(gid));
   }),
 
-  http.put("/api/:gid/sessions/names", async ({ params, request }) => {
+  http.put("/api/groups/:gid/checkpoints/names", async ({ params, request }) => {
     const gid = Number(params.gid);
     const body = (await request.json()) as string[];
 
