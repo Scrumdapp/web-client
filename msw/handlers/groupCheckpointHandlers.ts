@@ -64,6 +64,16 @@ const RANDOM_IMPEDIMENT = [
   "Mijn pc is gebluescreened",
 ];
 
+export const RANDOM_CHECKPOINTNAMES = [
+    "Check-in",
+    "Check-out",
+    "Check-up",
+    "Ochtend",
+    "Middag",
+    "Avond",
+    "Nacht",
+]
+
 interface GenSessions {
   gId: number;
   dateCount: number;
@@ -384,5 +394,33 @@ export const groupCheckpointHandlers = [
       .filter((it) => it.sessionId == session.id);
 
     return HttpResponse.json(checkpoints);
+  }),
+];
+
+const namesByGroup = new Map<number, string[]>();
+
+function getNames(gid: number): string[] {
+  if (!namesByGroup.has(gid)) {
+    namesByGroup.set(gid, [...RANDOM_CHECKPOINTNAMES]);
+  }
+  return namesByGroup.get(gid)!;
+}
+
+export const checkpointNamesHandlers = [
+  http.get("/api/groups/:gid/checkpoints/names", ({ params }) => {
+    const gid = Number(params.gid);
+    return HttpResponse.json(getNames(gid));
+  }),
+
+  http.put("/api/groups/:gid/checkpoints/names", async ({ params, request }) => {
+    const gid = Number(params.gid);
+    const body = (await request.json()) as string[];
+
+    if (!Array.isArray(body) || body.length > 10) {
+      return HttpResponse.json({ error: "Invalid names" }, { status: 400 });
+    }
+
+    namesByGroup.set(gid, body);
+    return HttpResponse.json(body);
   }),
 ];

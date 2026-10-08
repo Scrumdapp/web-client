@@ -70,7 +70,7 @@ export default function Invites({ groupId }: InvitesProps) {
   return (
     <>
       <div className="card flex flex-col items-center">
-        <div className="flex flex-row w-full justify-between items-center py-3">
+        <div className="flex flex-row w-full justify-between items-center">
           <h3>{t("invite.header")}</h3>
           <button
             onClick={handleOpenModal}
