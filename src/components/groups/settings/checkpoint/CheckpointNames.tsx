@@ -6,21 +6,23 @@ import ModalCancelButton from "../../../generic/modal/components/ModalCancelButt
 import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPencil, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import CheckpointNamesField, {
   CHECKPOINT_NAME_REGEX,
 } from "./CheckpointNamesField.tsx";
+import {useSearchParams} from "react-router-dom";
 
 export default function CheckpointNames() {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const modal = useModalState();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleOpenModal() {
     setFocusId(null);
     setFields(
-      savedNames.length > 0
-        ? savedNames.map((value) => ({ id: crypto.randomUUID(), value }))
-        : [{ id: crypto.randomUUID(), value: "" }],
+        savedNames.length > 0
+            ? savedNames.map((value) => ({id: crypto.randomUUID(), value}))
+            : [{id: crypto.randomUUID(), value: ""}],
     );
     modal.open();
   }
@@ -34,7 +36,7 @@ export default function CheckpointNames() {
 
   const [savedNames, setSavedNames] = useState<string[]>([]);
   const [fields, setFields] = useState([
-    { id: crypto.randomUUID(), value: "" },
+    {id: crypto.randomUUID(), value: ""},
   ]);
 
   const [focusId, setFocusId] = useState<string | null>(null);
@@ -42,17 +44,28 @@ export default function CheckpointNames() {
   const handleAdd = () => {
     if (fields.length >= MAX_CHECKPOINT_NAMES) return;
     const id = crypto.randomUUID();
-    setFields((prev) => [...prev, { id, value: "" }]);
+    setFields((prev) => [...prev, {id, value: ""}]);
     setFocusId(id);
   };
 
   const handleChange = (id: string, value: string) =>
-    setFields((prev) => prev.map((f) => (f.id === id ? { ...f, value } : f)));
+      setFields((prev) => prev.map((f) => (f.id === id ? {...f, value} : f)));
 
   const handleRemove = (id: string) =>
-    setFields((prev) => prev.filter((f) => f.id !== id));
+      setFields((prev) => prev.filter((f) => f.id !== id));
 
   const MAX_CHECKPOINT_NAMES = 10;
+
+  const wantsModal = searchParams.get("modal") === "checkpointNames";
+
+  useEffect(() => {
+    if (!wantsModal) return;
+
+    handleOpenModal();
+    const next = new URLSearchParams(searchParams);
+    next.delete("modal");
+    setSearchParams(next, {replace: true});
+  }, [wantsModal]);
 
   return (
     <div className="card">

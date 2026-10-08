@@ -117,7 +117,7 @@ export function CreateGroupCheckpointSessionModal({
             {t("checkpoint.modal.error")}
             <Link
               className="text-link text-sm underline"
-              to={`${group ? `/groups/${group.id}/settings` : "/groups/1/settings"}`}
+              to={`/groups/${group.id}/settings?modal=checkpointNames`}
             >
               {t("checkpoint.modal.errorLink")}
             </Link>
