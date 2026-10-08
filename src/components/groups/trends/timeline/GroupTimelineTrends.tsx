@@ -72,7 +72,7 @@ export const GroupTimelineTrends = memo(
         >
           {component}
         </div>
-        <div className="horizontal gap-4 flex-wrap border border-gray! rounded-md p-2">
+        <div className="horizontal gap-4 flex-wrap border border-gray! rounded-md p-2 w-fit">
           {attendanceOptions.map((it) => (
             <div className="horizontal gap-2 items-center">
               <div className={`w-4 h-4 rounded-sm ${it.background}`}></div>

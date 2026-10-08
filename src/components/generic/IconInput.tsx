@@ -21,14 +21,14 @@ export function IconInput({
   // @ts-ignore
   iconProps.icon = icon;
   iconProps.className =
-    "absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" +
+    "absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none w-full" +
     (iconProps.className ?? "");
   iconProps.size = iconProps.size ?? "lg";
 
   return (
     <div className="relative">
       <input
-        className={`write-section pr-9! ${className ?? ""}`}
+        className={`write-section pr-14.5! md:pr-9! ${className ?? ""}`}
         {...inputProps}
       />
       {/* @ts-ignore */}

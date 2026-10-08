@@ -11,7 +11,7 @@ export default function ErrorPage() {
       <img
         src="https://http.cat/images/404.jpg"
         alt={t("error.notfound")}
-        className="border rounded-2xl mx-auto"
+        className="border rounded-2xl mx-auto max-w-full"
       />
       <a
         href=".."

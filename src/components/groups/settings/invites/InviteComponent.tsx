@@ -69,7 +69,7 @@ export default function Invites({ groupId }: InvitesProps) {
   }
   return (
     <>
-      <div className="card flex flex-col items-center">
+      <div className="card flex flex-col items-center gap-2">
         <div className="flex flex-row w-full justify-between items-center py-3">
           <h3>{t("invite.header")}</h3>
           <button
@@ -100,7 +100,7 @@ export default function Invites({ groupId }: InvitesProps) {
                       <td>
                         <button
                           onClick={() => handleCopyInvite(invite)}
-                          className={`btn btn-secondary border my-1 float-right ${expired ? "opacity-50 cursor-not-allowed!" : ""}`}
+                          className="btn btn-secondary border my-1 float-right"
                           disabled={expired}
                         >
                           <FontAwesomeIcon
@@ -154,7 +154,7 @@ export default function Invites({ groupId }: InvitesProps) {
                 <ModalCancelButton />
                 <button
                   onClick={handleCreateInvite}
-                  className={`btn btn-secondary border ${!password ? "opacity-50 cursor-not-allowed!" : ""}`}
+                  className="btn btn-secondary border"
                   disabled={!password.trim()}
                 >
                   <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.create")}

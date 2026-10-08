@@ -52,7 +52,7 @@ export function TimeRangeSelector({
 
   return (
     <Menu as="div" className="relative">
-      <MenuButton className="btn border min-w-32">
+      <MenuButton className="btn border w-20 md:min-w-32">
         {options[selectedOption].name}
         <FontAwesomeIcon icon={faChevronDown} className={`shrink-0`} />
       </MenuButton>

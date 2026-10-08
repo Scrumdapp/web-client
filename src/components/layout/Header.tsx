@@ -9,39 +9,49 @@ export default function Header() {
   const user = useUser();
 
   const links = [
-    { to: "/", label: t("header.home") },
-    { to: "/groups", label: t("header.groups") },
+    { to: "/", label: t("header.home"), target: "_self" },
+    { to: "/groups", label: t("header.groups"), target: "_self" },
   ];
 
   return (
     <>
-      <header className="flex mx-2 fixed top-0 left-0 right-0 z-50">
+      <header className="flex flex-col mx-2 fixed top-0 left-0 right-0 z-50">
         <nav className="bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center">
-          <div className="flex-1 text-fg text-2xl font-bold">
-            <Link to="/groups" className="horizontal gap-1 items-center">
+          <div className="flex-1 text-fg font-bold">
+            <Link
+              to="/groups"
+              className="horizontal gap-1 items-center max-w-fit"
+            >
               <img
                 src={`/ScrumdappLogoTransparent.webp`}
                 alt={t("about.logo")}
-                className="nav-icon"
+                className="nav-icon max-w-full"
               />
               Scrumdapp
             </Link>
           </div>
-          <div className="flex-1 flex space-x-6 text-black justify-center font-medium">
+
+          <h2 className="horizontal gap-4">
             {links.map((link, i) => (
-              <Link key={i} to={link.to} className="btn py-1!">
+              <Link
+                key={i}
+                to={link.to}
+                target={link.target}
+                className="btn py-1!"
+              >
                 {link.label}
               </Link>
             ))}
-          </div>
-          <div className="flex-1 flex justify-end h-full my-4">
+          </h2>
+
+          <div className="flex flex-1 justify-end h-full my-4">
             <div className="nav-dropdown cursor-default">
-              <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
-                <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
+              <div className="horizontal justify-end w-80 items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
+                <span className="text-nowrap truncate break-words">{`${user.first_name} ${user.last_name}`}</span>
                 <img
                   src={user.avatar ?? "/Scrumdaddy.png"}
                   alt={t("header.profileAlt")}
-                  className="nav-icon"
+                  className="nav-icon max-w-full"
                 />
               </div>
               <div className="nav-dropdown-content -right-[0.5px]!">
@@ -54,7 +64,7 @@ export default function Header() {
           </div>
         </nav>
       </header>
-      <div className="h-20" />
+      <div className="h-15 md:h-20" />
     </>
   );
 }

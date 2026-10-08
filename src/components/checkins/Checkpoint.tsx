@@ -245,6 +245,7 @@ function Checkpoint({
     if (rows == null) return;
     setApplyError(null);
     const myRow = rows.find((row) => row.groupUser === myUserId);
+    setSelectedUser(myRow ?? null);
     setSelectedPresence(myRow?.presence ? String(myRow.presence) : null);
     setSelectedStar(myRow?.stars ?? null);
     setNotes(myRow?.comment ?? "");
@@ -286,7 +287,7 @@ function Checkpoint({
   const isInGroup = users.some((user) => user.user_id === myUserId);
 
   return (
-    <div className="card w-full space-x-5">
+    <div className="card p-2 md:p-4 w-full space-x-0 md:space-x-5">
       <div className="flex flex-row items-center justify-between mr-0">
         <button
           className="flex items-center gap-2 text-left cursor-pointer w-full"
@@ -298,7 +299,7 @@ function Checkpoint({
             className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
           />
           <div className="gap-3 flex items-center justify-between w-full">
-            <h2>{name}</h2>
+            <h2 className="text-lg md:text-2xl">{name}</h2>
           </div>
         </button>
         <div className="flex items-center gap-3">
@@ -312,7 +313,7 @@ function Checkpoint({
           </button>
         </div>
       </div>
-      <p>
+      <p className="pt-1 md:pt-0">
         {isLocked ? (
           t("checkpoint.closed")
         ) : (
@@ -332,16 +333,22 @@ function Checkpoint({
           <table className="table-fixed w-full">
             <thead>
               <tr>
-                <th className="p-2 text-left w-44">{t("checkpoint.name")}</th>
-                <th className="p-2 text-left border-l border-dotted w-28">
+                <th className="p-1 md:p-2 text-left w-16 md:w-44">
+                  {t("checkpoint.name")}
+                </th>
+                <th className="p-1 md:p-2 text-left border-l border-dotted w-16 md:w-28">
                   {t("checkpoint.attendance")}
                 </th>
-                <th className="p-2 items-center w-28">
+                <th className="p-2 items-center w-20 md:w-28">
                   {t("checkpoint.stars")}
                 </th>
-                <th className="p-2 text-left">{t("checkpoint.notes")}</th>
-                <th className="p-2 text-left">{t("checkpoint.obstacle")}</th>
-                <th className="p-2 pl-0 text-right w-14">
+                <th className="p-1 md:p-2 text-left hidden md:table-cell md:w-28">
+                  {t("checkpoint.notes")}
+                </th>
+                <th className="p-1 md:p-2 text-left hidden md:table-cell md:w-28">
+                  {t("checkpoint.obstacle")}
+                </th>
+                <th className="p-1 md:p-2 pl-0 text-right w-10">
                   {t("checkpoint.actions")}
                 </th>
               </tr>
@@ -352,34 +359,32 @@ function Checkpoint({
                   key={`${item.groupUser === item.id ? "u" : "cp"}-${item.id}`}
                   className="align-top"
                 >
-                  <td className="p-2 text-left name-field border-r border-t border-dotted border-current! min-h-14 h-14">
+                  <td className="p-2 text-left name-field border-r border-t border-dotted border-current! max-h-14">
                     {item.first_name} {item.last_name}
                   </td>
-                  <td
-                    className={`text-left p-2 border-t border-dotted border-current`}
-                  >
+                  <td className="text-left p-2 border-t border-dotted border-current">
                     <div className={getAttendanceColor(item.presence)}>
                       {t(getAttendanceLabelKey(item.presence))}
                     </div>
                   </td>
-                  <td className={`p-2 border-t border-dotted border-current`}>
+                  <td className="p-2 border-t border-dotted border-current">
                     <div
                       className={`flex justify-center items-center ${getStarsColor(item.stars)}`}
                     >
                       <Stars amount={item.stars} />
                     </div>
                   </td>
-                  <td className="p-2 break-words border-t border-dotted">
-                    <p className={`break-words line-clamp-2`}>{item.comment}</p>
+                  <td className="p-2 break-words border-t border-dotted hidden md:table-cell">
+                    <p className="break-words line-clamp-2">{item.comment}</p>
                   </td>
-                  <td className="p-2 break-words border-t border-dotted">
-                    <p className={`break-words line-clamp-2`}>
+                  <td className="p-2 break-words border-t border-dotted hidden md:table-cell">
+                    <p className="break-words line-clamp-2">
                       {item.impediment}
                     </p>
                   </td>
                   <td className="border-t border-dotted p-2 pl-0">
                     <button
-                      className="btn border aspect-square ml-auto mr-0"
+                      className="btn p-1 md:p-2 border aspect-square ml-auto mr-0"
                       onClick={() => handleModalReadOnlyOpen(item)}
                     >
                       <FontAwesomeIcon
@@ -392,7 +397,7 @@ function Checkpoint({
                       (!isLocked ? (
                         isSessionmaster ? (
                           <button
-                            className="btn border aspect-square ml-auto mr-0 mt-2"
+                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-2"
                             onClick={() => handleModalOpen(item)}
                           >
                             <FontAwesomeIcon
@@ -403,7 +408,7 @@ function Checkpoint({
                         ) : item.groupUser === myUserId ||
                           item.id === myUserId ? (
                           <button
-                            className="btn border aspect-square ml-auto mr-0 mt-2"
+                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-2"
                             onClick={handleOwnModalOpen}
                           >
                             <FontAwesomeIcon
@@ -420,7 +425,7 @@ function Checkpoint({
           </table>
         </div>
       </div>
-      <Modal state={modal}>
+      <Modal state={modal} className="mx-2! md:mx-auto">
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheader", {
@@ -472,7 +477,7 @@ function Checkpoint({
           </ModalActionRow>
         </div>
       </Modal>
-      <Modal state={modalReadOnly} className="max-w-xl">
+      <Modal state={modalReadOnly} className="w-fill mx-2 md:mx-auto">
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheaderreadonly", {
