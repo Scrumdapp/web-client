@@ -5,7 +5,7 @@ import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx
 import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
 import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPencil, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import CheckpointNamesField, {
   CHECKPOINT_NAME_REGEX,
@@ -59,6 +59,7 @@ export default function CheckpointNames() {
       <div className="flex flex-row w-full justify-between items-center">
         <h3>{t("settings.checkpointNames.header")}</h3>
         <button onClick={handleOpenModal} className="btn btn-secondary border">
+          <FontAwesomeIcon icon={faPencil} />{" "}
           {t("settings.checkpointNames.edit")}
         </button>
       </div>

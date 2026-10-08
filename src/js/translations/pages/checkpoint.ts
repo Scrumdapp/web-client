@@ -28,7 +28,8 @@ export default {
       },
       modal: {
         newcheckpoint: "New checkpoint",
-        error: "No names have been added to the list",
+        error: "No names have been added to the list, add them ",
+        errorLink: "here",
         create: "Create",
         name: "Checkpoint Name",
         duration: {
@@ -96,7 +97,8 @@ export default {
       },
       modal: {
         newcheckpoint: "Nieuw checkpoint",
-        error: "Er zijn geen namen toegevoegd aan de lijst",
+        error: "Er zijn geen namen toegevoegd aan de lijst, bewerk deze ",
+        errorLink: "hier",
         create: "Maak aan",
         name: "Checkpoint Naam",
         duration: {

@@ -13,6 +13,8 @@ import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { useTranslation } from "react-i18next";
 import { CheckpointTimeDurationDropdownMenu } from "../generic/CheckpointTimeDuration.tsx";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { useGroup } from "../../js/context/group/useGroup.ts";
+import { Link } from "react-router-dom";
 
 export function CreateGroupCheckpointSessionModal({
   groupId,
@@ -25,7 +27,6 @@ export function CreateGroupCheckpointSessionModal({
 }) {
   const { t } = useTranslation();
   const [checkpointName, setCheckpointName] = useState("");
-  const [showWarning] = useState(false);
   const [expireMinutes, setExpireMinutes] = useState(15);
   const createCheckpointSession = useApi(
     ScrumdappApi.createCheckpointSessions(),
@@ -73,6 +74,8 @@ export function CreateGroupCheckpointSessionModal({
 
   const hasNames = names.length > 0;
 
+  const group = useGroup();
+
   return (
     <Modal state={state}>
       <div className="space-y-5">
@@ -110,10 +113,15 @@ export function CreateGroupCheckpointSessionModal({
           />
         </div>
         {!isLoadingNames && !hasNames && (
-          <p className="text-red text-sm">{t("checkpoint.modal.error")}</p>
-        )}
-        {showWarning && (
-          <p className="text-red text-sm">{t("checkpoint.modal.error")}</p>
+          <p className="text-red text-sm">
+            {t("checkpoint.modal.error")}
+            <Link
+              className="text-link text-sm underline"
+              to={`${group ? `/groups/${group.id}/settings` : "/groups/1/settings"}`}
+            >
+              {t("checkpoint.modal.errorLink")}
+            </Link>
+          </p>
         )}
         <ModalActionRow>
           <ModalCancelButton />
