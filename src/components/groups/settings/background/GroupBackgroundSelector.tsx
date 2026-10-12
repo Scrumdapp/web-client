@@ -107,7 +107,7 @@ export function BackgroundSelector() {
       />
       <Button
         onClick={modalState.open}
-        aria-label="change background"
+        aria-label={t("settings.background.change")}
         className="mr-auto btn border"
       >
         <FontAwesomeIcon icon={faImages} className="text-green" />
@@ -149,7 +149,7 @@ function BackgroundSelectorModal({ modal }: { modal: ModalState }) {
     );
 
     return (
-      <Modal state={modal}>
+      <Modal state={modal} className="w-fit mx-2 my md:mx-auto my-4">
         <ModalHeadText>{t("settings.background.modal.select")}</ModalHeadText>
         <BackgroundTopicNavbar
           selectedTopicId={t(selectedTopic.labelKey)}
