@@ -51,7 +51,7 @@ export function CreateGroupCheckpointSessionModal({
   useEffect(() => {
     let cancelled = false;
 
-    fetch(`/api/${groupId}/sessions/names`)
+    fetch(`/api/groups/:gid/checkpoints/names`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
@@ -85,7 +85,6 @@ export function CreateGroupCheckpointSessionModal({
             names={names}
             value={checkpointName}
             onChange={setCheckpointName}
-            disabled={isLoadingNames || !hasNames}
           />
           <CheckpointTimeDurationDropdownMenu
             value={expireMinutes}

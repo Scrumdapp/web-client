@@ -417,7 +417,13 @@ export const checkpointNamesHandlers = [
     const body = (await request.json()) as string[];
 
     if (!Array.isArray(body) || body.length > 10) {
-      return HttpResponse.json({ error: "Invalid names" }, { status: 400 });
+      return HttpResponse.json(
+          {
+            code: "INVALID_NAMES",
+            titleTranslationKey: "errors.checkpoint.invalidNames.title",
+            descriptionTranslationKey: "errors.checkpoint.invalidNames.description",
+          } as object
+      , {status: 400});
     }
 
     namesByGroup.set(gid, body);

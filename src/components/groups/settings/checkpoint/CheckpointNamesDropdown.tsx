@@ -18,9 +18,7 @@ export default function CheckpointNamesDropdown({
 
   return (
     <Menu as="div" className="relative w-full">
-      <MenuButton
-        className="btn-attendance border cursor-pointer h-10.5!"
-      >
+      <MenuButton className="btn-attendance border cursor-pointer h-10.5!">
         <span className={`truncate ${value ? "opacity-100" : "opacity-50"}`}>
           {value || t("checkpoint.modal.type")}
         </span>
