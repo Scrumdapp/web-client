@@ -1,31 +1,29 @@
-import {
-  createProcessor,
-  makeApiRequest,
-  RequestProcessor,
-} from "../apiUtils.ts";
+import { createProcessor, makeApiRequest } from "../apiUtils.ts";
 
-export function getCheckpointNames(): RequestProcessor<
-  [groupId: number],
-  string[]
-> {
+export function getCheckpointNames() {
   return createProcessor("getCheckpointNames", (groupId: number) => {
-    return makeApiRequest("GET", "/groups/{group.id}/checkpoints/names", {
-      params: { "{group.id}": groupId },
-    });
+    return makeApiRequest<string[]>(
+      "GET",
+      "/groups/{group.id}/checkpoints/names",
+      {
+        params: { "{group.id}": groupId },
+      },
+    );
   });
 }
 
-export function updateCheckpointNames(): RequestProcessor<
-  [groupId: number, names: string[]],
-  string[]
-> {
+export function updateCheckpointNames() {
   return createProcessor(
     "updateCheckpointNames",
     (groupId: number, names: string[]) => {
-      return makeApiRequest("PUT", "/groups/{group.id}/checkpoints/names", {
-        body: { names },
-        params: { "{group.id}": groupId },
-      });
+      return makeApiRequest<string[]>(
+        "PUT",
+        "/groups/{group.id}/checkpoints/names",
+        {
+          body: { names },
+          params: { "{group.id}": groupId },
+        },
+      );
     },
   );
 }
