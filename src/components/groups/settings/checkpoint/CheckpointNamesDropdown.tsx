@@ -7,18 +7,23 @@ type Props = {
   names: string[];
   value: string;
   onChange: (name: string) => void;
+  disabled: boolean;
 };
 
 export default function CheckpointNamesDropdown({
   names,
   value,
   onChange,
+  disabled,
 }: Props) {
   const { t } = useTranslation();
 
   return (
     <Menu as="div" className="relative w-full">
-      <MenuButton className="btn-attendance border cursor-pointer h-10.5!">
+      <MenuButton
+        disabled={disabled}
+        className="btn-attendance border cursor-pointer h-10.5! disabled:opacity-50 disabled:cursor-not-allowed"
+      >
         <span className={`truncate ${value ? "opacity-100" : "opacity-50"}`}>
           {value || t("checkpoint.modal.type")}
         </span>

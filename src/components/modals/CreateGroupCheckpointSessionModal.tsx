@@ -85,6 +85,7 @@ export function CreateGroupCheckpointSessionModal({
             names={names}
             value={checkpointName}
             onChange={setCheckpointName}
+            disabled={isLoadingNames || !hasNames}
           />
           <CheckpointTimeDurationDropdownMenu
             value={expireMinutes}
