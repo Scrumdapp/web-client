@@ -31,7 +31,7 @@ export default {
         error: "No names have been added to the list, add them ",
         errorLink: "here",
         create: "Create",
-        name: "Checkpoint Name",
+        type: "Checkpoint type",
         duration: {
           fiveminutes: "5 minutes",
           tenminutes: "10 minutes",
@@ -100,7 +100,7 @@ export default {
         error: "Er zijn geen namen toegevoegd aan de lijst, bewerk deze ",
         errorLink: "hier",
         create: "Maak aan",
-        name: "Checkpoint Naam",
+        type: "Checkpoint soort",
         duration: {
           fiveminutes: "5 minuten",
           tenminutes: "10 minuten",

@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import CheckpointNamesModal from "./CheckpointNamesModal.tsx";
 import { useModalState } from "../../../../js/hooks/useModalState.ts";
+
 export default function CheckpointNames() {
   const { t } = useTranslation();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const modal = useModalState();
 
@@ -18,7 +20,7 @@ export default function CheckpointNames() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/settings/checkpoint-names")
+    fetch("/api/${groupId}/sessions/names")
       .then((res) => {
         if (!res.ok) throw new Error("load failed");
         return res.json() as Promise<string[]>;
@@ -40,6 +42,7 @@ export default function CheckpointNames() {
     setOpenCount((c) => c + 1);
     modal.open();
   }
+
   useEffect(() => {
     if (!wantsModal || loading) return;
 
@@ -50,7 +53,7 @@ export default function CheckpointNames() {
   }, [wantsModal, loading]);
 
   async function handleSave(next: string[]) {
-    const res = await fetch("/api/settings/checkpoint-names", {
+    const res = await fetch("/api/${groupId}/sessions/names", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ names: next }),
