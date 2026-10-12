@@ -1,89 +1,82 @@
 import { useTranslation } from "react-i18next";
-import Modal from "../../../generic/modal/Modal.tsx";
-import ModalHeadText from "../../../generic/modal/components/ModalHeadText.tsx";
-import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx";
-import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
-import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPencil, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import CheckpointNamesField, {
-  CHECKPOINT_NAME_REGEX,
-} from "./CheckpointNamesField.tsx";
 import { useSearchParams } from "react-router-dom";
-
-const DEFAULT_CHECKPOINT_NAMES = ["Check-in", "Check-up", "Check-out"];
-const MAX_CHECKPOINT_NAMES = 10;
-
+import CheckpointNamesModal from "./CheckpointNamesModal.tsx";
+import { useModalState } from "../../../../js/hooks/useModalState.ts";
 export default function CheckpointNames() {
   const { t } = useTranslation();
-  const modal = useModalState();
   const [searchParams, setSearchParams] = useSearchParams();
+  const modal = useModalState();
 
-  function handleOpenModal() {
-    setFocusId(null);
-    setFields(
-      savedNames.length > 0
-        ? savedNames.map((value) => ({ id: crypto.randomUUID(), value }))
-        : [{ id: crypto.randomUUID(), value: "" }],
-    );
-    modal.open();
-  }
-
-  function handleDone() {
-    const names = fields.map((f) => f.value.trim()).filter(Boolean);
-    if (names.some((n) => !CHECKPOINT_NAME_REGEX.test(n))) return; // invalid input, keep modal open
-    setSavedNames(names);
-    modal.close();
-  }
-
-  const [savedNames, setSavedNames] = useState<string[]>(
-    DEFAULT_CHECKPOINT_NAMES,
-  );
-  const [fields, setFields] = useState([
-    { id: crypto.randomUUID(), value: "" },
-  ]);
-
-  const [focusId, setFocusId] = useState<string | null>(null);
-
-  const handleAdd = () => {
-    if (fields.length >= MAX_CHECKPOINT_NAMES) return;
-    const id = crypto.randomUUID();
-    setFields((prev) => [...prev, { id, value: "" }]);
-    setFocusId(id);
-  };
-
-  const handleChange = (id: string, value: string) =>
-    setFields((prev) => prev.map((f) => (f.id === id ? { ...f, value } : f)));
-
-  const handleRemove = (id: string) =>
-    setFields((prev) => prev.filter((f) => f.id !== id));
+  const [names, setNames] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [openCount, setOpenCount] = useState(0);
 
   const wantsModal = searchParams.get("modal") === "checkpointNames";
 
   useEffect(() => {
-    if (!wantsModal) return;
+    let cancelled = false;
+    fetch("/api/settings/checkpoint-names")
+      .then((res) => {
+        if (!res.ok) throw new Error("load failed");
+        return res.json() as Promise<string[]>;
+      })
+      .then((data) => {
+        if (!cancelled) setNames(data);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  function handleOpenModal() {
+    if (loading) return;
+    setOpenCount((c) => c + 1);
+    modal.open();
+  }
+  useEffect(() => {
+    if (!wantsModal || loading) return;
 
     handleOpenModal();
     const next = new URLSearchParams(searchParams);
     next.delete("modal");
     setSearchParams(next, { replace: true });
-  }, [wantsModal]);
+  }, [wantsModal, loading]);
+
+  async function handleSave(next: string[]) {
+    const res = await fetch("/api/settings/checkpoint-names", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ names: next }),
+    });
+    if (!res.ok) throw new Error("save failed");
+    setNames(next);
+  }
 
   return (
     <div className="card">
       <div className="flex flex-row w-full justify-between items-center">
         <h3>{t("settings.checkpointNames.header")}</h3>
-        <button onClick={handleOpenModal} className="btn btn-secondary border">
+        <button
+          onClick={handleOpenModal}
+          disabled={loading}
+          className="btn btn-secondary border"
+        >
           <FontAwesomeIcon icon={faPencil} />{" "}
           {t("settings.checkpointNames.edit")}
         </button>
       </div>
       <p>{t("settings.checkpointNames.description")}</p>
       <div className="pl-2 mt-1">
-        {savedNames.length > 0 ? (
+        {names.length > 0 ? (
           <ul className="list-disc pl-5">
-            {savedNames.map((name, i) => (
+            {names.map((name, i) => (
               <li key={i}>{name}</li>
             ))}
           </ul>
@@ -94,37 +87,12 @@ export default function CheckpointNames() {
         )}
       </div>
 
-      <Modal state={modal}>
-        <ModalHeadText>
-          {t("settings.checkpointNames.editHeader")}
-        </ModalHeadText>
-        <div className="flex vertical my-3">
-          {fields.map((field) => (
-            <CheckpointNamesField
-              key={field.id}
-              value={field.value}
-              onChange={(value) => handleChange(field.id, value)}
-              onRemove={
-                fields.length >= 2 ? () => handleRemove(field.id) : undefined
-              }
-              autoFocus={field.id === focusId}
-            />
-          ))}
-
-          {fields.length < MAX_CHECKPOINT_NAMES && (
-            <button className="btn border mt-2 m-1" onClick={handleAdd}>
-              <FontAwesomeIcon icon={faPlus} />{" "}
-              {t("settings.checkpointNames.add")}
-            </button>
-          )}
-        </div>
-        <ModalActionRow>
-          <ModalCancelButton />
-          <button onClick={handleDone} className="btn border btn-secondary">
-            <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.done")}
-          </button>
-        </ModalActionRow>
-      </Modal>
+      <CheckpointNamesModal
+        key={openCount}
+        modal={modal}
+        initialNames={names}
+        onSave={handleSave}
+      />
     </div>
   );
 }
