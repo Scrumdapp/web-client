@@ -92,7 +92,10 @@ export function CreateGroupCheckpointSessionModal({
             onChange={(v) => setExpireMinutes(v ?? 15)}
           />
         </div>
-        {!isLoadingNames && !hasNames && (
+        {isLoadingNames && (
+            <LoadScreen />
+        )}
+        {!hasNames && (
           <p className="text-red text-sm">
             {t("checkpoint.modal.error")}
             <Link
