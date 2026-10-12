@@ -32,6 +32,8 @@ export function CreateGroupCheckpointSessionModal({
     ScrumdappApi.createCheckpointSessions(),
   );
 
+  const getCheckpointNames = useApi(ScrumdappApi.getCheckpointNames());
+
   const handleCreate = async () => {
     if (!checkpointName.trim()) return;
 
@@ -45,33 +47,15 @@ export function CreateGroupCheckpointSessionModal({
     state.accept();
   };
 
-  const [names, setNames] = useState<string[]>([]);
-  const [isLoadingNames, setIsLoadingNames] = useState(true);
-
   useEffect(() => {
-    let cancelled = false;
+    getCheckpointNames.runCommand(groupId);
+  }, [getCheckpointNames.runCommand, groupId]);
 
-    fetch(`/api/groups/:gid/checkpoints/names`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data: string[]) => {
-        if (!cancelled) setNames(data);
-      })
-      .catch((err) => {
-        console.error("Failed to load checkpoint names", err);
-        if (!cancelled) setNames([]);
-      })
-      .finally(() => {
-        if (!cancelled) setIsLoadingNames(false);
-      });
+  const names = getCheckpointNames.data ?? [];
 
-    return () => {
-      cancelled = true;
-    };
-  }, [groupId]);
-
+  const isLoadingNames =
+    getCheckpointNames.loading ||
+    (!getCheckpointNames.data && !getCheckpointNames.error);
   const hasNames = names.length > 0;
 
   const group = useGroup();
@@ -92,10 +76,8 @@ export function CreateGroupCheckpointSessionModal({
             onChange={(v) => setExpireMinutes(v ?? 15)}
           />
         </div>
-        {isLoadingNames && (
-            <LoadScreen />
-        )}
-        {!hasNames && (
+        {isLoadingNames && <LoadScreen />}
+        {!isLoadingNames && !hasNames && (
           <p className="text-red text-sm">
             {t("checkpoint.modal.error")}
             <Link

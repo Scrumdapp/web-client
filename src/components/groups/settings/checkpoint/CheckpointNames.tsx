@@ -5,37 +5,28 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import CheckpointNamesModal from "./CheckpointNamesModal.tsx";
 import { useModalState } from "../../../../js/hooks/useModalState.ts";
+import { useApi } from "../../../../js/hooks/api/useApi.ts";
+import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
+import { useGroup } from "../../../../js/context/group/useGroup.ts";
 
 export default function CheckpointNames() {
   const { t } = useTranslation();
-
   const [searchParams, setSearchParams] = useSearchParams();
   const modal = useModalState();
+  const group = useGroup();
 
-  const [names, setNames] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  const getNames = useApi(ScrumdappApi.getCheckpointNames());
+  const updateNames = useApi(ScrumdappApi.updateCheckpointNames());
   const [openCount, setOpenCount] = useState(0);
 
   const wantsModal = searchParams.get("modal") === "checkpointNames";
 
   useEffect(() => {
-    let cancelled = false;
-    fetch("/api/${groupId}/sessions/names")
-      .then((res) => {
-        if (!res.ok) throw new Error("load failed");
-        return res.json() as Promise<string[]>;
-      })
-      .then((data) => {
-        if (!cancelled) setNames(data);
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    getNames.runCommand(group.id);
+  }, [getNames.runCommand, group.id]);
+
+  const names = getNames.data ?? [];
+  const loading = getNames.loading || (!getNames.data && !getNames.error);
 
   function handleOpenModal() {
     if (loading) return;
@@ -53,13 +44,8 @@ export default function CheckpointNames() {
   }, [wantsModal, loading]);
 
   async function handleSave(next: string[]) {
-    const res = await fetch("/api/${groupId}/sessions/names", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ names: next }),
-    });
-    if (!res.ok) throw new Error("save failed");
-    setNames(next);
+    await updateNames.runCommand(group.id, next);
+    await getNames.runCommand(group.id);
   }
 
   return (
