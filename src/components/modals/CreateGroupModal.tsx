@@ -8,6 +8,7 @@ import Modal from "../generic/modal/Modal";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton";
 import { LoadScreen } from "../generic/LoadScreen";
 import { useTranslation } from "react-i18next";
+import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage";
 
 export function CreateGroupModal({ state }: { state: ModalState }) {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
   const createGroupCommand = useApi(ScrumdappApi.createGroup());
 
   return (
-    <Modal state={state}>
+    <Modal state={state} className="max-w-xs">
       <ModalHeadText>{t("groups.newgroup")}</ModalHeadText>
       <form
         id="create-group-form"
@@ -39,7 +40,12 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
           onChange={(e) => setName(e.target.value)}
           required
         />
+        <FieldApiErrorMessage
+          errors={createGroupCommand.error?.errors ?? null}
+          field="name"
+        />
       </form>
+
       <ModalActionRow>
         <ModalCancelButton />
         <button
