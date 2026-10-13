@@ -419,6 +419,7 @@ export const checkpointNamesHandlers = [
     if (!Array.isArray(body) || body.length > 10) {
       return HttpResponse.json(
           {
+            status: 400,
             code: "INVALID_NAMES",
             titleTranslationKey: "errors.checkpoint.invalidNames.title",
             descriptionTranslationKey: "errors.checkpoint.invalidNames.description",
