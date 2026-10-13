@@ -20,7 +20,7 @@ export default {
       expire: "Expires at",
       expired: "Expired",
       modal: {
-        error: "Only letters, numbers and spaces and !@#$%^& are allowed.",
+        error: "Only letters, numbers and spaces and - are allowed.",
         create: "Create",
         header: "Invite others to group.",
         text: "Copy and share this generated link with your team.",
