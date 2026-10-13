@@ -5,13 +5,16 @@ import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
 import { useApi } from "../../js/hooks/api/useApi.ts";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { useTranslation } from "react-i18next";
 import { CheckpointTimeDurationDropdownMenu } from "../generic/CheckpointTimeDuration.tsx";
+import { useGroup } from "../../js/context/group/useGroup.ts";
+import { Link } from "react-router-dom";
+import CheckpointNamesDropdown from "../groups/settings/checkpoint/CheckpointNamesDropdown.tsx";
 import {
   FieldApiErrorMessage,
   FieldApiErrorMessageList,
@@ -28,11 +31,12 @@ export function CreateGroupCheckpointSessionModal({
 }) {
   const { t } = useTranslation();
   const [checkpointName, setCheckpointName] = useState("");
-  const [showWarning, setShowWarning] = useState(false);
   const [expireMinutes, setExpireMinutes] = useState(15);
   const createCheckpointSession = useApi(
     ScrumdappApi.createCheckpointSessions(),
   );
+
+  const getCheckpointNames = useApi(ScrumdappApi.getCheckpointNames());
 
   const handleCreate = async () => {
     if (!checkpointName.trim()) return;
@@ -47,29 +51,47 @@ export function CreateGroupCheckpointSessionModal({
     state.accept();
   };
 
+  useEffect(() => {
+    getCheckpointNames.runCommand(groupId);
+  }, [getCheckpointNames.runCommand, groupId]);
+
+  const names = getCheckpointNames.data ?? [];
+
+  const isLoadingNames =
+    getCheckpointNames.loading ||
+    (!getCheckpointNames.data && !getCheckpointNames.error);
+  const hasNames = names.length > 0;
+
+  const group = useGroup();
+
   return (
     <Modal state={state} className="max-w-xs">
       <div className="space-y-5">
         <ModalHeadText>{t("checkpoint.modal.newcheckpoint")}</ModalHeadText>
         <div className="horizontal flex-1 gap-2">
-          <input
-            type="text"
-            className="write-section w-full!"
-            placeholder={t("checkpoint.modal.name")}
-            alt={t("checkpoint.modal.name")}
+          <CheckpointNamesDropdown
+            names={names}
             value={checkpointName}
-            maxLength={32}
-            onChange={(e) => {
-              setShowWarning(!/^[a-zA-Z0-9 \-]{1,32}$/.test(e.target.value));
-              setCheckpointName(e.target.value);
-            }}
-            required
+            onChange={setCheckpointName}
+            disabled={isLoadingNames || !hasNames}
           />
           <CheckpointTimeDurationDropdownMenu
             value={expireMinutes}
             onChange={(v) => setExpireMinutes(v ?? 15)}
           />
         </div>
+        {isLoadingNames && <LoadScreen />}
+        {!isLoadingNames && !hasNames && (
+          <p className="text-red text-sm">
+            {t("checkpoint.modal.error")}
+            <Link
+              className="text-link text-sm underline"
+              to={`/groups/${group.id}/settings?modal=checkpointNames`}
+            >
+              {t("checkpoint.modal.errorLink")}
+            </Link>
+          </p>
+        )}
         {showWarning && (
           <p className="text-red text-sm">{t("checkpoint.modal.error")}</p>
         )}

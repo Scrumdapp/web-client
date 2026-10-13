@@ -14,6 +14,7 @@ export default function Modal({
   state,
   backgroundClickClose = true,
   children,
+
   className,
 }: ModalProps) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -40,7 +41,7 @@ export default function Modal({
       >
         <div
           className={cn(
-            "m-auto bg-bg_h rounded-lg p-6 min-w-96 w-fit border max-w-xl",
+            "m-auto bg-bg_h rounded-lg p-6 min-w-96 w-fit border",
             className,
           )}
           onClick={(e) => e.stopPropagation()}

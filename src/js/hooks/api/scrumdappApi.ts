@@ -5,6 +5,7 @@ import * as GroupSessionRoutes from "./routes/groupSessions.tsx";
 import * as GroupCheckpointRoutes from "./routes/groupCheckpointRoutes.tsx";
 import * as InviteRoutes from "./routes/inviteRoutes.tsx";
 import * as TrendRoutes from "./routes/trendsRoutes.tsx";
+import * as CheckpointNames from "./routes/checkpointNames.tsx";
 
 export const ScrumdappApi = {
   ...UserRoutes,
@@ -14,4 +15,5 @@ export const ScrumdappApi = {
   ...GroupCheckpointRoutes,
   ...InviteRoutes,
   ...TrendRoutes,
+  ...CheckpointNames,
 };

@@ -28,9 +28,10 @@ export default {
       },
       modal: {
         newcheckpoint: "New checkpoint",
-        error: "Only letters, numbers and spaces are allowed.",
+        error: "No names have been added to the list, add them ",
+        errorLink: "here",
         create: "Create",
-        name: "Checkpoint Name",
+        type: "Checkpoint type",
         duration: {
           fiveminutes: "5 minutes",
           tenminutes: "10 minutes",
@@ -96,9 +97,10 @@ export default {
       },
       modal: {
         newcheckpoint: "Nieuw checkpoint",
-        error: "Alleen letters, cijfers en spaties zijn toegestaan.",
+        error: "Er zijn geen namen toegevoegd aan de lijst, bewerk deze ",
+        errorLink: "hier",
         create: "Maak aan",
-        name: "Checkpoint Naam",
+        type: "Checkpoint soort",
         duration: {
           fiveminutes: "5 minuten",
           tenminutes: "10 minuten",
