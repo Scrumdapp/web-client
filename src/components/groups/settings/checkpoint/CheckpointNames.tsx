@@ -8,6 +8,8 @@ import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { useApi } from "../../../../js/hooks/api/useApi.ts";
 import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
 import { useGroup } from "../../../../js/context/group/useGroup.ts";
+import { ErrorScreen } from "../../../generic/ErrorScreen.tsx";
+import { LoadScreen } from "../../../generic/LoadScreen.tsx";
 
 export default function CheckpointNames() {
   const { t } = useTranslation();
@@ -16,17 +18,11 @@ export default function CheckpointNames() {
   const group = useGroup();
 
   const getNames = useApi(ScrumdappApi.getCheckpointNames());
-  const updateNames = useApi(ScrumdappApi.updateCheckpointNames());
   const [openCount, setOpenCount] = useState(0);
 
   const wantsModal = searchParams.get("modal") === "checkpointNames";
-
-  useEffect(() => {
-    getNames.runCommand(group.id);
-  }, [getNames.runCommand, group.id]);
-
   const names = getNames.data ?? [];
-  const loading = getNames.loading || (!getNames.data && !getNames.error);
+  const loading = getNames.loading;
 
   function handleOpenModal() {
     if (loading) return;
@@ -36,16 +32,22 @@ export default function CheckpointNames() {
 
   useEffect(() => {
     if (!wantsModal || loading) return;
-
     handleOpenModal();
     const next = new URLSearchParams(searchParams);
     next.delete("modal");
     setSearchParams(next, { replace: true });
   }, [wantsModal, loading]);
 
-  async function handleSave(next: string[]) {
-    await updateNames.runCommand(group.id, next);
+  const handleSaved = async () => {
     await getNames.runCommand(group.id);
+  };
+
+  if (getNames.loading && !getNames.data) {
+    return <LoadScreen />;
+  }
+
+  if (getNames.error != null) {
+    return <ErrorScreen error={getNames.error} />;
   }
 
   return (
@@ -80,7 +82,7 @@ export default function CheckpointNames() {
         key={openCount}
         modal={modal}
         initialNames={names}
-        onSave={handleSave}
+        onSaved={handleSaved}
       />
     </div>
   );

@@ -10,15 +10,17 @@ import { useState } from "react";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
+import { useApi } from "../../../../js/hooks/api/useApi.ts";
+import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
+import { useGroup } from "../../../../js/context/group/useGroup.ts";
 
 const MAX_CHECKPOINT_NAMES = 10;
 
 type Props = {
   modal: ReturnType<typeof useModalState>;
   initialNames: string[];
-  onSave: (names: string[]) => Promise<void>;
+  onSaved: () => void | Promise<void>;
 };
-
 type Field = { id: string; value: string };
 
 const makeField = (value = ""): Field => ({ id: crypto.randomUUID(), value });
@@ -26,9 +28,11 @@ const makeField = (value = ""): Field => ({ id: crypto.randomUUID(), value });
 export default function CheckpointNamesModal({
   modal,
   initialNames,
-  onSave,
+  onSaved,
 }: Props) {
   const { t } = useTranslation();
+  const group = useGroup();
+  const updateNames = useApi(ScrumdappApi.updateCheckpointNames());
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(false);
@@ -60,8 +64,9 @@ export default function CheckpointNamesModal({
     setSaving(true);
     setError(false);
     try {
-      await onSave(names);
+      await updateNames.runCommand(group.id, names);
       modal.close();
+      await onSaved();
     } catch {
       setError(true);
     } finally {
