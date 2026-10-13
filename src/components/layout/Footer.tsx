@@ -36,39 +36,39 @@ export default function Footer() {
           </Link>
         ))}
       </div>
-      <div className="flex-1 grid grid-rows-2 grid-flow-col gap-1 items-center justify-end">
+      <div className="flex-1 grid grid-rows-1 grid-flow-col gap-2 items-center justify-end">
         <Link
           to="https://www.linkedin.com/company/scrumdapp"
           target="_blank"
-          className="border btn aspect-square"
+          className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faLinkedinIn} />
         </Link>
         <Link
           to="https://x.com/scrumdapp"
           target="_blank"
-          className="border btn aspect-square"
+          className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faXTwitter} />
         </Link>
         <Link
           to="https://www.instagram.com/scrumdapp/"
           target="_blank"
-          className="border btn aspect-square"
+          className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faInstagram} />
         </Link>
         <Link
           to="https://www.youtube.com/@Scrumdapp"
           target="_blank"
-          className="border btn aspect-square"
+          className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faYoutube} />
         </Link>
         <Link
           to="https://github.com/Scrumdapp"
           target="_blank"
-          className="border btn aspect-square"
+          className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faGithub} />
         </Link>
