@@ -14,7 +14,7 @@ export default function Modal({
   state,
   backgroundClickClose = true,
   children,
- 
+
   className,
 }: ModalProps) {
   const ref = useRef<HTMLDialogElement>(null);
