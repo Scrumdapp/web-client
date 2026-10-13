@@ -2,7 +2,7 @@ import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowsRotate,
+  faArrowsRotate, faCheck,
   faChevronDown,
   faEye,
   faPencil,
@@ -467,12 +467,18 @@ function Checkpoint({
           <ModalActionRow>
             <ModalCancelButton />
             <button
-              className="btn border"
+              className="btn border btn-secondary"
               onClick={isSessionmaster ? handleModalApply : handleOwnModalApply}
               type="button"
               disabled={applyLoading}
             >
-              {applyLoading ? t("checkpoint.saving") : t("checkpoint.apply")}
+              {applyLoading ? (
+                  t("checkpoint.saving")
+              ) : (
+                  <>
+                    <FontAwesomeIcon icon={faCheck} /> {t("checkpoint.apply")}
+                  </>
+              )}
             </button>
           </ModalActionRow>
         </div>
