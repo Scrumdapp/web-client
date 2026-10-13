@@ -49,7 +49,7 @@ export default function CheckpointNames() {
   if (getNames.loading && !getNames.data) {
     return <LoadScreen />;
   }
-  
+
   return (
     <div className="card">
       <div className="flex flex-row w-full justify-between items-center">

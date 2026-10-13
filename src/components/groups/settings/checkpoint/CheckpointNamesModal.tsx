@@ -34,8 +34,8 @@ export default function CheckpointNamesModal({
   const group = useGroup();
   const updateNames = useApi(ScrumdappApi.updateCheckpointNames());
 
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState(false);
+  const saving = updateNames.loading;
+  const error = updateNames.error != null;
 
   const [fields, setFields] = useState<Field[]>(() =>
     initialNames.length > 0
@@ -61,17 +61,9 @@ export default function CheckpointNamesModal({
     const names = fields.map((f) => f.value.trim()).filter(Boolean);
     if (names.some((n) => !CHECKPOINT_NAME_REGEX.test(n))) return;
 
-    setSaving(true);
-    setError(false);
-    try {
-      await updateNames.runCommand(group.id, names);
-      modal.close();
-      await onSaved();
-    } catch {
-      setError(true);
-    } finally {
-      setSaving(false);
-    }
+    await updateNames.runCommand(group.id, names);
+    modal.close();
+    await onSaved();
   }
 
   return (
