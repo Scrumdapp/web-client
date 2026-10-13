@@ -62,7 +62,7 @@ export function GroupCheckpointPage({
   }
 
   const checkpointSessions = getCheckpointSessions.data!;
-  const groupUsers = getGroupUsers.data!.filter(it => !it.is_ghost);
+  const groupUsers = getGroupUsers.data!.filter((it) => !it.is_ghost);
 
   const groupCreated = () => {
     getCheckpointSessions.runCommand(group.id, { date });

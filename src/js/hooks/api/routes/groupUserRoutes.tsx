@@ -8,9 +8,11 @@ export function getGroupUsers() {
     }).then((it) =>
       it.sort((a, b) => {
         const nameSplitA = a.last_name.split(" ");
-        const nameA = nameSplitA.length == 0 ? "" : nameSplitA[nameSplitA.length - 1];
+        const nameA =
+          nameSplitA.length == 0 ? "" : nameSplitA[nameSplitA.length - 1];
         const nameSplitB = b.last_name.split(" ");
-        const nameB = nameSplitB.length == 0 ? "" : nameSplitB[nameSplitB.length - 1];
+        const nameB =
+          nameSplitB.length == 0 ? "" : nameSplitB[nameSplitB.length - 1];
         return nameA.localeCompare(nameB);
       }),
     );
