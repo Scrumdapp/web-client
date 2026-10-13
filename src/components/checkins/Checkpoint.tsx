@@ -3,7 +3,6 @@ import Stars from "./checkpointcomponents/Stars.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowsRotate,
-  faCheck,
   faChevronDown,
   faEye,
   faPencil,
@@ -473,13 +472,7 @@ function Checkpoint({
               type="button"
               disabled={applyLoading}
             >
-              {applyLoading ? (
-                t("checkpoint.saving")
-              ) : (
-                <>
-                  <FontAwesomeIcon icon={faCheck} /> {t("checkpoint.apply")}
-                </>
-              )}
+              {applyLoading ? t("checkpoint.saving") : t("checkpoint.apply")}
             </button>
           </ModalActionRow>
         </div>

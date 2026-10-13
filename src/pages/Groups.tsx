@@ -39,7 +39,7 @@ export default function Groups() {
         <h1 className="hidden md:flex-1">Scrumdapp</h1>
         <div className="flex justify-between gap-2 md:grid md:grid-cols-3">
           <div className="flex-1 md:col-start-2">
-            <div className="flex-1 horizontal center align-top max-w-full">
+            <div className="horizontal center align-top max-w-full">
               <IconInput
                 icon={faMagnifyingGlass}
                 type="text"
