@@ -24,7 +24,7 @@ export function GroupLayout() {
 
   return (
     <GroupProvider groupId={groupId}>
-      <div className="app-container p-2! pt-0! md:p-4 vertical gap-4 text-xs md:text-base">
+      <div className="app-container p-2! pt-0! md:p-4 vertical gap-4">
         <GroupConsumer>
           {(ctx) => (
             <>
@@ -43,7 +43,7 @@ export function GroupLayout() {
                     <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
                   </button>
                 </div>
-                <h1 className="text-xl md:text-2xl"> {ctx!!.group!!.name} </h1>
+                <h1> {ctx!!.group!!.name} </h1>
               </div>
               {menuOpen && (
                 <div

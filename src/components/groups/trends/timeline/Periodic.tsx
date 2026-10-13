@@ -33,7 +33,7 @@ export function RenderTimelineGraph({
   }
 
   return (
-    <table>
+    <table className="text-sm md:text-lg">
       <thead>
         <tr>
           <th></th>

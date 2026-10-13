@@ -43,9 +43,9 @@ export default function HeaderMobile() {
 
   return (
     <>
-      <header className="flex flex-col mx-2 fixed top-0 left-0 right-0 z-50 text-sm lg:text-xl">
+      <header className="flex flex-col mx-2 fixed top-0 left-0 right-0 z-50">
         <nav className="relative z-20 bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center">
-          <div className="flex-1 min-w-0 text-fg text-xl md:text-2xl font-bold">
+          <div className="flex-1 min-w-0 text-fg font-bold text-xl">
             <Link
               to="/groups"
               className="horizontal gap-1 items-center max-w-fit"
@@ -61,7 +61,7 @@ export default function HeaderMobile() {
 
           <h2 className="hidden md:flex gap-4">
             {links.map((link, i) => (
-              <Link key={i} to={link.to} className="btn md:text-lg py-1!">
+              <Link key={i} to={link.to} className="btn py-1!">
                 {link.label}
               </Link>
             ))}

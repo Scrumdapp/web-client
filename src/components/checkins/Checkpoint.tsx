@@ -2,7 +2,8 @@ import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import Stars from "./checkpointcomponents/Stars.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArrowsRotate, faCheck,
+  faArrowsRotate,
+  faCheck,
   faChevronDown,
   faEye,
   faPencil,
@@ -299,7 +300,7 @@ function Checkpoint({
             className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
           />
           <div className="gap-3 flex items-center justify-between w-full">
-            <h2 className="text-lg md:text-2xl">{name}</h2>
+            <h2>{name}</h2>
           </div>
         </button>
         <div className="flex items-center gap-3">
@@ -473,11 +474,11 @@ function Checkpoint({
               disabled={applyLoading}
             >
               {applyLoading ? (
-                  t("checkpoint.saving")
+                t("checkpoint.saving")
               ) : (
-                  <>
-                    <FontAwesomeIcon icon={faCheck} /> {t("checkpoint.apply")}
-                  </>
+                <>
+                  <FontAwesomeIcon icon={faCheck} /> {t("checkpoint.apply")}
+                </>
               )}
             </button>
           </ModalActionRow>

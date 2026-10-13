@@ -37,27 +37,31 @@ export default function Groups() {
       <title>{t("groups.title")}</title>
       <div className="vertical md:horizontal justify-between">
         <h1 className="hidden md:flex-1">Scrumdapp</h1>
-        <div className="flex-1 horizontal center align-top max-w-full text-xs md:text-base">
-          <IconInput
-            icon={faMagnifyingGlass}
-            type="text"
-            placeholder={t("groups.searchPlaceholder")}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            alt={t("groups.searchAlt")}
-            className="bg-bg_h"
-          />
-        </div>
-        <div className="flex-1">
-          <ShowIf condition={hasRole(user, Role.Coach)}>
-            <button
-              className="ml-auto btn btn-red border max-h-fit mt-2 md:mt-0 text-xs md:text-base"
-              onClick={modal.open}
-            >
-              {t("groups.newgroup")}
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </ShowIf>
+        <div className="flex justify-between gap-2 md:grid md:grid-cols-3">
+          <div className="flex-1 md:col-start-2">
+            <div className="flex-1 horizontal center align-top max-w-full">
+              <IconInput
+                icon={faMagnifyingGlass}
+                type="text"
+                placeholder={t("groups.searchPlaceholder")}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                alt={t("groups.searchAlt")}
+                className="bg-bg_h"
+              />
+            </div>
+          </div>
+          <div className="md:col-start-3 md:justify-self-end">
+            <ShowIf condition={hasRole(user, Role.Coach)}>
+              <button
+                className="btn btn-red border max-h-fit"
+                onClick={modal.open}
+              >
+                {t("groups.newgroup")}
+                <FontAwesomeIcon icon={faPlus} />
+              </button>
+            </ShowIf>
+          </div>
         </div>
       </div>
       <GetGroupsComponent input={[]}>

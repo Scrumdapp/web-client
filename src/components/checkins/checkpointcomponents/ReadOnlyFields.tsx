@@ -72,7 +72,7 @@ export function StarsReadOnlyField({
           <button
             key={starIndex}
             type="button"
-            className="text-lg md:text-2xl outline-none"
+            className="outline-none"
             aria-label={`Rate ${starIndex + 1} out of ${max}`}
           >
             <span
@@ -100,7 +100,7 @@ export function AttendanceReadOnlyField({
   const isValueSet = value !== null;
 
   return (
-    <span className={`text-left text-lg md:text-2xl ${currentColor}`}>
+    <span className={`text-left ${currentColor}`}>
       {isValueSet ? t(currentOption.labelKey) : "---"}
     </span>
   );

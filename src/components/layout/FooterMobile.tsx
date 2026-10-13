@@ -24,13 +24,13 @@ export default function FooterMobile() {
 
   return (
     <footer className="mb-2 mx-2 mt-2 md:mt-0 card vertical items-center justify-between gap-2">
-      <div className="horizontal gap-2 text-sm">
+      <div className="horizontal gap-2">
         {links.map((link, i) => (
           <Link
             key={i}
             to={link.to}
             target={link.target}
-            className="btn justify-start"
+            className="btn justify-start text-lg"
           >
             {link.text}
           </Link>
@@ -40,40 +40,40 @@ export default function FooterMobile() {
         <Link
           to="https://www.linkedin.com/company/scrumdapp"
           target="_blank"
-          className="border btn aspect-square text-xs"
+          className="border btn aspect-square"
         >
           <FontAwesomeIcon icon={faLinkedinIn} />
         </Link>
         <Link
           to="https://x.com/scrumdapp"
           target="_blank"
-          className="border btn aspect-square text-xs"
+          className="border btn aspect-square"
         >
           <FontAwesomeIcon icon={faXTwitter} />
         </Link>
         <Link
           to="https://www.instagram.com/scrumdapp/"
           target="_blank"
-          className="border btn aspect-square text-xs"
+          className="border btn aspect-square"
         >
           <FontAwesomeIcon icon={faInstagram} />
         </Link>
         <Link
           to="https://www.youtube.com/@Scrumdapp"
           target="_blank"
-          className="border btn aspect-square text-xs"
+          className="border btn aspect-square"
         >
           <FontAwesomeIcon icon={faYoutube} />
         </Link>
         <Link
           to="https://github.com/Scrumdapp"
           target="_blank"
-          className="border btn aspect-square text-xs"
+          className="border btn aspect-square"
         >
           <FontAwesomeIcon icon={faGithub} />
         </Link>
       </div>
-      <span className="flex-1 text-xs mt-2">{t("footer.rights")}</span>
+      <span className="flex-1 text-sm mt-2">{t("footer.rights")}</span>
     </footer>
   );
 }

@@ -13,7 +13,7 @@ export function GroupCard({ group }: GroupCardProps) {
 
   return (
     <div className="card hover:bg-bg2! p-2 md:p-4">
-      <p className="text-sm md:text-lg pb-1 md:pb-2">{group.name}</p>
+      <p className="pb-1 md:pb-2">{group.name}</p>
       <img
         src={backgroundUrl}
         alt={t("groups.image", { groupname: group.name })}
