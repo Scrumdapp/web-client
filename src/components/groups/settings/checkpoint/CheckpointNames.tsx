@@ -42,14 +42,14 @@ export default function CheckpointNames() {
     await getNames.runCommand(group.id);
   };
 
-  if (getNames.loading && !getNames.data) {
-    return <LoadScreen />;
-  }
-
   if (getNames.error != null) {
     return <ErrorScreen error={getNames.error} />;
   }
 
+  if (getNames.loading && !getNames.data) {
+    return <LoadScreen />;
+  }
+  
   return (
     <div className="card">
       <div className="flex flex-row w-full justify-between items-center">
