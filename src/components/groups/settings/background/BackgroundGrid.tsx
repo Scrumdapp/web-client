@@ -9,7 +9,7 @@ export function BackgroundGrid({
   handleUpdate: (id: string) => void;
 }) {
   return (
-    <div className="background-container grid grid-cols-2 xl:grid-cols-3 gap-2 md:gap-4 my-2">
+    <div className="background-container grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 pt-2">
       {backgrounds.map((id) => (
         <div key={id}>
           <BackgroundTile id={id} handleUpdate={handleUpdate} />

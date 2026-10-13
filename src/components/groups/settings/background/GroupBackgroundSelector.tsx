@@ -149,7 +149,7 @@ function BackgroundSelectorModal({ modal }: { modal: ModalState }) {
     );
 
     return (
-      <Modal state={modal} className="w-fit mx-2 my md:mx-auto my-4">
+      <Modal state={modal} className="w-fit mx-auto my-4">
         <ModalHeadText>{t("settings.background.modal.select")}</ModalHeadText>
         <BackgroundTopicNavbar
           selectedTopicId={t(selectedTopic.labelKey)}
