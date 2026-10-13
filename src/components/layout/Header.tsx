@@ -20,7 +20,7 @@ export default function Header() {
           <div className="flex-1 text-fg font-bold">
             <Link
               to="/groups"
-              className="horizontal gap-1 items-center max-w-fit"
+              className="horizontal gap-1 items-center max-w-fit text-xl"
             >
               <img
                 src={`/ScrumdappLogoTransparent.webp`}
@@ -31,7 +31,7 @@ export default function Header() {
             </Link>
           </div>
 
-          <h2 className="horizontal gap-4">
+          <h3 className="horizontal gap-4">
             {links.map((link, i) => (
               <Link
                 key={i}
@@ -42,7 +42,7 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-          </h2>
+          </h3>
 
           <div className="flex flex-1 justify-end h-full my-4">
             <div className="nav-dropdown cursor-default">

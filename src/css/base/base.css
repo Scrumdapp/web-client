@@ -15,18 +15,18 @@ body:has(dialog[open]) {
   overflow: hidden;
 }
 
-:root {
-  font-size: 12px;
+html {
+  font-size: 10px;
 }
 
-@media (width < var(--breakpoint-sm)) {
-  :root {
-    font-size: 10px;
-  }
+@variant sm {
+  html { font-size: 12px; }
 }
 
-@media (width < var(--breakpoint-md)) {
-  :root {
-    font-size: 14px;
-  }
+@variant md {
+  html { font-size: 14px; }
+}
+
+@variant lg {
+  html { font-size: 16px; }
 }
