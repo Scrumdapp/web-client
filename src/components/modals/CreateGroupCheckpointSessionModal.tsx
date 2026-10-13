@@ -92,9 +92,6 @@ export function CreateGroupCheckpointSessionModal({
             </Link>
           </p>
         )}
-        {showWarning && (
-          <p className="text-red text-sm">{t("checkpoint.modal.error")}</p>
-        )}
         {createCheckpointSession.error?.errors &&
         createCheckpointSession.error.errors.length > 1 ? (
           <FieldApiErrorMessageList
