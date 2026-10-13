@@ -29,6 +29,7 @@ import {
   StarsReadOnlyField,
   AttendanceReadOnlyField,
 } from "./checkpointcomponents/ReadOnlyFields.tsx";
+import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage.tsx";
 
 type CheckpointUser = {
   user_id: number;
@@ -435,7 +436,7 @@ function Checkpoint({
           </table>
         </div>
       </div>
-      <Modal state={modal} className="max-w-xl">
+      <Modal state={modal}>
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheader", {
@@ -450,8 +451,16 @@ function Checkpoint({
               value={selectedPresence}
               onChange={setSelectedPresence}
             />
+            <FieldApiErrorMessage
+              errors={applyError?.errors ?? null}
+              field="presence"
+            />
             <label>{t("checkpoint.stars")}</label>
             <StarsInputField value={selectedStar} onChange={setSelectedStar} />
+            <FieldApiErrorMessage
+              errors={applyError?.errors ?? null}
+              field="stars"
+            />
             <label>{t("checkpoint.notes")}</label>
             <input
               className="write-section"
@@ -461,6 +470,11 @@ function Checkpoint({
               maxLength={2000}
               onChange={(e) => setNotes(e.target.value)}
             />
+            <FieldApiErrorMessage
+              errors={applyError?.errors ?? null}
+              field="comment"
+            />
+
             <label>{t("checkpoint.obstacle")}</label>
             <input
               className="write-section"
@@ -470,22 +484,11 @@ function Checkpoint({
               maxLength={2000}
               onChange={(e) => setObstacle(e.target.value)}
             />
+            <FieldApiErrorMessage
+              errors={applyError?.errors ?? null}
+              field="impediment"
+            />
           </div>
-          {applyError && (
-            <div className="flex flex-col gap-1 items-start">
-              <h3 className="text-red">{t(applyError.titleTranslationKey)}</h3>
-              <p className="text-red">
-                {t(applyError.descriptionTranslationKey)}
-              </p>
-              {applyError.errors && applyError.errors.length > 0 && (
-                <ul className="text-red list-disc list-inside">
-                  {applyError.errors?.map((err, idx) => (
-                    <li key={idx}>{t(err.translationKey)}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
           <ModalActionRow>
             <ModalCancelButton />
             <button
@@ -499,7 +502,7 @@ function Checkpoint({
           </ModalActionRow>
         </div>
       </Modal>
-      <Modal state={modalReadOnly} className="max-w-xl">
+      <Modal state={modalReadOnly}>
         <div className="space-y-5">
           <ModalHeadText>
             {t("checkpoint.modalheaderreadonly", {

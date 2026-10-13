@@ -14,6 +14,7 @@ import ModalCancelButton from "../generic/modal/components/ModalCancelButton";
 import { useTranslation } from "react-i18next";
 import { useApi } from "../../js/hooks/api/useApi";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi";
+import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage";
 
 export function DeleteGroupUserModal({
   state,
@@ -36,7 +37,7 @@ export function DeleteGroupUserModal({
   const Page = pages[viewIndex];
 
   return (
-    <Modal state={state} className="max-w-lg">
+    <Modal state={state}>
       <Page
         user={groupUser}
         onNextCalled={() => setViewIndex((i) => i + 1)}
@@ -113,24 +114,10 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
           onChange={(e) => setName(e.target.value)}
         />
       </div>
-      {deleteGroupUser.error && (
-        <div className="flex flex-col gap-1 items-start">
-          <h3 className="text-red">
-            {t(deleteGroupUser.error.titleTranslationKey)}
-          </h3>
-          <p className="text-red">
-            {t(deleteGroupUser.error.descriptionTranslationKey)}
-          </p>
-          {deleteGroupUser.error.errors &&
-            deleteGroupUser.error.errors.length > 0 && (
-              <ul className="text-red list-disc list-inside">
-                {deleteGroupUser.error.errors?.map((err, idx) => (
-                  <li key={idx}>{t(err.translationKey)}</li>
-                ))}
-              </ul>
-            )}
-        </div>
-      )}
+      <FieldApiErrorMessage
+        errors={deleteGroupUser.error?.errors ?? null}
+        field="name"
+      />
 
       <ModalActionRow>
         <ModalCancelButton />

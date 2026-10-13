@@ -12,6 +12,10 @@ import { useApi } from "../../js/hooks/api/useApi.ts";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { useTranslation } from "react-i18next";
 import { CheckpointTimeDurationDropdownMenu } from "../generic/CheckpointTimeDuration.tsx";
+import {
+  FieldApiErrorMessage,
+  FieldApiErrorMessageList,
+} from "../generic/FieldApiErrorMessage.tsx";
 
 export function CreateGroupCheckpointSessionModal({
   groupId,
@@ -69,23 +73,16 @@ export function CreateGroupCheckpointSessionModal({
         {showWarning && (
           <p className="text-red text-sm">{t("checkpoint.modal.error")}</p>
         )}
-        {createCheckpointSession.error && (
-          <div className="flex flex-col gap-1 items-start">
-            <h3 className="text-red">
-              {t(createCheckpointSession.error.titleTranslationKey)}
-            </h3>
-            <p className="text-red">
-              {t(createCheckpointSession.error.descriptionTranslationKey)}
-            </p>
-            {createCheckpointSession.error.errors &&
-              createCheckpointSession.error.errors.length > 0 && (
-                <ul className="text-red list-disc list-inside">
-                  {createCheckpointSession.error.errors?.map((err, idx) => (
-                    <li key={idx}>{t(err.translationKey)}</li>
-                  ))}
-                </ul>
-              )}
-          </div>
+        {createCheckpointSession.error?.errors &&
+        createCheckpointSession.error.errors.length > 1 ? (
+          <FieldApiErrorMessageList
+            errors={createCheckpointSession.error?.errors ?? null}
+          />
+        ) : (
+          <FieldApiErrorMessage
+            errors={createCheckpointSession.error?.errors ?? null}
+            field={createCheckpointSession.error?.errors?.[0]?.field ?? ""}
+          />
         )}
 
         <ModalActionRow>

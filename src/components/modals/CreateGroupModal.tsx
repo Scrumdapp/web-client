@@ -8,6 +8,7 @@ import Modal from "../generic/modal/Modal";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton";
 import { LoadScreen } from "../generic/LoadScreen";
 import { useTranslation } from "react-i18next";
+import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage";
 
 export function CreateGroupModal({ state }: { state: ModalState }) {
   const { t } = useTranslation();
@@ -39,26 +40,11 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
           onChange={(e) => setName(e.target.value)}
           required
         />
+        <FieldApiErrorMessage
+          errors={createGroupCommand.error?.errors ?? null}
+          field="name"
+        />
       </form>
-
-      {createGroupCommand.error && (
-        <div className="flex flex-col gap-1 items-start">
-          <h3 className="text-red">
-            {t(createGroupCommand.error.titleTranslationKey)}
-          </h3>
-          <p className="text-red">
-            {t(createGroupCommand.error.descriptionTranslationKey)}
-          </p>
-          {createGroupCommand.error.errors &&
-            createGroupCommand.error.errors.length > 0 && (
-              <ul className="text-red list-disc list-inside">
-                {createGroupCommand.error.errors?.map((err, idx) => (
-                  <li key={idx}>{t(err.translationKey)}</li>
-                ))}
-              </ul>
-            )}
-        </div>
-      )}
 
       <ModalActionRow>
         <ModalCancelButton />

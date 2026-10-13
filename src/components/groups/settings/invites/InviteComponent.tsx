@@ -12,6 +12,10 @@ import { useApi } from "../../../../js/hooks/api/useApi.ts";
 import { InviteResponse } from "../../../../js/models/invites.tsx";
 import useTempState from "../../../../js/hooks/useTempState.ts";
 import { useTranslation } from "react-i18next";
+import {
+  FieldApiErrorMessageList,
+  FieldApiErrorMessage,
+} from "../../../generic/FieldApiErrorMessage.tsx";
 
 interface InvitesProps {
   groupId: number;
@@ -121,7 +125,7 @@ export default function Invites({ groupId }: InvitesProps) {
           )}
         </div>
       </div>
-      <Modal state={modal} className="max-w-xl">
+      <Modal state={modal}>
         {step === 1 && (
           <>
             <h1>{t("invite.createPassword")}</h1>
@@ -146,23 +150,16 @@ export default function Invites({ groupId }: InvitesProps) {
                 />
               </div>
             </div>
-            {createInvite.error && (
-              <div className="flex flex-col gap-1 items-start">
-                <h3 className="text-red">
-                  {t(createInvite.error.titleTranslationKey)}
-                </h3>
-                <p className="text-red">
-                  {t(createInvite.error.descriptionTranslationKey)}
-                </p>
-                {createInvite.error.errors &&
-                  createInvite.error.errors.length > 0 && (
-                    <ul className="text-red list-disc list-inside">
-                      {createInvite.error.errors?.map((err, idx) => (
-                        <li key={idx}>{t(err.translationKey)}</li>
-                      ))}
-                    </ul>
-                  )}
-              </div>
+            {createInvite.error?.errors &&
+            createInvite.error.errors.length > 1 ? (
+              <FieldApiErrorMessageList
+                errors={createInvite.error?.errors ?? null}
+              />
+            ) : (
+              <FieldApiErrorMessage
+                errors={createInvite.error?.errors ?? null}
+                field={createInvite.error?.errors?.[0]?.field ?? ""}
+              />
             )}
             <ModalActionRow>
               <div className="py-2 flex gap-x-2">
