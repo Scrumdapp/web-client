@@ -15,12 +15,12 @@ export function getCheckpointNames() {
 export function updateCheckpointNames() {
   return createProcessor(
     "updateCheckpointNames",
-    (groupId: number, names: string[]) => {
+    (groupId: number, checkpointNames: string[]) => {
       return makeApiRequest<string[]>(
         "PUT",
         "/groups/{group.id}/checkpoints/names",
         {
-          body: { names },
+          body: { checkpointNames },
           params: { "{group.id}": groupId },
         },
       );
