@@ -9,10 +9,10 @@ export function BackgroundGrid({
   handleUpdate: (id: string) => void;
 }) {
   return (
-    <div className="background-container grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 pt-2">
+    <div className="background-container grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 pt-2 max-h-[calc(100dvh-14rem)] overflow-y-auto mb-4">
       {backgrounds.map((id) => (
         <div key={id}>
-          <BackgroundTile id={id} handleUpdate={handleUpdate} />
+          <BackgroundTile key={id} id={id} handleUpdate={handleUpdate} />
         </div>
       ))}
     </div>
@@ -31,7 +31,7 @@ function BackgroundTile({
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="relative w-32 md:w-64 aspect-4/3 overflow-hidden rounded-lg">
+    <div className="relative w-32 sm:w-48 md:w-64 aspect-4/3 overflow-hidden rounded-lg">
       {!isLoaded && (
         <div className="absolute inset-0 animate-pulse bg-bg2/30" />
       )}
