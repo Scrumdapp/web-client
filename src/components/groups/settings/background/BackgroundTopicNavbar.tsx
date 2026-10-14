@@ -12,7 +12,7 @@ export function BackgroundTopicNavbar({
 }) {
   const { t } = useTranslation();
   return (
-    <ul className="flex flex-row gap-2 border-b border-fg2">
+    <ul className="flex flex-row gap-1 md:gap-4 w-full overflow-x-auto border-b border-fg2">
       {topics.map((topic) => (
         <li key={topic.labelKey} className="my-2">
           <button

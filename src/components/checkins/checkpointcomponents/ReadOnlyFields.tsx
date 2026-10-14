@@ -63,7 +63,7 @@ export function StarsReadOnlyField({
   };
 
   return (
-    <div ref={containerRef} className="flex items-center gap-1 w-fit">
+    <div ref={containerRef} className="flex items-center w-fit">
       {Array.from({ length: max }, (_, i) => i).map((starIndex) => {
         const starFullValue = (starIndex + 1) * POINTS_PER_STAR;
         const isFilled = value >= starFullValue - 1;
@@ -72,7 +72,7 @@ export function StarsReadOnlyField({
           <button
             key={starIndex}
             type="button"
-            className="text-2xl outline-none"
+            className="outline-none"
             aria-label={`Rate ${starIndex + 1} out of ${max}`}
           >
             <span

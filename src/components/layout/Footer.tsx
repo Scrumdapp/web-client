@@ -22,21 +22,21 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mb-2 mx-2 card horizontal items-center justify-between">
+    <footer className="mb-2 mx-2 card horizontal items-center justify-between gap-2">
       <span className="flex-1">{t("footer.rights")}</span>
-      <div className="flex horizontal gap-4">
+      <div className="horizontal flex gap-4">
         {links.map((link, i) => (
           <Link
             key={i}
             to={link.to}
             target={link.target}
-            className="btn justify-start!"
+            className="btn justify-start"
           >
             {link.text}
           </Link>
         ))}
       </div>
-      <div className="flex-1 flex items-center gap-4 justify-end">
+      <div className="flex-1 grid grid-rows-1 grid-flow-col gap-2 items-center justify-end">
         <Link
           to="https://www.linkedin.com/company/scrumdapp"
           target="_blank"

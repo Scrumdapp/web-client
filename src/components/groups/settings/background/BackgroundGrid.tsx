@@ -9,10 +9,10 @@ export function BackgroundGrid({
   handleUpdate: (id: string) => void;
 }) {
   return (
-    <div className="background-container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 my-2">
+    <div className="background-container grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 pt-2 max-h-[calc(100dvh-14rem)] overflow-y-auto mb-4">
       {backgrounds.map((id) => (
         <div key={id}>
-          <BackgroundTile id={id} handleUpdate={handleUpdate} />
+          <BackgroundTile key={id} id={id} handleUpdate={handleUpdate} />
         </div>
       ))}
     </div>
@@ -31,7 +31,7 @@ function BackgroundTile({
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="relative w-64 aspect-4/3 overflow-hidden rounded-lg">
+    <div className="relative w-32 sm:w-48 md:w-64 aspect-4/3 overflow-hidden rounded-lg">
       {!isLoaded && (
         <div className="absolute inset-0 animate-pulse bg-bg2/30" />
       )}
@@ -39,13 +39,11 @@ function BackgroundTile({
       <img
         src={`/backgrounds/thumbnails/${id}.webp`}
         alt={t("settings.background.alt")}
-        className={` inset-0 h-full w-full object-cover transition-opacity duration-300 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
+        className="inset-0 h-full max-w-full object-cover transition-opacity duration-300"
         onLoad={() => setIsLoaded(true)}
       />
 
-      <div className="absolute right-4 bottom-4">
+      <div className="absolute right-1 bottom-1 md:right-4 md:bottom-4">
         <button
           className="btn border bg-bg_h"
           aria-label={`apply background ${id}`}

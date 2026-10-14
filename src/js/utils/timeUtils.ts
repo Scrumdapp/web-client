@@ -66,6 +66,27 @@ export function parseWeekDay(day: number) {
   }
 }
 
+export function parseWeekDayMobile(day: number) {
+  switch (day) {
+    case 1:
+      return "calendar.mon";
+    case 2:
+      return "calendar.tue";
+    case 3:
+      return "calendar.wed";
+    case 4:
+      return "calendar.thu";
+    case 5:
+      return "calendar.fri";
+    case 6:
+      return "calendar.sat";
+    case 0:
+      return "calendar.sun";
+    default:
+      return "date.unknown";
+  }
+}
+
 export function parseMonthText(month: number) {
   switch (month) {
     case 0:

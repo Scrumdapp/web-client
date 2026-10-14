@@ -14,3 +14,19 @@ table {
 body:has(dialog[open]) {
   overflow: hidden;
 }
+
+html {
+  font-size: 10px;
+}
+
+@variant sm {
+  html { font-size: 12px; }
+}
+
+@variant md {
+  html { font-size: 14px; }
+}
+
+@variant lg {
+  html { font-size: 16px; }
+}

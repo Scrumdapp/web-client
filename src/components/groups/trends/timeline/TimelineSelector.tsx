@@ -43,7 +43,7 @@ export function TimelineSelector({
 
   return (
     <Menu as="div" className="relative">
-      <MenuButton className="btn border min-w-32">
+      <MenuButton className="btn border md:min-w-32 text-sm md:text-lg">
         {options[selectedOption].name}
         <FontAwesomeIcon icon={faChevronDown} className={`shrink-0`} />
       </MenuButton>
@@ -55,7 +55,7 @@ export function TimelineSelector({
           <MenuItem
             key={i}
             as="button"
-            className="btn w-full"
+            className="btn w-full text-sm md:text-lg"
             onClick={() => selectOption(i)}
           >
             {it.name}
