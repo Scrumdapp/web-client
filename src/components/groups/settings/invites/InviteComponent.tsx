@@ -12,6 +12,10 @@ import { useApi } from "../../../../js/hooks/api/useApi.ts";
 import { InviteResponse } from "../../../../js/models/invites.tsx";
 import useTempState from "../../../../js/hooks/useTempState.ts";
 import { useTranslation } from "react-i18next";
+import {
+  FieldApiErrorMessageList,
+  FieldApiErrorMessage,
+} from "../../../generic/FieldApiErrorMessage.tsx";
 
 interface InvitesProps {
   groupId: number;
@@ -146,6 +150,17 @@ export default function Invites({ groupId }: InvitesProps) {
                 />
               </div>
             </div>
+            {createInvite.error?.errors &&
+            createInvite.error.errors.length > 1 ? (
+              <FieldApiErrorMessageList
+                errors={createInvite.error?.errors ?? null}
+              />
+            ) : (
+              <FieldApiErrorMessage
+                errors={createInvite.error?.errors ?? null}
+                field={createInvite.error?.errors?.[0]?.field ?? ""}
+              />
+            )}
             <ModalActionRow>
               <div className="py-2 flex gap-x-2">
                 {showWarning && (

@@ -7,10 +7,10 @@ export default function ErrorPage() {
 
   return (
     <div className="app-container vertical gap-4">
-      <title>{t("error.title")}</title>
+      <title>{t("errors.generic.notFound.title")}</title>
       <img
         src="https://http.cat/images/404.jpg"
-        alt={t("error.notfound")}
+        alt={t("errors.generic.notFound.description")}
         className="border rounded-2xl mx-auto"
       />
       <a
@@ -21,7 +21,7 @@ export default function ErrorPage() {
           navigate(-1);
         }}
       >
-        {t("error.goback")}
+        {t("errors.generic.notFound.goback")}
       </a>
     </div>
   );
