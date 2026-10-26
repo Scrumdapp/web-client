@@ -29,6 +29,7 @@ import {
   StarsReadOnlyField,
   AttendanceReadOnlyField,
 } from "./checkpointcomponents/ReadOnlyFields.tsx";
+import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage.tsx";
 
 type CheckpointUser = {
   user_id: number;
@@ -83,7 +84,11 @@ function useGroupCheckpoints(
       setError(
         err instanceof ApiError
           ? err
-          : new ApiError(999, "Unhandled error", err as Error),
+          : new ApiError(
+              999,
+              "Unhandled error while fetching checkpoints",
+              err as Error,
+            ),
       );
     } finally {
       setLoading(false);
@@ -196,7 +201,14 @@ function Checkpoint({
       modal.close();
     } catch (err) {
       if (err instanceof ApiError) setApplyError(err);
-      else setApplyError(new ApiError(999, "Unhandled error", err as Error));
+      else
+        setApplyError(
+          new ApiError(
+            999,
+            "Unhandled error while saving checkpoint",
+            err as Error,
+          ),
+        );
     } finally {
       setApplyLoading(false);
     }
@@ -234,7 +246,11 @@ function Checkpoint({
       setApplyError(
         err instanceof ApiError
           ? err
-          : new ApiError(999, "Unhandled error", err as Error),
+          : new ApiError(
+              999,
+              "Unhandled error while saving checkpoint",
+              err as Error,
+            ),
       );
     } finally {
       setApplyLoading(false);
@@ -279,8 +295,8 @@ function Checkpoint({
     setIsExpanded((prev) => !prev);
   };
 
-  if (rowsLoading || rows === null) return <LoadScreen />;
   if (rowsError) return <ErrorScreen error={rowsError} />;
+  if (rowsLoading || rows === null) return <LoadScreen />;
 
   const isSessionmaster = myUserId === ownerId;
 
@@ -440,8 +456,16 @@ function Checkpoint({
               value={selectedPresence}
               onChange={setSelectedPresence}
             />
+            <FieldApiErrorMessage
+              errors={applyError?.errors ?? null}
+              field="presence"
+            />
             <label>{t("checkpoint.stars")}</label>
             <StarsInputField value={selectedStar} onChange={setSelectedStar} />
+            <FieldApiErrorMessage
+              errors={applyError?.errors ?? null}
+              field="stars"
+            />
             <label>{t("checkpoint.notes")}</label>
             <input
               className="write-section"
@@ -451,6 +475,11 @@ function Checkpoint({
               maxLength={2000}
               onChange={(e) => setNotes(e.target.value)}
             />
+            <FieldApiErrorMessage
+              errors={applyError?.errors ?? null}
+              field="comment"
+            />
+
             <label>{t("checkpoint.obstacle")}</label>
             <input
               className="write-section"
@@ -460,10 +489,11 @@ function Checkpoint({
               maxLength={2000}
               onChange={(e) => setObstacle(e.target.value)}
             />
+            <FieldApiErrorMessage
+              errors={applyError?.errors ?? null}
+              field="impediment"
+            />
           </div>
-          {applyError && (
-            <p className="text-red text-right">{applyError.message}</p>
-          )}
           <ModalActionRow>
             <ModalCancelButton />
             <button

@@ -66,6 +66,7 @@ export async function makeApiRequest<T>(
     .then(async (it) => {
       if (it.status >= 400) {
         const json = await it.json();
+
         if (!isErrorDto(json)) {
           throw new ApiError(it.status, "Unkown error");
         }

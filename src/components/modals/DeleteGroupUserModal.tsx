@@ -14,6 +14,7 @@ import ModalCancelButton from "../generic/modal/components/ModalCancelButton";
 import { useTranslation } from "react-i18next";
 import { useApi } from "../../js/hooks/api/useApi";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi";
+import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage";
 
 export function DeleteGroupUserModal({
   state,
@@ -36,7 +37,7 @@ export function DeleteGroupUserModal({
   const Page = pages[viewIndex];
 
   return (
-    <Modal state={state} className="max-w-lg">
+    <Modal state={state}>
       <Page
         user={groupUser}
         onNextCalled={() => setViewIndex((i) => i + 1)}
@@ -113,6 +114,11 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
           onChange={(e) => setName(e.target.value)}
         />
       </div>
+      <FieldApiErrorMessage
+        errors={deleteGroupUser.error?.errors ?? null}
+        field="name"
+      />
+
       <ModalActionRow>
         <ModalCancelButton />
         <button
@@ -124,11 +130,6 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
           {t("settings.users.delete.confirm.next")}
         </button>
       </ModalActionRow>
-      {deleteGroupUser.error && (
-        <p className="text-red text-right">
-          {deleteGroupUser.error.status}: {deleteGroupUser.error.message}
-        </p>
-      )}
       <p className="muted text-right">
         {t("settings.users.delete.steps", { index: 2, total: 3 })}
       </p>
