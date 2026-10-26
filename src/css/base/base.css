@@ -16,11 +16,11 @@ body:has(dialog[open]) {
 }
 
 html {
-  font-size: 10px;
+  font-size: 14px;
 }
 
 @variant sm {
-  html { font-size: 12px; }
+  html { font-size: 16px; }
 }
 
 @variant md {
@@ -28,5 +28,5 @@ html {
 }
 
 @variant lg {
-  html { font-size: 16px; }
+  html { font-size: 20px; }
 }
