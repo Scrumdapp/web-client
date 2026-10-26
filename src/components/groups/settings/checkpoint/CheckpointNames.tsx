@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import CheckpointNamesModal from "./CheckpointNamesModal.tsx";
 import { useModalState } from "../../../../js/hooks/useModalState.ts";
@@ -17,52 +17,50 @@ export default function CheckpointNames() {
   const modal = useModalState();
   const group = useGroup();
 
-  const getNames = useApi(ScrumdappApi.getCheckpointNames());
+  const getNames = useApi(ScrumdappApi.getCheckpointNames(), {
+    fetchOnCreated: [group.id],
+  });
+
   const [openCount, setOpenCount] = useState(0);
 
   const wantsModal = searchParams.get("modal") === "checkpointNames";
-  const names = getNames.data ?? [];
-  const loading = getNames.loading;
+  const names = getNames.data?.checkpointNames ?? [];
 
-  function handleOpenModal() {
-    if (loading) return;
+  const handleOpenModal = () => {
     setOpenCount((c) => c + 1);
     modal.open();
-  }
+  };
 
   useEffect(() => {
-    if (!wantsModal || loading) return;
+    if (!wantsModal || getNames.loading) return;
     handleOpenModal();
     const next = new URLSearchParams(searchParams);
     next.delete("modal");
     setSearchParams(next, { replace: true });
-  }, [wantsModal, loading]);
+  }, [wantsModal, getNames.loading]);
 
   const handleSaved = async () => {
     await getNames.runCommand(group.id);
   };
 
   if (getNames.error != null) {
-    return <ErrorScreen error={getNames.error} />;
+    return (
+      <CheckpointNamesLayout showButton={false}>
+        <ErrorScreen error={getNames.error} />
+      </CheckpointNamesLayout>
+    );
   }
 
-  if (getNames.loading && !getNames.data) {
-    return <LoadScreen />;
+  if (getNames.loading || !getNames.data) {
+    return (
+      <CheckpointNamesLayout showButton={false}>
+        <LoadScreen />
+      </CheckpointNamesLayout>
+    );
   }
 
   return (
-    <div className="card">
-      <div className="flex flex-row w-full justify-between items-center">
-        <h3>{t("settings.checkpointNames.header")}</h3>
-        <button
-          onClick={handleOpenModal}
-          disabled={loading}
-          className="btn btn-secondary border"
-        >
-          <FontAwesomeIcon icon={faPencil} />{" "}
-          {t("settings.checkpointNames.edit")}
-        </button>
-      </div>
+    <CheckpointNamesLayout onButtonPressed={handleOpenModal} showButton={true}>
       <p>{t("settings.checkpointNames.description")}</p>
       <div className="pl-2 mt-1">
         {names.length > 0 ? (
@@ -77,13 +75,42 @@ export default function CheckpointNames() {
           </p>
         )}
       </div>
-
       <CheckpointNamesModal
         key={openCount}
         modal={modal}
         initialNames={names}
         onSaved={handleSaved}
       />
+    </CheckpointNamesLayout>
+  );
+}
+
+export function CheckpointNamesLayout({
+  showButton = true,
+  onButtonPressed = () => {},
+  children = null,
+}: {
+  showButton?: boolean;
+  onButtonPressed?: () => void;
+  children?: ReactNode;
+}) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="card">
+      <div className="flex flex-row w-full justify-between items-center">
+        <h3>{t("settings.checkpointNames.header")}</h3>
+        {showButton && (
+          <button
+            onClick={onButtonPressed}
+            className="btn btn-secondary border"
+          >
+            <FontAwesomeIcon icon={faPencil} />
+            {t("settings.checkpointNames.edit")}
+          </button>
+        )}
+      </div>
+      {children}
     </div>
   );
 }
