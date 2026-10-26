@@ -61,3 +61,7 @@ export interface SessionDate {
   date: string;
   sessions: number[];
 }
+
+export interface CheckpointNames {
+  checkpointNames: string[];
+}

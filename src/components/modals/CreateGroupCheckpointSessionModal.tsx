@@ -53,9 +53,9 @@ export function CreateGroupCheckpointSessionModal({
 
   useEffect(() => {
     getCheckpointNames.runCommand(groupId);
-  }, [getCheckpointNames.runCommand, groupId]);
+  }, [groupId]);
 
-  const names = getCheckpointNames.data ?? [];
+  const names = getCheckpointNames.data?.checkpointNames ?? [];
 
   const isLoadingNames =
     getCheckpointNames.loading ||

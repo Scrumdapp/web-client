@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
 import {
+  CheckpointNames,
   GroupCheckpoint,
   GroupCheckpointSession,
   SessionDates,
@@ -65,14 +66,14 @@ const RANDOM_IMPEDIMENT = [
 ];
 
 export const RANDOM_CHECKPOINTNAMES = [
-    "Check-in",
-    "Check-out",
-    "Check-up",
-    "Ochtend",
-    "Middag",
-    "Avond",
-    "Nacht",
-]
+  "Check-in",
+  "Check-out",
+  "Check-up",
+  "Ochtend",
+  "Middag",
+  "Avond",
+  "Nacht",
+];
 
 interface GenSessions {
   gId: number;
@@ -399,11 +400,11 @@ export const groupCheckpointHandlers = [
 
 const namesByGroup = new Map<number, string[]>();
 
-function getNames(gid: number): string[] {
+function getNames(gid: number): CheckpointNames {
   if (!namesByGroup.has(gid)) {
     namesByGroup.set(gid, [...RANDOM_CHECKPOINTNAMES]);
   }
-  return namesByGroup.get(gid)!;
+  return { checkpointNames: namesByGroup.get(gid)! };
 }
 
 export const checkpointNamesHandlers = [
@@ -412,22 +413,27 @@ export const checkpointNamesHandlers = [
     return HttpResponse.json(getNames(gid));
   }),
 
-  http.put("/api/groups/:gid/checkpoints/names", async ({ params, request }) => {
-    const gid = Number(params.gid);
-    const body = (await request.json()) as string[];
+  http.put(
+    "/api/groups/:gid/checkpoints/names",
+    async ({ params, request }) => {
+      const gid = Number(params.gid);
+      const body = ((await request.json()) as CheckpointNames).checkpointNames;
 
-    if (!Array.isArray(body) || body.length > 10) {
-      return HttpResponse.json(
+      if (!Array.isArray(body) || body.length > 10) {
+        return HttpResponse.json(
           {
             status: 400,
             code: "INVALID_NAMES",
             titleTranslationKey: "errors.checkpoint.invalidNames.title",
-            descriptionTranslationKey: "errors.checkpoint.invalidNames.description",
-          } as object
-      , {status: 400});
-    }
+            descriptionTranslationKey:
+              "errors.checkpoint.invalidNames.description",
+          } as object,
+          { status: 400 },
+        );
+      }
 
-    namesByGroup.set(gid, body);
-    return HttpResponse.json(body);
-  }),
+      namesByGroup.set(gid, body);
+      return HttpResponse.json(body);
+    },
+  ),
 ];
