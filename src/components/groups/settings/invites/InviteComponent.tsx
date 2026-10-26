@@ -136,6 +136,7 @@ export default function Invites({ groupId }: InvitesProps) {
                 alt={t("invite.password")}
                 value={password}
                 maxLength={32}
+                type={"password"}
                 onChange={(e) => {
                   setShowWarning(
                     !/^[a-zA-Z0-9 !@#$%^&]{1,32}$/.test(e.target.value),
