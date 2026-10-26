@@ -17,18 +17,6 @@ export default function HeaderMobile() {
     { to: "/groups", label: t("header.groups"), target: "_self" },
   ];
 
-  const mobileLinks = [
-    { to: "/", label: t("header.home"), target: "_self" },
-    { to: "/groups", label: t("header.groups"), target: "_self" },
-    { to: "/about", label: t("footer.about"), target: "_self" },
-    { to: "/privacy", label: t("footer.privacy"), target: "_self" },
-    {
-      to: "https://scrumdapp.com/#Contact",
-      label: t("footer.support"),
-      target: "_blank",
-    },
-  ];
-
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
@@ -103,10 +91,10 @@ export default function HeaderMobile() {
             onClick={() => setMenuOpen(false)}
           >
             <div
-              className="bg-bg_h rounded-xl border shadow-xl w-full overflow-hidden h-fit"
+              className="bg-bg_h rounded-xl border shadow-xl w-full overflow-hidden h-fit px-2"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex flex-col divide-y">
+              <div className="flex flex-col">
                 <div className="flex items-center justify-between gap-2 px-4 py-3">
                   <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
                   <img
@@ -116,22 +104,40 @@ export default function HeaderMobile() {
                   />
                 </div>
 
-                <div className="flex flex-col py-1">
-                  {mobileLinks.map((link, i) => (
-                    <Link
-                      key={i}
-                      to={link.to}
-                      onClick={() => setMenuOpen(false)}
-                      className="btn justify-start! rounded-none py-1 px-4"
-                      target={link.target}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                <div className="vertical gap-1">
+                  <hr className="text-gray" />
+                  <NavbarLink
+                    to={`/`}
+                    target="_self"
+                    translationKey="header.home"
+                  />
+                  <NavbarLink
+                    to={`/groups`}
+                    target="_self"
+                    translationKey="header.groups"
+                  />
+                  <NavbarLink
+                    to={`/about`}
+                    target="_self"
+                    translationKey="footer.about"
+                  />
+                  <NavbarLink
+                    to={`/privacy`}
+                    target="_self"
+                    translationKey="footer.privacy"
+                  />
+                  <NavbarLink
+                    to={`https://scrumdapp.com/#Contact`}
+                    target="_blank"
+                    translationKey="footer.support"
+                  />
+                  <hr className="text-gray" />
                 </div>
 
-                <div className="flex flex-col items-center gap-2 py-4 px-4">
-                  <LanguageSwitch />
+                <div className="flex flex-col items-start gap-2 mt-2 pt-2 pb-4 px-2">
+                  <div className="horizontal gap-3">
+                    {t("header.language")}: <LanguageSwitch />
+                  </div>
                   <LogoutButton />
                 </div>
               </div>
@@ -141,5 +147,23 @@ export default function HeaderMobile() {
       </header>
       <div className="h-15 md:h-20" />
     </>
+  );
+}
+
+function NavbarLink({
+  to,
+  translationKey,
+  target,
+}: {
+  to: string;
+  translationKey: string;
+  target: string;
+}) {
+  const { t } = useTranslation();
+
+  return (
+    <Link to={to} className="btn justify-start" target={target}>
+      {t(translationKey)}
+    </Link>
   );
 }

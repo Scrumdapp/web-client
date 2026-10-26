@@ -7,6 +7,7 @@ export default {
       logout: "Logout",
       profileAlt: "User Profile Picture",
       menuToggle: "Menu",
+      language: "Language",
     },
   },
   nl: {
@@ -17,6 +18,7 @@ export default {
       logout: "Uitloggen",
       profileAlt: "Profielfoto",
       menuToggle: "Menu",
+      language: "Taal",
     },
   },
 };
