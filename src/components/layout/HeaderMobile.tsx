@@ -69,7 +69,7 @@ export default function HeaderMobile() {
 
           <div className="hidden md:flex md:flex-1 justify-end h-full my-4">
             <div className="nav-dropdown cursor-default">
-              <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
+              <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 rounded-r-full">
                 <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
                 <img
                   src={user.avatar ?? "/Scrumdaddy.png"}
