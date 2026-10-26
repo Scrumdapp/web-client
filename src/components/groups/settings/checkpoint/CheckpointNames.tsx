@@ -21,7 +21,7 @@ export default function CheckpointNames() {
   const [openCount, setOpenCount] = useState(0);
 
   const wantsModal = searchParams.get("modal") === "checkpointNames";
-  const names = getNames.data ?? [];
+  const names = getNames.data?.checkpointNames ?? [];
   const loading = getNames.loading;
 
   function handleOpenModal() {
