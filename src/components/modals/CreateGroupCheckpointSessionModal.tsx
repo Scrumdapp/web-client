@@ -15,6 +15,10 @@ import { CheckpointTimeDurationDropdownMenu } from "../generic/CheckpointTimeDur
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import { Link } from "react-router-dom";
 import CheckpointNamesDropdown from "../groups/settings/checkpoint/CheckpointNamesDropdown.tsx";
+import {
+  FieldApiErrorMessage,
+  FieldApiErrorMessageList,
+} from "../generic/FieldApiErrorMessage.tsx";
 
 export function CreateGroupCheckpointSessionModal({
   groupId,
@@ -61,7 +65,7 @@ export function CreateGroupCheckpointSessionModal({
   const group = useGroup();
 
   return (
-    <Modal state={state}>
+    <Modal state={state} className="max-w-xs">
       <div className="space-y-5">
         <ModalHeadText>{t("checkpoint.modal.newcheckpoint")}</ModalHeadText>
         <div className="horizontal flex-1 gap-2">
@@ -88,6 +92,18 @@ export function CreateGroupCheckpointSessionModal({
             </Link>
           </p>
         )}
+        {createCheckpointSession.error?.errors &&
+        createCheckpointSession.error.errors.length > 1 ? (
+          <FieldApiErrorMessageList
+            errors={createCheckpointSession.error?.errors ?? null}
+          />
+        ) : (
+          <FieldApiErrorMessage
+            errors={createCheckpointSession.error?.errors ?? null}
+            field={createCheckpointSession.error?.errors?.[0]?.field ?? ""}
+          />
+        )}
+
         <ModalActionRow>
           <ModalCancelButton />
           <button

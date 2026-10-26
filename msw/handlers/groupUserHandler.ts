@@ -41,10 +41,10 @@ export const groupUserHandler = [
     }
     return HttpResponse.json(
       {
-        error: true,
         status: 404,
-        message: "Not found",
-        detail: "The group with this ID does not exist",
+        code: "GROUP_NOT_FOUND",
+        titleTranslationKey: "errors.group.notFound.title",
+        descriptionTranslationKey: "errors.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -60,10 +60,10 @@ export const groupUserHandler = [
     }
     return HttpResponse.json(
       {
-        error: true,
         status: 404,
-        message: "Not found",
-        detail: "The group with this ID does not exist",
+        code: "GROUP_NOT_FOUND",
+        titleTranslationKey: "errors.group.notFound.title",
+        descriptionTranslationKey: "errors.group.notFound.description",
       } as object,
       {
         status: 404,
@@ -77,10 +77,10 @@ export const groupUserHandler = [
     if (!group) {
       return HttpResponse.json(
         {
-          error: true,
           status: 404,
-          message: "Not found",
-          detail: "The group with this ID does not exist",
+          code: "GROUP_NOT_FOUND",
+          titleTranslationKey: "errors.group.notFound.title",
+          descriptionTranslationKey: "errors.group.notFound.description",
         } as object,
         {
           status: 404,
@@ -94,10 +94,10 @@ export const groupUserHandler = [
     if (!user) {
       return HttpResponse.json(
         {
-          error: true,
           status: 404,
-          message: "Not found",
-          detail: "This user does not exist in the group",
+          code: "USER_NOT_FOUND",
+          titleTranslationKey: "errors.user.notFound.title",
+          descriptionTranslationKey: "errors.user.notFound.description",
         } as object,
         {
           status: 404,
@@ -129,10 +129,10 @@ export const groupUserHandler = [
     if (!group) {
       return HttpResponse.json(
         {
-          error: true,
           status: 404,
-          message: "Not found",
-          detail: "The group with this ID does not exist",
+          code: "GROUP_NOT_FOUND",
+          titleTranslationKey: "errors.group.notFound.title",
+          descriptionTranslationKey: "errors.group.notFound.description",
         } as object,
         {
           status: 404,
@@ -147,10 +147,10 @@ export const groupUserHandler = [
     if (userIndex == -1) {
       return HttpResponse.json(
         {
-          error: true,
           status: 404,
-          message: "Not found",
-          detail: "This user does not exist in the group",
+          code: "USER_NOT_FOUND",
+          titleTranslationKey: "errors.user.notFound.title",
+          descriptionTranslationKey: "errors.user.notFound.description",
         } as object,
         {
           status: 404,
