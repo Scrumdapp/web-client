@@ -24,7 +24,7 @@ html {
 }
 
 @variant md {
-  html { font-size: 14px; }
+  html { font-size: 18px; }
 }
 
 @variant lg {
