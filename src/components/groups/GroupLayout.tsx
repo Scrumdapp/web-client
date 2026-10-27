@@ -31,7 +31,7 @@ export function GroupLayout() {
               <BackgroundOverride
                 background={ctx!!.group!!.background_preference ?? "1"}
               />
-              <div className="flex horizontal justify-start gap-1">
+              <div className="flex horizontal justify-start gap-1 mt-6 md:mt-0">
                 <div>
                   <button
                     type="button"
