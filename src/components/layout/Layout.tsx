@@ -10,7 +10,7 @@ import HeaderMobile from "./HeaderMobile.tsx";
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <BackgroundProvider initialBackground={"1"}>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-dvh flex flex-col">
         <div className="hidden md:block">
           <Header />
         </div>
