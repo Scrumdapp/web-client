@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
@@ -16,6 +16,12 @@ export default function HeaderMobile() {
     { to: "/", label: t("header.home"), target: "_self" },
     { to: "/groups", label: t("header.groups"), target: "_self" },
   ];
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (menuOpen) {
@@ -104,37 +110,42 @@ export default function HeaderMobile() {
                   />
                 </div>
 
-                <div className="vertical gap-1">
+                <div className="vertical gap-2 px-2">
                   <hr className="text-gray" />
                   <NavbarLink
                     to={`/`}
                     target="_self"
                     translationKey="header.home"
+                    onClick={() => setMenuOpen(false)}
                   />
                   <NavbarLink
                     to={`/groups`}
                     target="_self"
                     translationKey="header.groups"
+                    onClick={() => setMenuOpen(false)}
                   />
                   <NavbarLink
                     to={`/about`}
                     target="_self"
                     translationKey="footer.about"
+                    onClick={() => setMenuOpen(false)}
                   />
                   <NavbarLink
                     to={`/privacy`}
                     target="_self"
                     translationKey="footer.privacy"
+                    onClick={() => setMenuOpen(false)}
                   />
                   <NavbarLink
                     to={`https://scrumdapp.com/#Contact`}
                     target="_blank"
                     translationKey="footer.support"
+                    onClick={() => setMenuOpen(false)}
                   />
                   <hr className="text-gray" />
                 </div>
 
-                <div className="flex flex-col items-start gap-2 mt-2 pt-2 pb-4 px-2">
+                <div className="flex flex-col items-start gap-2 mt-2 pt-2 pb-4 px-2 pl-4">
                   <div className="horizontal gap-3">
                     {t("header.language")}: <LanguageSwitch />
                   </div>
@@ -154,15 +165,29 @@ function NavbarLink({
   to,
   translationKey,
   target,
+  onClick,
 }: {
   to: string;
   translationKey: string;
   target: string;
+  onClick?: () => void;
 }) {
   const { t } = useTranslation();
+  const location = useLocation();
+
+  const handleClick = () => {
+    if (target === "_blank" || to === location.pathname) {
+      onClick?.();
+    }
+  };
 
   return (
-    <Link to={to} className="btn justify-start" target={target}>
+    <Link
+      to={to}
+      className="btn justify-start"
+      target={target}
+      onClick={handleClick}
+    >
       {t(translationKey)}
     </Link>
   );
