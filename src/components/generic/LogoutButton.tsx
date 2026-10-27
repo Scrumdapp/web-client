@@ -19,7 +19,7 @@ export function LogoutButton() {
       type="button"
       onClick={handleLogout}
     >
-      <FontAwesomeIcon icon={faSignOut} className="text-red " />
+      <FontAwesomeIcon icon={faSignOut} className="text-red" />
       {t("header.logout")}
     </button>
   );
