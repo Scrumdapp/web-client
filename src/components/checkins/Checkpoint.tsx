@@ -352,19 +352,19 @@ function Checkpoint({
                 <th className="p-1 md:p-2 text-left w-16 md:w-44">
                   {t("checkpoint.name")}
                 </th>
-                <th className="p-1 md:p-2 text-left border-l border-dotted w-16 md:w-28">
+                <th className="p-1 md:p-2 text-left border-l border-dotted w-16 md:w-28 truncate">
                   {t("checkpoint.attendance")}
                 </th>
-                <th className="p-2 items-center w-20 md:w-28">
+                <th className="p-2 items-center w-20 md:w-28 truncate">
                   {t("checkpoint.stars")}
                 </th>
-                <th className="p-1 md:p-2 text-left hidden md:table-cell md:w-28">
+                <th className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate">
                   {t("checkpoint.notes")}
                 </th>
-                <th className="p-1 md:p-2 text-left hidden md:table-cell md:w-28">
+                <th className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate">
                   {t("checkpoint.obstacle")}
                 </th>
-                <th className="p-1 md:p-2 pl-0 text-right w-10">
+                <th className="p-1 md:p-2 pl-0 text-right w-12 md:w-20 truncate">
                   {t("checkpoint.actions")}
                 </th>
               </tr>
@@ -390,30 +390,21 @@ function Checkpoint({
                       <Stars amount={item.stars} />
                     </div>
                   </td>
-                  <td className="p-2 break-words border-t border-dotted hidden md:table-cell">
+                  <td className="p-2 break-words border-t border-dotted hidden lg:table-cell">
                     <p className="break-words line-clamp-2">{item.comment}</p>
                   </td>
-                  <td className="p-2 break-words border-t border-dotted hidden md:table-cell">
+                  <td className="p-2 break-words border-t border-dotted hidden lg:table-cell">
                     <p className="break-words line-clamp-2">
                       {item.impediment}
                     </p>
                   </td>
-                  <td className="border-t border-dotted p-2 pl-0">
-                    <button
-                      className="btn p-1 md:p-2 border aspect-square ml-auto mr-0"
-                      onClick={() => handleModalReadOnlyOpen(item)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faEye}
-                        className="icon text-blue"
-                      />
-                    </button>
+                  <td className="border-t border-dotted py-2 horizontal gap-1 md:gap-2">
                     {(isSessionmaster || isInGroup) &&
                       !isLocked &&
                       (!isLocked ? (
                         isSessionmaster ? (
                           <button
-                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-2"
+                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
                             onClick={() => handleModalOpen(item)}
                           >
                             <FontAwesomeIcon
@@ -424,7 +415,7 @@ function Checkpoint({
                         ) : item.groupUser === myUserId ||
                           item.id === myUserId ? (
                           <button
-                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-2"
+                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
                             onClick={handleOwnModalOpen}
                           >
                             <FontAwesomeIcon
@@ -434,6 +425,15 @@ function Checkpoint({
                           </button>
                         ) : null
                       ) : null)}
+                    <button
+                      className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
+                      onClick={() => handleModalReadOnlyOpen(item)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faEye}
+                        className="icon text-blue"
+                      />
+                    </button>
                   </td>
                 </tr>
               ))}
