@@ -31,7 +31,7 @@ export default function Header() {
             </Link>
           </div>
 
-          <h3 className="horizontal gap-4">
+          <div className="horizontal gap-4">
             {links.map((link, i) => (
               <Link
                 key={i}
@@ -42,11 +42,11 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-          </h3>
+          </div>
 
-          <div className="flex flex-1 justify-end h-full w-fit my-4">
+          <div className="flex-1 flex justify-end h-full my-4">
             <div className="nav-dropdown cursor-default">
-              <div className="horizontal justify-end w-70 items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
+              <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
                 <span className="text-nowrap truncate break-words">{`${user.first_name} ${user.last_name}`}</span>
                 <img
                   src={user.avatar ?? "/Scrumdaddy.png"}
@@ -54,7 +54,7 @@ export default function Header() {
                   className="nav-icon max-w-full"
                 />
               </div>
-              <div className="nav-dropdown-content -right-[0.5px]! w-fit">
+              <div className="nav-dropdown-content -right-[0.5px]!">
                 <div className="my-4 px-1.5 text-center">
                   <LanguageSwitch />
                   <LogoutButton />
