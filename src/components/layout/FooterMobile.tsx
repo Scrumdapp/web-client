@@ -23,7 +23,7 @@ export default function FooterMobile() {
   ];
 
   return (
-    <footer className="mb-2 mx-2 mt-2 md:mt-0 card vertical items-center justify-between gap-2">
+    <footer className="m-2 md:mt-0 card vertical items-center justify-between gap-2">
       <div className="horizontal gap-2">
         {links.map((link, i) => (
           <Link
