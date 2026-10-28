@@ -44,17 +44,17 @@ export default function Header() {
             ))}
           </div>
 
-          <div className="flex-1 flex justify-end h-full my-4">
-            <div className="nav-dropdown cursor-default">
-              <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
-                <span className="text-nowrap truncate break-words">{`${user.first_name} ${user.last_name}`}</span>
+          <div className="flex-1 flex justify-end h-full">
+            <div className="nav-dropdown cursor-default min-w-48 h-10">
+              <div className="horizontal py-1 justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 bg-bg_h rounded-r-full">
+                <span className="text-right text-nowrap truncate break-words">{`${user.first_name} ${user.last_name}`}</span>
                 <img
                   src={user.avatar ?? "/Scrumdaddy.png"}
                   alt={t("header.profileAlt")}
                   className="nav-icon max-w-full"
                 />
               </div>
-              <div className="nav-dropdown-content -right-[0.5px]!">
+              <div className="nav-dropdown-content -right-[0.04rem]!">
                 <div className="my-4 px-1.5 text-center">
                   <LanguageSwitch />
                   <LogoutButton />
