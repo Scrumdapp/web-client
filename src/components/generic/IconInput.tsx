@@ -28,7 +28,7 @@ export function IconInput({
   return (
     <div className="relative">
       <input
-        className={`write-section md:pr-9! ${className ?? ""}`}
+        className={`write-section pr-9! ${className ?? ""}`}
         {...inputProps}
       />
       {/* @ts-ignore */}
