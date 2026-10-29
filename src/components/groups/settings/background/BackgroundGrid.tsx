@@ -11,8 +11,8 @@ export function BackgroundGrid({
   return (
     <div className="background-container grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 pt-2 max-h-[calc(100dvh-14rem)] overflow-y-auto mb-4">
       {backgrounds.map((id) => (
-        <div key={id}>
-          <BackgroundTile key={id} id={id} handleUpdate={handleUpdate} />
+        <div>
+          <BackgroundTile id={id} handleUpdate={handleUpdate} />
         </div>
       ))}
     </div>
