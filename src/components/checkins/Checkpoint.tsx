@@ -261,7 +261,6 @@ function Checkpoint({
     if (rows == null) return;
     setApplyError(null);
     const myRow = rows.find((row) => row.groupUser === myUserId);
-    setSelectedUser(myRow ?? null);
     setSelectedPresence(myRow?.presence ? String(myRow.presence) : null);
     setSelectedStar(myRow?.stars ?? null);
     setNotes(myRow?.comment ?? "");
