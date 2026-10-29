@@ -65,7 +65,7 @@ export function CreateGroupCheckpointSessionModal({
   const group = useGroup();
 
   return (
-    <Modal state={state} className="max-w-xs">
+    <Modal state={state}>
       <div className="space-y-5">
         <ModalHeadText>{t("checkpoint.modal.newcheckpoint")}</ModalHeadText>
         <div className="horizontal flex-1 gap-2">

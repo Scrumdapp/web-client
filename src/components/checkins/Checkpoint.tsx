@@ -400,12 +400,12 @@ function Checkpoint({
                   </td>
                   <td className="border-t border-dotted py-2 horizontal gap-1 md:gap-2">
                     <button
-                        className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                        onClick={() => handleModalReadOnlyOpen(item)}
+                      className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
+                      onClick={() => handleModalReadOnlyOpen(item)}
                     >
                       <FontAwesomeIcon
-                          icon={faEye}
-                          className="icon text-blue"
+                        icon={faEye}
+                        className="icon text-blue"
                       />
                     </button>
                     {(isSessionmaster || isInGroup) &&
@@ -434,7 +434,6 @@ function Checkpoint({
                           </button>
                         ) : null
                       ) : null)}
-
                   </td>
                 </tr>
               ))}

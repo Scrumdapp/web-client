@@ -10,17 +10,19 @@ import ErrorPage from "../../pages/ErrorPage.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { t } from "i18next";
-import { useState } from "react";
+import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
+import Modal from "../generic/modal/Modal.tsx";
+import { useModalState } from "../../js/hooks/useModalState.ts";
+
 
 export function GroupLayout() {
+  const modal = useModalState();
   const params = useParams();
   const groupId = parseInt(params.groupId ?? "nan");
 
   if (isNaN(groupId)) return <ErrorPage />;
 
   const GroupConsumer = groupContext.Consumer;
-
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <GroupProvider groupId={groupId}>
@@ -35,47 +37,37 @@ export function GroupLayout() {
                 <div>
                   <button
                     type="button"
-                    onClick={() => setMenuOpen((open) => !open)}
+                    onClick={(modal.open)}
                     className="btn aspect-square md:hidden"
                     aria-label={t("header.menuToggle")}
-                    aria-expanded={menuOpen}
                   >
-                    <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
+                    <FontAwesomeIcon icon={faBars} />
                   </button>
                 </div>
                 <h1> {ctx!!.group!!.name} </h1>
               </div>
-              {menuOpen && (
-                <div
-                  className="fixed inset-0 z-40 flex px-2 pt-16 backdrop-blur-lg bg-[unset] w-full max-w-screen md:hidden"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <div
-                    className="bg-bg_h rounded-xl border shadow-xl w-full overflow-hidden h-fit"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if ((e.target as HTMLElement).closest("a, button")) {
-                        setMenuOpen(false);
-                      }
-                    }}
-                  >
-                    <div className="flex flex-col divide-y">
-                      <div className="p-2">
-                        <div className="flex justify-between">
-                          <h1 className="pl-2 p-1 text-xl md:text-2xl">
-                            {" "}
-                            {ctx!!.group!!.name}{" "}
-                          </h1>
-                          <button className="pr-2 p-1">
-                            <FontAwesomeIcon icon={faXmark} />
-                          </button>
-                        </div>
-                        <GroupSidebarMobile />
-                      </div>
+              <Modal state={modal} className="mx-2">
+                <ModalHeadText />
+                <div className="flex flex-col divide-y">
+                  <div className="p-2">
+                    <div className="flex justify-between">
+                      <h1 className="pl-2 p-1 text-xl md:text-2xl">
+                        {" "}
+                        {ctx!!.group!!.name}{" "}
+                      </h1>
+                      <button
+                          type="button"
+                          className="pr-2 p-1"
+                          onClick={modal.close}
+                          aria-label={t("header.menuClose")}
+                      >
+                        <FontAwesomeIcon icon={faXmark} />
+                      </button>
                     </div>
+                    <GroupSidebarMobile onNavigate={modal.close} />
                   </div>
                 </div>
-              )}
+              </Modal>
             </>
           )}
         </GroupConsumer>
