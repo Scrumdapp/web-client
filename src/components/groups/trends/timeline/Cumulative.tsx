@@ -22,7 +22,7 @@ export function RenderCumulativeGraph({
   }
 
   return (
-    <table className="text-sm md:text-lg">
+    <table className="text-sm md:text-base">
       <thead>
         <tr>
           <th></th>
