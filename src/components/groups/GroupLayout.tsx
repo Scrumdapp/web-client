@@ -14,7 +14,6 @@ import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
 import Modal from "../generic/modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 
-
 export function GroupLayout() {
   const modal = useModalState();
   const params = useParams();
@@ -37,7 +36,7 @@ export function GroupLayout() {
                 <div>
                   <button
                     type="button"
-                    onClick={(modal.open)}
+                    onClick={modal.open}
                     className="btn aspect-square md:hidden"
                     aria-label={t("header.menuToggle")}
                   >
@@ -56,10 +55,10 @@ export function GroupLayout() {
                         {ctx!!.group!!.name}{" "}
                       </h1>
                       <button
-                          type="button"
-                          className="pr-2 p-1"
-                          onClick={modal.close}
-                          aria-label={t("header.menuClose")}
+                        type="button"
+                        className="pr-2 p-1"
+                        onClick={modal.close}
+                        aria-label={t("header.menuClose")}
                       >
                         <FontAwesomeIcon icon={faXmark} />
                       </button>
