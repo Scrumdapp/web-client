@@ -2,6 +2,7 @@ export default {
   en: {
     calendar: {
       title: "Calendar | Scrumdapp",
+      header: "Calendar",
       mon: "Mon",
       tue: "Tue",
       wed: "Wed",
@@ -14,6 +15,7 @@ export default {
   nl: {
     calendar: {
       title: "Kalender | Scrumdapp",
+      header: "Kalender",
       mon: "Ma",
       tue: "Di",
       wed: "Wo",
