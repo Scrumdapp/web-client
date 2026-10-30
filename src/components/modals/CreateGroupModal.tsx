@@ -9,8 +9,6 @@ import ModalCancelButton from "../generic/modal/components/ModalCancelButton";
 import { LoadScreen } from "../generic/LoadScreen";
 import { useTranslation } from "react-i18next";
 import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export function CreateGroupModal({ state }: { state: ModalState }) {
   const { t } = useTranslation();
@@ -54,15 +52,9 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
           type="submit"
           form="create-group-form"
           disabled={!name}
-          className="btn border btn-secondary"
+          className="btn border"
         >
-          {createGroupCommand.loading ? (
-            <LoadScreen />
-          ) : (
-            <>
-              <FontAwesomeIcon icon={faCheck} /> {t("groups.submit")}
-            </>
-          )}
+          {createGroupCommand.loading ? <LoadScreen /> : t("groups.submit")}
         </button>
       </ModalActionRow>
     </Modal>
