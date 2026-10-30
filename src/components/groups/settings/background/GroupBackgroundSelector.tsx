@@ -101,13 +101,13 @@ export function BackgroundSelector() {
       <h3>{t("settings.background.header")}</h3>
       <p>{t("settings.background.text")}</p>
       <img
-        className="rounded-md w-1/2"
+        className="rounded-md w-1/2 max-w-full"
         src={`/backgrounds/thumbnails/${group.background_preference ? group.background_preference : 1}.webp`}
         alt={t("settings.background.current")}
       />
       <Button
         onClick={modalState.open}
-        aria-label="change background"
+        aria-label={t("settings.background.change")}
         className="mr-auto btn border"
       >
         <FontAwesomeIcon icon={faImages} className="text-green" />
@@ -149,7 +149,10 @@ function BackgroundSelectorModal({ modal }: { modal: ModalState }) {
     );
 
     return (
-      <Modal state={modal}>
+      <Modal
+        state={modal}
+        className="w-[calc(100vw-2rem)] md:w-fit max-w-full mx-auto my-4"
+      >
         <ModalHeadText>{t("settings.background.modal.select")}</ModalHeadText>
         <BackgroundTopicNavbar
           selectedTopicId={t(selectedTopic.labelKey)}

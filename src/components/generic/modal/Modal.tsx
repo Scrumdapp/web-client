@@ -41,7 +41,7 @@ export default function Modal({
       >
         <div
           className={cn(
-            "m-auto bg-bg_h rounded-lg p-6 min-w-96 w-fit border",
+            "m-auto bg-bg_h rounded-lg p-4 md:p-6 w-full max-w-[calc(100%-1rem)] md:min-w-96 border",
             className,
           )}
           onClick={(e) => e.stopPropagation()}

@@ -65,7 +65,7 @@ export function CreateGroupCheckpointSessionModal({
   const group = useGroup();
 
   return (
-    <Modal state={state} className="max-w-xs">
+    <Modal state={state}>
       <div className="space-y-5">
         <ModalHeadText>{t("checkpoint.modal.newcheckpoint")}</ModalHeadText>
         <div className="horizontal flex-1 gap-2">
@@ -107,7 +107,7 @@ export function CreateGroupCheckpointSessionModal({
         <ModalActionRow>
           <ModalCancelButton />
           <button
-            className={`btn btn-secondary border ${!checkpointName ? "opacity-50 cursor-not-allowed!" : ""}`}
+            className="btn btn-secondary border"
             disabled={!checkpointName.trim() || createCheckpointSession.loading}
             onClick={handleCreate}
           >

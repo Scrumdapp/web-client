@@ -16,7 +16,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
   const createGroupCommand = useApi(ScrumdappApi.createGroup());
 
   return (
-    <Modal state={state} className="max-w-xs">
+    <Modal state={state} className="mx-auto max-w-xs">
       <ModalHeadText>{t("groups.newgroup")}</ModalHeadText>
       <form
         id="create-group-form"
@@ -52,7 +52,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
           type="submit"
           form="create-group-form"
           disabled={!name}
-          className={`btn border ${!name ? "opacity-50 cursor-not-allowed!" : ""}`}
+          className="btn border"
         >
           {createGroupCommand.loading ? <LoadScreen /> : t("groups.submit")}
         </button>

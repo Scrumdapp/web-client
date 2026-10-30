@@ -33,7 +33,7 @@ export function RenderTimelineGraph({
   }
 
   return (
-    <table>
+    <table className="text-sm md:text-base">
       <thead>
         <tr>
           <th></th>
@@ -45,7 +45,7 @@ export function RenderTimelineGraph({
       <tbody>
         {users.map((user) => (
           <tr key={user.user_id}>
-            <td className="w-48 pr-2">
+            <td className="w-24 md:w-48 pr-2">
               {user.first_name} {user.last_name}
             </td>
             <td className="py-1">

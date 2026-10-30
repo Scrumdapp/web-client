@@ -2,6 +2,8 @@ export default {
   en: {
     trends: {
       title: "Trends | Scrumdapp",
+      trends: "Trends",
+      mobileview: "Trends can be viewed better on desktop",
       header: "Presence",
       periodic: "Periodic",
       cumulative: "Cumulative",
@@ -12,6 +14,8 @@ export default {
   nl: {
     trends: {
       title: "Trends | Scrumdapp",
+      trends: "Trends",
+      mobileview: "Trends kunnen beter op een desktop worden bekeken",
       header: "Aanwezigheid",
       periodic: "Periodiek",
       cumulative: "Cumulatief",

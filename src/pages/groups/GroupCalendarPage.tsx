@@ -13,9 +13,9 @@ export function GroupCalendarPage() {
   return (
     <>
       <title>{t("calendar.title")}</title>
-      <div className="card">
+      <div className="card p-1 md:p-4">
         <CalendarSelector currentYearMonth={yearMonth} />
-        <div className="min-h-60">
+        <div className="h-fit py-1 md:min-h-60 md:py-0">
           <Calendar yearMonth={yearMonth} />
         </div>
       </div>
