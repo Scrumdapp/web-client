@@ -1,91 +1,13 @@
-import Modal from "../../../generic/modal/Modal.tsx";
 import {
   ModalState,
   useModalState,
 } from "../../../../js/hooks/useModalState.ts";
-import ModalHeadText from "../../../generic/modal/components/ModalHeadText.tsx";
-import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx";
-import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
 import { useGroup } from "../../../../js/context/group/useGroup.ts";
 import { Button } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImages } from "@fortawesome/free-solid-svg-icons";
-import { useApi } from "../../../../js/hooks/api/useApi.ts";
-import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
-import { PatchGroup } from "../../../../js/models/group.ts";
-import { BackgroundGrid } from "./BackgroundGrid.tsx";
-import { BackgroundTopicNavbar } from "./BackgroundTopicNavbar.tsx";
-import {
-  StatusMessage,
-  useStatusMessage,
-} from "../../../../js/hooks/useStatusMessage.tsx";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import GroupBackgroundSelectorModal from "../../../modals/GroupBackgroundSelectorModal.tsx";
-
-const backgroundTopics: BackgroundTopic[] = [
-  {
-    labelKey: "settings.background.modal.subjects.all",
-    backgrounds: [
-      "1",
-      "2",
-      "4",
-      "5",
-      "6",
-      "6_2",
-      "7",
-      "7_2",
-      "8",
-      "9",
-      "10",
-      "14",
-      "14_2",
-      "15",
-      "17",
-      "18",
-      "22",
-      "23",
-      "30",
-      "color_aqua",
-      "color_bg",
-      "color_blue",
-      "color_gray",
-      "color_green",
-      "color_orange",
-      "color_purple",
-      "color_red",
-    ],
-  },
-  {
-    labelKey: "settings.background.modal.subjects.landscapes",
-    backgrounds: ["1", "4", "6_2", "7_2", "9", "10", "14_2", "22", "30"],
-  },
-  {
-    labelKey: "settings.background.modal.subjects.cities",
-    backgrounds: ["5", "6", "7", "8", "15", "17"],
-  },
-  {
-    labelKey: "settings.background.modal.subjects.people",
-    backgrounds: ["2", "4", "14"],
-  },
-  {
-    labelKey: "settings.background.modal.subjects.colors",
-    backgrounds: [
-      "color_aqua",
-      "color_bg",
-      "color_blue",
-      "color_gray",
-      "color_green",
-      "color_orange",
-      "color_purple",
-      "color_red",
-    ],
-  },
-  {
-    labelKey: "settings.background.modal.subjects.other",
-    backgrounds: ["18", "23"],
-  },
-];
 
 export interface BackgroundTopic {
   labelKey: string;
