@@ -21,6 +21,7 @@ import {
 } from "../../../../js/hooks/useStatusMessage.tsx";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import GroupBackgroundSelectorModal from "../../../modals/GroupBackgroundSelectorModal.tsx";
 
 const backgroundTopics: BackgroundTopic[] = [
   {
@@ -121,53 +122,6 @@ export function BackgroundSelector() {
 
 function BackgroundSelectorModal({ modal }: { modal: ModalState }) {
   {
-    const { t } = useTranslation();
-    const group = useGroup();
-
-    const updateGroup = useApi(ScrumdappApi.updateGroup());
-
-    const statusMessage = useStatusMessage();
-
-    function handleGroupUpdate(backgroundId: string) {
-      const patched: PatchGroup = {
-        background_preference: backgroundId,
-      };
-      updateGroup
-        .runCommand(group.id, patched)
-        .then(() => {
-          modal.close();
-        })
-        .catch(() => {
-          statusMessage.error(
-            "Something went wrong trying to apply the background",
-          );
-        });
-    }
-
-    const [selectedTopic, setSelectedTopic] = useState<BackgroundTopic>(
-      backgroundTopics[0],
-    );
-
-    return (
-      <Modal
-        state={modal}
-        className="w-[calc(100vw-2rem)] md:w-fit max-w-full mx-auto my-4"
-      >
-        <ModalHeadText>{t("settings.background.modal.select")}</ModalHeadText>
-        <BackgroundTopicNavbar
-          selectedTopicId={t(selectedTopic.labelKey)}
-          handleSelected={setSelectedTopic}
-          topics={backgroundTopics}
-        />
-        <BackgroundGrid
-          backgrounds={selectedTopic.backgrounds}
-          handleUpdate={handleGroupUpdate}
-        />
-        <ModalActionRow>
-          <StatusMessage status={statusMessage} />
-          <ModalCancelButton />
-        </ModalActionRow>
-      </Modal>
-    );
+    return <GroupBackgroundSelectorModal modal={modal} />;
   }
 }
