@@ -385,6 +385,7 @@ function Checkpoint({
           </table>
         </div>
       </div>
+
       <EditCheckpointModal
         modal={modal}
         userName={
@@ -404,6 +405,7 @@ function Checkpoint({
         loading={applyLoading}
         onApply={handleApply}
       />
+
       <ReadOnlyCheckpointModal
         modal={modalReadOnly}
         userName={
@@ -415,7 +417,7 @@ function Checkpoint({
         stars={selectedStar}
         notes={notes}
         obstacle={obstacle}
-      />{" "}
+      />
     </div>
   );
 }
