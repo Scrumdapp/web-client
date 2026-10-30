@@ -8,10 +8,7 @@ import {
   faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useCallback } from "react";
-import Modal from "../../components/generic/modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
-import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
-import ModalActionRow from "../../components/generic/modal/components/ModalActionRow.tsx";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
@@ -22,11 +19,8 @@ import {
   getAttendanceColor,
   getAttendanceLabelKey,
 } from "../../js/utils/colorUtils.ts";
-import {
-  StarsReadOnlyField,
-  AttendanceReadOnlyField,
-} from "./checkpointcomponents/ReadOnlyFields.tsx";
 import EditCheckpointModal from "../modals/EditCheckpointModal.tsx";
+import ReadOnlyCheckpointModal from "../modals/ReadOnlyCheckpointModal.tsx";
 
 type CheckpointUser = {
   user_id: number;
@@ -144,29 +138,29 @@ function Checkpoint({
         impediment: obstacle,
       });
       setRows(
-          (prev) =>
-              prev?.map((row) =>
-                  row.groupUser === targetUserId
-                      ? {
-                        ...row,
-                        presence: selectedPresence,
-                        stars: selectedStar,
-                        comment: notes,
-                        impediment: obstacle,
-                      }
-                      : row,
-              ) ?? prev,
+        (prev) =>
+          prev?.map((row) =>
+            row.groupUser === targetUserId
+              ? {
+                  ...row,
+                  presence: selectedPresence,
+                  stars: selectedStar,
+                  comment: notes,
+                  impediment: obstacle,
+                }
+              : row,
+          ) ?? prev,
       );
       modal.close();
     } catch (err) {
       setApplyError(
-          err instanceof ApiError
-              ? err
-              : new ApiError(
-                  999,
-                  "Unhandled error while saving checkpoint",
-                  err as Error,
-              ),
+        err instanceof ApiError
+          ? err
+          : new ApiError(
+              999,
+              "Unhandled error while saving checkpoint",
+              err as Error,
+            ),
       );
     } finally {
       setApplyLoading(false);
@@ -222,25 +216,22 @@ function Checkpoint({
     handleModalOpen(myRow);
   };
 
-  const handleModalOpen = (row: SessionCheckpointRow) => {
-    if (rows == null) return;
+  const loadRow = (row: SessionCheckpointRow) => {
     setApplyError(null);
     setSelectedUser(row);
     setSelectedPresence(row.presence ? String(row.presence) : null);
     setSelectedStar(row.stars ?? null);
     setNotes(row.comment ?? "");
     setObstacle(row.impediment ?? "");
+  };
+
+  const handleModalOpen = (row: SessionCheckpointRow) => {
+    loadRow(row);
     modal.open();
   };
 
   const handleModalReadOnlyOpen = (row: SessionCheckpointRow) => {
-    if (rows == null) return;
-    setApplyError(null);
-    setSelectedUser(row);
-    setSelectedPresence(row.presence ? String(row.presence) : null);
-    setSelectedStar(row.stars ?? null);
-    setNotes(row.comment ?? "");
-    setObstacle(row.impediment ?? "");
+    loadRow(row);
     modalReadOnly.open();
   };
 
@@ -394,7 +385,6 @@ function Checkpoint({
           </table>
         </div>
       </div>
-
       <EditCheckpointModal
         modal={modal}
         userName={
@@ -414,54 +404,18 @@ function Checkpoint({
         loading={applyLoading}
         onApply={handleApply}
       />
-
-      <Modal state={modalReadOnly} className="mx-auto">
-        <div className="space-y-5">
-          <ModalHeadText>
-            {t("checkpoint.modalheaderreadonly", {
-              name: selectedUser
-                ? `${selectedUser.first_name} ${selectedUser.last_name}`
-                : "",
-            })}
-          </ModalHeadText>
-          <div className="flex flex-col space-y-2 w-full">
-            <div className="grid grid-cols-2 gap-x-8 space-y-2 w-full">
-              <h3>{t("checkpoint.attendance")}</h3>
-              <h3>{t("checkpoint.stars")}</h3>
-
-              <AttendanceReadOnlyField value={selectedPresence} />
-              <StarsReadOnlyField value={selectedStar ?? 0} />
-            </div>
-            <h3 className="mt-2">{t("checkpoint.notes")}</h3>
-            {notes && notes?.length > 0 ? (
-              <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
-                {notes}
-              </p>
-            ) : (
-              <span className="text-fg4 italic">{t("checkpoint.nonotes")}</span>
-            )}
-            <h3 className="mt-2">{t("checkpoint.obstacle")}</h3>
-            {obstacle && obstacle?.length > 0 ? (
-              <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
-                {obstacle}
-              </p>
-            ) : (
-              <span className="text-fg4 italic">
-                {t("checkpoint.noobstacles")}
-              </span>
-            )}
-          </div>
-          <ModalActionRow>
-            <button
-              className="btn border"
-              onClick={() => modalReadOnly.close()}
-              type="button"
-            >
-              {t("checkpoint.modal.close")}
-            </button>
-          </ModalActionRow>
-        </div>
-      </Modal>
+      <ReadOnlyCheckpointModal
+        modal={modalReadOnly}
+        userName={
+          selectedUser
+            ? `${selectedUser.first_name} ${selectedUser.last_name}`
+            : ""
+        }
+        presence={selectedPresence}
+        stars={selectedStar}
+        notes={notes}
+        obstacle={obstacle}
+      />{" "}
     </div>
   );
 }
