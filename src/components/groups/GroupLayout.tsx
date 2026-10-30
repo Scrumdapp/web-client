@@ -1,18 +1,16 @@
 import { useParams } from "react-router-dom";
 import { GroupProvider } from "../../js/context/group/GroupProvider.tsx";
 import { GroupSidebar } from "./GroupSidebar.tsx";
-import { GroupSidebarMobile } from "./GroupSidebarMobile.tsx";
 import { groupContext } from "../../js/context/group/groupContext.ts";
 import { GroupRouter } from "../../router/GroupRouter.tsx";
 import { GroupSidebarDates } from "./GroupSidebarDates.tsx";
 import { BackgroundOverride } from "../../js/context/background/BackgroundOverride.tsx";
 import ErrorPage from "../../pages/ErrorPage.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { t } from "i18next";
-import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
-import Modal from "../generic/modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
+import GroupLayoutModal from "../modals/GroupLayoutModal.tsx";
 
 export function GroupLayout() {
   const modal = useModalState();
@@ -45,28 +43,7 @@ export function GroupLayout() {
                 </div>
                 <h1> {ctx!!.group!!.name} </h1>
               </div>
-              <Modal state={modal} className="mx-2">
-                <ModalHeadText />
-                <div className="flex flex-col divide-y">
-                  <div className="p-2">
-                    <div className="flex justify-between">
-                      <h1 className="pl-2 p-1 text-xl md:text-2xl">
-                        {" "}
-                        {ctx!!.group!!.name}{" "}
-                      </h1>
-                      <button
-                        type="button"
-                        className="pr-2 p-1"
-                        onClick={modal.close}
-                        aria-label={t("header.menuClose")}
-                      >
-                        <FontAwesomeIcon icon={faXmark} />
-                      </button>
-                    </div>
-                    <GroupSidebarMobile onNavigate={modal.close} />
-                  </div>
-                </div>
-              </Modal>
+              <GroupLayoutModal modal={modal} groupName={ctx!!.group!!.name} />
             </>
           )}
         </GroupConsumer>
