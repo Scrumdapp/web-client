@@ -13,8 +13,8 @@ import ModalCancelButton from "../../../generic/modal/components/ModalCancelButt
 import { useApi } from "../../../../js/hooks/api/useApi.ts";
 import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
 import { useGroup } from "../../../../js/context/group/useGroup.ts";
-import {ApiError} from "../../../../js/hooks/api/apiError.ts";
-import {ErrorScreen} from "../../../generic/ErrorScreen.tsx";
+import { ApiError } from "../../../../js/hooks/api/apiError.ts";
+import { ErrorScreen } from "../../../generic/ErrorScreen.tsx";
 
 const MAX_CHECKPOINT_NAMES = 10;
 
@@ -96,7 +96,8 @@ export default function CheckpointNamesModal({
               status: 400,
               code: "INVALID_CHECKPOINT_NAME",
               titleTranslationKey: "settings.checkpointNames.saveErrorTitle",
-              descriptionTranslationKey: "settings.checkpointNames.saveErrorDescription",
+              descriptionTranslationKey:
+                "settings.checkpointNames.saveErrorDescription",
             })
           }
         />
