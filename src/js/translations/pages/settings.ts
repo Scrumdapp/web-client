@@ -63,7 +63,8 @@ export default {
         add: "Add a new checkpoint name",
         noNames: "No checkpoint names have been added yet...",
         saveErrorTitle: "Unable to save",
-        saveErrorDescription: "There was an error when saving, please try again",
+        saveErrorDescription:
+          "There was an error when saving, please try again",
       },
     },
   },
@@ -131,7 +132,8 @@ export default {
         add: "Voeg een nieuwe checkpoint naam toe",
         noNames: "Er zijn nog geen checkpoint namen toegevoegd...",
         saveErrorTitle: "Opslaan mislukt",
-        saveErrorDescription: "Er was een fout bij het opslaan, probeer het later opnieuw",
+        saveErrorDescription:
+          "Er was een fout bij het opslaan, probeer het later opnieuw",
       },
     },
   },
