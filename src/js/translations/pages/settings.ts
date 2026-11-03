@@ -90,7 +90,7 @@ export default {
         },
       },
       users: {
-        title: "Groeps genoten",
+        title: "Groepsgenoten",
         name: "Gebruiker",
         actions: "Acties",
         updateTitle: "Bewerk instellingen voor {{user}}",
