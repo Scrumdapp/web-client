@@ -124,7 +124,6 @@ export function getCheckpointMonths() {
       "/groups/{groupId}/sessions/months",
       {
         params: { "{groupId}": groupId },
-        cache: { enabled: true, staleTime: 1000 * 60 },
       },
     );
   });

@@ -2,6 +2,13 @@ import { EventBus } from "../../events/eventBus.ts";
 import { isErrorDto } from "../../models/dto/errorDto.ts";
 import { ApiError, RequestException } from "./apiError.ts";
 
+type CacheEntry = {
+  data?: unknown;
+  promise?: Promise<unknown>;
+  fetchedAt: number;
+};
+const cacheMap = new Map<string, CacheEntry>();
+
 export const API_URL = (
   import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api"
 ).replace(/\/$/, "");
@@ -14,28 +21,20 @@ export type MRP<Ti extends any[], Tr> = ((...inputs: Ti) => Tr) & {
   id: string;
 };
 
-type CacheEntry = {
-  data?: unknown;
-  promise?: Promise<unknown>;
-  fetchedAt: number;
-};
-const cacheMap = new Map<string, CacheEntry>();
-
-export async function makeApiRequest<T>(
-  method: RequestMethod,
+export function invalidateCache(
   url: string,
-  {
-    params,
-    query,
-    body,
-    cache,
-  }: {
-    body?: object;
-    params?: RequestParams;
-    query?: RequestParams;
-    cache?: { enabled: boolean; staleTime: number };
-  } = {},
-): Promise<T> {
+  params: RequestParams = {},
+  query?: RequestParams,
+) {
+  const actualUrl = buildApiUrl(url, params, query);
+  cacheMap.delete(actualUrl);
+}
+
+function buildApiUrl(
+  url: string,
+  params: RequestParams = {},
+  query?: RequestParams,
+) {
   let actualUrl = API_URL + "/" + url.replace(/^\//, "");
   if (params) {
     for (const paramsKey in params) {
@@ -59,6 +58,25 @@ export async function makeApiRequest<T>(
     const urlParams = new URLSearchParams(q);
     actualUrl = actualUrl + "?" + urlParams.toString();
   }
+  return actualUrl;
+}
+
+export async function makeApiRequest<T>(
+  method: RequestMethod,
+  url: string,
+  {
+    params,
+    query,
+    body,
+    cache,
+  }: {
+    body?: object;
+    params?: RequestParams;
+    query?: RequestParams;
+    cache?: { enabled: boolean; staleTime: number };
+  } = {},
+): Promise<T> {
+  const actualUrl = buildApiUrl(url, params, query);
 
   if (method === "GET" && cache?.enabled) {
     const cacheItem = cacheMap.get(actualUrl);
@@ -109,18 +127,25 @@ export async function makeApiRequest<T>(
         throw new ApiError(json.status, json);
       }
       if (method === "GET" && cache?.enabled) {
-        cacheMap.set(actualUrl, { data: json, fetchedAt: Date.now() });
+        const currentCacheItem = cacheMap.get(actualUrl);
+        if (currentCacheItem?.promise === requestPromise) {
+          cacheMap.set(actualUrl, { data: json, fetchedAt: Date.now() });
+        }
       }
       return json;
     })
     .catch((it) => {
       if (method === "GET" && cache?.enabled) {
-        cacheMap.delete(actualUrl);
+        const currentCacheItem = cacheMap.get(actualUrl);
+        if (currentCacheItem?.promise === requestPromise) {
+          cacheMap.delete(actualUrl);
+        }
       }
 
       if (it instanceof ApiError) {
         if (it.status == 401) {
           EventBus.on401Detected.emit();
+          cacheMap.clear();
         }
         throw it;
       }
