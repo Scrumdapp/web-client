@@ -4,6 +4,8 @@ import {
   GroupCheckpointSessionCreate,
   SessionDates,
 } from "../../../models/checkpoint.ts";
+import { getYearMonth } from "../../../utils/timeUtils.ts";
+import { toScrumdappDate } from "../../../utils/scrumdappDate.ts";
 
 export interface DateRangeParams {
   start_date: string;
@@ -31,6 +33,10 @@ export function getCheckpointSessions() {
   return createProcessor(
     "GetCheckpointSessions",
     (groupId: number, queryOptions: GetCheckpointQueryOptions) => {
+      const isPastDate =
+        isDateParam(queryOptions) &&
+        queryOptions.date !== toScrumdappDate(new Date());
+
       return makeApiRequest<GroupCheckpointSession[]>(
         "GET",
         "/groups/{group.id}/sessions",
@@ -45,6 +51,9 @@ export function getCheckpointSessions() {
                     "expected date or range in queryOptions but got neither",
                   );
                 })(),
+          ...(isPastDate
+            ? { cache: { enabled: true, staleTime: 1000 * 60 * 30 } }
+            : {}),
         },
       );
     },
@@ -95,6 +104,7 @@ export function getRecentCheckpointDates() {
         {
           params: { "{groupId}": groupId },
           query: { limit },
+          cache: { enabled: true, staleTime: 1000 * 60 * 5 },
         },
       );
     },
@@ -105,12 +115,18 @@ export function getCheckpointDatesInMonth() {
   return createProcessor(
     "getRecentCheckpointDates",
     (groupId: number, yearMonth: string) => {
+      const isCurrentMonth = yearMonth === getYearMonth(new Date());
+
       return makeApiRequest<SessionDates>(
         "GET",
         "/groups/{groupId}/sessions/dates",
         {
           params: { "{groupId}": groupId },
           query: { month: yearMonth },
+          cache: {
+            enabled: true,
+            staleTime: 1000 * 60 * (isCurrentMonth ? 5 : 30),
+          },
         },
       );
     },
@@ -124,6 +140,7 @@ export function getCheckpointMonths() {
       "/groups/{groupId}/sessions/months",
       {
         params: { "{groupId}": groupId },
+        cache: { enabled: true, staleTime: 1000 * 60 * 30 },
       },
     );
   });

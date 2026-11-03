@@ -8,6 +8,7 @@ export function getCheckpointNames() {
       "/groups/{group.id}/checkpoints/names",
       {
         params: { "{group.id}": groupId },
+        cache: { enabled: true, staleTime: 1000 * 60 * 30 },
       },
     );
   });

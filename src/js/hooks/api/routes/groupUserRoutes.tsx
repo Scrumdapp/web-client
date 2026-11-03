@@ -5,6 +5,7 @@ export function getGroupUsers() {
   return createProcessor("getGoupUsers", (groupId: number) => {
     return makeApiRequest<GroupUser[]>("GET", "/groups/{id}/users", {
       params: { "{id}": groupId.toString() },
+      cache: { enabled: true, staleTime: 1000 * 60 * 5 },
     }).then((it) =>
       it.sort((a, b) => {
         const nameSplitA = a.last_name.split(" ");

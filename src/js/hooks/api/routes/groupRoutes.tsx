@@ -8,7 +8,9 @@ import {
 
 export function getGroups() {
   return createProcessor("getGroups", () => {
-    return makeApiRequest<PartialGroup[]>("GET", "/groups");
+    return makeApiRequest<PartialGroup[]>("GET", "/groups", {
+      cache: { enabled: true, staleTime: 1000 * 60 * 5 },
+    });
   });
 }
 
@@ -24,6 +26,7 @@ export function getGroup() {
   return createProcessor("getGroup", (groupId: number) => {
     return makeApiRequest<Group>("GET", "/groups/{id}", {
       params: { "{id}": groupId.toString() },
+      cache: { enabled: true, staleTime: 1000 * 60 * 5 },
     });
   });
 }
