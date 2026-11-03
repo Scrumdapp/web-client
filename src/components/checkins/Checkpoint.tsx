@@ -3,6 +3,7 @@ import Stars from "./checkpointcomponents/Stars.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowsRotate,
+  faCheck,
   faChevronDown,
   faEye,
   faPencil,
