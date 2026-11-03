@@ -49,7 +49,7 @@ export const GroupTimelineTrends = memo(
       component = <LoadScreen />;
     } else if (getGroupTimelineTrends.data.trends.length == 0) {
       component = (
-        <ErrorScreen error={new ApiError(999, "No trends available")} />
+        <ErrorScreen error={new ApiError(999, t("trends.noData"))} />
       );
     } else if (display == GroupTimelineDisplayType.Cumulative) {
       component = (
