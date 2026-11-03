@@ -64,7 +64,7 @@ export default {
         noNames: "No checkpoint names have been added yet...",
         saveErrorTitle: "Unable to save",
         saveErrorDescription:
-          "There was an error when saving, please try again",
+          "There was an error while saving, please try again",
       },
     },
   },
