@@ -14,6 +14,13 @@ export type MRP<Ti extends any[], Tr> = ((...inputs: Ti) => Tr) & {
   id: string;
 };
 
+type CacheEntry = {
+  data?: unknown;
+  promise?: Promise<unknown>;
+  fetchedAt: number;
+};
+const cacheMap = new Map<string, CacheEntry>();
+
 export async function makeApiRequest<T>(
   method: RequestMethod,
   url: string,
@@ -21,7 +28,13 @@ export async function makeApiRequest<T>(
     params,
     query,
     body,
-  }: { body?: object; params?: RequestParams; query?: RequestParams } = {},
+    cache,
+  }: {
+    body?: object;
+    params?: RequestParams;
+    query?: RequestParams;
+    cache?: { enabled: boolean; staleTime: number };
+  } = {},
 ): Promise<T> {
   let actualUrl = API_URL + "/" + url.replace(/^\//, "");
   if (params) {
@@ -47,6 +60,22 @@ export async function makeApiRequest<T>(
     actualUrl = actualUrl + "?" + urlParams.toString();
   }
 
+  if (method === "GET" && cache?.enabled) {
+    const cacheItem = cacheMap.get(actualUrl);
+
+    if (cacheItem?.promise) {
+      return cacheItem.promise as Promise<T>;
+    }
+
+    if (
+      cacheItem &&
+      cacheItem.data !== undefined &&
+      Date.now() - cacheItem.fetchedAt < cache.staleTime
+    ) {
+      return cacheItem.data as T;
+    }
+  }
+
   const init: RequestInit = { method: method };
   const headers: { [key: string]: string } = {};
 
@@ -62,7 +91,7 @@ export async function makeApiRequest<T>(
     init.headers = headers;
   }
 
-  return fetch(actualUrl, init)
+  const requestPromise = fetch(actualUrl, init)
     .then(async (it) => {
       if (it.status >= 400) {
         const json = await it.json();
@@ -79,9 +108,16 @@ export async function makeApiRequest<T>(
       if (isErrorDto(json)) {
         throw new ApiError(json.status, json);
       }
+      if (method === "GET" && cache?.enabled) {
+        cacheMap.set(actualUrl, { data: json, fetchedAt: Date.now() });
+      }
       return json;
     })
     .catch((it) => {
+      if (method === "GET" && cache?.enabled) {
+        cacheMap.delete(actualUrl);
+      }
+
       if (it instanceof ApiError) {
         if (it.status == 401) {
           EventBus.on401Detected.emit();
@@ -93,6 +129,12 @@ export async function makeApiRequest<T>(
       }
       throw new ApiError(999, "Unkown error", it);
     });
+
+  if (method === "GET" && cache?.enabled) {
+    cacheMap.set(actualUrl, { promise: requestPromise, fetchedAt: Date.now() });
+  }
+
+  return requestPromise as Promise<T>;
 }
 
 export function createProcessor<TParams extends any[], TReturn>(
