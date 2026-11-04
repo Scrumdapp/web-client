@@ -8,6 +8,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
+import ChangeLogModal from "../modals/ChangeLogModal.tsx";
+import { useModalState } from "../../js/hooks/useModalState.ts";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -20,6 +23,8 @@ export default function Footer() {
       target: "_blank",
     },
   ];
+
+  const modal = useModalState();
 
   return (
     <footer className="mb-2 mx-2 card horizontal items-center justify-between gap-2">
@@ -37,10 +42,15 @@ export default function Footer() {
         ))}
       </div>
       <div className="flex-1 grid grid-rows-1 grid-flow-col gap-2 items-center justify-end">
+        <button className="border btn mr-4" onClick={modal.open}>
+          {t("changelogs.title")}
+          <FontAwesomeIcon icon={faBook} />
+        </button>
+        <ChangeLogModal modal={modal} />
         <Link
           to="https://www.linkedin.com/company/scrumdapp"
           target="_blank"
-          className="border btn aspect-square text-xl"
+          className="border btn aspect-squarae text-xl"
         >
           <FontAwesomeIcon icon={faLinkedinIn} />
         </Link>
