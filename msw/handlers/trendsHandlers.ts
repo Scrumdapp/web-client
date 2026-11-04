@@ -20,7 +20,7 @@ function createFakeTrendsData(group: GroupUserCollection) {
     const dayToMs = 24 * 60 * 60 * 1000
 
     const end = parseScrumdappDate(toScrumdappDate(new Date()))
-    const start = new Date(end.getTime() + days * dayToMs)
+    const start = new Date(end.getTime() - (days - 1) * dayToMs)
 
     const data: GroupPresenceTrends = {
         fromDate: toScrumdappDate(start),

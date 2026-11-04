@@ -1,0 +1,59 @@
+/* Cards, text and buttons use the shared .card/.btn/.muted classes;
+   only the attendance calendar and the stand-up/check-up switch live here. */
+
+/* ---------- switch ---------- */
+
+.analytics-switch-label {
+    @apply text-xs font-bold uppercase text-gray transition-colors
+}
+
+.analytics-switch-label.active {
+    @apply text-fg
+}
+
+.analytics-switch {
+    @apply relative w-9.5 h-5 p-0 flex-none rounded-full bg-bg2 border border-bg3 cursor-pointer
+}
+
+.analytics-switch-knob {
+    @apply absolute top-0.5 left-0.5 size-3.5 rounded-full bg-fg transition-[left]
+}
+
+.analytics-switch[aria-checked="true"] {
+    @apply bg-green/20 border-green
+}
+
+.analytics-switch[aria-checked="true"] .analytics-switch-knob {
+    @apply left-5 bg-green
+}
+
+/* ---------- calendar ---------- */
+
+.analytics-cal-grid {
+    @apply grid grid-cols-5 gap-1.5
+}
+
+.analytics-cal-cell {
+    @apply relative aspect-square rounded-lg flex flex-col items-center justify-center gap-0.5 font-bold text-bg_h
+}
+
+.analytics-cal-cell.no-status {
+    @apply border border-dashed border-bg2 text-gray
+}
+
+.analytics-cal-tip {
+    @apply hidden absolute bottom-[calc(100%+6px)] left-1/2 -translate-x-1/2 z-20 min-w-44 max-w-64 p-2 rounded-lg bg-bg border border-bg2 text-fg4 text-xs font-medium text-left shadow-lg pointer-events-none
+}
+
+.analytics-cal-tip.left {
+    @apply left-0 translate-x-0
+}
+
+.analytics-cal-tip.right {
+    @apply left-auto right-0 translate-x-0
+}
+
+.analytics-cal-cell:hover .analytics-cal-tip,
+.analytics-cal-cell:focus .analytics-cal-tip {
+    @apply block
+}
