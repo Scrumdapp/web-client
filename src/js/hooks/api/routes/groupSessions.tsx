@@ -1,4 +1,8 @@
-import { createProcessor, makeApiRequest } from "../apiUtils.ts";
+import {
+  createProcessor,
+  invalidateCache,
+  makeApiRequest,
+} from "../apiUtils.ts";
 import {
   GroupCheckpointSession,
   GroupCheckpointSessionCreate,
@@ -89,7 +93,22 @@ export function createCheckpointSessions() {
           body: body,
           params: { "{group.id}": groupId.toString() },
         },
-      );
+      ).then((result) => {
+        invalidateCache(
+          "/groups/{groupId}/sessions/dates",
+          { "{groupId}": groupId.toString() },
+          { limit: 5 },
+        );
+        invalidateCache(
+          "/groups/{groupId}/sessions/dates",
+          { "{groupId}": groupId.toString() },
+          { month: getYearMonth(new Date(result.startTime)) },
+        );
+        invalidateCache("/groups/{groupId}/sessions/months", {
+          "{groupId}": groupId.toString(),
+        });
+        return result;
+      });
     },
   );
 }

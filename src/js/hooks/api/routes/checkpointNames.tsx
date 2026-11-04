@@ -1,5 +1,9 @@
 import { CheckpointNames } from "../../../models/checkpoint.ts";
-import { createProcessor, makeApiRequest } from "../apiUtils.ts";
+import {
+  createProcessor,
+  makeApiRequest,
+  invalidateCache,
+} from "../apiUtils.ts";
 
 export function getCheckpointNames() {
   return createProcessor("getCheckpointNames", (groupId: number) => {
@@ -25,7 +29,12 @@ export function updateCheckpointNames() {
           body: { checkpointNames },
           params: { "{group.id}": groupId },
         },
-      );
+      ).then((result) => {
+        invalidateCache("/groups/{group.id}/checkpoints/names", {
+          "{group.id}": groupId,
+        });
+        return result;
+      });
     },
   );
 }

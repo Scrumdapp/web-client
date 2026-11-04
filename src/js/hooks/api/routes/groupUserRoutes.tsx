@@ -1,4 +1,8 @@
-import { createProcessor, makeApiRequest } from "../apiUtils.ts";
+import {
+  createProcessor,
+  makeApiRequest,
+  invalidateCache,
+} from "../apiUtils.ts";
 import { GroupUser, PatchGroupUser } from "../../../models/group.ts";
 
 export function getGroupUsers() {
@@ -39,6 +43,9 @@ export function updateGroupUser() {
           "{user.id}": userId.toString(),
         },
         body: payload,
+      }).then((result) => {
+        invalidateCache("/groups/{id}/users", { "{id}": groupId.toString() });
+        return result;
       });
     },
   );
@@ -57,7 +64,10 @@ export function deleteGroupUser() {
             "{user.id}": userId.toString(),
           },
         },
-      );
+      ).then((result) => {
+        invalidateCache("/groups/{id}/users", { "{id}": groupId.toString() });
+        return result;
+      });
     },
   );
 }

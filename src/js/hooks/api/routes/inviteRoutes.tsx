@@ -1,4 +1,8 @@
-import { createProcessor, makeApiRequest } from "../apiUtils.ts";
+import {
+  createProcessor,
+  makeApiRequest,
+  invalidateCache,
+} from "../apiUtils.ts";
 import { InviteResponse } from "../../../models/invites.tsx";
 
 export function CreateInvite() {
@@ -51,6 +55,9 @@ export function AcceptInvite() {
       return makeApiRequest("POST", "/invites/{inviteId}/accept", {
         params: { "{inviteId}": inviteId },
         body: { token, password },
+      }).then((result) => {
+        invalidateCache("/groups");
+        return result;
       });
     },
   );
