@@ -1,7 +1,10 @@
 import { useId } from "react"
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
 import { useTranslation } from "react-i18next"
 import { calendarColors } from "../../../js/utils/analyticsColors.ts"
-import { CalStatus, DailyCheck, statusForCheck } from "../../../js/utils/analyticsUtils.ts"
+import type { CalStatus } from "../../../js/utils/analyticsUtils.ts"
 import { Legend } from "./AnalyticsCard.tsx"
 
 const statusIcon: Record<CalStatus, string> = { present: "✓", late: "⏱", sick: "✚", absent: "✕" }
@@ -9,7 +12,8 @@ const statusIcon: Record<CalStatus, string> = { present: "✓", late: "⏱", sic
 interface Props {
     /** The days of the month to show in the calendar, grouped per week */
     weeks: ({ date: Date, checkpoints: { name: string, status: CalStatus | null }[] } | null)[][]
-    check: DailyCheck
+    /** Name of the check to show the status of */
+    check: string | null
     empty: boolean
 }
 
@@ -31,7 +35,7 @@ export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
             <div className="analytics-cal-grid">
                 {weeks.flat().map((cell, i) => {
                     if (cell == null) return <div key={i} />
-                    const status = statusForCheck(cell.checkpoints.map((c) => c.status), check)
+                    const status = cell.checkpoints.find((c) => c.name === check)?.status ?? null
                     const edge = i % 5 === 0 ? " left" : i % 5 === 4 ? " right" : ""
                     return (
                         <div
@@ -75,24 +79,22 @@ export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
     )
 }
 
-/** Switch between the stand-up and the check-up. */
-export function DailyCheckSwitch({ value, onChange }: { value: DailyCheck, onChange: (check: DailyCheck) => void }) {
+/** Choose which check of the day the calendar shows. */
+export function CheckSelector({ value, options, onChange }: { value: string, options: string[], onChange: (check: string) => void }) {
     const { t } = useTranslation()
-    const isCheckup = value === "checkup"
     return (
-        <div className="horizontal items-center gap-2">
-            <span className={`analytics-switch-label${isCheckup ? "" : " active"}`}>{t("analytics.calendarStandup")}</span>
-            <button
-                type="button"
-                role="switch"
-                aria-checked={isCheckup}
-                aria-label={t("analytics.calendarSwitchAriaLabel")}
-                className="analytics-switch"
-                onClick={() => onChange(isCheckup ? "standup" : "checkup")}
-            >
-                <span className="analytics-switch-knob" />
-            </button>
-            <span className={`analytics-switch-label${isCheckup ? " active" : ""}`}>{t("analytics.calendarCheckup")}</span>
-        </div>
+        <Menu as="div" className="relative">
+            <MenuButton className="btn border min-w-32" aria-label={t("analytics.calendarCheckAriaLabel")}>
+                {value}
+                <FontAwesomeIcon icon={faChevronDown} className="shrink-0" />
+            </MenuButton>
+            <MenuItems transition className="absolute z-30 mt-2 border rounded-md bg-bg w-full">
+                {options.map((option) => (
+                    <MenuItem key={option} as="button" className="btn w-full" onClick={() => onChange(option)}>
+                        {option}
+                    </MenuItem>
+                ))}
+            </MenuItems>
+        </Menu>
     )
 }

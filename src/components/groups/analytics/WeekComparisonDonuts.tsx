@@ -22,19 +22,19 @@ const options = {
 }
 
 interface Props {
-    sprints: { previous: DateRange, current: DateRange }
+    weeks: { previous: DateRange, current: DateRange }
     previous: OnTimeSplit
     current: OnTimeSplit
 }
 
-export function SprintComparisonDonuts({ sprints, previous, current }: Props) {
+export function WeekComparisonDonuts({ weeks, previous, current }: Props) {
     const { t, i18n } = useTranslation()
     const labels = ["yes", "no", "unknown"].map((key) => t(`analytics.onTimeLegend.${key}`))
     const shortDate = new Intl.DateTimeFormat(i18n.language, { day: "numeric", month: "short" })
 
     const donuts = [
-        { key: "previous", range: sprints.previous, split: previous },
-        { key: "current", range: sprints.current, split: current },
+        { key: "previous", range: weeks.previous, split: previous },
+        { key: "current", range: weeks.current, split: current },
     ]
 
     return (
@@ -44,7 +44,7 @@ export function SprintComparisonDonuts({ sprints, previous, current }: Props) {
                     const values = [split.onTime, split.notOnTime, split.unknown]
                     return (
                         <div className="vertical flex-1 min-w-0 items-center gap-2" key={key}>
-                            <p className="text-xs font-semibold uppercase tracking-wide text-fg4">{t(`analytics.sprint.${key}`)}</p>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-fg4">{t(`analytics.week.${key}`)}</p>
                             <p className="muted -mt-1.5">{shortDate.formatRange(range.start, range.end)}</p>
                             <div className="relative w-full max-w-64 aspect-square mx-auto">
                                 {split.empty ? (
@@ -57,7 +57,7 @@ export function SprintComparisonDonuts({ sprints, previous, current }: Props) {
                                         }}
                                         options={options}
                                         role="img"
-                                        aria-label={`${t(`analytics.sprint.${key}`)}: ${labels.map((l, i) => `${l} ${values[i]}%`).join(", ")}`}
+                                        aria-label={`${t(`analytics.week.${key}`)}: ${labels.map((l, i) => `${l} ${values[i]}%`).join(", ")}`}
                                     />
                                 )}
                             </div>

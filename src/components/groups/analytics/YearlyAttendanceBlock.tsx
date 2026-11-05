@@ -2,7 +2,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip } fro
 import { Bar } from "react-chartjs-2"
 import { useTranslation } from "react-i18next"
 import { chartColors, chartChrome, chartTooltipStyle } from "../../../js/utils/analyticsColors.ts"
-import { MonthTotals, parseLocalYearMonth } from "../../../js/utils/analyticsUtils.ts"
+import type { PeriodBar } from "../../../js/utils/analyticsUtils.ts"
 import { Legend } from "./AnalyticsCard.tsx"
 
 ChartJS.register(BarElement, Tooltip, CategoryScale, LinearScale)
@@ -13,17 +13,16 @@ const series = [
     { key: "absent", color: chartColors.coral },
 ] as const
 
-/** `months` with null values = no data for that month (e.g. in the future), not 0. */
-export function YearlyAttendanceBlock({ months, empty }: { months: MonthTotals[], empty: boolean }) {
+export function YearlyAttendanceBlock({ bars, empty }: { bars: PeriodBar[], empty: boolean }) {
     const { t, i18n } = useTranslation()
-    const shortMonth = new Intl.DateTimeFormat(i18n.language, { month: "short" })
+    const shortDate = new Intl.DateTimeFormat(i18n.language, { day: "numeric", month: "short" })
 
     const data = {
-        labels: months.map((m) => shortMonth.format(parseLocalYearMonth(m.yearMonth))),
+        labels: bars.map((bar) => shortDate.formatRange(bar.start, bar.end)),
         // the border in the card color keeps stacked segments apart without relying on color
         datasets: series.map(({ key, color }) => ({
             label: t(`analytics.calendarLegend.${key}`),
-            data: months.map((m) => m[key]),
+            data: bars.map((bar) => bar[key]),
             backgroundColor: color,
             borderColor: chartChrome.card,
             borderWidth: 2,

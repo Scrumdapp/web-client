@@ -1,4 +1,4 @@
-// Same 4 colors as the "Herontwerp — WCAG-kleuren" mockup. Amber vs coral is
+// Same 4 colors as the WCAG redesign mockup. Amber vs coral is
 // close for color-blind users, so every color is always paired with an icon
 // or text label (WCAG 1.4.1: color is never the only signal).
 export const chartColors = {

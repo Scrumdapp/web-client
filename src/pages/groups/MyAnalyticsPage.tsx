@@ -1,35 +1,36 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useGroup } from "../../js/context/group/useGroup.ts"
-import { useUser } from "../../js/context/user/useUser.ts"
 import { StatTile } from "../../components/groups/analytics/StatTile.tsx"
 import { AnalyticsCard } from "../../components/groups/analytics/AnalyticsCard.tsx"
-import { SprintComparisonDonuts } from "../../components/groups/analytics/SprintComparisonDonuts.tsx"
-import { AttendanceCalendarBlock, DailyCheckSwitch } from "../../components/groups/analytics/AttendanceCalendarBlock.tsx"
+import { WeekComparisonDonuts } from "../../components/groups/analytics/WeekComparisonDonuts.tsx"
+import { AttendanceCalendarBlock, CheckSelector } from "../../components/groups/analytics/AttendanceCalendarBlock.tsx"
 import { MoodTrendBlock } from "../../components/groups/analytics/MoodTrendBlock.tsx"
 import { YearlyAttendanceBlock } from "../../components/groups/analytics/YearlyAttendanceBlock.tsx"
-import { useAttendanceMonth, useMonthNavigation, useMoodTrend, useOnTimeComparison, useYearlyAttendance } from "../../js/hooks/analytics/useMyAnalytics.ts"
-import { DailyCheck, parseLocalYearMonth } from "../../js/utils/analyticsUtils.ts"
+import { useAttendanceMonth, useFirstDataMonth, useMonthNavigation, useMoodTrend, usePeriodAttendance, useTrendSummary } from "../../js/hooks/analytics/useMyAnalytics.ts"
+import { parseLocalYearMonth } from "../../js/utils/analyticsUtils.ts"
 
 const monthNavBtn = "btn bg-bg1 rounded-full size-7 p-0 disabled:opacity-40 disabled:pointer-events-none"
 
 export function MyAnalyticsPage() {
     const { t, i18n } = useTranslation()
     const group = useGroup()
-    const user = useUser()
 
-    const onTime = useOnTimeComparison(group.id, user.id)
-    const mood = useMoodTrend(group.id, user.id)
-    const yearly = useYearlyAttendance(group.id, user.id)
+    const summary = useTrendSummary(group.id)
+    const mood = useMoodTrend(group.id)
+    const period = usePeriodAttendance(group.id)
 
     // calendar
-    const month = useMonthNavigation(yearly.data?.firstMonth)
-    const [check, setCheck] = useState<DailyCheck>("standup")
-    const attendance = useAttendanceMonth(group.id, user.id, month.yearMonth)
+    const month = useMonthNavigation(useFirstDataMonth(group.id))
+    const [selectedCheck, setSelectedCheck] = useState<string | null>(null)
+    const attendance = useAttendanceMonth(group.id, month.yearMonth)
+    const checkNames = attendance.data?.checkNames ?? []
+    // a month without the selected check falls back to the first check of that month
+    const check = selectedCheck != null && checkNames.includes(selectedCheck) ? selectedCheck : checkNames[0] ?? null
     const monthLabel = new Intl.DateTimeFormat(i18n.language, { month: "long", year: "numeric" }).format(parseLocalYearMonth(month.yearMonth))
 
-    const onTimeNow = onTime.data && !onTime.data.current.empty ? onTime.data.current.onTime : null
-    const moodAverage = mood.data?.average
+    const onTimeNow = summary.data && !summary.data.current.empty ? summary.data.current.onTime : null
+    const starsAverage = summary.data?.starsAverage
 
     return (
         <div className="vertical gap-4">
@@ -43,31 +44,31 @@ export function MyAnalyticsPage() {
                     value={onTimeNow ?? "–"}
                     unit={onTimeNow != null ? "%" : undefined}
                     sublabel={t("analytics.stats.onTimeRateTrendSuffix")}
-                    trend={onTime.data?.trend}
-                    trendValue={onTime.data?.value}
+                    trend={summary.data?.trend}
+                    trendValue={summary.data?.value}
                 />
                 <StatTile
                     label={t("analytics.stats.presentThisMonth")}
-                    value={yearly.data?.presentPct ?? "–"}
-                    unit={yearly.data ? "%" : undefined}
-                    sublabel={yearly.data && t("analytics.stats.presentThisMonthSublabelLive", {
-                        present: yearly.data.presentThisMonth,
-                        total: yearly.data.workdaysThisMonth,
+                    value={summary.data?.presentPct ?? "–"}
+                    unit={summary.data ? "%" : undefined}
+                    sublabel={summary.data && t("analytics.stats.presentThisMonthSublabelLive", {
+                        present: summary.data.presentThisMonth,
+                        total: summary.data.totalThisMonth,
                     })}
                 />
                 <StatTile
                     label={t("analytics.stats.selfReflection")}
-                    value={moodAverage?.toLocaleString(i18n.language) ?? "–"}
-                    unit={moodAverage != null ? "★" : undefined}
-                    sublabel={mood.data && (mood.data.count > 0
-                        ? t("analytics.stats.selfReflectionSublabelLive", { count: mood.data.count })
+                    value={starsAverage?.toLocaleString(i18n.language) ?? "–"}
+                    unit={starsAverage != null ? "★" : undefined}
+                    sublabel={summary.data && (summary.data.starsCount > 0
+                        ? t("analytics.stats.selfReflectionSublabelLive", { count: summary.data.starsCount })
                         : t("analytics.stats.noData"))}
                 />
             </div>
 
             {/* donut charts */}
-            <AnalyticsCard title={t("analytics.onTimeComparison")} subtitle={t("analytics.onTimeSubtitle")} state={onTime}>
-                {(data) => <SprintComparisonDonuts {...data} />}
+            <AnalyticsCard title={t("analytics.onTimeComparison")} subtitle={t("analytics.onTimeSubtitle")} state={summary}>
+                {(data) => <WeekComparisonDonuts {...data} />}
             </AnalyticsCard>
 
             <div className="horizontal gap-3.5 flex-wrap items-stretch">
@@ -77,13 +78,13 @@ export function MyAnalyticsPage() {
                         <button type="button" className={monthNavBtn} disabled={!month.canPrev}
                             onClick={month.prev}
                             aria-label={t("analytics.calendarPrevMonth")}>‹</button>
-                        {t("analytics.calendarTitlePrefix")} — {t(check === "standup" ? "analytics.calendarStandup" : "analytics.calendarCheckup")} {monthLabel}
+                        {t("analytics.calendarTitlePrefix")} — {check && `${check} `}{monthLabel}
                         <button type="button" className={monthNavBtn} disabled={!month.canNext}
                             onClick={month.next}
                             aria-label={t("analytics.calendarNextMonth")}>›</button>
                     </>}
                     subtitle={t("analytics.calendarSubtitle")}
-                    actions={<DailyCheckSwitch value={check} onChange={setCheck} />}
+                    actions={check && <CheckSelector value={check} options={checkNames} onChange={setSelectedCheck} />}
                     state={attendance}
                 >
                     {(data) => <AttendanceCalendarBlock {...data} check={check} />}
@@ -95,8 +96,8 @@ export function MyAnalyticsPage() {
                 </AnalyticsCard>
             </div>
 
-            {/* yearly attendance chart */}
-            <AnalyticsCard title={t("analytics.yearly")} subtitle={t("analytics.yearlySubtitle")} state={yearly}>
+            {/* attendance chart */}
+            <AnalyticsCard title={t("analytics.yearly")} subtitle={t("analytics.yearlySubtitle")} state={period}>
                 {(data) => <YearlyAttendanceBlock {...data} />}
             </AnalyticsCard>
         </div>
