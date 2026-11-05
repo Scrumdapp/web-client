@@ -14,9 +14,9 @@ export interface ChangelogItem {
 }
 
 const typeConfig = {
-  feature: { icon: faPlus, className: "text-green-600" },
-  bugfix: { icon: faBug, className: "text-red-600" },
-  enrichment: { icon: faHandSparkles, className: "text-yellow-500" },
+  feature: { icon: faPlus, className: "text-green" },
+  bugfix: { icon: faBug, className: "text-red" },
+  enrichment: { icon: faHandSparkles, className: "text-yellow" },
 } as const;
 
 export default function ChangelogList({

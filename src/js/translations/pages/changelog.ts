@@ -3,6 +3,9 @@ export default {
     changelogs: {
       title: "Changelog",
       close: "Close",
+      feature: " = Feature",
+      enrichment: " = Enrichment",
+      bugfix: " = Bugfix",
       v1_01: {
         title: "v1.01",
         newStars: "New way of indicating stars implemented",
@@ -37,6 +40,9 @@ export default {
     changelogs: {
       title: "Changelog",
       close: "Sluiten",
+      feature: " = Feature",
+      enrichment: " = Verbetering",
+      bugfix: " = Bugfix",
       v1_01: {
         title: "v1.01",
         newStars: "Nieuwe manier van sterren aangeven geïmplementeerd",

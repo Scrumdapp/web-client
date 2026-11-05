@@ -14,7 +14,7 @@ export default function ChangelogV100() {
   const { t } = useTranslation();
   return (
     <div className="my-4">
-      <h2 className="mb-2">{t("changelogs.v1_00.title")}</h2>
+      <h2 className="my-2">V1.00 ({t("date.sun")} 2000-01-01) </h2>
       <ChangelogList prefix="changelogs.v1_00" items={items} />
     </div>
   );
