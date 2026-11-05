@@ -1,7 +1,7 @@
 export default {
   en: {
     changelogs: {
-      title: "Change Log",
+      title: "Changelog",
       close: "Close",
       v1_01: {
         title: "v1.01",
@@ -21,12 +21,21 @@ export default {
       v1_02: {
         title: "v1.02",
         mobileView: "Mobile view implemented",
+        changeLog: "Added the Changelog to the website",
+        checkpointNames:
+          "Standard Checkpoint names implemented that can be customized",
+        groupUserManagement: "Group user management (hide and delete users)",
+        removedCommas: "Commas removed from names",
+        errorHandling: "Improved error handling",
+        uiChanges:
+          "Multiple localization, accessibility and UI changes/improvements",
+        minorBugs: "Various other minor bugs fixed behind the scenes",
       },
     },
   },
   nl: {
     changelogs: {
-      title: "Wijzigingslog",
+      title: "Changelog",
       close: "Sluiten",
       v1_01: {
         title: "v1.01",
@@ -34,7 +43,7 @@ export default {
         newTime:
           "Mogelijkheid om een andere tijdsduur voor een checkpoint in te stellen",
         uiChanges:
-          "Meerdere lokalisatie, accessibility en UI aanpassingen/verbeteringen",
+          "Meerdere lokalisatie, toegankelijkheid en UI aanpassingen/verbeteringen",
         betterInvites: "Uitnodigingen accepteren flow herzien & verbeterd",
         hiddenSettings: "Niet relevante instellingen verstopt op de browser",
         landingPage: "Landings pagina verbeterd en geüpdated",
@@ -46,6 +55,15 @@ export default {
       },
       v1_02: {
         mobileView: "Mobiele weergave gemaakt",
+        changeLog: "Wijzigingslog toegevoegd aan de website",
+        checkpointNames:
+          "Standaard Checkpoint namen toegevoegd die aanpasbaar zijn",
+        groupUserManagement:
+          "Groep gebruikers beheer (verbergen en verwijderen)",
+        removedCommas: "Komma's verwijderd uit namen",
+        uiChanges:
+          "Meerdere lokalisatie, toegankelijkheid en UI aanpassingen/verbeteringen",
+        minorBugs: "Diverse andere kleine bugs opgelost achter de schermen",
       },
     },
   },

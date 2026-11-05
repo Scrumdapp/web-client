@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
 import ChangeLogModal from "../modals/ChangeLogModal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 
@@ -40,13 +39,12 @@ export default function Footer() {
             {link.text}
           </Link>
         ))}
-      </div>
-      <div className="flex-1 grid grid-rows-1 grid-flow-col gap-2 items-center justify-end">
-        <button className="border btn mr-4" onClick={modal.open}>
+        <button className="btn" onClick={modal.open}>
           {t("changelogs.title")}
-          <FontAwesomeIcon icon={faBook} />
         </button>
         <ChangeLogModal modal={modal} />
+      </div>
+      <div className="flex-1 grid grid-rows-1 grid-flow-col gap-2 items-center justify-end">
         <Link
           to="https://www.linkedin.com/company/scrumdapp"
           target="_blank"
