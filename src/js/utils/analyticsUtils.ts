@@ -92,11 +92,17 @@ export function toCalStatus(status: string | null | undefined): CalStatus | null
 
 /** All check names in a month, in the order they happen within a day. */
 function uniqueCheckNames(calendar: UserTrendCalendar): string[] {
-    const earliest = new Map<string, number>()
+    const names: string[] = []
     for (const day of calendar.days) {
-        day.details.forEach(({ name }, i) => earliest.set(name, Math.min(i, earliest.get(name) ?? i)))
+        // a new name goes right after the check that came before it that day
+        let position = 0
+        for (const { name } of day.details) {
+            const existing = names.indexOf(name)
+            if (existing === -1) names.splice(position, 0, name)
+            position = (existing === -1 ? position : existing) + 1
+        }
     }
-    return [...earliest.keys()].sort((a, b) => earliest.get(a)! - earliest.get(b)!)
+    return names
 }
 
 export function toCalendarView(calendar: UserTrendCalendar) {
