@@ -19,6 +19,8 @@ const typeConfig = {
   enrichment: { icon: faHandSparkles, className: "text-yellow" },
 } as const;
 
+const typeOrder: ChangelogType[] = ["feature", "enrichment", "bugfix"];
+
 export default function ChangelogList({
   prefix,
   items,
@@ -28,17 +30,25 @@ export default function ChangelogList({
 }) {
   const { t } = useTranslation();
 
+  const groups = typeOrder
+    .map((type) => items.filter((item) => item.type === type))
+    .filter((group) => group.length > 0);
+
   return (
-    <ul className="space-y-1">
-      {items.map(({ type, key }) => {
-        const { icon, className } = typeConfig[type];
-        return (
-          <li key={key} className="flex items-start gap-2">
-            <FontAwesomeIcon icon={icon} className={`mt-1 ${className}`} />
-            <span>{t(`${prefix}.${key}`)}</span>
-          </li>
-        );
-      })}
-    </ul>
+    <div className="space-y-4">
+      {groups.map((group) => (
+        <ul key={group[0].type} className="space-y-1">
+          {group.map(({ type, key }) => {
+            const { icon, className } = typeConfig[type];
+            return (
+              <li key={key} className="flex items-start gap-2">
+                <FontAwesomeIcon icon={icon} className={`mt-1 ${className}`} />
+                <span>{t(`${prefix}.${key}`)}</span>
+              </li>
+            );
+          })}
+        </ul>
+      ))}
+    </div>
   );
 }
