@@ -6,7 +6,6 @@ import type { MoodPoint } from "../../../js/utils/analyticsUtils.ts"
 
 ChartJS.register(PointElement, LineElement, Tooltip, CategoryScale, LinearScale)
 
-/** `average` covers all reflections, not just the points shown. */
 export function MoodTrendBlock({ points, average }: { points: MoodPoint[], average: number | null }) {
     const { t, i18n } = useTranslation()
     const shortDate = new Intl.DateTimeFormat(i18n.language, { day: "numeric", month: "short" })
@@ -63,7 +62,7 @@ export function MoodTrendBlock({ points, average }: { points: MoodPoint[], avera
             {points.length === 0 ? (
                 <p className="center flex-1 min-h-56 text-center text-sm text-fg4">{t("analytics.moodEmpty")}</p>
             ) : (
-                // grows with the card so the chart fills the height of the calendar next to it
+                // Grows with the card so the chart fills the height of the calendar next to it
                 <div className="relative flex-1 min-h-56"><Line data={data} options={options} /></div>
             )}
             <div className="horizontal flex-wrap gap-3 mt-4">

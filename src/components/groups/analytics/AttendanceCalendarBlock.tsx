@@ -10,9 +10,7 @@ import { Legend } from "./AnalyticsCard.tsx"
 const statusIcon: Record<CalStatus, string> = { present: "✓", late: "⏱", sick: "✚", absent: "✕" }
 
 interface Props {
-    /** The days of the month to show in the calendar, grouped per week */
     weeks: ({ date: Date, checkpoints: { name: string, status: CalStatus | null }[] } | null)[][]
-    /** Name of the check to show the status of */
     check: string | null
     empty: boolean
 }
@@ -20,7 +18,7 @@ interface Props {
 export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
     const { t, i18n } = useTranslation()
     const idPrefix = useId()
-    // short weekday labels (Mon–Fri) in the current language; 1 Jan 2024 was a Monday
+    // Short weekday labels (Mon-Fri) in the current language; 1 Jan 2024 was a Monday
     const weekdayFormat = new Intl.DateTimeFormat(i18n.language, { weekday: "short" })
     const weekdays = [1, 2, 3, 4, 5].map((day) => weekdayFormat.format(new Date(2024, 0, day)).replace(".", ""))
     const dateFormat = new Intl.DateTimeFormat(i18n.language, { weekday: "long", day: "numeric", month: "long" })
@@ -46,8 +44,8 @@ export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
                             aria-label={`${statusLabel(status)}, ${dateFormat.format(cell.date)}`}
                             aria-describedby={`${idPrefix}-${i}`}
                         >
-                            {/* icon sized as WCAG "large text" so 3:1 background contrast is sufficient */}
-                            {/* at least 16x16 px, still recognizable at 200% zoom */}
+                            {/* Icon sized as WCAG "large text" so 3:1 background contrast is sufficient */}
+                            {/* At least 16x16 px, still recognizable at 200% zoom */}
                             {status && <span className="min-w-4 min-h-4 text-base leading-none text-center" aria-hidden="true">{statusIcon[status]}</span>}
                             <span className="text-[0.65rem] leading-none" aria-hidden="true">{cell.date.getDate()}</span>
                             <div role="tooltip" id={`${idPrefix}-${i}`} className={`analytics-cal-tip${edge}`}>
@@ -79,7 +77,6 @@ export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
     )
 }
 
-/** Choose which check of the day the calendar shows. */
 export function CheckSelector({ value, options, onChange }: { value: string, options: string[], onChange: (check: string) => void }) {
     const { t } = useTranslation()
     return (

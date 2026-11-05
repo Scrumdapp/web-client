@@ -10,8 +10,6 @@ export interface DateRange {
     end: Date
 }
 
-// ---------- dates ----------
-
 /** Parse "YYYY-MM-DD" as a local date (not UTC, to avoid off-by-one-day shifts). */
 export function parseLocalDate(date: string): Date {
     const [y, m, d] = date.split("-").map(Number)
@@ -56,14 +54,14 @@ export function getSchoolYearRange(today: Date): DateRange {
     return { start: new Date(startYear, 8, 1), end: new Date(startYear + 1, 7, 31) }
 }
 
-/** First day of the current semester. Semester 1: Sep–Jan, semester 2: Feb–Aug. */
+/** First day of the current semester. Semester 1: Sep-Jan, semester 2: Feb-Aug. */
 export function getSemesterStart(today: Date): Date {
     const y = getSchoolYearRange(today).start.getFullYear()
     const inFirst = today.getMonth() >= 8 || today.getMonth() === 0
     return inFirst ? new Date(y, 8, 1) : new Date(y + 1, 1, 1)
 }
 
-/** Workdays (Mon–Fri) of a month as weeks of 5 cells, padded with null. */
+/** Workdays (Mon-Fri) of a month as weeks of 5 cells, padded with null. */
 export function buildWorkdayGrid(yearMonth: string): (Date | null)[][] {
     const { start, end } = monthRange(yearMonth)
     const weeks: (Date | null)[][] = []
@@ -81,8 +79,6 @@ export function buildWorkdayGrid(yearMonth: string): (Date | null)[][] {
     return weeks
 }
 
-// ---------- presence ----------
-
 const calStatuses: readonly string[] = ["present", "late", "sick", "absent"] satisfies CalStatus[]
 
 /** Status values the calendar has no color for (e.g. no data) become null. */
@@ -94,7 +90,7 @@ export function toCalStatus(status: string | null | undefined): CalStatus | null
 function uniqueCheckNames(calendar: UserTrendCalendar): string[] {
     const names: string[] = []
     for (const day of calendar.days) {
-        // a new name goes right after the check that came before it that day
+        // A new name goes right after the check that came before it that day
         let position = 0
         for (const { name } of day.details) {
             const existing = names.indexOf(name)
@@ -117,8 +113,6 @@ export function toCalendarView(calendar: UserTrendCalendar) {
     return { weeks, checkNames, empty: checkNames.length === 0 }
 }
 
-// ---------- on time ----------
-
 export interface OnTimeSplit {
     onTime: number
     notOnTime: number
@@ -132,9 +126,9 @@ export function computeOnTimeSplit({ on_time, delayed, no_data }: PresenceCounts
     if (total === 0) return { onTime: 0, notOnTime: 0, unknown: 0, empty: true }
     const pct = (n: number) => Math.round((n / total) * 100)
     const onTime = pct(on_time)
-    // capped so rounding up both (e.g. 12.5 + 87.5) can never push "unknown" below 0
+    // Capped so rounding up both (e.g. 12.5 + 87.5) can never push "unknown" below 0
     const notOnTime = Math.min(pct(delayed), 100 - onTime)
-    // remainder goes to "unknown" so the sum is always 100
+    // Remainder goes to "unknown" so the sum is always 100
     return { onTime, notOnTime, unknown: 100 - onTime - notOnTime, empty: false }
 }
 
@@ -143,8 +137,6 @@ export function computeTrend(current: OnTimeSplit, previous: OnTimeSplit): { tre
     const diff = current.onTime - previous.onTime
     return { trend: diff > 0 ? "up" : diff < 0 ? "down" : "flat", value: `${Math.abs(diff)}%` }
 }
-
-// ---------- summary ----------
 
 /** The API always uses a scale of 0 to 10 (10 = 5 stars); the page shows 0 to 5 with one decimal. */
 function averageToStars(average: number | null, count: number): number | null {
@@ -170,8 +162,6 @@ export function toSummaryView({ presence, stars }: UserTrendSummary, today = new
     }
 }
 
-// ---------- attendance over a period ----------
-
 export interface PeriodBar extends DateRange {
     present: number
     sick: number
@@ -189,8 +179,6 @@ export function toPeriodBars(period: UserTrendPeriod) {
     }))
     return { bars, empty: bars.every((bar) => !bar.present && !bar.sick && !bar.absent) }
 }
-
-// ---------- mood ----------
 
 export interface MoodPoint {
     date: Date

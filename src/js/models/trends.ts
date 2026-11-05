@@ -72,7 +72,6 @@ export interface UserTrendMoodPoint {
 export interface UserTrendMood {
     from_date: string
     to_date: string
-    // Scale of 0 to 10, where 10 = 5 stars
     average: number | null
     count: number
     points: UserTrendMoodPoint[]

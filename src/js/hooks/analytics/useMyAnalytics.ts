@@ -22,7 +22,7 @@ import { getYearMonth } from "../../utils/timeUtils.ts"
 function useTrendRequest<A extends unknown[], R, M>(processor: RequestProcessor<A, R>, mapper: (data: R) => M, ...params: A) {
     const { data, error, runCommand } = useApi(processor, { mapper })
     const fetchData = () => {
-        runCommand(...params).catch(() => { /* error is stored by useApi */ })
+        runCommand(...params).catch(() => { /* Error is stored by useApi */ })
     }
     const key = JSON.stringify(params)
     useEffect(fetchData, [processor.id, key]) // eslint-disable-line react-hooks/exhaustive-deps

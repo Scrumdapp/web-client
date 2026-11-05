@@ -7,7 +7,6 @@ import type { ApiError } from "../../../js/hooks/api/apiError.ts"
 interface AnalyticsCardProps<T> {
     title: ReactNode
     subtitle: string
-    // Extra controls on the right of the title
     actions?: ReactNode
     state: { data: T | null, error: ApiError | null, retry: () => void }
     children: (data: T) => ReactNode

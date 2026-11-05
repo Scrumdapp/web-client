@@ -1,8 +1,3 @@
-/* Cards, text and buttons use the shared .card/.btn/.muted classes;
-   only the attendance calendar lives here. */
-
-/* ---------- calendar ---------- */
-
 .analytics-cal-grid {
     @apply grid grid-cols-5 gap-1.5
 }

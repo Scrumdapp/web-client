@@ -20,12 +20,12 @@ export function MyAnalyticsPage() {
     const mood = useMoodTrend(group.id)
     const period = usePeriodAttendance(group.id)
 
-    // calendar
+    // Calendar
     const month = useMonthNavigation(useFirstDataMonth(group.id))
     const [selectedCheck, setSelectedCheck] = useState<string | null>(null)
     const attendance = useAttendanceMonth(group.id, month.yearMonth)
     const checkNames = attendance.data?.checkNames ?? []
-    // a month without the selected check falls back to the first check of that month
+    // A month without the selected check falls back to the first check of that month
     const check = selectedCheck != null && checkNames.includes(selectedCheck) ? selectedCheck : checkNames[0] ?? null
     const monthLabel = new Intl.DateTimeFormat(i18n.language, { month: "long", year: "numeric" }).format(parseLocalYearMonth(month.yearMonth))
 
@@ -37,7 +37,7 @@ export function MyAnalyticsPage() {
             <title>{t("analytics.title")}</title>
             <h2>{t("analytics.header")}</h2>
 
-            {/* the 3 stat tiles at the top of the page */}
+            {/* The 3 stat tiles at the top of the page */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                 <StatTile
                     label={t("analytics.stats.onTimeRate")}
@@ -66,19 +66,19 @@ export function MyAnalyticsPage() {
                 />
             </div>
 
-            {/* donut charts */}
+            {/* Donut charts */}
             <AnalyticsCard title={t("analytics.onTimeComparison")} subtitle={t("analytics.onTimeSubtitle")} state={summary}>
                 {(data) => <WeekComparisonDonuts {...data} />}
             </AnalyticsCard>
 
             <div className="horizontal gap-3.5 flex-wrap items-stretch">
-                {/* calendar */}
+                {/* Calendar */}
                 <AnalyticsCard
                     title={<>
                         <button type="button" className={monthNavBtn} disabled={!month.canPrev}
                             onClick={month.prev}
                             aria-label={t("analytics.calendarPrevMonth")}>‹</button>
-                        {t("analytics.calendarTitlePrefix")} — {check && `${check} `}{monthLabel}
+                        {t("analytics.calendarTitlePrefix")} {check && `${check} `}{monthLabel}
                         <button type="button" className={monthNavBtn} disabled={!month.canNext}
                             onClick={month.next}
                             aria-label={t("analytics.calendarNextMonth")}>›</button>
@@ -90,13 +90,13 @@ export function MyAnalyticsPage() {
                     {(data) => <AttendanceCalendarBlock {...data} check={check} />}
                 </AnalyticsCard>
 
-                {/* mood chart */}
+                {/* Mood chart */}
                 <AnalyticsCard title={t("analytics.mood")} subtitle={t("analytics.moodSubtitle")} state={mood}>
                     {(data) => <MoodTrendBlock {...data} />}
                 </AnalyticsCard>
             </div>
 
-            {/* attendance chart */}
+            {/* Attendance chart */}
             <AnalyticsCard title={t("analytics.yearly")} subtitle={t("analytics.yearlySubtitle")} state={period}>
                 {(data) => <YearlyAttendanceBlock {...data} />}
             </AnalyticsCard>

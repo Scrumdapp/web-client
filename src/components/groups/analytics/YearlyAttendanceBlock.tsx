@@ -19,7 +19,7 @@ export function YearlyAttendanceBlock({ bars, empty }: { bars: PeriodBar[], empt
 
     const data = {
         labels: bars.map((bar) => shortDate.formatRange(bar.start, bar.end)),
-        // the border in the card color keeps stacked segments apart without relying on color
+        // The border in the card color keeps stacked segments apart without relying on color
         datasets: series.map(({ key, color }) => ({
             label: t(`analytics.calendarLegend.${key}`),
             data: bars.map((bar) => bar[key]),

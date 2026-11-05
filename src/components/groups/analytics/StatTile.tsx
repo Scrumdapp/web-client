@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowDown, faArrowUp, faMinus } from "@fortawesome/free-solid-svg-icons"
 import type { Trend } from "../../../js/utils/analyticsUtils.ts"
 import { chartColors } from "../../../js/utils/analyticsColors.ts"
 
@@ -11,9 +13,8 @@ interface StatTileProps {
 }
 
 const trendColor: Record<Trend, string> = { up: chartColors.olive, down: chartColors.coral, flat: chartColors.gray }
-const trendIcon = { up: "☀️", down: "🌧️", flat: "☁️" }
+const trendIcon = { up: faArrowUp, down: faArrowDown, flat: faMinus }
 
-// Trend is always icon + colored value together.
 export function StatTile({ label, value, unit, sublabel, trend, trendValue }: StatTileProps) {
     return (
         <div className="card flex-1 min-w-40">
@@ -25,8 +26,9 @@ export function StatTile({ label, value, unit, sublabel, trend, trendValue }: St
             {(trend || sublabel) && (
                 <p className="mt-2 text-sm text-fg4">
                     {trend && <>
-                        <span aria-hidden="true">{trendIcon[trend]}</span>{" "}
-                        <span className="font-extrabold" style={{ color: trendColor[trend] }}>{trendValue}</span>{" "}
+                        <span className="font-extrabold" style={{ color: trendColor[trend] }}>
+                            <FontAwesomeIcon icon={trendIcon[trend]} /> {trendValue}
+                        </span>{" "}
                     </>}
                     {sublabel}
                 </p>
