@@ -44,6 +44,7 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
               className="write-section w-full!"
               placeholder={t("invite.password")}
               alt={t("invite.password")}
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
