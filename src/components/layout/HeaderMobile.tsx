@@ -5,7 +5,7 @@ import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import HeaderMobileModal from "../modals/HeaderMobileModal.tsx";
 
@@ -70,11 +70,11 @@ export default function HeaderMobile() {
           </div>
 
           <button
-              type="button"
-              onClick={modal.isOpen ? modal.close : modal.open}
-              className="btn aspect-square md:hidden"
-              aria-label={t("header.menuToggle")}
-              aria-expanded={modal.isOpen}
+            type="button"
+            onClick={modal.isOpen ? modal.close : modal.open}
+            className="btn aspect-square md:hidden"
+            aria-label={t("header.menuToggle")}
+            aria-expanded={modal.isOpen}
           >
             <FontAwesomeIcon icon={modal.isOpen ? faXmark : faBars} />
           </button>

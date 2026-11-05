@@ -15,12 +15,12 @@ export default function HeaderMobileModal({ modal }: HeaderMobileModalProps) {
   const user = useUser();
 
   return (
-      <Modal
-          state={modal}
-          nonModal
-          dialogClassName="fixed inset-0 z-10 m-0 h-dvh max-h-dvh pt-16 pb-2"
-          className="mx-auto mt-0 mb-auto w-full max-h-full overflow-y-auto overscroll-contain"
-      >
+    <Modal
+      state={modal}
+      nonModal
+      dialogClassName="fixed inset-0 z-10 m-0 h-dvh max-h-dvh pt-16 pb-2"
+      className="mx-auto mt-0 mb-auto w-full max-h-full overflow-y-auto overscroll-contain"
+    >
       <div className="flex flex-col">
         <div className="flex items-center justify-between gap-2 px-4 py-3">
           <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>

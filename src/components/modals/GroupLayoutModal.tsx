@@ -17,7 +17,7 @@ export default function GroupLayoutModal({
   const { t } = useTranslation();
 
   return (
-    <Modal state={modal} className="mx-2">
+    <Modal state={modal} className="mx-2 w-full">
       <div className="flex flex-col divide-y">
         <div className="p-2">
           <div className="flex justify-between">
