@@ -48,7 +48,7 @@ export default function Footer() {
         <Link
           to="https://www.linkedin.com/company/scrumdapp"
           target="_blank"
-          className="border btn aspect-squarae text-xl"
+          className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faLinkedinIn} />
         </Link>
