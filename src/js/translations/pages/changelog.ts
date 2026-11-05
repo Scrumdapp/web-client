@@ -67,6 +67,7 @@ export default {
         groupUserManagement:
           "Groep gebruikers beheer (verbergen en verwijderen)",
         removedCommas: "Komma's verwijderd uit namen",
+        errorHandling: "Verbeterde foutafhandeling",
         uiChanges:
           "Meerdere lokalisatie, toegankelijkheid en UI aanpassingen/verbeteringen",
         minorBugs: "Diverse andere kleine bugs opgelost achter de schermen",
