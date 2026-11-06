@@ -9,28 +9,19 @@ import {
   faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useCallback } from "react";
-import Modal from "../../components/generic/modal/Modal.tsx";
 import { useModalState } from "../../js/hooks/useModalState.ts";
-import ModalHeadText from "../../components/generic/modal/components/ModalHeadText.tsx";
-import ModalActionRow from "../../components/generic/modal/components/ModalActionRow.tsx";
-import ModalCancelButton from "../../components/generic/modal/components/ModalCancelButton.tsx";
-import { StarsInputField } from "./checkpointcomponents/StarsInputField.tsx";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 import { GroupCheckpoint } from "../../js/models/checkpoint.ts";
-import { AttendanceDropDownMenu } from "./checkpointcomponents/AttendanceDropDownMenu.tsx";
 import { useTranslation } from "react-i18next";
 import {
   getStarsColor,
   getAttendanceColor,
   getAttendanceLabelKey,
 } from "../../js/utils/colorUtils.ts";
-import {
-  StarsReadOnlyField,
-  AttendanceReadOnlyField,
-} from "./checkpointcomponents/ReadOnlyFields.tsx";
-import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage.tsx";
+import EditCheckpointModal from "../modals/EditCheckpointModal.tsx";
+import ReadOnlyCheckpointModal from "../modals/ReadOnlyCheckpointModal.tsx";
 
 type CheckpointUser = {
   user_id: number;
@@ -129,6 +120,34 @@ function Checkpoint({
     Math.max(0, startTime + duration - Date.now()),
   );
 
+  const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(
+    null,
+  );
+  const [editSession, setEditSession] = useState(0);
+
+  const openEdit = (row: SessionCheckpointRow) => {
+    setSelectedUser(row);
+    setEditSession((n) => n + 1);
+    modal.open();
+  };
+
+  const openReadOnly = (row: SessionCheckpointRow) => {
+    setSelectedUser(row);
+    modalReadOnly.open();
+  };
+
+  const handleSaved = (
+    patch: Pick<
+      GroupCheckpoint,
+      "groupUser" | "presence" | "stars" | "comment" | "impediment"
+    >,
+  ) =>
+    setRows(
+      (prev) =>
+        prev?.map((r) =>
+          r.groupUser === patch.groupUser ? { ...r, ...patch } : r,
+        ) ?? prev,
+    );
   useEffect(() => {
     const id = setInterval(() => {
       const remaining = Math.max(0, startTime + duration - Date.now());
@@ -156,140 +175,9 @@ function Checkpoint({
     fetch().catch(console.error);
   }, [fetch]);
 
-  const [notes, setNotes] = useState("");
-  const [selectedPresence, setSelectedPresence] = useState<string | null>(null);
-  const [selectedStar, setSelectedStar] = useState<number | null>(null);
-  const [obstacle, setObstacle] = useState("");
-
-  const [applyError, setApplyError] = useState<ApiError | null>(null);
-  const [applyLoading, setApplyLoading] = useState(false);
-
   const myUserId = currentUser?.id ?? null;
 
-  const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(
-    null,
-  );
-
   const [isExpanded, setIsExpanded] = useState(!isLocked || isMostRecent);
-
-  const handleOwnModalApply = async () => {
-    if (myUserId == null || isLocked) return;
-    setApplyLoading(true);
-    setApplyError(null);
-    try {
-      await ScrumdappApi.updateGroupCheckpoint()(groupId, {
-        userId: myUserId,
-        sessionId: sessionId,
-        presence: selectedPresence,
-        stars: selectedStar,
-        comment: notes,
-        impediment: obstacle,
-      });
-      setRows(
-        (prev) =>
-          prev?.map((row) =>
-            row.groupUser === myUserId
-              ? {
-                  ...row,
-                  presence: selectedPresence,
-                  stars: selectedStar,
-                  comment: notes,
-                  impediment: obstacle,
-                }
-              : row,
-          ) ?? prev,
-      );
-      modal.close();
-    } catch (err) {
-      if (err instanceof ApiError) setApplyError(err);
-      else
-        setApplyError(
-          new ApiError(
-            999,
-            "Unhandled error while saving checkpoint",
-            err as Error,
-          ),
-        );
-    } finally {
-      setApplyLoading(false);
-    }
-  };
-
-  const handleModalApply = async () => {
-    if (isLocked || selectedUser == null) return;
-    setApplyLoading(true);
-    setApplyError(null);
-    try {
-      await ScrumdappApi.updateGroupCheckpoint()(groupId, {
-        userId: selectedUser.groupUser,
-        sessionId: sessionId,
-        presence: selectedPresence,
-        stars: selectedStar,
-        comment: notes,
-        impediment: obstacle,
-      });
-      setRows(
-        (prev) =>
-          prev?.map((row) =>
-            row.groupUser === selectedUser.groupUser
-              ? {
-                  ...row,
-                  presence: selectedPresence,
-                  stars: selectedStar,
-                  comment: notes,
-                  impediment: obstacle,
-                }
-              : row,
-          ) ?? prev,
-      );
-      modal.close();
-    } catch (err) {
-      setApplyError(
-        err instanceof ApiError
-          ? err
-          : new ApiError(
-              999,
-              "Unhandled error while saving checkpoint",
-              err as Error,
-            ),
-      );
-    } finally {
-      setApplyLoading(false);
-    }
-  };
-
-  const handleOwnModalOpen = () => {
-    if (rows == null) return;
-    setApplyError(null);
-    const myRow = rows.find((row) => row.groupUser === myUserId);
-    setSelectedPresence(myRow?.presence ? String(myRow.presence) : null);
-    setSelectedStar(myRow?.stars ?? null);
-    setNotes(myRow?.comment ?? "");
-    setObstacle(myRow?.impediment ?? "");
-    modal.open();
-  };
-
-  const handleModalOpen = (row: SessionCheckpointRow) => {
-    if (rows == null) return;
-    setApplyError(null);
-    setSelectedUser(row);
-    setSelectedPresence(row.presence ? String(row.presence) : null);
-    setSelectedStar(row.stars ?? null);
-    setNotes(row.comment ?? "");
-    setObstacle(row.impediment ?? "");
-    modal.open();
-  };
-
-  const handleModalReadOnlyOpen = (row: SessionCheckpointRow) => {
-    if (rows == null) return;
-    setApplyError(null);
-    setSelectedUser(row);
-    setSelectedPresence(row.presence ? String(row.presence) : null);
-    setSelectedStar(row.stars ?? null);
-    setNotes(row.comment ?? "");
-    setObstacle(row.impediment ?? "");
-    modalReadOnly.open();
-  };
 
   const handleToggle = () => {
     setIsExpanded((prev) => !prev);
@@ -299,8 +187,10 @@ function Checkpoint({
   if (rowsLoading || rows === null) return <LoadScreen />;
 
   const isSessionmaster = myUserId === ownerId;
-
   const isInGroup = users.some((user) => user.user_id === myUserId);
+
+  const canEdit = (row: SessionCheckpointRow) =>
+    !isLocked && (isSessionmaster || (isInGroup && row.groupUser === myUserId));
 
   return (
     <div className="card p-2 md:p-4 w-full space-x-0 md:space-x-5">
@@ -401,39 +291,24 @@ function Checkpoint({
                   <td className="border-t border-dotted py-2 horizontal gap-1 md:gap-2">
                     <button
                       className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                      onClick={() => handleModalReadOnlyOpen(item)}
+                      onClick={() => openReadOnly(item)}
                     >
                       <FontAwesomeIcon
                         icon={faEye}
                         className="icon text-blue"
                       />
                     </button>
-                    {(isSessionmaster || isInGroup) &&
-                      !isLocked &&
-                      (!isLocked ? (
-                        isSessionmaster ? (
-                          <button
-                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                            onClick={() => handleModalOpen(item)}
-                          >
-                            <FontAwesomeIcon
-                              icon={faPencil}
-                              className="icon text-blue"
-                            />
-                          </button>
-                        ) : item.groupUser === myUserId ||
-                          item.id === myUserId ? (
-                          <button
-                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                            onClick={handleOwnModalOpen}
-                          >
-                            <FontAwesomeIcon
-                              icon={faPencil}
-                              className="icon text-blue"
-                            />
-                          </button>
-                        ) : null
-                      ) : null)}
+                    {canEdit(item) && (
+                      <button
+                        className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
+                        onClick={() => openEdit(item)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faPencil}
+                          className="icon text-blue"
+                        />
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -441,125 +316,16 @@ function Checkpoint({
           </table>
         </div>
       </div>
-      <Modal state={modal} className="mx-auto">
-        <div className="space-y-5">
-          <ModalHeadText>
-            {t("checkpoint.modalheader", {
-              name: selectedUser
-                ? `${selectedUser.first_name} ${selectedUser.last_name}`
-                : "",
-            })}
-          </ModalHeadText>
-          <div className="flex flex-col space-y-2 w-full">
-            <label>{t("checkpoint.attendance")}</label>
-            <AttendanceDropDownMenu
-              value={selectedPresence}
-              onChange={setSelectedPresence}
-            />
-            <FieldApiErrorMessage
-              errors={applyError?.errors ?? null}
-              field="presence"
-            />
-            <label>{t("checkpoint.stars")}</label>
-            <StarsInputField value={selectedStar} onChange={setSelectedStar} />
-            <FieldApiErrorMessage
-              errors={applyError?.errors ?? null}
-              field="stars"
-            />
-            <label>{t("checkpoint.notes")}</label>
-            <input
-              className="write-section"
-              placeholder={t("checkpoint.notes")}
-              alt={t("checkpoint.notes")}
-              value={notes}
-              maxLength={2000}
-              onChange={(e) => setNotes(e.target.value)}
-            />
-            <FieldApiErrorMessage
-              errors={applyError?.errors ?? null}
-              field="comment"
-            />
 
-            <label>{t("checkpoint.obstacle")}</label>
-            <input
-              className="write-section"
-              placeholder={t("checkpoint.obstacle")}
-              alt={t("checkpoint.obstacle")}
-              value={obstacle}
-              maxLength={2000}
-              onChange={(e) => setObstacle(e.target.value)}
-            />
-            <FieldApiErrorMessage
-              errors={applyError?.errors ?? null}
-              field="impediment"
-            />
-          </div>
-          <ModalActionRow>
-            <ModalCancelButton />
-            <button
-              className="btn border btn-secondary"
-              onClick={isSessionmaster ? handleModalApply : handleOwnModalApply}
-              type="button"
-              disabled={applyLoading}
-            >
-              {applyLoading ? (
-                t("checkpoint.saving")
-              ) : (
-                <>
-                  <FontAwesomeIcon icon={faCheck} /> {t("checkpoint.apply")}
-                </>
-              )}
-            </button>
-          </ModalActionRow>
-        </div>
-      </Modal>
-      <Modal state={modalReadOnly} className="mx-auto">
-        <div className="space-y-5">
-          <ModalHeadText>
-            {t("checkpoint.modalheaderreadonly", {
-              name: selectedUser
-                ? `${selectedUser.first_name} ${selectedUser.last_name}`
-                : "",
-            })}
-          </ModalHeadText>
-          <div className="flex flex-col space-y-2 w-full">
-            <div className="grid grid-cols-2 gap-x-8 space-y-2 w-full">
-              <h3>{t("checkpoint.attendance")}</h3>
-              <h3>{t("checkpoint.stars")}</h3>
+      <EditCheckpointModal
+        key={editSession}
+        modal={modal}
+        groupId={groupId}
+        row={selectedUser}
+        onSaved={handleSaved}
+      />
 
-              <AttendanceReadOnlyField value={selectedPresence} />
-              <StarsReadOnlyField value={selectedStar ?? 0} />
-            </div>
-            <h3 className="mt-2">{t("checkpoint.notes")}</h3>
-            {notes && notes?.length > 0 ? (
-              <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
-                {notes}
-              </p>
-            ) : (
-              <span className="text-fg4 italic">{t("checkpoint.nonotes")}</span>
-            )}
-            <h3 className="mt-2">{t("checkpoint.obstacle")}</h3>
-            {obstacle && obstacle?.length > 0 ? (
-              <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
-                {obstacle}
-              </p>
-            ) : (
-              <span className="text-fg4 italic">
-                {t("checkpoint.noobstacles")}
-              </span>
-            )}
-          </div>
-          <ModalActionRow>
-            <button
-              className="btn border"
-              onClick={() => modalReadOnly.close()}
-              type="button"
-            >
-              {t("checkpoint.modal.close")}
-            </button>
-          </ModalActionRow>
-        </div>
-      </Modal>
+      <ReadOnlyCheckpointModal modal={modalReadOnly} row={selectedUser} />
     </div>
   );
 }
