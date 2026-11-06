@@ -65,3 +65,8 @@ export interface SessionDate {
 export interface CheckpointNames {
   checkpointNames: string[];
 }
+
+export type SessionCheckpointRow = GroupCheckpoint & {
+  first_name: string;
+  last_name: string;
+};

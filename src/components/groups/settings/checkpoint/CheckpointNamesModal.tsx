@@ -13,6 +13,7 @@ import ModalCancelButton from "../../../generic/modal/components/ModalCancelButt
 import { useApi } from "../../../../js/hooks/api/useApi.ts";
 import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
 import { useGroup } from "../../../../js/context/group/useGroup.ts";
+import { ErrorScreen } from "../../../generic/ErrorScreen.tsx";
 
 const MAX_CHECKPOINT_NAMES = 10;
 
@@ -33,9 +34,6 @@ export default function CheckpointNamesModal({
   const { t } = useTranslation();
   const group = useGroup();
   const updateNames = useApi(ScrumdappApi.updateCheckpointNames());
-
-  const saving = updateNames.loading;
-  const error = updateNames.error != null;
 
   const [fields, setFields] = useState<Field[]>(() =>
     initialNames.length > 0
@@ -87,16 +85,12 @@ export default function CheckpointNamesModal({
           </button>
         )}
       </div>
-      {error && (
-        <p className="text-red text-sm mb-4">
-          {t("settings.checkpointNames.saveError")}
-        </p>
-      )}
+      {updateNames.error && <ErrorScreen error={updateNames.error} />}
       <ModalActionRow>
         <ModalCancelButton />
         <button
           onClick={handleDone}
-          disabled={saving}
+          disabled={updateNames.loading}
           className="btn border btn-secondary"
         >
           <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.done")}

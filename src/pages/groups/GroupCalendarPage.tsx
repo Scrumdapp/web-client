@@ -11,14 +11,17 @@ export function GroupCalendarPage() {
   const yearMonth = isYearMonth(ymParam) ? ymParam : getYearMonth(new Date());
 
   return (
-    <>
+    <div className="vertical gap-4">
       <title>{t("calendar.title")}</title>
+      <div className="card">
+        <h2>{t("calendar.header")}</h2>
+      </div>
       <div className="card p-1 md:p-4">
         <CalendarSelector currentYearMonth={yearMonth} />
         <div className="h-fit py-1 md:min-h-60 md:py-0">
           <Calendar yearMonth={yearMonth} />
         </div>
       </div>
-    </>
+    </div>
   );
 }

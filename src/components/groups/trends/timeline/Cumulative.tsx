@@ -16,9 +16,9 @@ export function RenderCumulativeGraph({
   data: GroupPresenceTrends;
 }) {
   const length = data.trends[0].days.length;
-
+  const { t } = useTranslation();
   if (length == 0) {
-    return <div className="center">No data available</div>;
+    return <div className="center">{t("trends.noData")}</div>;
   }
 
   return (

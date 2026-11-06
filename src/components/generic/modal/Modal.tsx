@@ -8,14 +8,15 @@ interface ModalProps {
   backgroundClickClose?: boolean;
   children: React.ReactNode;
   className?: string;
+  dialogClassName?: string;
 }
 
 export default function Modal({
   state,
   backgroundClickClose = true,
   children,
-
   className,
+  dialogClassName,
 }: ModalProps) {
   const ref = useRef<HTMLDialogElement>(null);
 
@@ -25,14 +26,17 @@ export default function Modal({
 
     ref.current.showModal();
     return () => ref.current?.close();
-  }, [ref.current, state.isOpen]);
+  }, [state.isOpen]);
 
   if (!state.isOpen) return null;
 
   return (
     <ModalContext.Provider value={state}>
       <dialog
-        className="flex backdrop-blur-lg bg-[unset] w-full h-full max-w-screen max-h-screen"
+        className={cn(
+          "flex backdrop-blur-lg bg-[unset] w-full h-full max-w-screen max-h-screen",
+          dialogClassName,
+        )}
         onClick={() => backgroundClickClose && state.close()}
         onClose={(e) => e.preventDefault()}
         closedby="none"
