@@ -23,7 +23,6 @@ export default function Modal({
   useEffect(() => {
     const dialog = ref.current;
     if (dialog == null || !state.isOpen) return;
-
     else dialog.showModal();
 
     return () => dialog.close();

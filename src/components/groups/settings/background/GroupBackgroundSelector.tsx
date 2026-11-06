@@ -1,7 +1,4 @@
-import {
-  ModalState,
-  useModalState,
-} from "../../../../js/hooks/useModalState.ts";
+import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { useGroup } from "../../../../js/context/group/useGroup.ts";
 import { Button } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,13 +34,7 @@ export function BackgroundSelector() {
         {t("settings.background.change")}
       </Button>
 
-      <BackgroundSelectorModal modal={modalState} />
+      <GroupBackgroundSelectorModal modal={modalState} />
     </div>
   );
-}
-
-function BackgroundSelectorModal({ modal }: { modal: ModalState }) {
-  {
-    return <GroupBackgroundSelectorModal modal={modal} />;
-  }
 }
