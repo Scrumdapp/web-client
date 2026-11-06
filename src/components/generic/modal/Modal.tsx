@@ -22,9 +22,10 @@ export default function Modal({
 
   useEffect(() => {
     const dialog = ref.current;
-    if (dialog == null || !state.isOpen) return;
-    else dialog.showModal();
+    if (dialog == null) return;
+    if (!state.isOpen) return;
 
+    dialog.showModal();
     return () => dialog.close();
   }, [state.isOpen]);
 
