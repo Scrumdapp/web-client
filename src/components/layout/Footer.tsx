@@ -8,6 +8,8 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import ChangeLogModal from "../modals/ChangeLogModal.tsx";
+import { useModalState } from "../../js/hooks/useModalState.ts";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -20,6 +22,8 @@ export default function Footer() {
       target: "_blank",
     },
   ];
+
+  const modal = useModalState();
 
   return (
     <footer className="mb-2 mx-2 card horizontal items-center justify-between gap-2">
@@ -35,6 +39,10 @@ export default function Footer() {
             {link.text}
           </Link>
         ))}
+        <button className="btn" onClick={modal.open}>
+          {t("changelogs.title")}
+        </button>
+        <ChangeLogModal modal={modal} />
       </div>
       <div className="flex-1 grid grid-rows-1 grid-flow-col gap-2 items-center justify-end">
         <Link
