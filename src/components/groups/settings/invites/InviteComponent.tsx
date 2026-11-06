@@ -19,22 +19,23 @@ export default function Invites({ groupId }: InvitesProps) {
   const modal = useModalState();
   const [modalKey, setModalKey] = useState(0);
   const getGroupInvites = useApi(ScrumdappApi.GetGroupInvites());
-  const [invites, setInvites] = useState<InviteResponse[]>([]);
   const [copiedId, setCopiedId] = useTempState<number>(null);
 
-  const refreshInvites = async () => {
-    setInvites(await getGroupInvites.runCommand(groupId));
-  };
-
-  useEffect(() => {
-    getGroupInvites.runCommand(groupId).then(setInvites);
-  }, [groupId]);
+  const invites = getGroupInvites.data ?? [];
 
   const handleCopyInvite = (invite: InviteResponse) => {
     const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
     navigator.clipboard.writeText(link);
     setCopiedId(invite.id);
   };
+
+  const refreshInvites = async () => {
+    await getGroupInvites.runCommand(groupId);
+  };
+
+  useEffect(() => {
+    getGroupInvites.runCommand(groupId);
+  }, [groupId]);
 
   function handleOpenModal() {
     setModalKey((k) => k + 1);
@@ -61,6 +62,7 @@ export default function Invites({ groupId }: InvitesProps) {
               <thead>
                 <tr>
                   <th className="p-2 text-left">{t("invite.expire")}</th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -81,7 +83,7 @@ export default function Invites({ groupId }: InvitesProps) {
                             icon={copiedId === invite.id ? faCheck : faCopy}
                           />
                           {copiedId === invite.id
-                            ? " Copied!"
+                            ? t("invite.modal.copied")
                             : expired
                               ? t("invite.expired")
                               : t("invite.modal.copy")}
