@@ -21,7 +21,7 @@ type EditCheckpointModalProps = {
   modal: ModalState;
   groupId: number;
   row: SessionCheckpointRow | null;
-  onSaved: (updated: GroupCheckpoint) => void;
+  onSaved: (patch: Pick<GroupCheckpoint, "groupUser" | "presence" | "stars" | "comment" | "impediment">) => void;
 };
 
 export default function EditCheckpointModal({
@@ -44,7 +44,7 @@ export default function EditCheckpointModal({
   const handleApply = async () => {
     if (!row) return;
     try {
-      const updated = await runCommand(groupId, {
+      await runCommand(groupId, {
         userId: row.groupUser,
         sessionId: row.sessionId,
         presence,
@@ -52,9 +52,17 @@ export default function EditCheckpointModal({
         comment: notes,
         impediment: obstacle,
       });
-      onSaved(updated);
+      onSaved({
+        groupUser: row.groupUser,
+        presence,
+        stars,
+        comment: notes,
+        impediment: obstacle,
+      });
       modal.close();
-    } catch {}
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const userName = row ? `${row.first_name} ${row.last_name}` : "";
