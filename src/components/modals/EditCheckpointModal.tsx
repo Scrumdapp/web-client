@@ -21,7 +21,12 @@ type EditCheckpointModalProps = {
   modal: ModalState;
   groupId: number;
   row: SessionCheckpointRow | null;
-  onSaved: (patch: Pick<GroupCheckpoint, "groupUser" | "presence" | "stars" | "comment" | "impediment">) => void;
+  onSaved: (
+    patch: Pick<
+      GroupCheckpoint,
+      "groupUser" | "presence" | "stars" | "comment" | "impediment"
+    >,
+  ) => void;
 };
 
 export default function EditCheckpointModal({

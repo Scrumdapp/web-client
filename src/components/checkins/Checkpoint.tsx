@@ -135,14 +135,18 @@ function Checkpoint({
     modalReadOnly.open();
   };
 
-  const handleSaved = (updated: GroupCheckpoint) =>
+  const handleSaved = (
+    patch: Pick<
+      GroupCheckpoint,
+      "groupUser" | "presence" | "stars" | "comment" | "impediment"
+    >,
+  ) =>
     setRows(
       (prev) =>
         prev?.map((r) =>
-          r.groupUser === updated.groupUser ? { ...r, ...updated } : r,
+          r.groupUser === patch.groupUser ? { ...r, ...patch } : r,
         ) ?? prev,
     );
-
   useEffect(() => {
     const id = setInterval(() => {
       const remaining = Math.max(0, startTime + duration - Date.now());
