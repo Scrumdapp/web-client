@@ -8,7 +8,6 @@ interface ModalProps {
   backgroundClickClose?: boolean;
   children: React.ReactNode;
   className?: string;
-  nonModal?: boolean;
   dialogClassName?: string;
 }
 
@@ -17,7 +16,6 @@ export default function Modal({
   backgroundClickClose = true,
   children,
   className,
-  nonModal = false,
   dialogClassName,
 }: ModalProps) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -26,11 +24,10 @@ export default function Modal({
     const dialog = ref.current;
     if (dialog == null || !state.isOpen) return;
 
-    if (nonModal) dialog.show();
     else dialog.showModal();
 
     return () => dialog.close();
-  }, [state.isOpen, nonModal]);
+  }, [state.isOpen]);
 
   if (!state.isOpen) return null;
 

@@ -43,7 +43,6 @@ function listsDiffer(a: string[] | null, b: string[]) {
 }
 
 export default function ChangeLogModal({ modal }: { modal: ModalState }) {
-
   const { t } = useTranslation();
 
   useEffect(() => {
