@@ -119,53 +119,29 @@ function Checkpoint({
     Math.max(0, startTime + duration - Date.now()),
   );
 
-  const [applyLoading, setApplyLoading] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(
+    null,
+  );
+  const [editSession, setEditSession] = useState(0);
 
-  const handleApply = async () => {
-    const isOwner = myUserId === ownerId;
-    const targetUserId = isOwner ? selectedUser?.groupUser : myUserId;
-    if (isLocked || targetUserId == null) return;
-
-    setApplyLoading(true);
-    setApplyError(null);
-    try {
-      await ScrumdappApi.updateGroupCheckpoint()(groupId, {
-        userId: targetUserId,
-        sessionId,
-        presence: selectedPresence,
-        stars: selectedStar,
-        comment: notes,
-        impediment: obstacle,
-      });
-      setRows(
-        (prev) =>
-          prev?.map((row) =>
-            row.groupUser === targetUserId
-              ? {
-                  ...row,
-                  presence: selectedPresence,
-                  stars: selectedStar,
-                  comment: notes,
-                  impediment: obstacle,
-                }
-              : row,
-          ) ?? prev,
-      );
-      modal.close();
-    } catch (err) {
-      setApplyError(
-        err instanceof ApiError
-          ? err
-          : new ApiError(
-              999,
-              "Unhandled error while saving checkpoint",
-              err as Error,
-            ),
-      );
-    } finally {
-      setApplyLoading(false);
-    }
+  const openEdit = (row: SessionCheckpointRow) => {
+    setSelectedUser(row);
+    setEditSession((n) => n + 1);
+    modal.open();
   };
+
+  const openReadOnly = (row: SessionCheckpointRow) => {
+    setSelectedUser(row);
+    modalReadOnly.open();
+  };
+
+  const handleSaved = (updated: GroupCheckpoint) =>
+    setRows(
+      (prev) =>
+        prev?.map((r) =>
+          r.groupUser === updated.groupUser ? { ...r, ...updated } : r,
+        ) ?? prev,
+    );
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -194,46 +170,9 @@ function Checkpoint({
     fetch().catch(console.error);
   }, [fetch]);
 
-  const [notes, setNotes] = useState("");
-  const [selectedPresence, setSelectedPresence] = useState<string | null>(null);
-  const [selectedStar, setSelectedStar] = useState<number | null>(null);
-  const [obstacle, setObstacle] = useState("");
-
-  const [applyError, setApplyError] = useState<ApiError | null>(null);
-
   const myUserId = currentUser?.id ?? null;
 
-  const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(
-    null,
-  );
-
   const [isExpanded, setIsExpanded] = useState(!isLocked || isMostRecent);
-
-  const handleOwnModalOpen = () => {
-    if (rows == null) return;
-    const myRow = rows.find((row) => row.groupUser === myUserId);
-    if (!myRow) return;
-    handleModalOpen(myRow);
-  };
-
-  const loadRow = (row: SessionCheckpointRow) => {
-    setApplyError(null);
-    setSelectedUser(row);
-    setSelectedPresence(row.presence ? String(row.presence) : null);
-    setSelectedStar(row.stars ?? null);
-    setNotes(row.comment ?? "");
-    setObstacle(row.impediment ?? "");
-  };
-
-  const handleModalOpen = (row: SessionCheckpointRow) => {
-    loadRow(row);
-    modal.open();
-  };
-
-  const handleModalReadOnlyOpen = (row: SessionCheckpointRow) => {
-    loadRow(row);
-    modalReadOnly.open();
-  };
 
   const handleToggle = () => {
     setIsExpanded((prev) => !prev);
@@ -243,8 +182,10 @@ function Checkpoint({
   if (rowsLoading || rows === null) return <LoadScreen />;
 
   const isSessionmaster = myUserId === ownerId;
-
   const isInGroup = users.some((user) => user.user_id === myUserId);
+
+  const canEdit = (row: SessionCheckpointRow) =>
+    !isLocked && (isSessionmaster || (isInGroup && row.groupUser === myUserId));
 
   return (
     <div className="card p-2 md:p-4 w-full space-x-0 md:space-x-5">
@@ -345,39 +286,24 @@ function Checkpoint({
                   <td className="border-t border-dotted py-2 horizontal gap-1 md:gap-2">
                     <button
                       className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                      onClick={() => handleModalReadOnlyOpen(item)}
+                      onClick={() => openReadOnly(item)}
                     >
                       <FontAwesomeIcon
                         icon={faEye}
                         className="icon text-blue"
                       />
                     </button>
-                    {(isSessionmaster || isInGroup) &&
-                      !isLocked &&
-                      (!isLocked ? (
-                        isSessionmaster ? (
-                          <button
-                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                            onClick={() => handleModalOpen(item)}
-                          >
-                            <FontAwesomeIcon
-                              icon={faPencil}
-                              className="icon text-blue"
-                            />
-                          </button>
-                        ) : item.groupUser === myUserId ||
-                          item.id === myUserId ? (
-                          <button
-                            className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                            onClick={handleOwnModalOpen}
-                          >
-                            <FontAwesomeIcon
-                              icon={faPencil}
-                              className="icon text-blue"
-                            />
-                          </button>
-                        ) : null
-                      ) : null)}
+                    {canEdit(item) && (
+                      <button
+                        className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
+                        onClick={() => openEdit(item)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faPencil}
+                          className="icon text-blue"
+                        />
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -387,37 +313,14 @@ function Checkpoint({
       </div>
 
       <EditCheckpointModal
+        key={editSession}
         modal={modal}
-        userName={
-          selectedUser
-            ? `${selectedUser.first_name} ${selectedUser.last_name}`
-            : ""
-        }
-        presence={selectedPresence}
-        onPresenceChange={setSelectedPresence}
-        stars={selectedStar}
-        onStarsChange={setSelectedStar}
-        notes={notes}
-        onNotesChange={setNotes}
-        obstacle={obstacle}
-        onObstacleChange={setObstacle}
-        error={applyError}
-        loading={applyLoading}
-        onApply={handleApply}
+        groupId={groupId}
+        row={selectedUser}
+        onSaved={handleSaved}
       />
 
-      <ReadOnlyCheckpointModal
-        modal={modalReadOnly}
-        userName={
-          selectedUser
-            ? `${selectedUser.first_name} ${selectedUser.last_name}`
-            : ""
-        }
-        presence={selectedPresence}
-        stars={selectedStar}
-        notes={notes}
-        obstacle={obstacle}
-      />
+      <ReadOnlyCheckpointModal modal={modalReadOnly} row={selectedUser} />
     </div>
   );
 }

@@ -6,26 +6,25 @@ import {
 } from "../checkins/checkpointcomponents/ReadOnlyFields.tsx";
 import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
 import { ModalState } from "../../js/hooks/useModalState.ts";
+import { SessionCheckpointRow } from "../../js/models/checkpoint.ts";
 import { useTranslation } from "react-i18next";
 
 type ReadOnlyCheckpointModalProps = {
   modal: ModalState;
-  userName: string;
-  presence: string | null;
-  stars: number | null;
-  notes: string;
-  obstacle: string;
+  row: SessionCheckpointRow | null;
 };
 
 export default function ReadOnlyCheckpointModal({
   modal,
-  userName,
-  presence,
-  stars,
-  notes,
-  obstacle,
+  row,
 }: ReadOnlyCheckpointModalProps) {
   const { t } = useTranslation();
+
+  const userName = row ? `${row.first_name} ${row.last_name}` : "";
+  const presence = row?.presence ? String(row.presence) : null;
+  const stars = row?.stars ?? 0;
+  const notes = row?.comment ?? "";
+  const obstacle = row?.impediment ?? "";
 
   return (
     <Modal state={modal} className="mx-auto">
