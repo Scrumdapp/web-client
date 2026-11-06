@@ -10,7 +10,7 @@ type GroupLayoutModalProps = {
   groupName: string;
 };
 
-export default function GroupLayoutModal({
+export default function GroupSidebarModal({
   modal,
   groupName,
 }: GroupLayoutModalProps) {

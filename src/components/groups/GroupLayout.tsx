@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { t } from "i18next";
 import { useModalState } from "../../js/hooks/useModalState.ts";
-import GroupLayoutModal from "../modals/GroupLayoutModal.tsx";
+import GroupSidebarModal from "../modals/GroupSidebarModal.tsx";
 
 export function GroupLayout() {
   const modal = useModalState();
@@ -43,7 +43,7 @@ export function GroupLayout() {
                 </div>
                 <h1> {ctx!!.group!!.name} </h1>
               </div>
-              <GroupLayoutModal modal={modal} groupName={ctx!!.group!!.name} />
+              <GroupSidebarModal modal={modal} groupName={ctx!!.group!!.name} />
             </>
           )}
         </GroupConsumer>
