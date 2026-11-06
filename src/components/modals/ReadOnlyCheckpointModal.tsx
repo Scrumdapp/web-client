@@ -5,11 +5,11 @@ import {
   StarsReadOnlyField,
 } from "../checkins/checkpointcomponents/ReadOnlyFields.tsx";
 import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
-import { useModalState } from "../../js/hooks/useModalState.ts";
+import { ModalState } from "../../js/hooks/useModalState.ts";
 import { useTranslation } from "react-i18next";
 
 type ReadOnlyCheckpointModalProps = {
-  modal: ReturnType<typeof useModalState>;
+  modal: ModalState;
   userName: string;
   presence: string | null;
   stars: number | null;

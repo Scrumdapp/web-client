@@ -5,12 +5,12 @@ import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage.tsx";
 import { StarsInputField } from "../checkins/checkpointcomponents/StarsInputField.tsx";
 import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx";
-import { useModalState } from "../../js/hooks/useModalState.ts";
+import { ModalState } from "../../js/hooks/useModalState.ts";
 import { useTranslation } from "react-i18next";
 import { ApiError } from "../../js/hooks/api/apiError.ts";
 
 type EditCheckpointModalProps = {
-  modal: ReturnType<typeof useModalState>;
+  modal: ModalState;
   userName: string;
   presence: string | null;
   onPresenceChange: (v: string | null) => void;
