@@ -16,6 +16,7 @@ import {
   FieldApiErrorMessageList,
   FieldApiErrorMessage,
 } from "../../../generic/FieldApiErrorMessage.tsx";
+import InvitePasswordField from "./InvitePasswordField.tsx";
 
 interface InvitesProps {
   groupId: number;
@@ -130,13 +131,12 @@ export default function Invites({ groupId }: InvitesProps) {
           <>
             <h1>{t("invite.createPassword")}</h1>
             <div className="flex justify-between py-2">
-              <input
+              <InvitePasswordField
                 className="write-section w-full! mr-2 flex-5"
                 placeholder={t("invite.password")}
                 alt={t("invite.password")}
                 value={password}
                 maxLength={32}
-                type="password"
                 onChange={(e) => {
                   setShowWarning(
                     !/^[a-zA-Z0-9 !@#$%^&]{1,32}$/.test(e.target.value),

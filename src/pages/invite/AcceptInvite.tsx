@@ -7,6 +7,7 @@ import { useState } from "react";
 import { InviteResponse } from "../../js/models/invites.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import InvitePasswordField from "../../components/groups/settings/invites/InvitePasswordField.tsx";
 
 export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
   const { t } = useTranslation();
@@ -40,11 +41,10 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
         <p>{t("invite.accept.text")}</p>
         <div>
           <div className="py-3">
-            <input
+            <InvitePasswordField
               className="write-section w-full!"
               placeholder={t("invite.password")}
               alt={t("invite.password")}
-              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
