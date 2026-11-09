@@ -1,10 +1,6 @@
-import Modal from "../../../generic/modal/Modal.tsx";
 import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
-import ModalActionRow from "../../../generic/modal/components/ModalActionRow.tsx";
-import ModalCancelButton from "../../../generic/modal/components/ModalCancelButton.tsx";
-import { InviteTimeDurationDropdownMenu } from "../../../generic/InviteTimeDuration.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
@@ -17,6 +13,7 @@ import {
   FieldApiErrorMessage,
 } from "../../../generic/FieldApiErrorMessage.tsx";
 import InvitePasswordField from "./InvitePasswordField.tsx";
+import InviteComponentModal from "../../../modals/InviteComponentModal.tsx";
 
 interface InvitesProps {
   groupId: number;
@@ -25,22 +22,11 @@ interface InvitesProps {
 export default function Invites({ groupId }: InvitesProps) {
   const { t } = useTranslation();
   const modal = useModalState();
-  const [step, setStep] = useState<1 | 2>(1);
-  const [password, setPassword] = useState("");
-  const [showWarning, setShowWarning] = useState(false);
-  const [expireHours, setExpireHours] = useState(12);
-  const [generatedLink, setGeneratedLink] = useState("");
-  const createInvite = useApi(ScrumdappApi.CreateInvite());
+  const [modalKey, setModalKey] = useState(0);
   const getGroupInvites = useApi(ScrumdappApi.GetGroupInvites());
-  const [invites, setInvites] = useState<InviteResponse[]>([]);
-
-  const [copied, setCopied] = useTempState(false);
   const [copiedId, setCopiedId] = useTempState<number>(null);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(generatedLink);
-    setCopied(true);
-  };
+  const invites = getGroupInvites.data ?? [];
 
   const handleCopyInvite = (invite: InviteResponse) => {
     const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
@@ -48,30 +34,19 @@ export default function Invites({ groupId }: InvitesProps) {
     setCopiedId(invite.id);
   };
 
+  const refreshInvites = async () => {
+    await getGroupInvites.runCommand(groupId);
+  };
+
   useEffect(() => {
-    getGroupInvites.runCommand(groupId).then(setInvites);
+    getGroupInvites.runCommand(groupId);
   }, [groupId]);
 
-  async function handleCreateInvite() {
-    const expiresAt = new Date(Date.now() + expireHours * 60 * 60 * 1000);
-    const invite = await createInvite.runCommand(groupId, expiresAt, password);
-    const link = `${window.location.origin}/invites/${invite.id}?token=${invite.token}`;
-    setGeneratedLink(link);
-    setStep(2);
-
-    const result = await getGroupInvites.runCommand(groupId);
-    setInvites(result);
-  }
-
   function handleOpenModal() {
-    setStep(1);
+    setModalKey((k) => k + 1);
     modal.open();
   }
 
-  function handleDone() {
-    modal.close();
-    setStep(1);
-  }
   return (
     <>
       <div className="card flex flex-col items-center gap-2">
@@ -92,6 +67,7 @@ export default function Invites({ groupId }: InvitesProps) {
               <thead>
                 <tr>
                   <th className="p-2 text-left">{t("invite.expire")}</th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -112,7 +88,7 @@ export default function Invites({ groupId }: InvitesProps) {
                             icon={copiedId === invite.id ? faCheck : faCopy}
                           />
                           {copiedId === invite.id
-                            ? " Copied!"
+                            ? t("invite.modal.copied")
                             : expired
                               ? t("invite.expired")
                               : t("invite.modal.copy")}
@@ -126,90 +102,12 @@ export default function Invites({ groupId }: InvitesProps) {
           )}
         </div>
       </div>
-      <Modal state={modal}>
-        {step === 1 && (
-          <>
-            <h1>{t("invite.createPassword")}</h1>
-            <div className="flex justify-between py-2">
-              <InvitePasswordField
-                className="write-section w-full! mr-2 flex-5"
-                placeholder={t("invite.password")}
-                alt={t("invite.password")}
-                value={password}
-                maxLength={32}
-                onChange={(e) => {
-                  setShowWarning(
-                    !/^[a-zA-Z0-9 !@#$%^&]{1,32}$/.test(e.target.value),
-                  );
-                  setPassword(e.target.value);
-                }}
-                required
-              />
-              <div className="flex flex-3">
-                <InviteTimeDurationDropdownMenu
-                  onChange={(v) => setExpireHours(v ?? 12)}
-                />
-              </div>
-            </div>
-            {createInvite.error?.errors &&
-            createInvite.error.errors.length > 1 ? (
-              <FieldApiErrorMessageList
-                errors={createInvite.error?.errors ?? null}
-              />
-            ) : (
-              <FieldApiErrorMessage
-                errors={createInvite.error?.errors ?? null}
-                field={createInvite.error?.errors?.[0]?.field ?? ""}
-              />
-            )}
-            <ModalActionRow>
-              <div className="py-2 flex gap-x-2">
-                {showWarning && (
-                  <p className="text-red text-sm">{t("invite.modal.error")}</p>
-                )}
-                <ModalCancelButton />
-                <button
-                  onClick={handleCreateInvite}
-                  className="btn btn-secondary border"
-                  disabled={!password.trim()}
-                >
-                  <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.create")}
-                </button>
-              </div>
-            </ModalActionRow>
-          </>
-        )}
-        {step === 2 && (
-          <>
-            <div>
-              <h1>{t("invite.modal.header")}</h1>
-              <p>{t("invite.modal.text")}</p>
-              <div className="py-5 gap-2 flex flex-nowrap justify-between items-center">
-                <p>{t("invite.modal.link")}</p>
-                <text className="write-section p-2! overflow-hidden">
-                  {generatedLink}
-                </text>
-              </div>
-              <ModalActionRow>
-                <button
-                  onClick={handleCopy}
-                  className="btn btn-secondary border"
-                >
-                  <FontAwesomeIcon icon={faCopy} /> {t("invite.modal.copy")}
-                </button>
-                <button onClick={handleDone} className="btn border">
-                  <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.done")}
-                </button>
-              </ModalActionRow>
-              {copied && (
-                <p className="text-right text-green-dim mt-2">
-                  {t("invite.modal.succes")}
-                </p>
-              )}
-            </div>
-          </>
-        )}
-      </Modal>
+      <InviteComponentModal
+        key={modalKey}
+        modal={modal}
+        groupId={groupId}
+        onCreated={refreshInvites}
+      />
     </>
   );
 }

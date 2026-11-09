@@ -8,6 +8,8 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import ChangeLogModal from "../modals/ChangeLogModal.tsx";
+import { useModalState } from "../../js/hooks/useModalState.ts";
 
 export default function FooterMobile() {
   const { t } = useTranslation();
@@ -21,6 +23,8 @@ export default function FooterMobile() {
       target: "_blank",
     },
   ];
+
+  const modal = useModalState();
 
   return (
     <footer className="m-2 md:mt-0 card vertical items-center justify-between gap-2">
@@ -36,6 +40,10 @@ export default function FooterMobile() {
           </Link>
         ))}
       </div>
+      <button className="btn mb-2 text-lg" onClick={modal.open}>
+        {t("changelogs.title")}
+      </button>
+      <ChangeLogModal modal={modal} />
       <div className="flex-1 horizontal gap-2 items-center justify-end">
         <Link
           to="https://www.linkedin.com/company/scrumdapp"

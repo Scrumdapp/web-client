@@ -42,6 +42,7 @@ export default {
         },
         readmore: "Read more",
         close: "Close",
+        menuClose: "Close menu",
       },
       sidebar: {
         today: "Today",
@@ -111,6 +112,7 @@ export default {
         },
         readmore: "Lees meer",
         close: "Sluiten",
+        menuClose: "Sluit menu",
       },
       sidebar: {
         today: "Vandaag",

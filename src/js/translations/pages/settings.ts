@@ -62,7 +62,9 @@ export default {
         placeholder: "New checkpoint name",
         add: "Add a new checkpoint name",
         noNames: "No checkpoint names have been added yet...",
-        saveError: "There was an error when saving, please try again",
+        saveErrorTitle: "Unable to save",
+        saveErrorDescription:
+          "There was an error while saving, please try again",
       },
     },
   },
@@ -90,7 +92,7 @@ export default {
         },
       },
       users: {
-        title: "Groeps genoten",
+        title: "Groepsgenoten",
         name: "Gebruiker",
         actions: "Acties",
         updateTitle: "Bewerk instellingen voor {{user}}",
@@ -129,7 +131,9 @@ export default {
         placeholder: "Nieuwe checkpoint naam",
         add: "Voeg een nieuwe checkpoint naam toe",
         noNames: "Er zijn nog geen checkpoint namen toegevoegd...",
-        saveError: "Er was een fout bij het opslaan, probeer het later opnieuw",
+        saveErrorTitle: "Opslaan mislukt",
+        saveErrorDescription:
+          "Er was een fout bij het opslaan, probeer het later opnieuw",
       },
     },
   },
