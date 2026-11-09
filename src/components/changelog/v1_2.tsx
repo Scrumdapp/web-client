@@ -16,8 +16,8 @@ export default function ChangelogV102() {
   const { t } = useTranslation();
   return (
     <div className="my-4">
-      <h2 className="my-4">V1.02 ({t("date.fri")} 2026-11-06) </h2>
-      <ChangelogList prefix="changelogs.v1_02" items={items} />
+      <h2 className="my-4">V1.2 ({t("date.mon")} 2026-11-09) </h2>
+      <ChangelogList prefix="changelogs.v1_2" items={items} />
     </div>
   );
 }
