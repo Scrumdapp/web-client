@@ -6,8 +6,14 @@ import { useCurrentBackground } from "../../js/context/background/hooks.ts";
 import { useTranslation } from "react-i18next";
 import FooterMobile from "./FooterMobile.tsx";
 import HeaderMobile from "./HeaderMobile.tsx";
+import { useAutoOpenChangelog } from "../../js/context/changelog.ts";
+import { useModalState } from "../../js/hooks/useModalState.ts";
+import ChangeLogModal from "../modals/ChangeLogModal.tsx";
 
 export default function Layout({ children }: PropsWithChildren) {
+  const changelogModal = useModalState();
+  useAutoOpenChangelog(changelogModal);
+
   return (
     <BackgroundProvider initialBackground={"1"}>
       <div className="min-h-dvh flex flex-col">
@@ -24,6 +30,7 @@ export default function Layout({ children }: PropsWithChildren) {
         <div className="block md:hidden">
           <FooterMobile />
         </div>
+        <ChangeLogModal modal={changelogModal} />
         <BackgroundDisplayer />
       </div>
     </BackgroundProvider>
