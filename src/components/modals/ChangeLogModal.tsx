@@ -9,7 +9,7 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
-import { CHANGELOGS } from "../../js/context/changelog.ts";
+import { CHANGELOGS } from "../../js/context/changelogLogic.ts";
 
 export default function ChangeLogModal({ modal }: { modal: ModalState }) {
   const { t } = useTranslation();

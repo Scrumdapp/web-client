@@ -6,7 +6,7 @@ export default {
       feature: " = Feature",
       enrichment: " = Enrichment",
       bugfix: " = Bugfix",
-      v1_01: {
+      v1_1: {
         title: "v1.01",
         newStars: "New way of indicating stars implemented",
         newTime: "Ability to set a different time duration for a checkpoint",
@@ -21,7 +21,7 @@ export default {
         databaseQueries: "Several database queries optimized",
         minorBugs: "Various minor bugs fixed behind the scenes",
       },
-      v1_02: {
+      v1_2: {
         title: "v1.02",
         mobileView: "Mobile view implemented",
         changeLog: "Added the Changelog to the website",
@@ -43,7 +43,7 @@ export default {
       feature: " = Feature",
       enrichment: " = Verbetering",
       bugfix: " = Bugfix",
-      v1_01: {
+      v1_1: {
         title: "v1.01",
         newStars: "Nieuwe manier van sterren aangeven geïmplementeerd",
         newTime:
@@ -59,7 +59,7 @@ export default {
         databaseQueries: "Verschillende database queries geoptimaliseerd",
         minorBugs: "Diverse kleine bugs opgelost achter de schermen",
       },
-      v1_02: {
+      v1_2: {
         mobileView: "Mobiele weergave gemaakt",
         changeLog: "Wijzigingslog toegevoegd aan de website",
         checkpointNames:

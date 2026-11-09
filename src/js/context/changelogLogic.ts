@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import ChangelogV102 from "../../components/changelog/v1_02.tsx";
-import ChangelogV101 from "../../components/changelog/v1_01.tsx";
+import ChangelogV1_2 from "../../components/changelog/v1_2.tsx";
+import ChangelogV1_1 from "../../components/changelog/v1_1.tsx";
 import { ModalState } from "../hooks/useModalState.ts";
 
 const STORAGE_KEY = "seenChangelogs";
 
 export const CHANGELOGS = [
-  { versionId: "1.02", ChangelogComponent: ChangelogV102 },
-  { versionId: "1.01", ChangelogComponent: ChangelogV101 },
+  { versionId: "1.2", ChangelogComponent: ChangelogV1_2 },
+  { versionId: "1.1", ChangelogComponent: ChangelogV1_1 },
 ];
 
 const CHANGELOG_IDS = CHANGELOGS.map((c) => c.versionId);

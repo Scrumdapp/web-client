@@ -6,7 +6,7 @@ import { useCurrentBackground } from "../../js/context/background/hooks.ts";
 import { useTranslation } from "react-i18next";
 import FooterMobile from "./FooterMobile.tsx";
 import HeaderMobile from "./HeaderMobile.tsx";
-import { useAutoOpenChangelog } from "../../js/context/changelog.ts";
+import { useAutoOpenChangelog } from "../../js/context/changelogLogic.ts";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import ChangeLogModal from "../modals/ChangeLogModal.tsx";
 
