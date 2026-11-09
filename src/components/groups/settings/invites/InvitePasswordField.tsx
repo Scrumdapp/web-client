@@ -10,11 +10,19 @@ export default function InvitePasswordField({
 
   const [isVisible, setIsVisible] = useState(false);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsVisible(false);
+    props.onChange?.(e);
+  };
+
   return (
     <div className="relative flex items-center">
-      <input {...props} type={isVisible ? "text" : "password"} />
-      <button
-        type="button"
+      <input
+        {...props}
+        onChange={handleChange}
+        type={isVisible ? "text" : "password"}
+      />
+      <span
         onClick={() => setIsVisible(!isVisible)}
         className="absolute right-4 cursor-pointer"
         aria-label={
@@ -27,7 +35,7 @@ export default function InvitePasswordField({
           icon={isVisible ? faEyeSlash : faEye}
           className="text-fg4 hover:text-fg2"
         />
-      </button>
+      </span>
     </div>
   );
 }

@@ -8,11 +8,6 @@ import { useApi } from "../../../../js/hooks/api/useApi.ts";
 import { InviteResponse } from "../../../../js/models/invites.tsx";
 import useTempState from "../../../../js/hooks/useTempState.ts";
 import { useTranslation } from "react-i18next";
-import {
-  FieldApiErrorMessageList,
-  FieldApiErrorMessage,
-} from "../../../generic/FieldApiErrorMessage.tsx";
-import InvitePasswordField from "./InvitePasswordField.tsx";
 import InviteComponentModal from "../../../modals/InviteComponentModal.tsx";
 
 interface InvitesProps {
