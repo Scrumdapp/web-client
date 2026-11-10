@@ -27,7 +27,7 @@ export default function ReadOnlyCheckpointModal({
   const obstacle = row?.impediment ?? "";
 
   return (
-    <Modal state={modal} className="mx-auto">
+    <Modal state={modal} className="mx-auto max-w-xl">
       <div className="space-y-5">
         <ModalHeadText>
           {t("checkpoint.modalheaderreadonly", { name: userName })}
