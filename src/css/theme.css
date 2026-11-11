@@ -32,4 +32,11 @@
     --color-aqua-dim:   #689d6a;
     --color-gray-dim:   #a89984;
     --color-orange-dim: #d65d0e;
+
+    --breakpoint-*: initial;
+    --breakpoint-sm: 500px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
 }

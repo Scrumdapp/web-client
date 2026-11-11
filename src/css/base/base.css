@@ -1,15 +1,32 @@
-:root, dialog {
-    @apply bg-bg font-Iosevka font-normal text-fg;
+:root,
+dialog {
+  @apply bg-bg font-Iosevka font-normal text-fg;
 }
 
 #root {
-    @apply min-h-screen flex flex-col
+  @apply min-h-screen flex flex-col;
 }
 
 table {
-    @apply table border-collapse box-border w-full
+  @apply table border-collapse box-border w-full;
 }
 
 body:has(dialog[open]) {
-    overflow: hidden;
+  overflow: hidden;
+}
+
+html {
+  font-size: 13px;
+}
+
+@variant sm {
+  html { font-size: 14px; }
+}
+
+@variant md {
+  html { font-size: 15px; }
+}
+
+@variant lg {
+  html { font-size: 16px; }
 }

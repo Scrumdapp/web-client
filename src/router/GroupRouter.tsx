@@ -8,14 +8,29 @@ import { SettingsPage } from "../pages/groups/SettingsPage.tsx";
 import { GroupCheckpointPageWrapper } from "../pages/groups/GroupCheckpointPageWrapper.tsx";
 
 export function GroupRouter() {
-    return (
-        <Routes>
-            <Route index element={<GroupCheckpointPageWrapper />} />
-            <Route path="trends" element={<TrendsPage />} />
-            <Route path="calendar" element={<GroupCalendarPage />} />
-            <Route path="my-analytics" element={<MyAnalyticsPage />} />
-            <Route path="settings" element={<SettingsPage />} />
-            <Route path="*" element={<ErrorScreen error={new ApiError(404, "Page Not Found")} />} />
-        </Routes>
-    )
+  return (
+    <Routes>
+      <Route index element={<GroupCheckpointPageWrapper />} />
+      <Route path="trends" element={<TrendsPage />} />
+      <Route path="calendar" element={<GroupCalendarPage />} />
+      <Route path="my-analytics" element={<MyAnalyticsPage />} />
+      <Route path="settings" element={<SettingsPage />} />
+      <Route
+        path="*"
+        element={
+          <ErrorScreen
+            error={
+              new ApiError(404, {
+                status: 404,
+                code: "PAGE_NOT_FOUND",
+                titleTranslationKey: "errors.generic.notFound.title",
+                descriptionTranslationKey:
+                  "errors.generic.notFound.description",
+              })
+            }
+          />
+        }
+      />
+    </Routes>
+  );
 }

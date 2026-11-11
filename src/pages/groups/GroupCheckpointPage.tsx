@@ -13,7 +13,7 @@ import { useUser } from "../../js/context/user/useUser.ts";
 import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
-import { parseWeekDay } from "../../js/utils/timeUtils.ts";
+import { parseWeekDay, parseWeekDayMobile } from "../../js/utils/timeUtils.ts";
 import { Group } from "../../js/models/group.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
 import { useTranslation } from "react-i18next";
@@ -44,6 +44,7 @@ export function GroupCheckpointPage({
   const getGroupUsers = useApi(ScrumdappApi.getGroupUsers(), {
     fetchOnCreated: [group.id],
   });
+
   const getCheckpointSessions = useApi(ScrumdappApi.getCheckpointSessions(), {
     fetchOnCreated: [group.id, { date }],
   });
@@ -61,22 +62,28 @@ export function GroupCheckpointPage({
   }
 
   const checkpointSessions = getCheckpointSessions.data!;
-  const groupUsers = getGroupUsers.data!;
+  const groupUsers = getGroupUsers.data!.filter((it) => !it.is_ghost);
 
   const groupCreated = () => {
     getCheckpointSessions.runCommand(group.id, { date });
   };
 
   return (
-    <div className="space-y-3 ">
+    <div className="space-y-3">
       <title>{group.name ? `${group.name} | Scrumdapp` : "Scrumdapp"}</title>
-      <div className="flex justify-between card w-full h-20 bg-bg_h border rounded-lg p-2 items-center">
+      <div className="flex justify-between card w-full md:h-20 bg-bg_h border rounded-lg p-1 md:p-2 items-center">
         <div className="horizontal items-center">
           <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
             <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
           </Link>
-          <h2 className="w-3xs flex justify-center px-2">
-            {t(parseWeekDay(parseScrumdappDate(date).getUTCDay()))} {date}
+          <h2 className="text-xl md:text-2xl w-fit md:w-3xs flex justify-center px-0 md:px-2">
+            <span className="md:hidden">
+              {t(parseWeekDayMobile(parseScrumdappDate(date).getUTCDay()))}
+            </span>
+            <span className="hidden md:inline">
+              {t(parseWeekDay(parseScrumdappDate(date).getUTCDay()))}
+            </span>
+            &nbsp;{date}
           </h2>
           <Link
             to={`/groups/${group.id}?date=${nextDate}`}
@@ -91,28 +98,44 @@ export function GroupCheckpointPage({
           </Link>
         </div>
         <ShowIf condition={currentDate == date}>
-          <button className="btn border" onClick={modal.open}>
+          <button className="btn border p-1! md:p-2" onClick={modal.open}>
             <FontAwesomeIcon icon={faAdd} className="text-blue" />{" "}
             {t("checkpoint.create")}
           </button>
         </ShowIf>
       </div>
-      {[...checkpointSessions].reverse().map((session, index) => (
-        <div key={session.id} className="w-full">
-          <Checkpoint
-            groupId={group.id}
-            key={session.id}
-            name={session.name}
-            startTime={new Date(session.startTime).getTime()}
-            duration={session.duration * 60_000}
-            sessionId={session.id}
-            users={groupUsers}
-            currentUser={currentUser}
-            ownerId={session.ownerId}
-            isMostRecent={index === 0}
-          />
+      {checkpointSessions?.length > 0 ? (
+        [...checkpointSessions].reverse().map((session, index) => (
+          <div key={session.id} className="w-full">
+            <Checkpoint
+              groupId={group.id}
+              key={session.id}
+              name={session.name}
+              startTime={new Date(session.startTime).getTime()}
+              duration={session.duration * 60_000}
+              sessionId={session.id}
+              users={groupUsers}
+              currentUser={currentUser}
+              ownerId={session.ownerId}
+              isMostRecent={index === 0}
+            />
+          </div>
+        ))
+      ) : currentDate == date ? (
+        <div className="py-4 flex flex-col items-center text-center justify-center gap-2">
+          <h2>{t("checkpoint.nocheckpoint.today")}</h2>
+          <p className="text-center">
+            {t("checkpoint.nocheckpoint.todaydescription")}
+          </p>
         </div>
-      ))}
+      ) : (
+        <div className="py-4 flex flex-col items-center text-center justify-center gap-2">
+          <h2>{t("checkpoint.nocheckpoint.past")}</h2>
+          <p className="text-center">
+            {t("checkpoint.nocheckpoint.pastdescription")}
+          </p>
+        </div>
+      )}
       <CreateGroupCheckpointSessionModal
         groupId={group.id}
         state={modal}

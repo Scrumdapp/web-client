@@ -1,24 +1,23 @@
-
 export interface GroupPresenceTrends {
-    fromDate: string
-    toDate: string
-    trends: PresenceTrendItem[]
+  fromDate: string;
+  toDate: string;
+  trends: PresenceTrendItem[];
 }
 
 export interface PresenceTrendItem {
-    userId: number
-    days: PresenceTrendDay[]
+  userId: number;
+  days: PresenceTrendDay[];
 }
 
 export interface PresenceTrendDay {
-    date: string
-    presences: PresenceTrendDayItem[]
+  date: string;
+  presences: PresenceTrendDayItem[];
 }
 
 export interface PresenceTrendDayItem {
-    presence: string | null
-    sessionId: number
-    name: string
+  presence: string | null;
+  sessionId: number;
+  name: string;
 }
 
 // A numeric user id, or "@me" for the logged in user

@@ -1,0 +1,31 @@
+.checkbox-container {
+  @apply relative cursor-pointer pr-8;
+}
+
+.checkbox-container input {
+  @apply absolute w-0 h-0 opacity-0 cursor-pointer;
+}
+
+.checkmark {
+  @apply transition duration-150 absolute top-0 bottom-0 right-0 w-6 h-6 bg-red-dim border rounded-md flex;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  @apply bg-green-dim;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  @apply bg-red;
+}
+
+.checkbox-container:hover input:checked ~ .checkmark {
+  @apply bg-green;
+}
+
+.checkbox-container input:focus ~ .checkmark {
+  @apply outline-fg outline-dotted outline-2;
+}
+
+.checkmark > * {
+  @apply m-auto;
+}

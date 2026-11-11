@@ -1,0 +1,87 @@
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { LogoutButton } from "../generic/LogoutButton.tsx";
+import { useUser } from "../../js/context/user/useUser.ts";
+import LanguageSwitch from "../translation/LanguageSwitch.tsx";
+import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useModalState } from "../../js/hooks/useModalState.ts";
+import HeaderMobileModal from "../modals/HeaderMobileModal.tsx";
+
+export default function HeaderMobile() {
+  const { t } = useTranslation();
+  const modal = useModalState();
+  const user = useUser();
+  const location = useLocation();
+
+  const links = [
+    { to: "/", label: t("header.home"), target: "_self" },
+    { to: "/groups", label: t("header.groups"), target: "_self" },
+  ];
+
+  useEffect(() => {
+    modal.close();
+  }, [location.pathname]);
+
+  return (
+    <>
+      <header className="flex flex-col mx-2 fixed top-0 left-0 right-0 z-50">
+        <nav className="relative z-20 bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center">
+          <div className="flex-1 min-w-0 text-fg font-bold text-xl">
+            <Link
+              to="/groups"
+              className="horizontal gap-1 items-center max-w-fit"
+            >
+              <img
+                src="/ScrumdappLogoTransparent.webp"
+                alt={t("about.logo")}
+                className="nav-icon max-w-full"
+              />
+              Scrumdapp
+            </Link>
+          </div>
+
+          <h2 className="hidden md:flex gap-4">
+            {links.map((link, i) => (
+              <Link key={i} to={link.to} className="btn py-1!">
+                {link.label}
+              </Link>
+            ))}
+          </h2>
+
+          <div className="hidden md:flex md:flex-1 justify-end h-full my-4">
+            <div className="nav-dropdown cursor-default">
+              <div className="horizontal justify-end items-center gap-1 absolute right-0 top-0 bottom-0 z-1 rounded-r-full">
+                <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
+                <img
+                  src={user.avatar ?? "/Scrumdaddy.png"}
+                  alt={t("header.profileAlt")}
+                  className="nav-icon max-w-full"
+                />
+              </div>
+              <div className="nav-dropdown-content -right-[0.5px]!">
+                <div className="my-4 px-1.5 text-center">
+                  <LanguageSwitch />
+                  <LogoutButton />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={modal.isOpen ? modal.close : modal.open}
+            className="btn aspect-square md:hidden"
+            aria-label={t("header.menuToggle")}
+            aria-expanded={modal.isOpen}
+          >
+            <FontAwesomeIcon icon={modal.isOpen ? faXmark : faBars} />
+          </button>
+        </nav>
+        <HeaderMobileModal modal={modal} />
+      </header>
+      <div className="h-15 md:h-20" />
+    </>
+  );
+}
