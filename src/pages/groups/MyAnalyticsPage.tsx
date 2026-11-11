@@ -71,7 +71,8 @@ export function MyAnalyticsPage() {
                 {(data) => <WeekComparisonDonuts {...data} />}
             </AnalyticsCard>
 
-            <div className="horizontal gap-3.5 flex-wrap items-stretch">
+            {/* Each card is at least 20rem wide, so on small screens they wrap below each other */}
+            <div className="horizontal gap-3.5 flex-wrap items-stretch *:basis-80">
                 {/* Calendar */}
                 <AnalyticsCard
                     title={<>

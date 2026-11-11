@@ -53,8 +53,8 @@ export function useApi<Ti extends any[], Tr, Tm = Tr>(
 
   if (options.fetchOnCreated) {
     useEffect(() => {
-      command(...options.fetchOnCreated!);
-    }, [processor.id, ...options.fetchOnCreated!]);
+      command(...options.fetchOnCreated!).catch(() => {});
+    }, [processor.id, JSON.stringify(options.fetchOnCreated)]);
   }
 
   return {

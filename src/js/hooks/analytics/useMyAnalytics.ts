@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { ScrumdappApi } from "../api/scrumdappApi.ts"
 import { useApi } from "../api/useApi.ts"
-import type { RequestProcessor } from "../api/apiUtils.ts"
 import {
     getSchoolYearRange,
     getSemesterStart,
@@ -15,39 +14,47 @@ import {
 import { toScrumdappDate } from "../../utils/scrumdappDate.ts"
 import { getYearMonth } from "../../utils/timeUtils.ts"
 
-/**
- * Fetches on mount and whenever the params change; `retry` fetches again.
- * The mapper must not use props: useApi keeps the first one per processor.
- */
-function useTrendRequest<A extends unknown[], R, M>(processor: RequestProcessor<A, R>, mapper: (data: R) => M, ...params: A) {
-    const { data, error, runCommand } = useApi(processor, { mapper })
-    const fetchData = () => {
-        runCommand(...params).catch(() => { /* Error is stored by useApi */ })
-    }
-    const key = JSON.stringify(params)
-    useEffect(fetchData, [processor.id, key]) // eslint-disable-line react-hooks/exhaustive-deps
-    return { data, error, retry: fetchData }
+/** Fetches again; the error is already stored by useApi, so the rejection is ignored. */
+function retryWith(request: () => Promise<unknown>) {
+    return () => { request().catch(() => {}) }
 }
 
 export function useTrendSummary(groupId: number) {
-    return useTrendRequest(ScrumdappApi.getUserTrendSummary(), toSummaryView, groupId, "@me")
+    const { data, error, runCommand } = useApi(ScrumdappApi.getUserTrendSummary(), {
+        mapper: toSummaryView,
+        fetchOnCreated: [groupId, "@me"],
+    })
+    return { data, error, retry: retryWith(() => runCommand(groupId, "@me")) }
 }
 
 export function useAttendanceMonth(groupId: number, yearMonth: string) {
-    return useTrendRequest(ScrumdappApi.getUserTrendCalendar(), toCalendarView, groupId, "@me", yearMonth)
+    const { data, error, runCommand } = useApi(ScrumdappApi.getUserTrendCalendar(), {
+        mapper: toCalendarView,
+        fetchOnCreated: [groupId, "@me", yearMonth],
+    })
+    return { data, error, retry: retryWith(() => runCommand(groupId, "@me", yearMonth)) }
 }
 
 /** Star scores of the current school year. */
 export function useMoodTrend(groupId: number) {
     const [fromDate, toDate] = rangeToQuery(getSchoolYearRange(new Date()))
-    return useTrendRequest(ScrumdappApi.getUserTrendMood(), toMoodTrend, groupId, "@me", fromDate, toDate)
+    const { data, error, runCommand } = useApi(ScrumdappApi.getUserTrendMood(), {
+        mapper: toMoodTrend,
+        fetchOnCreated: [groupId, "@me", fromDate, toDate],
+    })
+    return { data, error, retry: retryWith(() => runCommand(groupId, "@me", fromDate, toDate)) }
 }
 
 /** Attendance from the start of the current semester up to and including today. */
 export function usePeriodAttendance(groupId: number) {
     const today = new Date()
     const fromDate = toScrumdappDate(getSemesterStart(today))
-    return useTrendRequest(ScrumdappApi.getUserTrendPeriod(), toPeriodBars, groupId, "@me", fromDate, toScrumdappDate(today))
+    const toDate = toScrumdappDate(today)
+    const { data, error, runCommand } = useApi(ScrumdappApi.getUserTrendPeriod(), {
+        mapper: toPeriodBars,
+        fetchOnCreated: [groupId, "@me", fromDate, toDate],
+    })
+    return { data, error, retry: retryWith(() => runCommand(groupId, "@me", fromDate, toDate)) }
 }
 
 function earliestMonth(months: string[]) {
@@ -56,7 +63,10 @@ function earliestMonth(months: string[]) {
 
 /** The first month with data, null while loading or when there is no data at all. */
 export function useFirstDataMonth(groupId: number) {
-    return useTrendRequest(ScrumdappApi.getCheckpointMonths(), earliestMonth, groupId).data
+    return useApi(ScrumdappApi.getCheckpointMonths(), {
+        mapper: earliestMonth,
+        fetchOnCreated: [groupId],
+    }).data
 }
 
 /**

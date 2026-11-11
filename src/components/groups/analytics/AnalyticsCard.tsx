@@ -15,7 +15,7 @@ interface AnalyticsCardProps<T> {
 // Card with title and subtitle; the body shows loading/error until the data is there
 export function AnalyticsCard<T>({ title, subtitle, actions, state, children }: AnalyticsCardProps<T>) {
     return (
-        <div className="card flex-1 vertical" aria-busy={state.data == null && state.error == null}>
+        <div className="card flex-1 vertical [contain:inline-size]" aria-busy={state.data == null && state.error == null}>
             <div className="horizontal flex-wrap justify-between items-center gap-2.5 mb-4">
                 <div>
                     <h4 className="horizontal items-center gap-2">{title}</h4>

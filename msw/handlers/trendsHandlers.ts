@@ -128,7 +128,7 @@ export const trendsHandlers = [
         this_month: randomCounts(),
         last_month: randomCounts(),
       },
-      stars: { average: 2 + Math.round(Math.random() * 30) / 10, count: 5 + randomInt(30) },
+      stars: { average: 4 + Math.round(Math.random() * 60) / 10, count: 5 + randomInt(30) },
     };
     return HttpResponse.json(summary);
   }),
