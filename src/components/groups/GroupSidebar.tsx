@@ -36,7 +36,7 @@ export function GroupSidebar() {
         className="text-yellow"
       />
       <SidebarLink
-        to={`/groups/${group.id}/my-analytics`}
+        to={`/groups/${group.id}/my-trends`}
         translationKey="checkpoint.sidebar.analyticsOwn"
         icon={faPenToSquare}
         className="text-purple"

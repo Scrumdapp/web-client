@@ -13,7 +13,7 @@ export function GroupRouter() {
       <Route index element={<GroupCheckpointPageWrapper />} />
       <Route path="trends" element={<TrendsPage />} />
       <Route path="calendar" element={<GroupCalendarPage />} />
-      <Route path="my-analytics" element={<MyAnalyticsPage />} />
+      <Route path="my-trends" element={<MyAnalyticsPage />} />
       <Route path="settings" element={<SettingsPage />} />
       <Route
         path="*"
