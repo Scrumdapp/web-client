@@ -3,6 +3,8 @@ import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
 import { useTranslation } from "react-i18next";
+import { ShowIf } from "../utility/Conditional.tsx";
+import { hasRole, Role } from "../../js/utils/userPermissions.ts";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -11,6 +13,12 @@ export default function Header() {
   const links = [
     { to: "/", label: t("header.home"), target: "_self" },
     { to: "/groups", label: t("header.groups"), target: "_self" },
+    {
+      to: "/tribes",
+      coachOnly: true,
+      label: t("header.tribes"),
+      target: "_self",
+    },
   ];
 
   return (
@@ -32,16 +40,29 @@ export default function Header() {
           </div>
 
           <div className="horizontal gap-4">
-            {links.map((link, i) => (
-              <Link
-                key={i}
-                to={link.to}
-                target={link.target}
-                className="btn py-1!"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link, i) =>
+              link.coachOnly ? (
+                <ShowIf condition={hasRole(user, Role.Coach)}>
+                  <Link
+                    key={i}
+                    to={link.to}
+                    target={link.target}
+                    className="btn py-1!"
+                  >
+                    {link.label}
+                  </Link>
+                </ShowIf>
+              ) : (
+                <Link
+                  key={i}
+                  to={link.to}
+                  target={link.target}
+                  className="btn py-1!"
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
           </div>
 
           <div className="flex-1 flex justify-end h-full">

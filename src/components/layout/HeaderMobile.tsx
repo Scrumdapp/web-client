@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import HeaderMobileModal from "../modals/HeaderMobileModal.tsx";
+import { ShowIf } from "../utility/Conditional.tsx";
+import { hasRole, Role } from "../../js/utils/userPermissions.ts";
 
 export default function HeaderMobile() {
   const { t } = useTranslation();
@@ -18,6 +20,12 @@ export default function HeaderMobile() {
   const links = [
     { to: "/", label: t("header.home"), target: "_self" },
     { to: "/groups", label: t("header.groups"), target: "_self" },
+    {
+      to: "/tribes",
+      coachOnly: true,
+      label: t("header.tribes"),
+      target: "_self",
+    },
   ];
 
   useEffect(() => {
@@ -43,11 +51,29 @@ export default function HeaderMobile() {
           </div>
 
           <h2 className="hidden md:flex gap-4">
-            {links.map((link, i) => (
-              <Link key={i} to={link.to} className="btn py-1!">
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link, i) =>
+              link.coachOnly ? (
+                <ShowIf condition={hasRole(user, Role.Coach)}>
+                  <Link
+                    key={i}
+                    to={link.to}
+                    target={link.target}
+                    className="btn py-1!"
+                  >
+                    {link.label}
+                  </Link>
+                </ShowIf>
+              ) : (
+                <Link
+                  key={i}
+                  to={link.to}
+                  target={link.target}
+                  className="btn py-1!"
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
           </h2>
 
           <div className="hidden md:flex md:flex-1 justify-end h-full my-4">

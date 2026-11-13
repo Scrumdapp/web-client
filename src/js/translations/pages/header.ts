@@ -3,6 +3,7 @@ export default {
     header: {
       home: "Home",
       groups: "Groups",
+      tribes: "Tribes",
       profile: "Profile",
       logout: "Logout",
       profileAlt: "User Profile Picture",
@@ -14,6 +15,7 @@ export default {
     header: {
       home: "Hoofdpagina",
       groups: "Groepen",
+      tribes: "Tribes",
       profile: "Profiel",
       logout: "Uitloggen",
       profileAlt: "Profielfoto",

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useUser } from "../../js/context/user/useUser.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
+import { ShowIf } from "../utility/Conditional.tsx";
+import { hasRole, Role } from "../../js/utils/userPermissions.ts";
 
 type HeaderMobileModalProps = {
   modal: ModalState;
@@ -44,6 +46,14 @@ export default function HeaderMobileModal({ modal }: HeaderMobileModalProps) {
             translationKey="header.groups"
             onClick={modal.close}
           />
+          <ShowIf condition={hasRole(user, Role.Coach)}>
+            <NavbarLink
+              to="/tribes"
+              target="_self"
+              translationKey="header.tribes"
+              onClick={modal.close}
+            />
+          </ShowIf>
           <NavbarLink
             to="/about"
             target="_self"
