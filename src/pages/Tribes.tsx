@@ -4,16 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../js/hooks/api/scrumdappApi.ts";
 import { useApiComponent } from "../js/hooks/api/useApiComponent.tsx";
-import { Link } from "react-router-dom";
 import { IconInput } from "../components/generic/IconInput.tsx";
 import { useUser } from "../js/context/user/useUser.ts";
 import { ShowIf } from "../components/utility/Conditional.tsx";
 import { hasRole, Role } from "../js/utils/userPermissions.ts";
 import { useTranslation } from "react-i18next";
 import { CreateTribeModal } from "../components/modals/CreateTribeModal.tsx";
-import { TribeCard } from "../components/tribes/TribeCard.tsx";
 import ErrorPage from "./ErrorPage.tsx";
-import { CollapsibleCardGrid } from "../components/tribes/CollapsibleCardGrid.tsx";
+import { TribeLists } from "../components/tribes/TribeLists.tsx";
 
 const Tribes = () => {
   const { t } = useTranslation();
@@ -71,38 +69,7 @@ const Tribes = () => {
         </div>
       </div>
       <GetTribesComponent input={[]}>
-        {(tribes) => {
-          const filteredTribes = tribes.filter(
-            (tribe) =>
-              tribe.is_active &&
-              tribe.name.toLowerCase().includes(search.toLowerCase().trim()),
-          );
-          const archivedTribes = tribes.filter((tribe) => !tribe.is_active);
-          return (
-            <div className="vertical gap-10">
-              <ul className="grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center">
-                {filteredTribes.length === 0 && t("tribes.notribes")}
-                {filteredTribes.map((tribe) => (
-                  <li key={tribe.id}>
-                    <Link to={`/tribes/${tribe.id}`} className="block">
-                      <TribeCard tribe={tribe} />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <CollapsibleCardGrid
-                title={t("tribes.archivedTitle")}
-                noItemsText={t("tribes.noArchived")}
-                items={archivedTribes}
-                renderItem={(tribe) => (
-                  <Link to={`/tribes/${tribe.id}`} className="block">
-                    <TribeCard tribe={tribe} />
-                  </Link>
-                )}
-              />
-            </div>
-          );
-        }}
+        {(tribes) => <TribeLists tribes={tribes} search={search} />}
       </GetTribesComponent>
 
       <ShowIf condition={hasRole(user, Role.Coach)}>
