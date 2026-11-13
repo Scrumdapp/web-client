@@ -119,7 +119,7 @@ export default function GroupBackgroundSelectorModal({
   return (
     <Modal
       state={modal}
-      className="w-[calc(100vw-2rem)] md:w-fit max-w-full my-4"
+      className="my-4 flex max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-full flex-col md:w-fit"
     >
       <ModalHeadText>{t("settings.background.modal.select")}</ModalHeadText>
       <BackgroundTopicNavbar
