@@ -3,7 +3,7 @@ export default {
     tribes: {
       title: "Tribes | Scrumdapp",
       pageTitle: "Tribes",
-      newtribes: "New tribe",
+      newtribe: "New tribe",
       notribes: "No tribes have been found...",
       searchPlaceholder: "Search for tribes",
       searchAlt: "Search here for tribes",
@@ -11,6 +11,9 @@ export default {
       image: "Tribe image for {{tribename}}",
       submit: "Submit",
       groupCount: "{{count}} groups",
+      memberCount: "{{count}} members",
+      archivedTitle: "Archived tribes",
+      noArchived: "No archived tribes found.",
     },
   },
   nl: {
@@ -25,6 +28,9 @@ export default {
       image: "Tribe afbeelding voor {{tribename}}",
       submit: "Maak aan",
       groupCount: "{{count}} groepen",
+      memberCount: "{{count}} leden",
+      archivedTitle: "Gearchiveerde tribes",
+      noArchived: "Geen gearchiveerde tribes gevonden.",
     },
   },
 };

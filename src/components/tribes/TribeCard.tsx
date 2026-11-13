@@ -12,14 +12,20 @@ export function TribeCard({ tribe }: TribeCardProps) {
     : "https://http.cat/images/404.jpg";
 
   return (
-    <div className="card hover:bg-bg2! p-2 md:p-4">
-      <p className="pb-1 md:pb-2">{tribe.name}</p>
+    <div className="card hover:bg-bg2! transition-colors p-2 md:p-4 flex gap-2">
       <img
         src={backgroundUrl}
         alt={t("tribes.image", { tribename: tribe.name })}
-        className="aspect-4/3 object-cover h-full rounded overflow-hidden max-w-full"
+        className="aspect-1/1 object-cover h-full rounded overflow-hidden max-w-20"
       />
-      <span>{t("tribes.groupCount", { count: tribe.group_count })}</span>
+      <div>
+        <p className="text-lg">{tribe.name}</p>
+
+        <span className="text-sm text-fg3">
+          {t("tribes.groupCount", { count: tribe.group_count })} •{" "}
+          {t("tribes.memberCount", { count: tribe.member_count })}
+        </span>
+      </div>
     </div>
   );
 }

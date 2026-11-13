@@ -8,6 +8,7 @@ export const tribeData: Tribe[] = [
     background_preference: "7_2",
     icon_preference: undefined,
     group_count: 6,
+    member_count: 22,
     is_active: true,
   },
   {
@@ -16,6 +17,7 @@ export const tribeData: Tribe[] = [
     background_preference: "color_red",
     icon_preference: undefined,
     group_count: 8,
+    member_count: 49,
     is_active: true,
   },
   {
@@ -24,6 +26,7 @@ export const tribeData: Tribe[] = [
     background_preference: "22",
     icon_preference: undefined,
     group_count: 3,
+    member_count: 17,
     is_active: true,
   },
   {
@@ -32,6 +35,7 @@ export const tribeData: Tribe[] = [
     background_preference: "22",
     icon_preference: undefined,
     group_count: 5,
+    member_count: 28,
     is_active: false,
   },
 ];

@@ -33,7 +33,7 @@ export default function Groups() {
   }, []);
 
   return (
-    <div className="app-container vertical gap-4 px-2! md:px-4 pt-0! md:pt-4">
+    <div className="app-container vertical gap-8 px-2! md:px-4 pt-0! md:pt-4">
       <title>{t("groups.title")}</title>
       <div className="gap-4 vertical md:horizontal justify-between">
         <div className="flex flex-wrap justify-between gap-2 md:grid md:grid-cols-3">
@@ -72,7 +72,7 @@ export default function Groups() {
             group.name.toLowerCase().includes(search.toLowerCase().trim()),
           );
           return (
-            <ul className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 justify-center">
+            <ul className="grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center">
               {filteredGroups.length === 0 && t("groups.nogroups")}
               {filteredGroups.map((group) => (
                 <li key={group.id}>

@@ -10,6 +10,7 @@ export default {
       creategroup: "Create Name",
       image: "Group image for {{groupname}}",
       submit: "Submit",
+      memberCount: "{{count}} members",
     },
   },
   nl: {
@@ -23,6 +24,7 @@ export default {
       creategroup: "Groep Naam",
       image: "Groepsafbeelding voor {{groupname}}",
       submit: "Maak aan",
+      memberCount: "{{count}} leden",
     },
   },
 };

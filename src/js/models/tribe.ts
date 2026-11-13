@@ -19,6 +19,7 @@ export interface PartialTribe {
   name: string;
   background_preference?: string;
   group_count: number;
+  member_count: number;
   is_active: boolean;
 }
 
