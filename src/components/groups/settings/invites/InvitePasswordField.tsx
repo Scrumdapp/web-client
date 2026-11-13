@@ -24,7 +24,7 @@ export default function InvitePasswordField({
       />
       <span
         onClick={() => setIsVisible(!isVisible)}
-        className="absolute right-4 cursor-pointer"
+        className="absolute right-2 cursor-pointer"
         aria-label={
           isVisible
             ? t("invite.hidePasswordSpoiler")
