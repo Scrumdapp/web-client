@@ -2,7 +2,7 @@ import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faPlus} from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { useApi } from "../../../../js/hooks/api/useApi.ts";
 import { InviteResponse } from "../../../../js/models/invites.tsx";
@@ -51,6 +51,7 @@ export default function Invites({ groupId }: InvitesProps) {
             onClick={handleOpenModal}
             className="btn btn-secondary border"
           >
+            <FontAwesomeIcon icon={faPlus} />
             {t("invite.create")}
           </button>
         </div>

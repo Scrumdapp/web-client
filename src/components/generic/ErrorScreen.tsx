@@ -6,14 +6,12 @@ import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 export function ErrorScreen({ error }: { error: ApiError }) {
   const { t } = useTranslation();
   return (
-    <div className="center fade-in">
+    <div className="center fade-in" role="alert">
       <div className="flex w-20 h-20 items-center justify-center border rounded-full mb-8">
         <FontAwesomeIcon icon={faTriangleExclamation} size={"2x"} />
       </div>
 
-      <h2>
-        <strong>{t(error.titleTranslationKey)}</strong>
-      </h2>
+      <h2>{t(error.titleTranslationKey)}</h2>
       <p>{t(error.descriptionTranslationKey)}</p>
     </div>
   );

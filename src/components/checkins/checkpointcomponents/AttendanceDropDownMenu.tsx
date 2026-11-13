@@ -1,74 +1,64 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import {
   attendanceOptions,
   getAttendanceColorScrummaster,
 } from "../../../js/utils/colorUtils.ts";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
+import { Select } from "../../generic/Select.tsx";
 
 type AttendanceDropDownMenuProps = {
   value?: string | null;
   onChange?: (value: string | null) => void;
+  label: string;
+  hideLabel?: boolean;
+  labelClassName?: string;
 };
 
 export function AttendanceDropDownMenu({
   value,
   onChange,
+  label,
+  hideLabel,
+  labelClassName,
 }: AttendanceDropDownMenuProps) {
   const { t } = useTranslation();
   const [localValue, setLocalValue] = useState<string | null>(value ?? null);
 
   const updateValue = (value: string | null) => {
     setLocalValue(value ?? null);
-    if (onChange != null) {
-      onChange(value ?? null);
-    }
+    onChange?.(value ?? null);
   };
 
   useEffect(() => {
     setLocalValue(value ?? null);
   }, [value]);
 
-  const resolvedValue = value !== null ? (value ?? null) : localValue;
-  const currentOption =
-    attendanceOptions.find((opt) => opt.value === resolvedValue) ??
-    attendanceOptions[0];
-  const currentColor = getAttendanceColorScrummaster(resolvedValue);
-  const isValueSet = resolvedValue !== null;
+  const currentOption = attendanceOptions.find(
+    (opt) => opt.value === localValue,
+  );
+  const currentColor = getAttendanceColorScrummaster(localValue);
+  const isValueSet = localValue !== null;
 
   return (
-    <Menu as="div" className="relative w-full w-[20%]">
-      <MenuButton className="btn-attendance border cursor-pointer">
+    <Select
+      label={label}
+      hideLabel={hideLabel}
+      labelClassName={labelClassName}
+      value={localValue}
+      onChange={updateValue}
+      chevronClassName={currentColor}
+      buttonContent={
         <span className={`text-left ${currentColor}`}>
-          {isValueSet ? t(currentOption.labelKey) : "---"}
+          {isValueSet && currentOption ? t(currentOption.labelKey) : "---"}
         </span>
-        <FontAwesomeIcon
-          icon={faChevronDown}
-          className={`${currentColor} shrink-0`}
-        />
-      </MenuButton>
-      <MenuItems
-        transition
-        className="absolute z-10 mt-2 border rounded-md bg-bg w-full"
-      >
-        <div>
-          {attendanceOptions
-            .slice(0, attendanceOptions.length - 1)
-            .map((opt) => (
-              <MenuItem
-                key={opt.labelKey}
-                as="button"
-                type="button"
-                onClick={() => updateValue(opt.value)}
-                className={`btn-attendance-dropdown ${opt.color}`}
-              >
-                {t(opt.labelKey)}
-              </MenuItem>
-            ))}
-        </div>
-      </MenuItems>
-    </Menu>
+      }
+      options={attendanceOptions
+        .filter((opt) => opt.value !== null)
+        .map((opt) => ({
+          value: opt.value,
+          label: t(opt.labelKey),
+          className: opt.color,
+        }))}
+    />
   );
 }

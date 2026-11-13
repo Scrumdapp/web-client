@@ -49,7 +49,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loading-spinner {
+  .loading-spinner,
+  .fade-in {
     animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
   }
 }

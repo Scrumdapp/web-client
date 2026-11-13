@@ -79,8 +79,11 @@ export default function EditCheckpointModal({
           {t("checkpoint.modalheader", { name: userName })}
         </ModalHeadText>
         <div className="flex flex-col space-y-2 w-full">
-          <label>{t("checkpoint.attendance")}</label>
-          <AttendanceDropDownMenu value={presence} onChange={setPresence} />
+          <AttendanceDropDownMenu
+            label={t("checkpoint.attendance")}
+            value={presence}
+            onChange={setPresence}
+          />
           <FieldApiErrorMessage
             errors={error?.errors ?? null}
             field="presence"

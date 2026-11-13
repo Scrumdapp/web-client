@@ -3,7 +3,7 @@
 }
 
 .btn-secondary {
-  @apply bg-blue-dim hover:bg-blue;
+  @apply bg-blue-btn hover:bg-blue-btn-hover active:bg-blue-btn-hover;
 }
 
 .btn-text {
@@ -11,7 +11,7 @@
 }
 
 .btn-red {
-  @apply bg-red-dim hover:bg-red;
+  @apply bg-red-dim hover:bg-red-btn-hover active:bg-red-btn-hover;
 }
 
 .btn-nav-dropdown {
@@ -23,7 +23,7 @@
 }
 
 .btn-attendance-dropdown {
-  @apply block px-2 focus:border-dashed text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer w-full text-left;
+  @apply block px-2 text-sm cursor-pointer w-full text-left rounded-sm data-focus:underline data-focus:outline-2 data-focus:outline-dotted data-focus:outline-fg data-focus:-outline-offset-2 data-selected:font-bold;
 }
 
 .btn:disabled {

@@ -2,6 +2,10 @@
   @apply text-xs;
 }
 
-:focus {
-  @apply outline-fg outline-dotted outline-2;
+:focus-visible {
+  @apply outline-fg outline-dotted outline-2 outline-offset-2;
+}
+
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-100 focus:bg-bg_h focus:border focus:border-fg4 focus:rounded-lg focus:px-4 focus:py-2 focus:text-fg focus:underline;
 }

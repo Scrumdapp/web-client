@@ -14,7 +14,7 @@
   position-try-fallbacks: flip-block;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:is(:hover, :focus-visible):not([data-dismissed]) .dropdown-content {
   @apply block
     mt-1;
 }
