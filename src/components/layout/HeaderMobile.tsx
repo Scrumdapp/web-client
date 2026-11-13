@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import HeaderMobileModal from "../modals/HeaderMobileModal.tsx";
-import { ShowIf } from "../utility/Conditional.tsx";
 import { hasRole, Role } from "../../js/utils/userPermissions.ts";
 
 export default function HeaderMobile() {
@@ -26,7 +25,7 @@ export default function HeaderMobile() {
       label: t("header.tribes"),
       target: "_self",
     },
-  ];
+  ].filter((link) => !link.coachOnly || hasRole(user, Role.Coach));
 
   useEffect(() => {
     modal.close();
@@ -51,29 +50,19 @@ export default function HeaderMobile() {
           </div>
 
           <h2 className="hidden md:flex gap-4">
-            {links.map((link, i) =>
-              link.coachOnly ? (
-                <ShowIf condition={hasRole(user, Role.Coach)}>
-                  <Link
-                    key={i}
-                    to={link.to}
-                    target={link.target}
-                    className="btn py-1!"
-                  >
-                    {link.label}
-                  </Link>
-                </ShowIf>
-              ) : (
-                <Link
-                  key={i}
-                  to={link.to}
-                  target={link.target}
-                  className="btn py-1!"
-                >
-                  {link.label}
-                </Link>
-              ),
-            )}
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end
+                target={link.target}
+                className={({ isActive }) =>
+                  `btn py-1! ${isActive ? "bg-bg2" : ""}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </h2>
 
           <div className="hidden md:flex md:flex-1 justify-end h-full my-4">

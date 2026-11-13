@@ -1,7 +1,7 @@
 import { LogoutButton } from "../generic/LogoutButton.tsx";
 import Modal from "../generic/modal/Modal.tsx";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useUser } from "../../js/context/user/useUser.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";
@@ -100,13 +100,15 @@ function NavbarLink({
   const { t } = useTranslation();
 
   return (
-    <Link
+    <NavLink
       to={to}
-      className="btn justify-start"
       target={target}
       onClick={onClick}
+      className={({ isActive }) =>
+        `btn justify-start ${isActive ? "bg-bg2" : ""}`
+      }
     >
       {t(translationKey)}
-    </Link>
+    </NavLink>
   );
 }

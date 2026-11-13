@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
 import { useTranslation } from "react-i18next";
-import { ShowIf } from "../utility/Conditional.tsx";
 import { hasRole, Role } from "../../js/utils/userPermissions.ts";
 
 export default function Header() {
@@ -19,7 +18,7 @@ export default function Header() {
       label: t("header.tribes"),
       target: "_self",
     },
-  ];
+  ].filter((link) => !link.coachOnly || hasRole(user, Role.Coach));
 
   return (
     <>
@@ -40,29 +39,19 @@ export default function Header() {
           </div>
 
           <div className="horizontal gap-4">
-            {links.map((link, i) =>
-              link.coachOnly ? (
-                <ShowIf condition={hasRole(user, Role.Coach)}>
-                  <Link
-                    key={i}
-                    to={link.to}
-                    target={link.target}
-                    className="btn py-1!"
-                  >
-                    {link.label}
-                  </Link>
-                </ShowIf>
-              ) : (
-                <Link
-                  key={i}
-                  to={link.to}
-                  target={link.target}
-                  className="btn py-1!"
-                >
-                  {link.label}
-                </Link>
-              ),
-            )}
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end
+                target={link.target}
+                className={({ isActive }) =>
+                  `btn py-1! ${isActive ? "bg-bg2" : ""}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </div>
 
           <div className="flex-1 flex justify-end h-full">
