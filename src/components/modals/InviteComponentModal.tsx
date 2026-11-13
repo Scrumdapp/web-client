@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useApi } from "../../js/hooks/api/useApi.ts";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import useTempState from "../../js/hooks/useTempState.ts";
+import InvitePasswordField from "../groups/settings/invites/InvitePasswordField.tsx";
 
 type InviteComponentModalProps = {
   modal: ModalState;
@@ -60,9 +61,9 @@ export default function InviteComponentModal({
       {step === 1 && (
         <>
           <h1>{t("invite.createPassword")}</h1>
-          <div className="flex justify-between py-2">
-            <input
-              className="write-section w-full! mr-2 flex-5"
+          <div className="flex flex-col justify-between py-2">
+            <InvitePasswordField
+              className="write-section w-full! flex-5"
               placeholder={t("invite.password")}
               alt={t("invite.password")}
               value={password}
@@ -75,7 +76,10 @@ export default function InviteComponentModal({
               }}
               required
             />
-            <div className="flex flex-3">
+            {showWarning && (
+              <p className="text-red text-sm">{t("invite.modal.error")}</p>
+            )}
+            <div className="flex pt-2">
               <InviteTimeDurationDropdownMenu
                 onChange={(v) => setExpireHours(v ?? 12)}
               />
@@ -92,9 +96,6 @@ export default function InviteComponentModal({
           )}
           <ModalActionRow>
             <div className="py-2 flex gap-x-2">
-              {showWarning && (
-                <p className="text-red text-sm">{t("invite.modal.error")}</p>
-              )}
               <ModalCancelButton />
               <button
                 onClick={handleCreateInvite}
