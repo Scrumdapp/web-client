@@ -11,6 +11,7 @@ export function getGroupTimelineTrends() {
         {
           params: { "{groupId}": groupId.toString() },
           query: { ...(from ? { from } : {}), ...(to ? { to } : {}) },
+          cache: { enabled: true, staleTime: 1000 * 60 * 1 },
         },
       );
     },
