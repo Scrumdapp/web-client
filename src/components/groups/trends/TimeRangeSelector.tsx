@@ -1,10 +1,8 @@
-import { Menu, MenuItems, MenuItem, MenuButton } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import { toScrumdappDate } from "../../../js/utils/scrumdappDate";
 import { getWeekStart } from "../../../js/utils/timeUtils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { Select } from "../../generic/Select.tsx";
 
 export function TimeRangeSelector({
   onRangeSelected = () => {},
@@ -51,26 +49,15 @@ export function TimeRangeSelector({
   }, []);
 
   return (
-    <Menu as="div" className="relative">
-      <MenuButton className="btn border md:min-w-32 text-sm md:text-base">
-        {options[selectedOption].name}
-        <FontAwesomeIcon icon={faChevronDown} className={`shrink-0`} />
-      </MenuButton>
-      <MenuItems
-        transition
-        className="absolute z-10 mt-2 border rounded-md bg-bg w-full"
-      >
-        {options.map((it, i) => (
-          <MenuItem
-            key={i}
-            as="button"
-            className="btn w-full text-sm md:text-base"
-            onClick={() => selectOption(i)}
-          >
-            {it.name}
-          </MenuItem>
-        ))}
-      </MenuItems>
-    </Menu>
+    <Select
+      label={t("a11y.trends.timeRange")}
+      hideLabel
+      className="w-auto"
+      value={selectedOption}
+      onChange={selectOption}
+      buttonClassName="md:min-w-32 text-sm md:text-base gap-2"
+      optionClassName="text-sm md:text-base py-2"
+      options={options.map((it, i) => ({ value: i, label: it.name }))}
+    />
   );
 }

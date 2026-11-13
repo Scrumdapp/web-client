@@ -19,7 +19,7 @@ export default {
             colors: "Colors",
             other: "Other",
           },
-          apply: "Kies",
+          apply: "Apply",
         },
       },
       users: {

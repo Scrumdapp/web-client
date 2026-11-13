@@ -26,11 +26,12 @@ export function useStatusMessage(duration?: number): StatusMessageProps {
 }
 
 export function StatusMessage({ status }: { status: StatusMessageProps }) {
-  if (status.message == null) return;
-
   return (
-    <p className={`w-full text-${status.message.color}`}>
-      {status.message.text}
+    <p
+      role="status"
+      className={`w-full ${status.message ? `text-${status.message.color}` : ""}`}
+    >
+      {status.message?.text}
     </p>
   );
 }

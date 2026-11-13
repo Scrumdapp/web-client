@@ -15,7 +15,7 @@ export function LogoutButton() {
   const { t } = useTranslation();
   return (
     <button
-      className="btn-nav-dropdown hover:text-red cursor-pointer"
+      className="btn-nav-dropdown hover:text-red cursor-pointer min-h-6 inline-flex items-center gap-1"
       type="button"
       onClick={handleLogout}
     >
