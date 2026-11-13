@@ -13,13 +13,13 @@ export type Feature =
 export interface Group extends PartialGroup {
   icon_preference?: string;
   enabled_features: Feature[];
-  member_count: number;
 }
 
 export interface PartialGroup {
   id: number;
   name: string;
   background_preference?: string;
+  member_count: number;
 }
 
 export interface CreateGroup {
