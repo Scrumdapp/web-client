@@ -66,6 +66,14 @@ export default {
             maxLength: "Group name cannot be longer than 64 characters.",
           },
         },
+        tribe: {
+          name: {
+            pattern: "Please enter a valid tribe name.",
+            required: "Please enter a tribe name.",
+            minLength: "Tribe name must be at least 3 characters long.",
+            maxLength: "Tribe name cannot be longer than 64 characters.",
+          },
+        },
 
         userId: {
           required: "User ID is required.",
@@ -157,6 +165,13 @@ export default {
         },
       },
 
+      tribe: {
+        notFound: {
+          title: "Tribe not found",
+          description: "The requested tribe could not be found.",
+        },
+      },
+
       trends: {
         notFound: {
           title: "Trends not found",
@@ -228,6 +243,14 @@ export default {
             required: "Vul een groepsnaam in.",
             minLength: "De groepsnaam moet minimaal 3 tekens bevatten.",
             maxLength: "De groepsnaam mag niet langer zijn dan 64 tekens.",
+          },
+        },
+        tribe: {
+          name: {
+            pattern: "Vul een geldige tribe naam in.",
+            required: "Vul een tribe naam in.",
+            minLength: "De tribe naam moet minimaal 3 tekens bevatten.",
+            maxLength: "De tribe naam mag niet langer zijn dan 64 tekens.",
           },
         },
 
@@ -321,6 +344,12 @@ export default {
         notFound: {
           title: "Groep niet gevonden",
           description: "De gevraagde groep is niet gevonden.",
+        },
+      },
+      tribe: {
+        notFound: {
+          title: "Tribe niet gevonden",
+          description: "De gevraagde tribe is niet gevonden.",
         },
       },
 

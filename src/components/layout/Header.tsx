@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
 import { useTranslation } from "react-i18next";
+import { hasRole, Role } from "../../js/utils/userPermissions.ts";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -11,7 +12,13 @@ export default function Header() {
   const links = [
     { to: "/", label: t("header.home"), target: "_self" },
     { to: "/groups", label: t("header.groups"), target: "_self" },
-  ];
+    {
+      to: "/tribes",
+      coachOnly: true,
+      label: t("header.tribes"),
+      target: "_self",
+    },
+  ].filter((link) => !link.coachOnly || hasRole(user, Role.Coach));
 
   return (
     <>
@@ -32,15 +39,18 @@ export default function Header() {
           </div>
 
           <div className="horizontal gap-4">
-            {links.map((link, i) => (
-              <Link
-                key={i}
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
                 to={link.to}
+                end
                 target={link.target}
-                className="btn py-1!"
+                className={({ isActive }) =>
+                  `btn py-1! ${isActive ? "bg-bg2" : ""}`
+                }
               >
                 {link.label}
-              </Link>
+              </NavLink>
             ))}
           </div>
 

@@ -19,6 +19,7 @@ export interface PartialGroup {
   id: number;
   name: string;
   background_preference?: string;
+  member_count: number;
 }
 
 export interface CreateGroup {
