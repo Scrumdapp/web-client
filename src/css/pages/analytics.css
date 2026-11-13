@@ -1,0 +1,28 @@
+.analytics-cal-grid {
+    @apply grid grid-cols-5 gap-1.5
+}
+
+.analytics-cal-cell {
+    @apply relative aspect-square rounded-lg flex flex-col items-center justify-center gap-0.5 font-bold text-bg_h
+}
+
+.analytics-cal-cell.no-status {
+    @apply border border-dashed border-bg2 text-gray
+}
+
+.analytics-cal-tip {
+    @apply hidden absolute bottom-[calc(100%+6px)] left-1/2 -translate-x-1/2 z-20 min-w-44 max-w-64 p-2 rounded-lg bg-bg border border-bg2 text-fg4 text-xs font-medium text-left shadow-lg pointer-events-none
+}
+
+.analytics-cal-tip.left {
+    @apply left-0 translate-x-0
+}
+
+.analytics-cal-tip.right {
+    @apply left-auto right-0 translate-x-0
+}
+
+.analytics-cal-cell:hover .analytics-cal-tip,
+.analytics-cal-cell:focus .analytics-cal-tip {
+    @apply block
+}

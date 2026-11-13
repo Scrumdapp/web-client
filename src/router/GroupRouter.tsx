@@ -3,6 +3,7 @@ import { ErrorScreen } from "../components/generic/ErrorScreen.tsx";
 import { ApiError } from "../js/hooks/api/apiError.ts";
 import { TrendsPage } from "../pages/groups/TrendsPage.tsx";
 import { GroupCalendarPage } from "../pages/groups/GroupCalendarPage.tsx";
+import { MyAnalyticsPage } from "../pages/groups/MyAnalyticsPage.tsx";
 import { SettingsPage } from "../pages/groups/SettingsPage.tsx";
 import { GroupCheckpointPageWrapper } from "../pages/groups/GroupCheckpointPageWrapper.tsx";
 
@@ -12,6 +13,7 @@ export function GroupRouter() {
       <Route index element={<GroupCheckpointPageWrapper />} />
       <Route path="trends" element={<TrendsPage />} />
       <Route path="calendar" element={<GroupCalendarPage />} />
+      <Route path="my-trends" element={<MyAnalyticsPage />} />
       <Route path="settings" element={<SettingsPage />} />
       <Route
         path="*"
