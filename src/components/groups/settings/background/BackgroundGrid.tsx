@@ -9,9 +9,9 @@ export function BackgroundGrid({
   handleUpdate: (id: string) => void;
 }) {
   return (
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-y-auto pt-2 pr-1 mb-4 md:grid-cols-2">
-        {backgrounds.map((id) => (
-          <BackgroundTile key={id} id={id} handleUpdate={handleUpdate} />
+    <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-y-auto pt-2 pr-1 mb-4 md:grid-cols-2">
+      {backgrounds.map((id) => (
+        <BackgroundTile key={id} id={id} handleUpdate={handleUpdate} />
       ))}
     </div>
   );
@@ -29,8 +29,8 @@ function BackgroundTile({
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-      <div className="relative h-full max-h-60 w-full aspect-4/3 rounded-lg">
-        {!isLoaded && (
+    <div className="relative h-full max-h-60 w-full aspect-4/3 rounded-lg">
+      {!isLoaded && (
         <div className="absolute inset-0 animate-pulse bg-bg2/30" />
       )}
 
@@ -43,9 +43,9 @@ function BackgroundTile({
 
       <div className="absolute right-1 bottom-1 md:right-4 md:bottom-4">
         <button
-            className="btn border bg-bg_h absolute right-1 bottom-1 md:right-4 md:bottom-4"
-            aria-label={`apply background ${id}`}
-            onClick={() => handleUpdate(id)}
+          className="btn border bg-bg_h absolute right-1 bottom-1 md:right-4 md:bottom-4"
+          aria-label={`apply background ${id}`}
+          onClick={() => handleUpdate(id)}
         >
           {t("settings.background.modal.apply")}
         </button>
