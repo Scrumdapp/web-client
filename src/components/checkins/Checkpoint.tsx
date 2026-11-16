@@ -106,7 +106,7 @@ function Checkpoint({
 }) {
   const modal = useModalState();
   const modalReadOnly = useModalState();
-  const users = useGroupUsers({ ignoreGhosts: true })
+  const users = useGroupUsers({ ignoreGhosts: true });
 
   const { t } = useTranslation();
 
