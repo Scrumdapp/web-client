@@ -287,7 +287,8 @@ function Checkpoint({
                       {item.impediment}
                     </p>
                   </td>
-                  <td className="border-t border-dotted py-2 horizontal gap-1 md:gap-2">
+                  <td className="border-t border-dotted py-2">
+                    <div className="horizontal gap-1 md:gap-2">
                     <button
                       className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
                       onClick={() => openReadOnly(item)}
@@ -308,6 +309,7 @@ function Checkpoint({
                         />
                       </button>
                     )}
+                    </div>
                   </td>
                 </tr>
               ))}
