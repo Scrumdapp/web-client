@@ -103,7 +103,7 @@ export function getRecentGroupCheckpointDates() {
 
 export function getGroupCheckpointDatesInMonth() {
   return createProcessor(
-    "getRecentGroupCheckpointDates",
+    "getRecentGroupCheckpointDatesInMonth",
     (groupId: number, yearMonth: string) => {
       return makeApiRequest<SessionDates>(
         "GET",
