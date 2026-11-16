@@ -17,6 +17,7 @@ import date from "./pages/date";
 import modal from "./pages/modal";
 import login from "./pages/login";
 import changelog from "./pages/changelog";
+import tribes from "./pages/tribes";
 
 type TranslationStrings = Record<string, unknown>;
 type PageModule = Record<string, TranslationStrings>;
@@ -38,6 +39,7 @@ const pages: PageModule[] = [
   modal,
   login,
   changelog,
+  tribes,
 ];
 
 const resources = pages.reduce<Resources>((acc, page) => {
