@@ -12,5 +12,5 @@ export function useGroupUsers() {
     update()
   }, [ctx])
 
-  return ctx.users
+  return ctx.users!
 }

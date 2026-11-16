@@ -21,12 +21,8 @@ import {
 } from "../../js/utils/colorUtils.ts";
 import EditCheckpointModal from "../modals/EditCheckpointModal.tsx";
 import ReadOnlyCheckpointModal from "../modals/ReadOnlyCheckpointModal.tsx";
-
-type CheckpointUser = {
-  user_id: number;
-  first_name: string;
-  last_name: string;
-};
+import { useGroupUsers } from "../../utility/groupUsers/useGroupUsers.ts";
+import { GroupUser } from "../../js/models/group.ts";
 
 type SessionCheckpointRow = GroupCheckpoint & {
   first_name: string;
@@ -36,7 +32,7 @@ type SessionCheckpointRow = GroupCheckpoint & {
 function useGroupCheckpoints(
   groupId: number,
   sessionId: number,
-  users: CheckpointUser[],
+  users: GroupUser[],
 ) {
   const [rows, setRows] = useState<SessionCheckpointRow[] | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
@@ -95,7 +91,6 @@ function Checkpoint({
   startTime,
   duration,
   sessionId,
-  users,
   currentUser,
   ownerId,
   isMostRecent,
@@ -105,13 +100,13 @@ function Checkpoint({
   startTime: number;
   duration: number;
   sessionId: number;
-  users: CheckpointUser[];
   currentUser: { id: number } | null | undefined;
   ownerId: number;
   isMostRecent?: boolean;
 }) {
   const modal = useModalState();
   const modalReadOnly = useModalState();
+  const users = useGroupUsers()
 
   const { t } = useTranslation();
 
