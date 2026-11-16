@@ -18,7 +18,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
   const createGroupCommand = useApi(ScrumdappApi.createGroup());
 
   return (
-    <Modal state={state}>
+    <Modal state={state} className="mx-auto max-w-xs">
       <ModalHeadText>{t("groups.newgroup")}</ModalHeadText>
       <form
         id="create-group-form"
