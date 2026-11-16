@@ -2,7 +2,7 @@ import { memo } from "react";
 import { ScrumdappApi } from "../../../js/hooks/api/scrumdappApi";
 import { useApiComponent } from "../../../js/hooks/api/useApiComponent";
 import { useGroup } from "../../../js/context/group/useGroup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getYearMonth,
   nextMonth,
@@ -11,17 +11,14 @@ import {
   previousMonth,
 } from "../../../js/utils/timeUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faArrowRight,
-  faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { Select } from "../../generic/Select";
 
 export const CalendarSelector = memo(
   ({ currentYearMonth }: { currentYearMonth: string }) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const ym = parseYearMonth(currentYearMonth);
     const group = useGroup();
     const GetMonthsComponent = useApiComponent(
@@ -31,6 +28,12 @@ export const CalendarSelector = memo(
     const monthLabel = (date: Date) => {
       const key = parseMonthText(date.getUTCMonth());
       return key ? t(key) : "";
+    };
+
+    const goToMonth = (month: string | null) => {
+      if (month != null) {
+        navigate(`/groups/${group.id}/calendar?month=${month}`);
+      }
     };
 
     return (
@@ -56,30 +59,17 @@ export const CalendarSelector = memo(
               </div>
 
               <div className="flex-1 flex justify-center items-center">
-                <Menu as="div" className="relative inline-block">
-                  <MenuButton>
-                    <span className="cursor-pointer btn border w-25 md:w-35 flex items-center justify-between gap-2 truncate">
-                      {monthLabel(ym)} <FontAwesomeIcon icon={faChevronDown} />
-                    </span>
-                  </MenuButton>
-                  <MenuItems
-                    transition
-                    className="absolute z-10 mt-2 border rounded-md bg-bg w-25 md:w-35"
-                  >
-                    <div>
-                      {months.map((m) => (
-                        <MenuItem
-                          key={m}
-                          as={Link}
-                          to={`/groups/${group.id}/calendar?month=${m}`}
-                          className="btn vertical items-start! text-left! w-35"
-                        >
-                          {monthLabel(parseYearMonth(m))}
-                        </MenuItem>
-                      ))}
-                    </div>
-                  </MenuItems>
-                </Menu>
+                <Select
+                  label={t("calendar.month")}
+                  hideLabel
+                  value={currentYearMonth}
+                  onChange={goToMonth}
+                  buttonContent={<span>{monthLabel(ym)}</span>}
+                  options={months.map((m) => ({
+                    value: m,
+                    label: monthLabel(parseYearMonth(m)),
+                  }))}
+                />
               </div>
 
               <div className="flex-1 flex justify-end">
