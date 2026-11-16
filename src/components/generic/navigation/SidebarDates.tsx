@@ -15,7 +15,7 @@ export function SidebarDates({
   const GetDatesApiComponent = useApiComponent(
     scope === "tribe"
       ? ScrumdappApi.getRecentTribeCheckpointDates()
-      : ScrumdappApi.getRecentCheckpointDates(),
+      : ScrumdappApi.getRecentGroupCheckpointDates(),
   );
 
   return (
