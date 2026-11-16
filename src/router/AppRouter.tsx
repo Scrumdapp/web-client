@@ -15,6 +15,7 @@ export default function AppRouter() {
     <Routes>
       <Route path="" element={<Navigate to="/groups" replace />} />
       <Route path="/groups" element={<Groups />} />
+      <Route path="/tribes" element={<Tribes />} />
       <Route path="/groups/:groupId/*" element={<GroupLayout />} />
       <Route path="/tribes" element={<Tribes />} />
       <Route path="/tribes/:tribeId/*" element={<TribeLayout />} />
