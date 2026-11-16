@@ -10,9 +10,7 @@ export type Feature =
   | "checkins.checkout_comment"
   | "checkins.obstacle_comment";
 
-export interface Tribe extends PartialTribe {
-  icon_preference?: string;
-}
+export interface Tribe extends PartialTribe {}
 
 export interface PartialTribe {
   id: number;

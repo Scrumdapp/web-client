@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { GroupProvider } from "../../js/context/group/GroupProvider.tsx";
-import { GroupSidebar } from "./GroupSidebar.tsx";
 import { groupContext } from "../../js/context/group/groupContext.ts";
 import { GroupRouter } from "../../router/GroupRouter.tsx";
 import { GroupSidebarDates } from "./GroupSidebarDates.tsx";
@@ -10,7 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { t } from "i18next";
 import { useModalState } from "../../js/hooks/useModalState.ts";
-import GroupSidebarModal from "../modals/GroupSidebarModal.tsx";
+import { NavigationSidebar } from "../generic/NavigationSidebar.tsx";
+import NavigationSidebarModal from "../modals/NavigationSidebarModal.tsx";
 
 export function GroupLayout() {
   const modal = useModalState();
@@ -20,6 +20,8 @@ export function GroupLayout() {
   if (isNaN(groupId)) return <ErrorPage />;
 
   const GroupConsumer = groupContext.Consumer;
+
+  const navigationBasePath = `/groups/${groupId}`;
 
   return (
     <GroupProvider groupId={groupId}>
@@ -43,13 +45,23 @@ export function GroupLayout() {
                 </div>
                 <h1> {ctx!!.group!!.name} </h1>
               </div>
-              <GroupSidebarModal modal={modal} groupName={ctx!!.group!!.name} />
+              <NavigationSidebarModal modal={modal} title={ctx!!.group!!.name}>
+                <NavigationSidebar
+                  scope="group"
+                  basePath={navigationBasePath}
+                  onNavigate={modal.close}
+                />
+              </NavigationSidebarModal>
             </>
           )}
         </GroupConsumer>
         <div className="flex gap-4">
           <div className="hidden md:flex flex-col gap-4">
-            <GroupSidebar />
+            <NavigationSidebar
+              scope="group"
+              basePath={navigationBasePath}
+              className="card"
+            />
             <GroupSidebarDates />
           </div>
           <div className="flex-1 flex flex-col">

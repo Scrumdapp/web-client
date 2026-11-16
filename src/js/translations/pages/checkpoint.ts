@@ -44,13 +44,6 @@ export default {
         close: "Close",
         menuClose: "Close menu",
       },
-      sidebar: {
-        today: "Today",
-        calendar: "Calendar",
-        trends: "Trends",
-        settings: "Settings",
-        recent: "Recent",
-      },
       attendanceOptions: {
         onTime: "On Time",
         online: "Online",
@@ -113,13 +106,6 @@ export default {
         readmore: "Lees meer",
         close: "Sluiten",
         menuClose: "Sluit menu",
-      },
-      sidebar: {
-        today: "Vandaag",
-        calendar: "Kalender",
-        trends: "Trends",
-        settings: "Instellingen",
-        recent: "Recent",
       },
       attendanceOptions: {
         onTime: "Op Tijd",

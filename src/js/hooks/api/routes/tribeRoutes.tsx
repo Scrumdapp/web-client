@@ -14,3 +14,11 @@ export function createTribe() {
     });
   });
 }
+
+export function getTribe() {
+  return createProcessor("getTribe", (tribeId: number) => {
+    return makeApiRequest<Tribe>("GET", "/tribes/{id}", {
+      params: { "{id}": tribeId.toString() },
+    });
+  });
+}
