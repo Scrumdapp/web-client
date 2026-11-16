@@ -1,20 +1,31 @@
-import { StompdappSubscriber } from "./stompdappSubscription"
+import { StompdappSubscriber } from "./stompdappSubscription";
 
-export type StompdappListener<T> = (cb: T) => void
-export type StompdappSubscriberFactoryFn<TInput extends any[], TOutput> = (...inputs: [...TInput, cb: StompdappListener<TOutput>]) => StompdappSubscriber
+export type StompdappListener<T> = (cb: T) => void;
+export type StompdappSubscriberProducer<TInput extends unknown[], TOutput> = (...inputs: [...TInput, cb: StompdappListener<TOutput>]) => StompdappSubscriber;
 
-export type StompdappSubscriberProducer<TOutput> = (cb: StompdappListener<TOutput>) => StompdappSubscriber
-export type StompdappSubscriberFactory<TInput extends any[], TOutput> = (...inputs: TInput) => StompdappSubscriberProducer<TOutput>
+export type StompdappSubscriberProducerFactory<TOutput> = ((cb: StompdappListener<TOutput>) => StompdappSubscriber) & { identity: string };
+export type StompdappSubscriberFactory<TInput extends unknown[], TOutput> = (...inputs: TInput) => StompdappSubscriberProducerFactory<TOutput>;
 
-export class StompdappSubscriberFactoryBuilder<TInput extends any[], TOutput> {
-  private fn: StompdappSubscriberFactoryFn<TInput, TOutput>
+export function stompdappSubscriberFactoryBuilder<
+  TInput extends unknown[],
+  TOutput,
+>(
+  fn: StompdappSubscriberProducer<TInput, TOutput>,
+): StompdappSubscriberFactory<TInput, TOutput> {
+  return (...inputs: TInput) =>
+    stompdappSubscriberProducerFactoryBuilder(inputs, fn);
+}
 
-  constructor(fn: StompdappSubscriberFactoryFn<TInput, TOutput>) {
-    this.build = this.build.bind(this)
-    this.fn = fn
-  }
+export function stompdappSubscriberProducerFactoryBuilder<
+  TInput extends unknown[],
+  TOutput,
+>(
+  inputs: TInput,
+  fn: StompdappSubscriberProducer<TInput, TOutput>,
+): StompdappSubscriberProducerFactory<TOutput> {
+  const product = ((cb: StompdappListener<TOutput>) =>
+    fn(...inputs, cb)) as StompdappSubscriberProducerFactory<TOutput>;
+  product.identity = JSON.stringify(inputs);
 
-  build(): StompdappSubscriberFactory<TInput, TOutput> {
-    return (...inputs: TInput) => (cb: StompdappListener<TOutput>) => this.fn(...inputs, cb)
-  }
+  return product;
 }

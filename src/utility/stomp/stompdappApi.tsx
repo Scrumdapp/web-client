@@ -1,6 +1,6 @@
-import { StompdappSubscription } from "./stompdappSubscription";
+import { StompdappSubscriber } from "./stompdappSubscription";
 import {
-  StompdappSubscriptionFactoryBuilder,
+  stompdappSubscriberFactoryBuilder,
   StompdappListener,
 } from "./stompdappSubscriptionFactory";
 import { jsonBodyConverter } from "./converters/jsonBodyConverter";
@@ -10,12 +10,12 @@ export interface Test {
 }
 
 export const StompdappApi = {
-  groupUserAdded: new StompdappSubscriptionFactoryBuilder(
+  groupUserAdded: stompdappSubscriberFactoryBuilder(
     (groupId: number, cb: StompdappListener<Test>) =>
-      new StompdappSubscription(
+      new StompdappSubscriber(
         `/groups/${groupId}/users.added`,
         {},
         jsonBodyConverter(cb),
       ),
-  ).build(),
+  ),
 };
