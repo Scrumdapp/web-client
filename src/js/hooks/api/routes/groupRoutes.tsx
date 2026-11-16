@@ -1,4 +1,8 @@
-import { createProcessor, makeApiRequest } from "../apiUtils.ts";
+import {
+  createProcessor,
+  makeApiRequest,
+  invalidateCache,
+} from "../apiUtils.ts";
 import {
   CreateGroup,
   Group,
@@ -8,7 +12,9 @@ import {
 
 export function getGroups() {
   return createProcessor("getGroups", () => {
-    return makeApiRequest<PartialGroup[]>("GET", "/groups");
+    return makeApiRequest<PartialGroup[]>("GET", "/groups", {
+      cache: { enabled: true, staleTime: 1000 * 60 * 5 },
+    });
   });
 }
 
@@ -16,6 +22,9 @@ export function createGroup() {
   return createProcessor("createGroup", (group: CreateGroup) => {
     return makeApiRequest<Group>("POST", "/groups", {
       body: group,
+    }).then((result) => {
+      invalidateCache("/groups");
+      return result;
     });
   });
 }
@@ -24,6 +33,7 @@ export function getGroup() {
   return createProcessor("getGroup", (groupId: number) => {
     return makeApiRequest<Group>("GET", "/groups/{id}", {
       params: { "{id}": groupId.toString() },
+      cache: { enabled: true, staleTime: 1000 * 60 * 5 },
     });
   });
 }
@@ -35,6 +45,10 @@ export function updateGroup() {
       return makeApiRequest<Group>("PATCH", "/groups/{id}", {
         body: newData,
         params: { "{id}": groupId.toString() },
+      }).then((result) => {
+        invalidateCache("/groups/{id}", { "{id}": groupId.toString() });
+        invalidateCache("/groups");
+        return result;
       });
     },
   );
