@@ -7,6 +7,8 @@ import ErrorPage from "../../pages/ErrorPage";
 import { ErrorScreen } from "../../components/generic/ErrorScreen";
 import { LoadScreen } from "../../components/generic/LoadScreen";
 import { groupUserContext, GroupUsersContextData } from "./groupUserContext";
+import { useStompdappSubscription } from "../stomp/useStompdappSubscription";
+import { StompdappApi } from "../stomp/stompdappApi";
 
 export function GroupUsersProvider({ children }: PropsWithChildren) {
   const group = useGroup();
@@ -24,13 +26,12 @@ export function GroupUsersProvider({ children }: PropsWithChildren) {
 
   const ref = useRef(new GroupUsersContextData(refresh));
 
-  useEffect(() => {
-    ref.current.setRefresh(refresh);
-  }, [refresh]);
+  useStompdappSubscription(StompdappApi.groupUserAdded(group.id), (msg) => {
+    refresh()
+  })
 
-  useEffect(() => {
-    refresh();
-  }, [group.id]);
+  useEffect(() => { ref.current.setRefresh(refresh); }, [refresh]);
+  useEffect(() => { refresh(); }, [group.id]);
 
   if (getGroupUsers.error) {
     return getGroupUsers.error?.status === 404 ? (
