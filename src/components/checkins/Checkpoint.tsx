@@ -208,14 +208,18 @@ function Checkpoint({
           </div>
         </button>
         <div className="flex items-center gap-3">
-          <button
-            className="btn border"
-            onClick={() => fetch().catch(console.error)}
-            disabled={rowsLoading}
-          >
-            <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" />{" "}
-            {t("checkpoint.refresh")}
-          </button>
+          {isLocked ? (
+            <></>
+          ) : (
+            <button
+              className="btn border"
+              onClick={() => fetch().catch(console.error)}
+              disabled={rowsLoading}
+            >
+              <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" />{" "}
+              {t("checkpoint.refresh")}
+            </button>
+          )}
         </div>
       </div>
       <p className="pt-1 md:pt-0">
