@@ -29,7 +29,7 @@ export const CalendarSelector = memo(
     );
 
     const monthLabel = (date: Date) => {
-      const key = parseMonthText(date.getUTCMonth());
+      const key = parseMonthText(date.getMonth());
       return key ? t(key) : "";
     };
 
@@ -38,7 +38,7 @@ export const CalendarSelector = memo(
         <GetMonthsComponent input={[group.id]}>
           {(months) => (
             <>
-              <div className="flex-1 flex justify-start ">
+              <div className="flex-1 flex justify-start">
                 {months.some((it) => it == getYearMonth(previousMonth(ym))) ? (
                   <Link
                     className="btn"
