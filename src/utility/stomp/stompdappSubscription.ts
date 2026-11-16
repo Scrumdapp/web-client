@@ -1,29 +1,31 @@
 import { IFrame, StompSubscription } from "@stomp/stompjs";
 
-export type StompdappSubscriptionCallback = (data: any) => void;
-export enum StompdappSubscriptionStatus {
+export type StompdappSubscribtionCallback = (data: any) => void;
+export enum StompdappSubscriberStatus {
   Subscribed,
   ClientDisconnected,
   Unsubscribed,
 }
 
-export class StompdappSubscription {
+export class StompdappSubscriber {
   readonly topic: string;
   readonly headers: Record<string, string>;
-  readonly callback: StompdappSubscriptionCallback;
+  readonly callback: StompdappSubscribtionCallback;
 
   subscription: StompSubscription | null = null;
-  status: StompdappSubscription = StompdappSubscriptionStatus.Unsubscribed;
+  status: StompdappSubscriber = StompdappSubscriberStatus.Unsubscribed;
 
   constructor(
     topic: string,
     headers: Record<string, string>,
-    callback: StompdappSubscriptionCallback,
+    callback: StompdappSubscribtionCallback,
   ) {
     this.topic = topic;
     this.headers = headers;
     this.callback = callback;
   }
 
-  handeCallback(frame: IFrame) {}
+  handeCallback(frame: IFrame) {
+    this.callback(frame);
+  }
 }
