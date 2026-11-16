@@ -2,7 +2,7 @@ import { StompdappSubscriber } from "./stompdappSubscription";
 import {
   stompdappSubscriberFactoryBuilder,
   StompdappListener,
-} from "./stompdappSubscriptionFactory";
+} from "./stompdappSubscriberFactory";
 import { jsonBodyConverter } from "./converters/jsonBodyConverter";
 
 export interface Test {

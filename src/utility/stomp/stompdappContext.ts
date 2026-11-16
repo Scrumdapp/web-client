@@ -1,7 +1,7 @@
 import { Client, IFrame } from "@stomp/stompjs";
 import { createContext, useContext } from "react";
 import { EventChannel } from "../../js/events/eventChannel";
-import { StompdappSubscription } from "./stompdappSubscription";
+import { StompdappSubscriber } from "./stompdappSubscription";
 
 export class StompdappClient {
   readonly endpoint: string;
@@ -11,23 +11,23 @@ export class StompdappClient {
   readonly onDisconnected = new EventChannel<IFrame>();
 
   private client: Client | null = null;
-  private subscriptions: Set<StompdappSubscription> = new Set();
+  private subscriptions: Set<StompdappSubscriber> = new Set();
 
   constructor(endpoint: string, headers: Record<string, string>) {
     this.endpoint = endpoint;
     this.initialHeaders = headers;
   }
 
-  subscribe(subscription: StompdappSubscription) {
-    if (!this.subscriptions.has(subscription)) return
-    this.subscriptions.add(subscription)
-    this.subscribeToTopic(subscription)
+  subscribe(subscription: StompdappSubscriber) {
+    if (!this.subscriptions.has(subscription)) return;
+    this.subscriptions.add(subscription);
+    this.subscribeToTopic(subscription);
   }
 
-  unsubscribe(subscription: StompdappSubscription) {
-    if (this.subscriptions.has(subscription)) return
-    this.unsubscribeFromTopic(subscription)
-    this.subscriptions.delete(subscription)
+  unsubscribe(subscription: StompdappSubscriber) {
+    if (this.subscriptions.has(subscription)) return;
+    this.unsubscribeFromTopic(subscription);
+    this.subscriptions.delete(subscription);
   }
 
   init() {
@@ -48,13 +48,17 @@ export class StompdappClient {
     this.client = null;
   }
 
-  private subscribeToTopic(subscription: StompdappSubscription) {
-    const stompSub = this.client!.subscribe(subscription.topic, subscription.handeCallback.bind(subscription), subscription.headers)
-    subscription.subscription = stompSub
+  private subscribeToTopic(subscription: StompdappSubscriber) {
+    const stompSub = this.client!.subscribe(
+      subscription.topic,
+      subscription.handeCallback.bind(subscription),
+      subscription.headers,
+    );
+    subscription.subscription = stompSub;
   }
 
-  private unsubscribeFromTopic(subscription: StompdappSubscription) {
-    subscription.subscription?.unsubscribe()
+  private unsubscribeFromTopic(subscription: StompdappSubscriber) {
+    subscription.subscription?.unsubscribe();
   }
 }
 
