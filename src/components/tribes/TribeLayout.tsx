@@ -11,13 +11,18 @@ import { t } from "i18next";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import { TribeProvider } from "../../js/context/tribe/TribeProvider.tsx";
 import NavigationSidebarModal from "../modals/NavigationSidebarModal.tsx";
+import { useUser } from "../../js/context/user/useUser.ts";
+import { hasRole, Role } from "../../js/utils/userPermissions.ts";
 
 export function TribeLayout() {
   const modal = useModalState();
   const params = useParams();
   const tribeId = parseInt(params.tribeId ?? "nan");
+  const user = useUser();
 
   if (isNaN(tribeId)) return <ErrorPage />;
+
+  if (!hasRole(user, Role.Coach)) return <ErrorPage />;
 
   const TribeConsumer = tribeContext.Consumer;
 

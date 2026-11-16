@@ -29,5 +29,5 @@ export function TribeCheckpointPage({
   next.setDate(next.getDate() + 1);
   const nextDate = toScrumdappDate(next);
 
-  return <div className="space-y-3">Conrtent</div>;
+  return <div className="space-y-3">Content placeholder</div>;
 }
