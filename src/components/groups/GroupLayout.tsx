@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { GroupProvider } from "../../js/context/group/GroupProvider.tsx";
 import { groupContext } from "../../js/context/group/groupContext.ts";
 import { GroupRouter } from "../../router/GroupRouter.tsx";
-import { GroupSidebarDates } from "./GroupSidebarDates.tsx";
 import { BackgroundOverride } from "../../js/context/background/BackgroundOverride.tsx";
 import ErrorPage from "../../pages/ErrorPage.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +10,7 @@ import { t } from "i18next";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import { NavigationSidebar } from "../generic/NavigationSidebar.tsx";
 import NavigationSidebarModal from "../modals/NavigationSidebarModal.tsx";
+import { SidebarDates } from "../generic/navigation/SidebarDates.tsx";
 
 export function GroupLayout() {
   const modal = useModalState();
@@ -62,7 +62,7 @@ export function GroupLayout() {
               basePath={navigationBasePath}
               className="card"
             />
-            <GroupSidebarDates />
+            <SidebarDates scope="group" entityId={groupId} />
           </div>
           <div className="flex-1 flex flex-col">
             <GroupRouter />

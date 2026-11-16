@@ -1,3 +1,5 @@
+import { Group } from "./group";
+
 export type Feature =
   | "checkins"
   | "checkins.presence"
@@ -10,7 +12,9 @@ export type Feature =
   | "checkins.checkout_comment"
   | "checkins.obstacle_comment";
 
-export interface Tribe extends PartialTribe {}
+export interface Tribe extends PartialTribe {
+  groups: Group[];
+}
 
 export interface PartialTribe {
   id: number;
@@ -19,6 +23,7 @@ export interface PartialTribe {
   group_count: number;
   member_count: number;
   is_active: boolean;
+  owner_id: number;
 }
 
 export interface CreateTribe {

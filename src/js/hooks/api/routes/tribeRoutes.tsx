@@ -1,5 +1,6 @@
 import { createProcessor, makeApiRequest } from "../apiUtils.ts";
 import { CreateTribe, Tribe, PartialTribe } from "../../../models/tribe.ts";
+import { SessionDates } from "../../../models/checkpoint.ts";
 
 export function getTribes() {
   return createProcessor("getTribes", () => {
@@ -21,4 +22,20 @@ export function getTribe() {
       params: { "{id}": tribeId.toString() },
     });
   });
+}
+
+export function getRecentTribeCheckpointDates() {
+  return createProcessor(
+    "getRecentTribeCheckpointDates",
+    (tribeId: number, limit: number) => {
+      return makeApiRequest<SessionDates>(
+        "GET",
+        "/tribes/{tribeId}/sessions/dates",
+        {
+          params: { "{tribeId}": tribeId },
+          query: { limit },
+        },
+      );
+    },
+  );
 }

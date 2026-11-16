@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { NavigationSidebar } from "../generic/NavigationSidebar.tsx";
 import { tribeContext } from "../../js/context/tribe/tribeContext.ts";
 import { TribeRouter } from "../../router/TribeRouter.tsx";
-//import { GroupSidebarDates } from "../groups/GroupSidebarDates.tsx";
+import { SidebarDates } from "../generic/navigation/SidebarDates.tsx";
 import { BackgroundOverride } from "../../js/context/background/BackgroundOverride.tsx";
 import ErrorPage from "../../pages/ErrorPage.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -67,7 +67,7 @@ export function TribeLayout() {
               basePath={navigationBasePath}
               className="card"
             />
-            {/*<GroupSidebarDates />*/}
+            <SidebarDates scope="tribe" entityId={tribeId} />
           </div>
           <div className="flex-1 flex flex-col">
             <TribeRouter />
