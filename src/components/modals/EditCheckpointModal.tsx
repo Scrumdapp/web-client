@@ -73,7 +73,7 @@ export default function EditCheckpointModal({
   const userName = row ? `${row.first_name} ${row.last_name}` : "";
 
   return (
-    <Modal state={modal} className="mx-auto">
+    <Modal state={modal}>
       <div className="space-y-5">
         <ModalHeadText>
           {t("checkpoint.modalheader", { name: userName })}
