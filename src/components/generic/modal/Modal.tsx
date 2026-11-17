@@ -13,7 +13,7 @@ interface ModalProps {
 
 export default function Modal({
   state,
-  backgroundClickClose = true,
+  backgroundClickClose = false,
   children,
   className,
   dialogClassName,
