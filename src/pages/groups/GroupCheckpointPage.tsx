@@ -68,6 +68,8 @@ export function GroupCheckpointPage({
     getCheckpointSessions.runCommand(group.id, { date });
   };
 
+  const isCurrent = date === currentDate;
+
   return (
     <div className="space-y-3">
       <title>{group.name ? `${group.name} | Scrumdapp` : "Scrumdapp"}</title>
@@ -85,17 +87,23 @@ export function GroupCheckpointPage({
             </span>
             &nbsp;{date}
           </h2>
-          <Link
-            to={`/groups/${group.id}?date=${nextDate}`}
-            className={`btn ${date === currentDate ? "opacity-50 pointer-events-none" : ""}`}
-            aria-disabled={date === currentDate}
-            tabIndex={date === currentDate ? -1 : undefined}
-            onClick={(e) => {
-              if (date === currentDate) e.preventDefault();
-            }}
+          <span
+            className={
+              isCurrent ? "cursor-not-allowed inline-block" : "contents"
+            }
           >
-            <FontAwesomeIcon icon={faChevronDown} className="rotate-270" />
-          </Link>
+            <Link
+              to={`/groups/${group.id}?date=${nextDate}`}
+              className={`btn ${isCurrent ? "opacity-50 pointer-events-none" : ""}`}
+              aria-disabled={isCurrent}
+              tabIndex={isCurrent ? -1 : undefined}
+              onClick={(e) => {
+                if (isCurrent) e.preventDefault();
+              }}
+            >
+              <FontAwesomeIcon icon={faChevronDown} className="rotate-270" />
+            </Link>
+          </span>
         </div>
         <ShowIf condition={currentDate == date}>
           <button className="btn border p-1 md:p-2" onClick={modal.open}>
