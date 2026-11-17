@@ -44,10 +44,10 @@ export default {
           "Databases: All information and backups of this information are stored on databases hosted within the Open-ICT/TandemIt cloud environment.",
       },
       text12:
-        "If you have questions about this privacy notice, your personal information or how Scrumdapp handles information, please reach out at",
-      text13: "or on",
-      link1: " info@scrumdapp.com ",
-      link2: " our contact page",
+        "If you have questions about this privacy notice, your personal information or how Scrumdapp handles information, please reach out at ",
+      text13: " or on ",
+      link1: "info@scrumdapp.com",
+      link2: "our contact page",
     },
   },
   nl: {
@@ -95,10 +95,10 @@ export default {
           "Databases: Alle informatie en back-ups hiervan worden opgeslagen op databases binnen de Open-ICT/TandemIt cloudomgeving.",
       },
       text12:
-        "Als u vragen heeft over deze privacyverklaring, uw persoonlijke gegevens of hoe Scrumdapp informatie verwerkt, neem dan gerust contact met ons op via",
-      text13: "of op",
-      link1: " info@scrumdapp.com ",
-      link2: " onze contactpagina",
+        "Als u vragen heeft over deze privacyverklaring, uw persoonlijke gegevens of hoe Scrumdapp informatie verwerkt, neem dan gerust contact met ons op via ",
+      text13: " of op ",
+      link1: "info@scrumdapp.com",
+      link2: "onze contactpagina",
     },
   },
 };

@@ -40,9 +40,15 @@ export function Checkbox({
   return (
     <label className={clsx("checkbox-container w-full", className)}>
       {labelKey && t(labelKey)}
-      <input type={type} checked={v} onChange={changed} {...inputProps} />
-      <span className="checkmark">
-        <FontAwesomeIcon icon={checked ? faCheck : faX} />
+      <input
+        type={type}
+        name={name}
+        checked={v}
+        onChange={changed}
+        {...inputProps}
+      />
+      <span className="checkmark" aria-hidden="true">
+        <FontAwesomeIcon icon={v ? faCheck : faX} />
       </span>
     </label>
   );

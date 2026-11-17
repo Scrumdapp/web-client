@@ -21,17 +21,17 @@
     --color-blue:   #83a598;
     --color-purple: #d3869b;
     --color-aqua:   #8ec07c;
-    --color-gray:   #928374;
+    --color-gray:   #a39382;
     --color-orange: #fe8019;
 
-    --color-red-dim:    #cc2412;
+    --color-red-dim:    #d12714;
     --color-green-dim:  #98971a;
     --color-yellow-dim: #d79921;
     --color-blue-dim:   #458588;
     --color-purple-dim: #b16286;
     --color-aqua-dim:   #689d6a;
     --color-gray-dim:   #a89984;
-    --color-orange-dim: #d65d0e;
+    --color-orange-dim: #e36c10;
 
     --breakpoint-*: initial;
     --breakpoint-sm: 500px;

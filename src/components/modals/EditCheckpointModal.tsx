@@ -14,6 +14,8 @@ import {
   GroupCheckpoint,
   SessionCheckpointRow,
 } from "../../js/models/checkpoint.ts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const updateCheckpointProcessor = ScrumdappApi.updateGroupCheckpoint();
 
@@ -79,8 +81,11 @@ export default function EditCheckpointModal({
           {t("checkpoint.modalheader", { name: userName })}
         </ModalHeadText>
         <div className="flex flex-col space-y-2 w-full">
-          <label>{t("checkpoint.attendance")}</label>
-          <AttendanceDropDownMenu value={presence} onChange={setPresence} />
+          <AttendanceDropDownMenu
+            label={t("checkpoint.attendance")}
+            value={presence}
+            onChange={setPresence}
+          />
           <FieldApiErrorMessage
             errors={error?.errors ?? null}
             field="presence"
@@ -124,6 +129,10 @@ export default function EditCheckpointModal({
             type="button"
             disabled={loading}
           >
+            <FontAwesomeIcon
+              icon={loading ? faSpinner : faCheck}
+              spin={loading}
+            />
             {loading ? t("checkpoint.saving") : t("checkpoint.apply")}
           </button>
         </ModalActionRow>

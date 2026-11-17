@@ -1,9 +1,15 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
+import { ModalTitleIdContext } from "./ModalContext.tsx";
 
 interface ModalHeadTextProps {
   children?: ReactNode;
 }
 
 export default function ModalHeadText({ children }: ModalHeadTextProps) {
-  return <h2 className="text-fg mb-4">{children}</h2>;
+  const titleId = useContext(ModalTitleIdContext);
+  return (
+    <h2 id={titleId} className="text-fg mb-4">
+      {children}
+    </h2>
+  );
 }

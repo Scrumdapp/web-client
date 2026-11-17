@@ -23,7 +23,7 @@
 }
 
 .btn-attendance-dropdown {
-  @apply block px-2 focus:border-dashed text-sm data-focus:bg-bg2 data-focus:text-white cursor-pointer w-full text-left;
+  @apply block px-2 text-sm cursor-pointer w-full text-left rounded-sm data-focus:underline data-focus:outline-2 data-focus:outline-dotted data-focus:outline-fg data-focus:-outline-offset-2 data-selected:font-bold;
 }
 
 .btn:disabled {

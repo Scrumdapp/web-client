@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useState, KeyboardEvent, MouseEvent } from "react";
 import {
   faStar as faStarSolid,
   faStarHalfStroke,
@@ -6,38 +6,30 @@ import {
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getStarsColor } from "../../../js/utils/colorUtils.ts";
+import { useTranslation } from "react-i18next";
 
 type StarsInputFieldProps = {
   value?: number | null;
   onChange?: (value: number) => void;
   max?: number;
+  labelId?: string;
+  describedBy?: string;
 };
 
 const POINTS_PER_STAR = 2;
-
-function useThemeColor(varName: string): string {
-  const [color, setColor] = useState("#928374");
-
-  useEffect(() => {
-    const resolved = getComputedStyle(document.documentElement)
-      .getPropertyValue(varName)
-      .trim();
-    if (resolved) setColor(resolved);
-  }, [varName]);
-
-  return color;
-}
 
 export function StarsInputField({
   value = null,
   onChange,
   max = 5,
+  labelId,
+  describedBy,
 }: StarsInputFieldProps) {
+  const { t, i18n } = useTranslation();
   const [localValue, setLocalValue] = useState<number | null>(value);
   const [hoverValue, setHoverValue] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  const colorEmpty = useThemeColor("--color-fg4");
+  const maxValue = max * POINTS_PER_STAR;
 
   useEffect(() => {
     setLocalValue(value);
@@ -46,14 +38,13 @@ export function StarsInputField({
   const displayValue = hoverValue ?? localValue ?? 0;
 
   const updateValue = (newValue: number) => {
-    setLocalValue(newValue);
-    if (onChange != null) {
-      onChange(newValue);
-    }
+    const clamped = Math.min(maxValue, Math.max(0, newValue));
+    setLocalValue(clamped);
+    onChange?.(clamped);
   };
 
   const getValueFromEvent = (
-    e: React.MouseEvent<HTMLButtonElement>,
+    e: MouseEvent<HTMLSpanElement>,
     starIndex: number,
   ): number => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -69,10 +60,56 @@ export function StarsInputField({
     return faStarRegular;
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const current = localValue ?? 0;
+    let next: number | null = null;
+    switch (e.key) {
+      case "ArrowRight":
+      case "ArrowUp":
+        next = current + 1;
+        break;
+      case "ArrowLeft":
+      case "ArrowDown":
+        next = current - 1;
+        break;
+      case "PageUp":
+        next = current + POINTS_PER_STAR;
+        break;
+      case "PageDown":
+        next = current - POINTS_PER_STAR;
+        break;
+      case "Home":
+        next = 0;
+        break;
+      case "End":
+        next = maxValue;
+        break;
+    }
+    if (next == null) return;
+    e.preventDefault();
+    updateValue(next);
+  };
+
+  const valueText =
+    localValue == null
+      ? t("a11y.checkpoint.noRating")
+      : t("a11y.checkpoint.rating", {
+          value: (localValue / POINTS_PER_STAR).toLocaleString(i18n.language),
+          max,
+        });
+
   return (
     <div
-      ref={containerRef}
-      className="flex items-center gap-1 w-fit"
+      role="slider"
+      tabIndex={0}
+      aria-labelledby={labelId}
+      aria-describedby={describedBy}
+      aria-valuemin={0}
+      aria-valuemax={maxValue}
+      aria-valuenow={localValue ?? 0}
+      aria-valuetext={valueText}
+      onKeyDown={handleKeyDown}
+      className="flex items-center gap-1 w-fit rounded-md"
       onMouseLeave={() => setHoverValue(null)}
     >
       {Array.from({ length: max }, (_, i) => i).map((starIndex) => {
@@ -80,20 +117,19 @@ export function StarsInputField({
         const isFilled = displayValue >= starFullValue - 1;
 
         return (
-          <button
+          <span
             key={starIndex}
-            type="button"
-            className="cursor-pointer text-2xl focus:outline-none"
+            aria-hidden="true"
+            className="cursor-pointer text-2xl"
             onMouseMove={(e) => setHoverValue(getValueFromEvent(e, starIndex))}
             onClick={(e) => updateValue(getValueFromEvent(e, starIndex))}
-            aria-label={`Rate ${starIndex + 1} out of ${max}`}
           >
             <span
-              className={`inline-block transition-transform hover:scale-110 ${isFilled ? getStarsColor(displayValue) : colorEmpty}`}
+              className={`inline-block transition-transform hover:scale-110 ${isFilled ? getStarsColor(displayValue) : "text-fg4"}`}
             >
               <FontAwesomeIcon icon={getStarIcon(starIndex)} />
             </span>
-          </button>
+          </span>
         );
       })}
     </div>

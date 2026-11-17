@@ -17,6 +17,7 @@ import date from "./pages/date";
 import modal from "./pages/modal";
 import login from "./pages/login";
 import changelog from "./pages/changelog";
+import a11y from "./pages/a11y";
 
 type TranslationStrings = Record<string, unknown>;
 type PageModule = Record<string, TranslationStrings>;
@@ -38,6 +39,7 @@ const pages: PageModule[] = [
   modal,
   login,
   changelog,
+  a11y,
 ];
 
 const resources = pages.reduce<Resources>((acc, page) => {
@@ -61,3 +63,11 @@ i18n
   });
 
 export default i18n;
+
+const syncDocumentLanguage = (lng?: string) => {
+  if (typeof document !== "undefined" && lng) {
+    document.documentElement.lang = lng.split("-")[0];
+  }
+};
+i18n.on("languageChanged", syncDocumentLanguage);
+syncDocumentLanguage(i18n.resolvedLanguage ?? i18n.language);

@@ -7,12 +7,17 @@
   @apply p-2 text-center;
 }
 
+.calendar-table td a,
+.calendar-table td .calendar-day {
+  @apply inline-flex items-center justify-center min-w-7 min-h-7 px-2 rounded-full;
+}
+
 .calendar-table td a {
-  @apply px-2 rounded-full hover:bg-gray transition duration-150;
+  @apply hover:bg-bg2 transition duration-150;
 }
 
 .calendar-table .outside-month {
-  @apply opacity-50;
+  @apply text-gray;
 }
 
 .calendar-table .weekend-day {
@@ -20,9 +25,9 @@
 }
 
 .calendar-table .highlight {
-  @apply bg-green-dim/50 hover:bg-green-dim/75;
+  @apply bg-green-dim/50 hover:bg-green-dim/60 font-bold ring-1 ring-green text-fg;
 }
 
 .calendar-table .today {
-  @apply underline;
+  @apply underline underline-offset-4 decoration-2;
 }

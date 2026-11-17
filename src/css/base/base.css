@@ -16,17 +16,22 @@ body:has(dialog[open]) {
 }
 
 html {
-  font-size: 13px;
+  font-size: 81.25%;
+  scroll-padding-top: 6rem;
 }
 
 @variant sm {
-  html { font-size: 14px; }
+  html { font-size: 87.5%; }
 }
 
 @variant md {
-  html { font-size: 15px; }
+  html { font-size: 93.75%; }
 }
 
 @variant lg {
-  html { font-size: 16px; }
+  html { font-size: 100%; }
+}
+
+::placeholder {
+  @apply text-fg4 opacity-100;
 }
