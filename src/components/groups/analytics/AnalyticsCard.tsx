@@ -17,8 +17,8 @@ export function AnalyticsCard<T>({ title, subtitle, actions, state, children }: 
     return (
         <div className="card flex-1 vertical [contain:inline-size]" aria-busy={state.data == null && state.error == null}>
             <div className="horizontal flex-wrap justify-between items-center gap-2.5 mb-4">
-                <div>
-                    <h4 className="horizontal items-center gap-2">{title}</h4>
+                <div className="min-w-0 max-w-full">
+                    <h4 className="horizontal items-center gap-2 min-w-0">{title}</h4>
                     <p className="muted">{subtitle}</p>
                 </div>
                 {actions}

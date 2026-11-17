@@ -1,10 +1,11 @@
-// Same 4 colors as the WCAG redesign mockup. Amber vs coral is
+// Colors of the WCAG redesign mockup, plus the app blue for "sick". Amber vs coral is
 // close for color-blind users, so every color is always paired with an icon
 // or text label (WCAG 1.4.1: color is never the only signal).
 export const chartColors = {
     olive: "#b7c62e", // present / on time / "yes"
     amber: "#e2953f", // late / mood-score line
-    gray: "#8d8b86", // sick / unknown / neutral
+    gray: "#8d8b86", // unknown / neutral
+    blue: "#83a598", // sick, same as --color-blue (bg-blue) in the group trends calendar
     coral: "#f2705c", // absent / "no"
 } as const
 
@@ -28,6 +29,6 @@ export const chartTooltipStyle = {
 export const calendarColors = {
     present: chartColors.olive,
     late: chartColors.amber,
-    sick: chartColors.gray,
+    sick: chartColors.blue,
     absent: chartColors.coral,
 } as const

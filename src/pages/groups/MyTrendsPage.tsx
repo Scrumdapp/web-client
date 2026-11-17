@@ -4,15 +4,15 @@ import { useGroup } from "../../js/context/group/useGroup.ts"
 import { StatTile } from "../../components/groups/analytics/StatTile.tsx"
 import { AnalyticsCard } from "../../components/groups/analytics/AnalyticsCard.tsx"
 import { WeekComparisonDonuts } from "../../components/groups/analytics/WeekComparisonDonuts.tsx"
-import { AttendanceCalendarBlock, CheckSelector } from "../../components/groups/analytics/AttendanceCalendarBlock.tsx"
+import { AttendanceCalendarBlock, CheckpointNameSelector } from "../../components/groups/analytics/AttendanceCalendarBlock.tsx"
 import { MoodTrendBlock } from "../../components/groups/analytics/MoodTrendBlock.tsx"
 import { YearlyAttendanceBlock } from "../../components/groups/analytics/YearlyAttendanceBlock.tsx"
 import { useAttendanceMonth, useFirstDataMonth, useMonthNavigation, useMoodTrend, usePeriodAttendance, useTrendSummary } from "../../js/hooks/analytics/useMyAnalytics.ts"
 import { parseLocalYearMonth } from "../../js/utils/analyticsUtils.ts"
 
-const monthNavBtn = "btn bg-bg1 rounded-full size-7 p-0 disabled:opacity-40 disabled:pointer-events-none"
+const monthNavBtn = "btn flex-none bg-bg1 rounded-full size-7 p-0 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed"
 
-export function MyAnalyticsPage() {
+export function MyTrendsPage() {
     const { t, i18n } = useTranslation()
     const group = useGroup()
 
@@ -22,11 +22,11 @@ export function MyAnalyticsPage() {
 
     // Calendar
     const month = useMonthNavigation(useFirstDataMonth(group.id))
-    const [selectedCheck, setSelectedCheck] = useState<string | null>(null)
+    const [selectedCheckpoint, setSelectedCheckpoint] = useState<string | null>(null)
     const attendance = useAttendanceMonth(group.id, month.yearMonth)
-    const checkNames = attendance.data?.checkNames ?? []
-    // A month without the selected check falls back to the first check of that month
-    const check = selectedCheck != null && checkNames.includes(selectedCheck) ? selectedCheck : checkNames[0] ?? null
+    const checkpointNames = attendance.data?.checkpointNames ?? []
+    // A month without the selected checkpoint falls back to the first checkpoint of that month
+    const checkpoint = selectedCheckpoint != null && checkpointNames.includes(selectedCheckpoint) ? selectedCheckpoint : checkpointNames[0] ?? null
     const monthLabel = new Intl.DateTimeFormat(i18n.language, { month: "long", year: "numeric" }).format(parseLocalYearMonth(month.yearMonth))
 
     const onTimeNow = summary.data && !summary.data.current.empty ? summary.data.current.onTime : null
@@ -79,16 +79,21 @@ export function MyAnalyticsPage() {
                         <button type="button" className={monthNavBtn} disabled={!month.canPrev}
                             onClick={month.prev}
                             aria-label={t("analytics.calendarPrevMonth")}>‹</button>
-                        {t("analytics.calendarTitlePrefix")} {check && `${check} `}{monthLabel}
+                        {/* The title wraps normally; only a long checkpoint name is truncated, so the next-month button stays inside the card */}
+                        <span className="min-w-0">
+                            {t("analytics.calendarTitlePrefix")}{" "}
+                            {checkpoint && <><span className="inline-block max-w-full truncate align-bottom" title={checkpoint}>{checkpoint}</span>{" "}</>}
+                            {monthLabel}
+                        </span>
                         <button type="button" className={monthNavBtn} disabled={!month.canNext}
                             onClick={month.next}
                             aria-label={t("analytics.calendarNextMonth")}>›</button>
                     </>}
                     subtitle={t("analytics.calendarSubtitle")}
-                    actions={check && <CheckSelector value={check} options={checkNames} onChange={setSelectedCheck} />}
+                    actions={checkpoint && <CheckpointNameSelector value={checkpoint} options={checkpointNames} onChange={setSelectedCheckpoint} />}
                     state={attendance}
                 >
-                    {(data) => <AttendanceCalendarBlock {...data} check={check} />}
+                    {(data) => <AttendanceCalendarBlock {...data} checkpoint={checkpoint} />}
                 </AnalyticsCard>
 
                 {/* Mood chart */}

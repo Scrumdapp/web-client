@@ -9,7 +9,7 @@ ChartJS.register(BarElement, Tooltip, CategoryScale, LinearScale)
 
 const series = [
     { key: "present", color: chartColors.olive },
-    { key: "sick", color: chartColors.gray },
+    { key: "sick", color: chartColors.blue },
     { key: "absent", color: chartColors.coral },
 ] as const
 

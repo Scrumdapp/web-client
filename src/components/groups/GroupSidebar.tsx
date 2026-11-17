@@ -37,7 +37,7 @@ export function GroupSidebar() {
       />
       <SidebarLink
         to={`/groups/${group.id}/my-trends`}
-        translationKey="checkpoint.sidebar.analyticsOwn"
+        translationKey="checkpoint.sidebar.myTrends"
         icon={faPenToSquare}
         className="text-purple"
       />

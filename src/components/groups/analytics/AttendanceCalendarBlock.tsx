@@ -11,11 +11,11 @@ const statusIcon: Record<CalStatus, string> = { present: "✓", late: "⏱", sic
 
 interface Props {
     weeks: ({ date: Date, checkpoints: { name: string, status: CalStatus | null }[] } | null)[][]
-    check: string | null
+    checkpoint: string | null
     empty: boolean
 }
 
-export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
+export function AttendanceCalendarBlock({ weeks, checkpoint, empty }: Props) {
     const { t, i18n } = useTranslation()
     const idPrefix = useId()
     // Short weekday labels (Mon-Fri) in the current language; 1 Jan 2024 was a Monday
@@ -33,7 +33,9 @@ export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
             <div className="analytics-cal-grid">
                 {weeks.flat().map((cell, i) => {
                     if (cell == null) return <div key={i} />
-                    const status = cell.checkpoints.find((c) => c.name === check)?.status ?? null
+                    const status = cell.checkpoints.find((c) => c.name === checkpoint)?.status ?? null
+                    // Without data for the selected checkpoint, dots show the status of the other checkpoints that day
+                    const others = status == null ? cell.checkpoints.filter((c) => c.name !== checkpoint && c.status != null) : []
                     const edge = i % 5 === 0 ? " left" : i % 5 === 4 ? " right" : ""
                     return (
                         <div
@@ -46,6 +48,12 @@ export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
                         >
                             {/* Icon sized as WCAG "large text" so 3:1 background contrast is sufficient */}
                             {/* At least 16x16 px, still recognizable at 200% zoom */}
+                            {/* Hint only (aria-hidden): the tooltip names each checkpoint with its status */}
+                            {others.length > 0 && (
+                                <span className="absolute top-1 right-1 flex gap-0.5" aria-hidden="true">
+                                    {others.map((c) => <span key={c.name} className="size-2 rounded-full" style={{ backgroundColor: calendarColors[c.status as CalStatus] }} />)}
+                                </span>
+                            )}
                             {status && <span className="min-w-4 min-h-4 text-base leading-none text-center" aria-hidden="true">{statusIcon[status]}</span>}
                             <span className="text-[0.65rem] leading-none" aria-hidden="true">{cell.date.getDate()}</span>
                             <div role="tooltip" id={`${idPrefix}-${i}`} className={`analytics-cal-tip${edge}`}>
@@ -77,18 +85,19 @@ export function AttendanceCalendarBlock({ weeks, check, empty }: Props) {
     )
 }
 
-export function CheckSelector({ value, options, onChange }: { value: string, options: string[], onChange: (check: string) => void }) {
+export function CheckpointNameSelector({ value, options, onChange }: { value: string, options: string[], onChange: (checkpoint: string) => void }) {
     const { t } = useTranslation()
     return (
-        <Menu as="div" className="relative">
-            <MenuButton className="btn border min-w-32" aria-label={t("analytics.calendarCheckAriaLabel")}>
-                {value}
+        <Menu as="div" className="relative min-w-0 max-w-full">
+            {/* Long checkpoint names are truncated so the button never grows wider than the card */}
+            <MenuButton className="btn border min-w-32 max-w-full" aria-label={t("analytics.calendarCheckpointAriaLabel")} title={value}>
+                <span className="min-w-0 truncate">{value}</span>
                 <FontAwesomeIcon icon={faChevronDown} className="shrink-0" />
             </MenuButton>
             <MenuItems transition className="absolute z-30 mt-2 border rounded-md bg-bg w-full">
                 {options.map((option) => (
-                    <MenuItem key={option} as="button" className="btn w-full" onClick={() => onChange(option)}>
-                        {option}
+                    <MenuItem key={option} as="button" className="btn w-full" title={option} onClick={() => onChange(option)}>
+                        <span className="min-w-0 truncate">{option}</span>
                     </MenuItem>
                 ))}
             </MenuItems>

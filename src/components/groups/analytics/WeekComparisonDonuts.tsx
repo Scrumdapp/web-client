@@ -48,7 +48,7 @@ export function WeekComparisonDonuts({ weeks, previous, current }: Props) {
                             <p className="muted -mt-1.5">{shortDate.formatRange(range.start, range.end)}</p>
                             <div className="relative w-full max-w-64 aspect-square mx-auto">
                                 {split.empty ? (
-                                    <div className="center absolute inset-0 rounded-full border-2 border-dashed border-bg2 p-4 text-center text-sm text-fg4">{t("analytics.noCheckins")}</div>
+                                    <div className="center absolute inset-0 rounded-full border-2 border-dashed border-bg2 p-4 text-center text-sm text-fg4">{t("analytics.noCheckpoints")}</div>
                                 ) : (
                                     <Doughnut
                                         data={{

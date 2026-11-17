@@ -86,11 +86,11 @@ export function toCalStatus(status: string | null | undefined): CalStatus | null
     return status != null && calStatuses.includes(status) ? status as CalStatus : null
 }
 
-/** All check names in a month, in the order they happen within a day. */
-function uniqueCheckNames(calendar: UserTrendCalendar): string[] {
+/** All checkpoint names in a month, in the order they happen within a day. */
+function uniqueCheckpointNames(calendar: UserTrendCalendar): string[] {
     const names: string[] = []
     for (const day of calendar.days) {
-        // A new name goes right after the check that came before it that day
+        // A new name goes right after the checkpoint that came before it that day
         let position = 0
         for (const { name } of day.details) {
             const existing = names.indexOf(name)
@@ -109,8 +109,8 @@ export function toCalendarView(calendar: UserTrendCalendar) {
     const weeks = buildWorkdayGrid(calendar.month).map((week) => week.map((date) =>
         date && { date, checkpoints: byDate.get(toScrumdappDate(date)) ?? [] }
     ))
-    const checkNames = uniqueCheckNames(calendar)
-    return { weeks, checkNames, empty: checkNames.length === 0 }
+    const checkpointNames = uniqueCheckpointNames(calendar)
+    return { weeks, checkpointNames, empty: checkpointNames.length === 0 }
 }
 
 export interface OnTimeSplit {
@@ -120,7 +120,7 @@ export interface OnTimeSplit {
     empty: boolean
 }
 
-/** Percentages on time / not on time / unknown. Never NaN: 0 check-ins gives 0/0/0 with empty. */
+/** Percentages on time / not on time / unknown. Never NaN: 0 checkpoints gives 0/0/0 with empty. */
 export function computeOnTimeSplit({ on_time, delayed, no_data }: PresenceCounts): OnTimeSplit {
     const total = on_time + delayed + no_data
     if (total === 0) return { onTime: 0, notOnTime: 0, unknown: 0, empty: true }
@@ -187,7 +187,7 @@ export interface MoodPoint {
 }
 
 /**
- * The average covers all reflections (check-ins and check-ups); the chart
+ * The average covers all reflections (of every checkpoint); the chart
  * only shows the last `limit`.
  */
 export function toMoodTrend(mood: UserTrendMood, limit = 12) {

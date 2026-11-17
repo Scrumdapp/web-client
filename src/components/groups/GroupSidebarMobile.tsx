@@ -5,6 +5,7 @@ import {
   faChartSimple,
   faGear,
   faHouse,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,6 +40,13 @@ export function GroupSidebarMobile({
         translationKey="checkpoint.sidebar.trends"
         icon={faChartSimple}
         className="text-yellow"
+        onClick={onNavigate}
+      />
+      <SidebarLink
+        to={`/groups/${group.id}/my-trends`}
+        translationKey="checkpoint.sidebar.myTrends"
+        icon={faPenToSquare}
+        className="text-purple"
         onClick={onNavigate}
       />
       <SidebarLink

@@ -20,6 +20,7 @@ export function MoodTrendBlock({ points, average }: { points: MoodPoint[], avera
                 borderWidth: 2,
                 pointRadius: 3,
                 tension: 0.25,
+                clip: false as const,
             },
             {
                 data: points.map(() => average),
@@ -34,6 +35,8 @@ export function MoodTrendBlock({ points, average }: { points: MoodPoint[], avera
     const options = {
         responsive: true,
         maintainAspectRatio: false,
+        // Extra room so points on the min/max gridline are not cut off at the chart edge
+        layout: { padding: { top: 8, right: 8 } },
         plugins: {
             legend: { display: false },
             tooltip: {
