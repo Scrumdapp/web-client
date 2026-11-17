@@ -8,10 +8,10 @@ ChartJS.register(PointElement, LineElement, Tooltip, CategoryScale, LinearScale)
 
 export function MoodTrendBlock({ points, average }: { points: MoodPoint[], average: number | null }) {
     const { t, i18n } = useTranslation()
-    const shortDate = new Intl.DateTimeFormat(i18n.language, { day: "numeric", month: "short" })
+    const dateLabel = new Intl.DateTimeFormat(i18n.language, { day: "numeric", month: "long" })
 
     const data = {
-        labels: points.map((p) => shortDate.format(p.date)),
+        labels: points.map((p) => dateLabel.format(p.date)),
         datasets: [
             {
                 data: points.map((p) => p.score),
@@ -66,7 +66,7 @@ export function MoodTrendBlock({ points, average }: { points: MoodPoint[], avera
                 <p className="center flex-1 min-h-56 text-center text-sm text-fg4">{t("analytics.moodEmpty")}</p>
             ) : (
                 // Grows with the card so the chart fills the height of the calendar next to it
-                <div className="relative flex-1 min-h-56"><Line data={data} options={options} /></div>
+                <div className="relative flex-1 min-h-72"><Line data={data} options={options} /></div>
             )}
             <div className="horizontal flex-wrap gap-3 mt-4">
                 <div className="horizontal items-center gap-1.5 text-xs text-fg4">

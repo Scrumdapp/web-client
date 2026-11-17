@@ -57,7 +57,7 @@ export function AttendanceCalendarBlock({ weeks, checkpoint, empty }: Props) {
                             {status && <span className="min-w-4 min-h-4 text-base leading-none text-center" aria-hidden="true">{statusIcon[status]}</span>}
                             <span className="text-[0.65rem] leading-none" aria-hidden="true">{cell.date.getDate()}</span>
                             <div role="tooltip" id={`${idPrefix}-${i}`} className={`analytics-cal-tip${edge}`}>
-                                <p className="mb-1 font-bold text-fg">{dateFormat.format(cell.date)}</p>
+                                <p className="mb-1 font-bold text-fg first-letter:uppercase">{dateFormat.format(cell.date)}</p>
                                 {cell.checkpoints.length === 0 && <p>{t("analytics.calendarNoCheckpoint")}</p>}
                                 <ul>
                                     {cell.checkpoints.map((c, j) => (

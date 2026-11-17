@@ -10,7 +10,7 @@ import { YearlyAttendanceBlock } from "../../components/groups/analytics/YearlyA
 import { useAttendanceMonth, useFirstDataMonth, useMonthNavigation, useMoodTrend, usePeriodAttendance, useTrendSummary } from "../../js/hooks/analytics/useMyAnalytics.ts"
 import { parseLocalYearMonth } from "../../js/utils/analyticsUtils.ts"
 
-const monthNavBtn = "btn flex-none bg-bg1 rounded-full size-7 p-0 disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed"
+const monthNavBtn = "btn flex-none bg-bg1 rounded-full size-7 p-0 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-bg1 disabled:active:bg-bg1"
 
 export function MyTrendsPage() {
     const { t, i18n } = useTranslation()
@@ -27,7 +27,9 @@ export function MyTrendsPage() {
     const checkpointNames = attendance.data?.checkpointNames ?? []
     // A month without the selected checkpoint falls back to the first checkpoint of that month
     const checkpoint = selectedCheckpoint != null && checkpointNames.includes(selectedCheckpoint) ? selectedCheckpoint : checkpointNames[0] ?? null
-    const monthLabel = new Intl.DateTimeFormat(i18n.language, { month: "long", year: "numeric" }).format(parseLocalYearMonth(month.yearMonth))
+    const rawMonthLabel = new Intl.DateTimeFormat(i18n.language, { month: "long", year: "numeric" }).format(parseLocalYearMonth(month.yearMonth))
+    // Dutch month names are lowercase by default; capitalize the first letter for the title
+    const monthLabel = rawMonthLabel.charAt(0).toUpperCase() + rawMonthLabel.slice(1)
 
     const onTimeNow = summary.data && !summary.data.current.empty ? summary.data.current.onTime : null
     const starsAverage = summary.data?.starsAverage
