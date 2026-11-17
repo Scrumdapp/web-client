@@ -14,8 +14,8 @@ import {
   GroupCheckpoint,
   SessionCheckpointRow,
 } from "../../js/models/checkpoint.ts";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faSpinner} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const updateCheckpointProcessor = ScrumdappApi.updateGroupCheckpoint();
 
@@ -130,8 +130,8 @@ export default function EditCheckpointModal({
             disabled={loading}
           >
             <FontAwesomeIcon
-                icon={loading ? faSpinner : faCheck}
-                spin={loading}
+              icon={loading ? faSpinner : faCheck}
+              spin={loading}
             />
             {loading ? t("checkpoint.saving") : t("checkpoint.apply")}
           </button>

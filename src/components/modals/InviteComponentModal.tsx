@@ -118,6 +118,11 @@ export default function InviteComponentModal({
             </span>
           </div>
           <ModalActionRow>
+            {copied && (
+              <p className="text-right text-green-dim mt-2 items-center my-auto mr-2">
+                {t("invite.modal.succes")}
+              </p>
+            )}
             <button onClick={handleCopy} className="btn border">
               <FontAwesomeIcon icon={faCopy} /> {t("invite.modal.copy")}
             </button>
@@ -125,11 +130,6 @@ export default function InviteComponentModal({
               <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.done")}
             </button>
           </ModalActionRow>
-          {copied && (
-            <p className="text-right text-green-dim mt-2">
-              {t("invite.modal.succes")}
-            </p>
-          )}
         </div>
       )}
     </Modal>

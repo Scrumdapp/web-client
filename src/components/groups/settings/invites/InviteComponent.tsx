@@ -80,9 +80,11 @@ export default function Invites({ groupId }: InvitesProps) {
                           className="btn btn-secondary border my-1 float-right"
                           disabled={expired}
                         >
-                          <FontAwesomeIcon
-                            icon={copiedId === invite.id ? faCheck : faCopy}
-                          />
+                          {!expired && (
+                            <FontAwesomeIcon
+                              icon={copiedId === invite.id ? faCheck : faCopy}
+                            />
+                          )}
                           {copiedId === invite.id
                             ? t("invite.modal.copied")
                             : expired
