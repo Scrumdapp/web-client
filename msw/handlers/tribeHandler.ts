@@ -1,19 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { Tribe } from "../../src/js/models/tribe";
 import { groupData } from "./groupHandlers";
-import { groupCheckpoints } from "./groupCheckpointHandlers";
-import {
-  parseScrumdappDate,
-  toScrumdappDate,
-} from "../../src/js/utils/scrumdappDate";
-import {
-  firstDayOfMonth,
-  getWeekEnd,
-  getWeekStart,
-  lastDayOfMonth,
-  parseYearMonth,
-} from "../../src/js/utils/timeUtils";
-import { SessionDates } from "../../src/js/models/checkpoint";
 
 export const tribeData: Tribe[] = [
   {
@@ -60,6 +47,8 @@ export const tribeData: Tribe[] = [
 
 export const tribeHandlers = [
   http.get("/api/tribes", async ({}) => {
+    // remove groups
+    // err translations
     return HttpResponse.json(tribeData.filter((it) => it.id < 5));
   }),
   http.post("/api/tribes", ({}) => {
@@ -114,47 +103,5 @@ export const tribeHandlers = [
         status: 404,
       },
     );
-  }),
-
-  http.get("/api/tribes/:tid/sessions/dates", ({ params, request }) => {
-    const sessions = groupCheckpoints.filter(
-      (it) => it.sessions.groupId == parseInt(params.tid as string),
-    );
-    const url = new URL(request.url);
-
-    const uniqueDates = new Set<string>(
-      sessions.map((it) => toScrumdappDate(new Date(it.sessions.startTime))),
-    );
-    let dates = Array.from(uniqueDates).sort().reverse();
-
-    if (url.searchParams.has("month")) {
-      const month = parseYearMonth(url.searchParams.get("month")!);
-      const firstDay = getWeekStart(firstDayOfMonth(month)).getTime();
-      const lastDay = getWeekEnd(lastDayOfMonth(month)).getTime();
-
-      dates = dates.filter((it) => {
-        const d = parseScrumdappDate(it).getTime();
-        return d >= firstDay && d <= lastDay;
-      });
-    } else {
-      const limit = parseInt(url.searchParams.get("limit") ?? "10");
-      dates = dates.slice(0, limit);
-    }
-
-    return HttpResponse.json<SessionDates>({
-      fromDate:
-        dates.length == 0
-          ? toScrumdappDate(new Date())
-          : dates[dates.length - 1],
-      toDate: dates.length == 0 ? toScrumdappDate(new Date()) : dates[0],
-      dates: dates.map((it) => ({
-        date: it,
-        sessions: groupCheckpoints
-          .filter(
-            (cp) => toScrumdappDate(new Date(cp.sessions.startTime)) == it,
-          )
-          .map((cp) => cp.sessions.id),
-      })),
-    });
   }),
 ];
