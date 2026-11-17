@@ -1,7 +1,3 @@
-import { GroupUser } from "../../js/models/group";
-import { useGroup } from "../../js/context/group/useGroup";
-import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi";
-import { useApiComponent } from "../../js/hooks/api/useApiComponent";
 import { useState } from "react";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
 import { TimeRangeSelector } from "../../components/groups/trends/TimeRangeSelector.tsx";
@@ -12,34 +8,27 @@ import {
 } from "../../components/groups/trends/timeline/GroupTimelineTrends.tsx";
 import { TimelineSelector } from "../../components/groups/trends/timeline/TimelineSelector.tsx";
 import { useTranslation } from "react-i18next";
+import { useGroupUsers } from "../../utility/groupUsers/useGroupUsers.ts";
 
 export function TrendsPage() {
   const { t } = useTranslation();
-  const group = useGroup();
-  const GetUsersApiComponent = useApiComponent(ScrumdappApi.getGroupUsers());
 
   return (
-    <GetUsersApiComponent input={[group.id]}>
-      {(allUsers) => {
-        const users = allUsers.filter((it) => !it.is_ghost);
-        return (
-          <div className="vertical gap-4">
-            <div className="card">
-              <h2>{t("trends.trends")}</h2>
-            </div>
-            <div className="card md:hidden">
-              <h3>{t("trends.mobileview")}</h3>
-            </div>
-            <TimelineTrendsWrapper users={users} />
-          </div>
-        );
-      }}
-    </GetUsersApiComponent>
+    <div className="vertical gap-4">
+      <div className="card">
+        <h2>{t("trends.trends")}</h2>
+      </div>
+      <div className="card md:hidden">
+        <h3>{t("trends.mobileview")}</h3>
+      </div>
+      <TimelineTrendsWrapper />
+    </div>
   );
 }
 
-export function TimelineTrendsWrapper({ users }: { users: GroupUser[] }) {
+export function TimelineTrendsWrapper() {
   const { t } = useTranslation();
+  const users = useGroupUsers({ ignoreGhosts: true })
 
   const [dates, setDates] = useState({ from: "1970-01-01", to: "1970-01-01" });
   const [displayType, setDisplayType] = useState(
