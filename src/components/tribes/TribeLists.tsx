@@ -49,15 +49,14 @@ export function TribeLists({
         )
       )}
 
-      {archived.length > 0 && (
-        <CollapsibleCardGrid
-          title={t("tribes.archivedTitle")}
-          items={archived}
-          getKey={(tribe) => tribe.id}
-          renderItem={renderTribe}
-          autoOpen={onlyArchivedMatches}
-        />
-      )}
+      <CollapsibleCardGrid
+        hasItems={archived.length > 0}
+        title={t("tribes.archivedTitle")}
+        items={archived}
+        getKey={(tribe) => tribe.id}
+        renderItem={renderTribe}
+        autoOpen={onlyArchivedMatches}
+      />
     </div>
   );
 }

@@ -9,6 +9,7 @@ type Props<T> = {
   getKey: (item: T) => Key;
   renderItem: (item: T) => ReactNode;
   autoOpen?: boolean;
+  hasItems?: boolean;
 };
 
 export function CollapsibleCardGrid<T>({
@@ -17,6 +18,7 @@ export function CollapsibleCardGrid<T>({
   getKey,
   renderItem,
   autoOpen = false,
+  hasItems = false,
 }: Props<T>) {
   const [open, setOpen] = useState(false);
   const [prevAutoOpen, setPrevAutoOpen] = useState(autoOpen);
@@ -25,6 +27,8 @@ export function CollapsibleCardGrid<T>({
     setPrevAutoOpen(autoOpen);
     if (autoOpen) setOpen(true);
   }
+
+  if (!hasItems) return null;
 
   return (
     <section>
