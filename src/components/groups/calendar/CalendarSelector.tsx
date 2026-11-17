@@ -41,7 +41,7 @@ export const CalendarSelector = memo(
         <GetMonthsComponent input={[group.id]}>
           {(months) => (
             <>
-              <div className="flex-1 flex justify-start ">
+              <div className="flex-1 flex justify-start">
                 {months.some((it) => it == getYearMonth(previousMonth(ym))) ? (
                   <Link
                     className="btn"
@@ -51,9 +51,11 @@ export const CalendarSelector = memo(
                     {monthLabel(previousMonth(ym))}
                   </Link>
                 ) : (
-                  <span className="btn pointer-events-none text-gray!">
-                    <FontAwesomeIcon icon={faArrowLeft} />
-                    {monthLabel(previousMonth(ym))}
+                  <span className="inline-block cursor-not-allowed">
+                    <span className="btn pointer-events-none text-gray!">
+                      <FontAwesomeIcon icon={faArrowLeft} />
+                      {monthLabel(previousMonth(ym))}
+                    </span>
                   </span>
                 )}
               </div>
@@ -85,9 +87,11 @@ export const CalendarSelector = memo(
                     />
                   </Link>
                 ) : (
-                  <span className="btn pointer-events-none text-gray!">
-                    {monthLabel(nextMonth(ym))}
-                    <FontAwesomeIcon icon={faArrowRight} />
+                  <span className="inline-block cursor-not-allowed">
+                    <span className="btn pointer-events-none text-gray!">
+                      {monthLabel(nextMonth(ym))}
+                      <FontAwesomeIcon icon={faArrowRight} />
+                    </span>
                   </span>
                 )}
               </div>
