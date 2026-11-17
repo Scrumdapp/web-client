@@ -1,9 +1,6 @@
 import Modal from "../generic/modal/Modal.tsx";
 import { InviteTimeDurationDropdownMenu } from "../generic/InviteTimeDuration.tsx";
-import {
-  FieldApiErrorMessage,
-  FieldApiErrorMessageList,
-} from "../generic/FieldApiErrorMessage.tsx";
+import { FieldApiErrorMessage } from "../generic/FieldApiErrorMessage.tsx";
 import ModalActionRow from "../generic/modal/components/ModalActionRow.tsx";
 import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useApi } from "../../js/hooks/api/useApi.ts";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import useTempState from "../../js/hooks/useTempState.ts";
+import InvitePasswordField from "../groups/settings/invites/InvitePasswordField.tsx";
 
 type InviteComponentModalProps = {
   modal: ModalState;
@@ -30,7 +28,6 @@ export default function InviteComponentModal({
   const { t } = useTranslation();
   const [step, setStep] = useState<1 | 2>(1);
   const [password, setPassword] = useState("");
-  const [showWarning, setShowWarning] = useState(false);
   const [expireHours, setExpireHours] = useState(12);
   const [generatedLink, setGeneratedLink] = useState("");
   const createInvite = useApi(ScrumdappApi.CreateInvite());
@@ -60,41 +57,32 @@ export default function InviteComponentModal({
       {step === 1 && (
         <>
           <h1>{t("invite.createPassword")}</h1>
-          <div className="flex justify-between py-2">
-            <input
-              className="write-section w-full! mr-2 flex-5"
+          <div className="flex flex-col justify-between gap-2 py-2">
+            <InvitePasswordField
               placeholder={t("invite.password")}
               alt={t("invite.password")}
               value={password}
               maxLength={32}
               onChange={(e) => {
-                setShowWarning(
-                  !/^[a-zA-Z0-9 !@#$%^&]{1,32}$/.test(e.target.value),
-                );
                 setPassword(e.target.value);
               }}
               required
             />
-            <div className="flex flex-3">
-              <InviteTimeDurationDropdownMenu
-                onChange={(v) => setExpireHours(v ?? 12)}
-              />
-            </div>
-          </div>
-          {createInvite.error?.errors &&
-          createInvite.error.errors.length > 1 ? (
-            <FieldApiErrorMessageList errors={createInvite.error.errors} />
-          ) : (
             <FieldApiErrorMessage
               errors={createInvite.error?.errors ?? null}
-              field={createInvite.error?.errors?.[0]?.field ?? ""}
+              field="password"
             />
-          )}
+            <InviteTimeDurationDropdownMenu
+              onChange={(v) => setExpireHours(v ?? 12)}
+            />
+            <FieldApiErrorMessage
+              errors={createInvite.error?.errors ?? null}
+              field="expiresAt"
+            />
+          </div>
+
           <ModalActionRow>
             <div className="py-2 flex gap-x-2">
-              {showWarning && (
-                <p className="text-red text-sm">{t("invite.modal.error")}</p>
-              )}
               <ModalCancelButton />
               <button
                 onClick={handleCreateInvite}
