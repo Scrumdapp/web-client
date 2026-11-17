@@ -25,7 +25,6 @@ export default function CheckpointNamesDropdown({
       buttonClassName="h-10.5!"
       options={names.map((name) => ({ value: name, label: name }))}
       buttonContent={
-        // Placeholder uses fg4 rather than opacity so it keeps 4.5:1 contrast (WCAG 1.4.3)
         <span className={`truncate ${value ? "" : "text-fg4"}`}>
           {value || t("checkpoint.modal.type")}
         </span>

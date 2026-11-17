@@ -4,7 +4,7 @@ import {
   parseScrumdappDate,
   toScrumdappDate,
 } from "../../js/utils/scrumdappDate.ts";
-import { faAdd, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
@@ -98,8 +98,8 @@ export function GroupCheckpointPage({
           </Link>
         </div>
         <ShowIf condition={currentDate == date}>
-          <button className="btn border p-1! md:p-2" onClick={modal.open}>
-            <FontAwesomeIcon icon={faAdd} className="text-blue" />{" "}
+          <button className="btn border p-1 md:p-2" onClick={modal.open}>
+            <FontAwesomeIcon icon={faPlus} className="text-blue" />{" "}
             {t("checkpoint.create")}
           </button>
         </ShowIf>
