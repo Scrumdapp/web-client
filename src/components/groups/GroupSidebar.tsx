@@ -5,7 +5,7 @@ import {
   faChartSimple,
   faGear,
   faHouse,
-  faPenToSquare,
+  faChartLine,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -38,7 +38,7 @@ export function GroupSidebar() {
       <SidebarLink
         to={`/groups/${group.id}/my-trends`}
         translationKey="checkpoint.sidebar.myTrends"
-        icon={faPenToSquare}
+        icon={faChartLine}
         className="text-purple"
       />
       <SidebarLink
