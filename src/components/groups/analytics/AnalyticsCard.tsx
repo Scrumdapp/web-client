@@ -1,5 +1,7 @@
 import type { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core"
 import { LoadScreen } from "../../generic/LoadScreen.tsx"
 import { ErrorScreen } from "../../generic/ErrorScreen.tsx"
 import type { ApiError } from "../../../js/hooks/api/apiError.ts"
@@ -43,13 +45,13 @@ function CardBody<T>({ state: { data, error, retry }, children }: Pick<Analytics
 }
 
 // Color legend of a chart, e.g. "yes/no/unknown"
-export function Legend({ items, className = "" }: { items: { label: string, color: string, icon?: string }[], className?: string }) {
+export function Legend({ items, className = "" }: { items: { label: string, color: string, icon?: IconDefinition }[], className?: string }) {
     return (
         <div className={`horizontal flex-wrap gap-3 ${className}`}>
             {items.map(({ label, color, icon }) => (
                 <div className="horizontal items-center gap-1.5 text-xs text-fg4" key={label}>
                     <span className="size-2.5 flex-none rounded-sm" style={{ backgroundColor: color }} />
-                    {icon && <span aria-hidden="true">{icon}</span>}
+                    {icon && <FontAwesomeIcon icon={icon} aria-hidden="true" />}
                     {label}
                 </div>
             ))}

@@ -1,13 +1,14 @@
 import { useId } from "react"
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons"
+import { faCheck, faChevronDown, faClock, faKitMedical, faXmark } from "@fortawesome/free-solid-svg-icons"
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core"
 import { useTranslation } from "react-i18next"
 import { calendarColors } from "../../../js/utils/analyticsColors.ts"
 import type { CalStatus } from "../../../js/utils/analyticsUtils.ts"
 import { Legend } from "./AnalyticsCard.tsx"
 
-const statusIcon: Record<CalStatus, string> = { present: "✓", late: "⏱", sick: "✚", absent: "✕" }
+const statusIcon: Record<CalStatus, IconDefinition> = { present: faCheck, late: faClock, sick: faKitMedical, absent: faXmark }
 
 interface Props {
     weeks: ({ date: Date, checkpoints: { name: string, status: CalStatus | null }[] } | null)[][]
@@ -54,7 +55,7 @@ export function AttendanceCalendarBlock({ weeks, checkpoint, empty }: Props) {
                                     {others.map((c) => <span key={c.name} className="size-2 rounded-full" style={{ backgroundColor: calendarColors[c.status as CalStatus] }} />)}
                                 </span>
                             )}
-                            {status && <span className="min-w-4 min-h-4 text-base leading-none text-center" aria-hidden="true">{statusIcon[status]}</span>}
+                            {status && <span className="min-w-4 min-h-4 text-base leading-none text-center" aria-hidden="true"><FontAwesomeIcon icon={statusIcon[status]} /></span>}
                             <span className="text-[0.65rem] leading-none" aria-hidden="true">{cell.date.getDate()}</span>
                             <div role="tooltip" id={`${idPrefix}-${i}`} className={`analytics-cal-tip${edge}`}>
                                 <p className="mb-1 font-bold text-fg first-letter:uppercase">{dateFormat.format(cell.date)}</p>
@@ -62,7 +63,7 @@ export function AttendanceCalendarBlock({ weeks, checkpoint, empty }: Props) {
                                 <ul>
                                     {cell.checkpoints.map((c, j) => (
                                         <li key={j}>
-                                            {c.status && <span aria-hidden="true">{statusIcon[c.status]} </span>}
+                                            {c.status && <FontAwesomeIcon icon={statusIcon[c.status]} className="mr-1" aria-hidden="true" />}
                                             {c.name}: {statusLabel(c.status)}
                                         </li>
                                     ))}
