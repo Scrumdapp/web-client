@@ -14,6 +14,10 @@ export default {
       memberCount: "{{count}} members",
       archivedTitle: "Archived tribes",
       noArchived: "No archived tribes found.",
+      checkpoint: {
+        checkpointTitleDescription:
+          "{{activeGroupCount}} of {{groupCount}} groups · {{activeUserCount}} of {{memberCount}} entered information",
+      },
     },
   },
   nl: {
@@ -31,6 +35,10 @@ export default {
       memberCount: "{{count}} leden",
       archivedTitle: "Gearchiveerde tribes",
       noArchived: "Geen gearchiveerde tribes gevonden.",
+      checkpoint: {
+        checkpointTitleDescription:
+          "{{activeGroupCount}} van de {{groupCount}} groepen · {{activeUserCount}} van de {{memberCount}} leden ingevuld",
+      },
     },
   },
 };

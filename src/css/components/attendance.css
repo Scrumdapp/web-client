@@ -1,0 +1,15 @@
+.attendance-bar {
+  anchor-name: --attendance;
+  anchor-scope: --attendance;
+}
+
+.attendance-tooltip {
+  position: fixed;
+  position-anchor: --attendance;
+  position-area: bottom span-right;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+  margin-top: 0.5rem;
+}

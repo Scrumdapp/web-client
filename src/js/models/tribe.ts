@@ -1,10 +1,6 @@
 import { Group } from "./group";
 
-export enum SessionStatus {
-  NOT_STARTED,
-  OPEN,
-  CLOSED,
-}
+export type SessionStatus = "OPEN" | "CLOSED" | "NOT_STARTED";
 
 export interface Tribe extends PartialTribe {
   groups: Group[];

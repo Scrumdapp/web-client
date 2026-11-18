@@ -79,6 +79,7 @@ interface GenSessions {
   gId: number;
   dateCount: number;
   sessionPerDay: number;
+  names?: string[]; // optioneel: naam per sessie van de dag, anders "Checkpoint"
 }
 
 interface GenCheckpoints {
@@ -104,7 +105,7 @@ export const groupCheckpoints: GenCheckpoints[] = generateCheckpoints(
   },
 );
 
-function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
+export function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
   const sessions: GenCheckpoints[] = [];
 
   for (const session of data) {
@@ -118,6 +119,7 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
       continue;
     }
     const users = groupUsers.users;
+    const names = session.names;
 
     const now = Date.now();
     for (let i = 0; i < session.dateCount; i++) {
@@ -129,6 +131,8 @@ function generateCheckpoints(...data: GenSessions[]): GenCheckpoints[] {
           group!.id,
           users[randomUser].user_id,
           day,
+          undefined,
+          names?.[j],
         );
 
         const checkpoints: GroupCheckpoint[] = [];

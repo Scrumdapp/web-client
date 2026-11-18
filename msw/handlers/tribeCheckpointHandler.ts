@@ -1,12 +1,14 @@
 import { http, HttpResponse } from "msw";
 import {
-  SessionStatus,
   TribeCheckpoint,
   TribeCheckpointDates,
   TribeGroupCheckpoint,
 } from "../../src/js/models/tribe";
 import { tribeData } from "./tribeHandler";
-import { groupCheckpoints } from "./groupCheckpointHandlers";
+import {
+  generateCheckpoints,
+  RANDOM_CHECKPOINTNAMES,
+} from "./groupCheckpointHandlers";
 import { groupUserData } from "./groupUserHandler";
 import {
   parseScrumdappDate,
@@ -28,6 +30,18 @@ const TRIBE_NOT_FOUND = {
   descriptionTranslationKey: "errors.tribe.notFound.description",
 };
 
+// Eigen mockdata voor tribes: elke groep heeft elke dag Check-in, Check-out en Check-up.
+// Staat los van de groepsdata, zodat het groep-endpoint onveranderd blijft.
+const TRIBE_SESSION_NAMES = RANDOM_CHECKPOINTNAMES.slice(0, 3);
+const tribeCheckpoints = generateCheckpoints(
+  ...[1, 2, 3, 4].map((gId) => ({
+    gId,
+    dateCount: 64,
+    sessionPerDay: TRIBE_SESSION_NAMES.length,
+    names: TRIBE_SESSION_NAMES,
+  })),
+);
+
 function getTribeSessions(tid: string) {
   const tribe = tribeData.find((it) => it.id == parseInt(tid));
   if (!tribe) return null;
@@ -35,7 +49,7 @@ function getTribeSessions(tid: string) {
   const groupIds = tribe.groups.map((it) => it.id);
   return {
     groupIds,
-    sessions: groupCheckpoints.filter((it) =>
+    sessions: tribeCheckpoints.filter((it) =>
       groupIds.includes(it.sessions.groupId),
     ),
   };
@@ -63,7 +77,7 @@ export const tribeCheckpointHandlers = [
         if (!gc) {
           return {
             group_id: groupId,
-            status: SessionStatus.NOT_STARTED,
+            status: "NOT_STARTED",
             session: null,
           };
         }
@@ -78,7 +92,7 @@ export const tribeCheckpointHandlers = [
 
         return {
           group_id: groupId,
-          status: Date.now() < end ? SessionStatus.OPEN : SessionStatus.CLOSED,
+          status: Date.now() < end ? "OPEN" : "CLOSED",
           session: {
             session_id: gc.sessions.id,
             started_time: gc.sessions.startTime,
@@ -92,7 +106,9 @@ export const tribeCheckpointHandlers = [
             average_stars:
               stars.length == 0
                 ? null
-                : (stars.reduce((a, b) => a + b, 0) / stars.length).toFixed(1),
+                : (stars.reduce((a, b) => a + b, 0) / stars.length / 2).toFixed(
+                    1,
+                  ),
           },
         };
       }),
