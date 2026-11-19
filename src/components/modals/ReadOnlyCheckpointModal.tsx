@@ -27,7 +27,7 @@ export default function ReadOnlyCheckpointModal({
   const obstacle = row?.impediment ?? "";
 
   return (
-    <Modal state={modal} className="mx-auto">
+    <Modal state={modal}>
       <div className="space-y-5">
         <ModalHeadText>
           {t("checkpoint.modalheaderreadonly", { name: userName })}
@@ -42,7 +42,7 @@ export default function ReadOnlyCheckpointModal({
           </div>
           <h3 className="mt-2">{t("checkpoint.notes")}</h3>
           {notes.length > 0 ? (
-            <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
+            <p className="max-h-30 overflow-y-auto overflow-x-hidden wrap-anywhere border-fg4 rounded-lg w-full">
               {notes}
             </p>
           ) : (
@@ -50,7 +50,7 @@ export default function ReadOnlyCheckpointModal({
           )}
           <h3 className="mt-2">{t("checkpoint.obstacle")}</h3>
           {obstacle.length > 0 ? (
-            <p className="max-h-30 overflow-y-auto overflow-x-hidden break-words border-fg4 rounded-lg w-full">
+            <p className="max-h-30 overflow-y-auto overflow-x-hidden wrap-anywhere border-fg4 rounded-lg w-full">
               {obstacle}
             </p>
           ) : (

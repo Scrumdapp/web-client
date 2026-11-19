@@ -5,12 +5,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { interpolateColor } from "../../../js/utils/starsMath.ts";
 import {
   attendanceOptions,
   getAttendanceColorScrummaster,
+  getStarsColor,
 } from "../../../js/utils/colorUtils.ts";
 import { useTranslation } from "react-i18next";
+import { cn } from "../../../js/utils/tw.ts";
 
 type AttendanceReadOnlyFieldProps = {
   value?: string | null;
@@ -41,19 +42,7 @@ export function StarsReadOnlyField({
   max = 5,
 }: StarsReadOnlyFieldProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const colorLow = useThemeColor("--color-red");
-  const colorMid = useThemeColor("--color-green");
-  const colorHigh = useThemeColor("--color-blue");
   const colorEmpty = useThemeColor("--color-fg4");
-
-  const maxValue = max * POINTS_PER_STAR;
-
-  const midpoint = maxValue / 2;
-  const activeColor =
-    value <= midpoint
-      ? interpolateColor(value / midpoint, colorLow, colorMid)
-      : interpolateColor((value - midpoint) / midpoint, colorMid, colorHigh);
 
   const getStarIcon = (starIndex: number) => {
     const starFullValue = (starIndex + 1) * POINTS_PER_STAR;
@@ -76,8 +65,10 @@ export function StarsReadOnlyField({
             aria-label={`Rate ${starIndex + 1} out of ${max}`}
           >
             <span
-              className="inline-block transition-transform"
-              style={{ color: isFilled ? activeColor : colorEmpty }}
+              className={cn(
+                "inline-block transition-transform",
+                isFilled ? getStarsColor(value) : colorEmpty,
+              )}
             >
               <FontAwesomeIcon icon={getStarIcon(starIndex)} />
             </span>
