@@ -39,6 +39,7 @@ export const SIDEBAR_LINKS: SidebarLinkConfig[] = [
     labelKey: "navigation.sidebar.trends",
     icon: faChartSimple,
     color: "text-yellow",
+    scopes: ["group"],
   },
   {
     path: "/groups",
