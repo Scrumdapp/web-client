@@ -4,6 +4,7 @@ import {
   faChartSimple,
   faGear,
   faHouse,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
 export type SidebarScope = "group" | "tribe";
@@ -38,13 +39,12 @@ export const SIDEBAR_LINKS: SidebarLinkConfig[] = [
     labelKey: "navigation.sidebar.trends",
     icon: faChartSimple,
     color: "text-yellow",
-    scopes: ["group"],
   },
   {
     path: "/groups",
     labelKey: "navigation.sidebar.groups",
-    icon: faChartSimple,
-    color: "text-yellow",
+    icon: faUsers,
+    color: "text-orange",
     scopes: ["tribe"],
   },
   {
