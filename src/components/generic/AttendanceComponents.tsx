@@ -71,12 +71,12 @@ export const AttendanceCircleBar = memo(
     return (
       <div
         tabIndex={0}
-        className="group attendance-bar w-fit flex flex-wrap items-center justify-center gap-1 px-2 py-2 rounded transition-colors hover:bg-bg2 focus:bg-bg2"
+        className="attendance-bar w-fit flex flex-wrap items-center justify-center gap-1 p-2 rounded-lg outline-none transition-colors hover:bg-bg2 focus-visible:bg-bg2"
       >
         {sorted.map((p, i) => (
           <AttendanceCircle key={i} value={p.presence} />
         ))}
-        <div className="attendance-tooltip w-64 p-3 bg-bg border border-fg4 rounded-lg shadow-lg text-sm text-fg invisible opacity-0 translate-y-1 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus:visible group-focus:opacity-100 group-focus:translate-y-0">
+        <div className="attendance-tooltip w-64 p-3 bg-bg border border-fg4 rounded-lg shadow-lg text-sm text-fg">
           <span className="block font-bold mb-1.5">{groupName}</span>
           <div className="grid grid-cols-[auto_1fr_auto] items-center gap-x-2.5">
             {tooltipRows.map((row) => (
