@@ -1,0 +1,46 @@
+.attendance-bar {
+  anchor-name: --attendance;
+  anchor-scope: --attendance;
+}
+
+.attendance-tooltip {
+  position: fixed;
+  position-anchor: --attendance;
+  position-area: bottom span-right;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+  margin-top: 0.5rem;
+  z-index: 10;
+
+  visibility: hidden;
+  opacity: 0;
+  translate: 0 0.25rem;
+  transition:
+    opacity 150ms,
+    translate 150ms,
+    visibility 150ms;
+}
+
+@media (hover: hover) {
+  .attendance-bar:hover .attendance-tooltip {
+    visibility: visible;
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.attendance-bar:focus-visible .attendance-tooltip {
+  visibility: visible;
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (hover: none) {
+  .attendance-bar:focus .attendance-tooltip {
+    visibility: visible;
+    opacity: 1;
+    translate: 0 0;
+  }
+}

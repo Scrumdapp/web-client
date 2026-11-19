@@ -24,11 +24,9 @@ const Tribes = () => {
 
   useEffect(() => {
     modal.onAccepted(() => {
-      console.log("closed");
       GetTribesComponent.refresh();
     });
     modal.onClosed(() => {
-      console.log("closed");
       GetTribesComponent.refresh();
     });
   }, []);
