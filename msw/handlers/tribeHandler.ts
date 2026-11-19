@@ -1,47 +1,54 @@
 import { http, HttpResponse } from "msw";
 import { Tribe } from "../../src/js/models/tribe";
+import { groupData } from "./groupHandlers";
 
 export const tribeData: Tribe[] = [
   {
     id: 1,
     name: "Tribe Vince & Merijn",
     background_preference: "7_2",
-    icon_preference: undefined,
-    group_count: 6,
-    member_count: 22,
+    group_count: 4,
+    member_count: 32,
     is_active: true,
+    groups: groupData,
+    owner_id: 102,
   },
   {
     id: 2,
     name: "Tribe Hidde & Yara",
     background_preference: "color_red",
-    icon_preference: undefined,
-    group_count: 8,
-    member_count: 49,
+    group_count: 2,
+    member_count: 8,
     is_active: true,
+    groups: groupData.slice(0, 2),
+    owner_id: 102,
   },
   {
     id: 3,
     name: "Tribe Ole",
     background_preference: "22",
-    icon_preference: undefined,
     group_count: 3,
     member_count: 17,
     is_active: true,
+    groups: groupData.slice(0, 3),
+    owner_id: 102,
   },
   {
     id: 4,
     name: "Tribe Roelof",
     background_preference: "22",
-    icon_preference: undefined,
-    group_count: 5,
-    member_count: 28,
+    group_count: 1,
+    member_count: 6,
     is_active: false,
+    groups: groupData.slice(0, 1),
+    owner_id: 102,
   },
 ];
 
 export const tribeHandlers = [
   http.get("/api/tribes", async ({}) => {
+    // remove groups
+    // err translations
     return HttpResponse.json(tribeData.filter((it) => it.id < 5));
   }),
   http.post("/api/tribes", ({}) => {

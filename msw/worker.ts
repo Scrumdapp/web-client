@@ -10,6 +10,7 @@ import {
 import { userCookieHandler } from "./handlers/userCookieHandler.ts";
 import { inviteHandlers } from "./handlers/inviteHandlers.ts";
 import { trendsHandlers } from "./handlers/trendsHandlers.ts";
+import { tribeCheckpointHandlers } from "./handlers/tribeCheckpointHandler.ts";
 
 export const worker = setupWorker(
   ...userHandlers,
@@ -21,4 +22,5 @@ export const worker = setupWorker(
   ...inviteHandlers,
   ...trendsHandlers,
   ...tribeHandlers,
+  ...tribeCheckpointHandlers,
 );

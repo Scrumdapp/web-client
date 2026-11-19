@@ -86,7 +86,7 @@ interface GenCheckpoints {
   checkpoints: GroupCheckpoint[];
 }
 
-const groupCheckpoints: GenCheckpoints[] = generateCheckpoints(
+export const groupCheckpoints: GenCheckpoints[] = generateCheckpoints(
   {
     gId: 1,
     dateCount: 64,

@@ -1,17 +1,13 @@
-export type Feature =
-  | "checkins"
-  | "checkins.presence"
-  | "checkins.presence_comment"
-  | "checkins.checkin_stars"
-  | "checkins.checkup_stars"
-  | "checkins.checkout_stars"
-  | "checkins.checkin_comment"
-  | "checkins.checkup_comment"
-  | "checkins.checkout_comment"
-  | "checkins.obstacle_comment";
+import { Group } from "./group";
+
+export enum SessionStatus {
+  NOT_STARTED,
+  OPEN,
+  CLOSED,
+}
 
 export interface Tribe extends PartialTribe {
-  icon_preference?: string;
+  groups: Group[];
 }
 
 export interface PartialTribe {
@@ -21,8 +17,38 @@ export interface PartialTribe {
   group_count: number;
   member_count: number;
   is_active: boolean;
+  owner_id: number;
 }
 
 export interface CreateTribe {
   name: string;
+}
+
+export interface TribeCheckpoint {
+  session_name: string;
+  group_sessions: TribeGroupCheckpoint[];
+}
+
+export interface TribeGroupCheckpoint {
+  group_id: number;
+  status: SessionStatus;
+  session?: TribeCheckpointSession | null;
+}
+
+export interface TribeCheckpointSession {
+  session_id: number;
+  started_time: string;
+  presences: TribeCheckpointPresence[];
+  average_stars: string | null;
+}
+
+export interface TribeCheckpointPresence {
+  presence: string;
+  name: string;
+}
+
+export interface TribeCheckpointDates {
+  from_date: string;
+  to_date: string;
+  dates: string[];
 }
