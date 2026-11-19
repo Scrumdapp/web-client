@@ -16,7 +16,7 @@ export default {
       noArchived: "No archived tribes found.",
       checkpoint: {
         checkpointTitleDescription:
-          "{{activeGroupCount}} of {{groupCount}} groups · {{activeUserCount}} of {{memberCount}} entered information",
+          "{{activeGroupCount}} of {{groupCount}} groups · {{activeUserCount}} of {{memberCount}} members submitted",
       },
     },
   },
