@@ -120,7 +120,7 @@ export const trendsHandlers = [
     return HttpResponse.json(trendData[parseInt(params["gid"] as string)]);
   }),
 
-  http.get("/api/groups/:gid/trends/users/:uid/summary", () => {
+  http.get("/api/groups/:gid/trends/:uid/summary", () => {
     const summary: UserTrendSummary = {
       presence: {
         current_week: randomCounts(),
@@ -133,7 +133,7 @@ export const trendsHandlers = [
     return HttpResponse.json(summary);
   }),
 
-  http.get("/api/groups/:gid/trends/users/:uid/calendar", ({ request }) => {
+  http.get("/api/groups/:gid/trends/:uid/calendar", ({ request }) => {
     const month = new URL(request.url).searchParams.get("month") ?? toScrumdappDate(new Date()).slice(0, 7);
     const first = parseLocalDate(`${month}-01`);
     const last = new Date(first.getFullYear(), first.getMonth() + 1, 0);
@@ -151,7 +151,7 @@ export const trendsHandlers = [
     return HttpResponse.json(calendar);
   }),
 
-  http.get("/api/groups/:gid/trends/users/:uid/mood", ({ request }) => {
+  http.get("/api/groups/:gid/trends/:uid/mood", ({ request }) => {
     const query = new URL(request.url).searchParams;
     const fromDate = query.get("fromDate") ?? toScrumdappDate(new Date());
     const toDate = query.get("toDate") ?? toScrumdappDate(new Date());
@@ -168,7 +168,7 @@ export const trendsHandlers = [
     return HttpResponse.json(mood);
   }),
 
-  http.get("/api/groups/:gid/trends/users/:uid/period", ({ request }) => {
+  http.get("/api/groups/:gid/trends/:uid/period", ({ request }) => {
     const query = new URL(request.url).searchParams;
     const fromDate = query.get("fromDate") ?? toScrumdappDate(new Date());
     const toDate = query.get("toDate") ?? toScrumdappDate(new Date());

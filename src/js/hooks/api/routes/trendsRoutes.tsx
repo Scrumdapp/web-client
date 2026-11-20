@@ -20,7 +20,7 @@ export function getGroupTimelineTrends() {
 
 export function getUserTrendSummary() {
     return createProcessor("getUserTrendSummary", (groupId: number, userId: TrendUserId) => {
-        return makeApiRequest<UserTrendSummary>("GET", "/groups/{groupId}/trends/users/{userId}/summary", {
+        return makeApiRequest<UserTrendSummary>("GET", "/groups/{groupId}/trends/{userId}/summary", {
             params: { "{groupId}": groupId.toString(), "{userId}": userId.toString() },
         })
     })
@@ -28,7 +28,7 @@ export function getUserTrendSummary() {
 
 export function getUserTrendCalendar() {
     return createProcessor("getUserTrendCalendar", (groupId: number, userId: TrendUserId, month: string) => {
-        return makeApiRequest<UserTrendCalendar>("GET", "/groups/{groupId}/trends/users/{userId}/calendar", {
+        return makeApiRequest<UserTrendCalendar>("GET", "/groups/{groupId}/trends/{userId}/calendar", {
             params: { "{groupId}": groupId.toString(), "{userId}": userId.toString() },
             query: { month },
         })
@@ -37,7 +37,7 @@ export function getUserTrendCalendar() {
 
 export function getUserTrendMood() {
     return createProcessor("getUserTrendMood", (groupId: number, userId: TrendUserId, fromDate: string, toDate: string) => {
-        return makeApiRequest<UserTrendMood>("GET", "/groups/{groupId}/trends/users/{userId}/mood", {
+        return makeApiRequest<UserTrendMood>("GET", "/groups/{groupId}/trends/{userId}/mood", {
             params: { "{groupId}": groupId.toString(), "{userId}": userId.toString() },
             query: { fromDate, toDate },
         })
@@ -46,7 +46,7 @@ export function getUserTrendMood() {
 
 export function getUserTrendPeriod() {
     return createProcessor("getUserTrendPeriod", (groupId: number, userId: TrendUserId, fromDate: string, toDate: string) => {
-        return makeApiRequest<UserTrendPeriod>("GET", "/groups/{groupId}/trends/users/{userId}/period", {
+        return makeApiRequest<UserTrendPeriod>("GET", "/groups/{groupId}/trends/{userId}/period", {
             params: { "{groupId}": groupId.toString(), "{userId}": userId.toString() },
             query: { fromDate, toDate },
         })
