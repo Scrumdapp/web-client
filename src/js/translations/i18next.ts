@@ -10,6 +10,7 @@ import groups from "./pages/groups";
 import checkpoint from "./pages/checkpoint";
 import calendar from "./pages/calendar";
 import trends from "./pages/trends";
+import analytics from "./pages/analytics";
 import error from "./pages/error";
 import header from "./pages/header";
 import footer from "./pages/footer";
@@ -31,6 +32,7 @@ const pages: PageModule[] = [
   checkpoint,
   calendar,
   trends,
+  analytics,
   error,
   header,
   footer,
