@@ -2,7 +2,9 @@ import ChangelogList, { ChangelogItem } from "./ChangeLogList.tsx";
 import { useTranslation } from "react-i18next";
 
 const items: ChangelogItem[] = [
-  { type: "enrichment", key: "betterDependencies" },
+  { type: "enrichment", key: "betterSecurity" },
+  { type: "enrichment", key: "uiChanges" },
+  { type: "bugfix", key: "betterModal" },
   { type: "bugfix", key: "minorBugs" },
 ];
 

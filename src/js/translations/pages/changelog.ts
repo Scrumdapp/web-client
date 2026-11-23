@@ -36,8 +36,11 @@ export default {
       },
       v1_2_1: {
         title: "v1.2.1",
-        betterDependencies: "Updated the server",
-        minorBugs: "Various minor bugs fixed behind the scenes",
+        betterSecurity: "Improved security",
+        uiChanges:
+          "Multiple localization, accessibility and UI changes/improvements",
+        betterModal: "Modal no longer closes when clicking outside",
+        minorBugs: "Various other minor bugs fixed behind the scenes",
       },
     },
   },
@@ -80,8 +83,12 @@ export default {
       },
       v1_2_1: {
         title: "v1.2.1",
-        betterDependencies: "Server geüpdated",
-        minorBugs: "Various minor bugs fixed behind the scenes",
+        betterSecurity: "Improved security",
+        uiChanges:
+          "Meerdere lokalisatie, toegankelijkheid en UI aanpassingen/verbeteringen",
+        betterModal:
+          "Modal sluit niet meer als er buiten de modal geklikt wordt",
+        minorBugs: "Diverse andere kleine bugs opgelost achter de schermen",
       },
     },
   },
