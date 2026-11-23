@@ -37,7 +37,7 @@ export function getTribeCheckpointStatusColor(value: SessionStatus) {
 export function getTribeCheckpointStatus(value: SessionStatus) {
   return (
     tribeCheckpointStatusOptions.find((opt) => opt.value === value) ?? {
-      labelKey: "checkpint.tribe.session.unknown",
+      labelKey: "checkpoint.tribe.session.unknown",
       value: "UNKNOWN",
       color: "text-gray",
       icon: faCircleXmark,
