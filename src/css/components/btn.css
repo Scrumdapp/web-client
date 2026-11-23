@@ -3,7 +3,7 @@
 }
 
 .btn-secondary {
-  @apply bg-blue-dim hover:bg-blue;
+  @apply bg-blue-dim text-bg_h hover:bg-blue;
 }
 
 .btn-text {
@@ -11,7 +11,7 @@
 }
 
 .btn-red {
-  @apply bg-red-dim hover:bg-red;
+  @apply bg-red text-bg_h hover:bg-red-dim;
 }
 
 .btn-nav-dropdown {

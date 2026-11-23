@@ -38,29 +38,49 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
           {t("invite.accept.header")} {invite.groupId}!
         </h1>
         <p>{t("invite.accept.text")}</p>
-        <div>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleAcceptInvite();
+          }}
+        >
           <div className="py-3">
+            <label className="sr-only" htmlFor="invite-password">
+              {t("invite.password")}
+            </label>
             <input
+              id="invite-password"
+              type="password"
+              autoComplete="current-password"
               className="write-section w-full!"
               placeholder={t("invite.password")}
-              alt={t("invite.password")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              aria-invalid={acceptInviteRequest.error != null || undefined}
+              aria-describedby={
+                acceptInviteRequest.error != null
+                  ? "invite-password-error"
+                  : undefined
+              }
             />
           </div>
           <div>
             <button
-              onClick={handleAcceptInvite}
+              type="submit"
               className="btn btn-secondary border flex float-right"
+              disabled={acceptInviteRequest.loading}
             >
               <FontAwesomeIcon icon={faUserPlus} />
               {t("invite.accept.join")}
             </button>
             {acceptInviteRequest.error != null && (
-              <p className="text-error">{acceptInviteRequest.error.message}</p>
+              <p id="invite-password-error" role="alert" className="text-red">
+                {acceptInviteRequest.error.message}
+              </p>
             )}
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

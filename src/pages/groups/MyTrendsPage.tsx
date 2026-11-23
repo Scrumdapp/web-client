@@ -60,7 +60,7 @@ export function MyTrendsPage() {
   return (
     <div className="vertical gap-4">
       <title>{t("analytics.title")}</title>
-      <h2>{t("analytics.header")}</h2>
+      <h2 className="card">{t("analytics.header")}</h2>
 
       {/* The 3 stat tiles at the top of the page */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">

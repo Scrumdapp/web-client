@@ -12,6 +12,8 @@ type AttendanceDropDownMenuProps = {
   label: string;
   hideLabel?: boolean;
   labelClassName?: string;
+  describedBy?: string;
+  invalid?: boolean;
 };
 
 export function AttendanceDropDownMenu({
@@ -20,6 +22,8 @@ export function AttendanceDropDownMenu({
   label,
   hideLabel,
   labelClassName,
+  describedBy,
+  invalid,
 }: AttendanceDropDownMenuProps) {
   const { t } = useTranslation();
   const [localValue, setLocalValue] = useState<string | null>(value ?? null);
@@ -44,6 +48,8 @@ export function AttendanceDropDownMenu({
       label={label}
       hideLabel={hideLabel}
       labelClassName={labelClassName}
+      describedBy={describedBy}
+      invalid={invalid}
       value={localValue}
       onChange={updateValue}
       chevronClassName={currentColor}

@@ -3,6 +3,9 @@ export default {
     calendar: {
       title: "Calendar | Scrumdapp",
       header: "Calendar",
+      tableCaption: "Calendar for {{month}}",
+      week: "Week",
+      weekNumber: "Week {{number}}",
       mon: "Mon",
       tue: "Tue",
       wed: "Wed",
@@ -16,6 +19,9 @@ export default {
     calendar: {
       title: "Kalender | Scrumdapp",
       header: "Kalender",
+      tableCaption: "Kalender voor {{month}}",
+      week: "Week",
+      weekNumber: "Week {{number}}",
       mon: "Ma",
       tue: "Di",
       wed: "Wo",

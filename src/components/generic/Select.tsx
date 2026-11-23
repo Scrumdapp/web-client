@@ -31,6 +31,8 @@ interface SelectProps<T> {
   className?: string;
   chevronClassName?: string;
   disabled?: boolean;
+  describedBy?: string;
+  invalid?: boolean;
 }
 
 export function Select<T>({
@@ -47,6 +49,8 @@ export function Select<T>({
   className,
   chevronClassName,
   disabled,
+  describedBy,
+  invalid,
 }: SelectProps<T>) {
   const selected = options.find((opt) => opt.value === value);
 
@@ -63,6 +67,8 @@ export function Select<T>({
             "btn-attendance border cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
             buttonClassName,
           )}
+          aria-describedby={describedBy}
+          aria-invalid={invalid || undefined}
         >
           {buttonContent ?? (
             <span className={cn("text-left truncate", selected?.className)}>

@@ -35,6 +35,16 @@ export function YearlyAttendanceBlock({
     day: "numeric",
     month: "short",
   });
+  const chartSummary = bars
+    .map(
+      (bar) =>
+        `${shortDate.formatRange(bar.start, bar.end)}: ${series
+          .map(
+            ({ key }) => `${t(`analytics.calendarLegend.${key}`)} ${bar[key]}`,
+          )
+          .join(", ")}`,
+    )
+    .join("; ");
 
   const data = {
     labels: bars.map((bar) => shortDate.formatRange(bar.start, bar.end)),
@@ -90,7 +100,12 @@ export function YearlyAttendanceBlock({
         </p>
       ) : (
         <div className="h-56">
-          <Bar data={data} options={options} />
+          <Bar
+            data={data}
+            options={options}
+            role="img"
+            aria-label={`${t("analytics.yearly")}: ${chartSummary}`}
+          />
         </div>
       )}
     </>

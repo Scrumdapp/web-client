@@ -36,7 +36,7 @@ function BackgroundTile({
 
       <img
         src={`/backgrounds/thumbnails/${id}.webp`}
-        alt={t("settings.background.alt")}
+        alt={`${t("settings.background.alt")} ${id}`}
         className="inset-0 h-full w-full object-cover transition-opacity duration-300 rounded-lg"
         onLoad={() => setIsLoaded(true)}
       />
@@ -44,7 +44,7 @@ function BackgroundTile({
       <div className="absolute right-1 bottom-1 md:right-4 md:bottom-4">
         <button
           className="btn border bg-bg_h absolute right-1 bottom-1 md:right-4 md:bottom-4"
-          aria-label={`apply background ${id}`}
+          aria-label={t("a11y.background.apply", { id })}
           onClick={() => handleUpdate(id)}
         >
           {t("settings.background.modal.apply")}

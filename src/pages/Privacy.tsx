@@ -62,16 +62,20 @@ export default function Privacy() {
               className="text-link"
               href="mailto:info@scrumdapp.com"
               target="_blank"
+              rel="noopener noreferrer"
             >
               {t("privacy.link1")}
+              <span className="sr-only"> {t("a11y.opensInNewTab")}</span>
             </a>
             {t("privacy.text13")}
             <a
               className="text-link"
               href="https://scrumdapp.com/#Contact"
               target="_blank"
+              rel="noopener noreferrer"
             >
               {t("privacy.link2")}
+              <span className="sr-only"> {t("a11y.opensInNewTab")}</span>
             </a>
           </p>
         </div>

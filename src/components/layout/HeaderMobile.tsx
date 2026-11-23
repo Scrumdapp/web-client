@@ -27,7 +27,10 @@ export default function HeaderMobile() {
   return (
     <>
       <header className="flex flex-col mx-2 fixed top-0 left-0 right-0 z-50">
-        <nav className="relative z-20 bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center">
+        <nav
+          aria-label={t("a11y.nav.main")}
+          className="relative z-20 bg-bg_h mt-2 flex px-1 rounded-full border shadow-xl w-full justify-between items-center"
+        >
           <div className="flex-1 min-w-0 text-fg font-bold text-xl">
             <Link
               to="/groups"
@@ -35,7 +38,7 @@ export default function HeaderMobile() {
             >
               <img
                 src="/ScrumdappLogoTransparent.webp"
-                alt={t("about.logo")}
+                alt=""
                 className="nav-icon max-w-full"
               />
               Scrumdapp
@@ -56,7 +59,7 @@ export default function HeaderMobile() {
                 <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
                 <img
                   src={user.avatar ?? "/Scrumdaddy.png"}
-                  alt={t("header.profileAlt")}
+                  alt=""
                   className="nav-icon max-w-full"
                 />
               </div>

@@ -87,7 +87,7 @@ export function UpdateGroupUserModal({
         </button>
       </ModalActionRow>
       <ShowIf condition={errorValue != null}>
-        <p className="text-red text-right">
+        <p role="alert" className="text-red text-right">
           {errorValue?.status}: {errorValue?.message}
         </p>
       </ShowIf>

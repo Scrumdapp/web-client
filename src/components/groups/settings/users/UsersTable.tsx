@@ -15,13 +15,16 @@ export function UsersTable() {
       <GetGroupUsersComponent input={[group.id]}>
         {(users) => (
           <table className="table-fixed">
+            <caption className="sr-only">{t("settings.users.title")}</caption>
             <thead>
               <tr>
-                <th className="text-left p-2">{t("settings.users.name")}</th>
-                <th className="text-left p-2">
+                <th scope="col" className="text-left p-2">
+                  {t("settings.users.name")}
+                </th>
+                <th scope="col" className="text-left p-2">
                   {t("settings.users.ghost.labelTable")}
                 </th>
-                <th className="text-right p-2">
+                <th scope="col" className="text-right p-2">
                   {t("settings.users.actions")}
                 </th>
               </tr>

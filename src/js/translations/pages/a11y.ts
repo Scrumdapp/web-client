@@ -26,8 +26,9 @@ export default {
         website: "Website of {{name}}",
       },
       checkpoint: {
-        view: "View check-in of {{name}}",
-        edit: "Edit check-in of {{name}}",
+        table: "Checkpoint for {{name}}",
+        view: "View checkpoint of {{name}}",
+        edit: "Edit checkpoint of {{name}}",
         previousDay: "Previous day",
         nextDay: "Next day",
         noRating: "No rating",
@@ -44,7 +45,7 @@ export default {
       },
       calendar: {
         week: "Week",
-        hasCheckpoint: "checkpoint held",
+        hasCheckpoint: "checkpoint opened",
         today: "today",
         legend: "Days with a checkpoint",
       },
@@ -54,13 +55,11 @@ export default {
       },
       trends: {
         name: "Name",
-        periodicHelp:
-          "Use the arrow keys to move between days and members. Press Escape to hide the details.",
-        cumulativeHelp:
-          "Use the arrow keys to move between members. Press Escape to hide the details.",
         displayType: "Display type",
         timeRange: "Time range",
         legend: "Legend",
+        cumulativeTable: "Cumulative attendance by group member",
+        periodicTable: "Attendance by group member and date",
       },
       invite: {
         actions: "Actions",
@@ -104,8 +103,9 @@ export default {
         website: "Website van {{name}}",
       },
       checkpoint: {
-        view: "Bekijk check-in van {{name}}",
-        edit: "Bewerk check-in van {{name}}",
+        table: "Checkpoints van {{name}}",
+        view: "Bekijk checkpoint van {{name}}",
+        edit: "Bewerk checkpoint van {{name}}",
         previousDay: "Vorige dag",
         nextDay: "Volgende dag",
         noRating: "Geen beoordeling",
@@ -122,7 +122,7 @@ export default {
       },
       calendar: {
         week: "Week",
-        hasCheckpoint: "checkpoint gehouden",
+        hasCheckpoint: "checkpoint geopend",
         today: "vandaag",
         legend: "Dagen met een checkpoint",
       },
@@ -132,13 +132,11 @@ export default {
       },
       trends: {
         name: "Naam",
-        periodicHelp:
-          "Gebruik de pijltjestoetsen om tussen dagen en leden te bewegen. Druk op Escape om de details te verbergen.",
-        cumulativeHelp:
-          "Gebruik de pijltjestoetsen om tussen leden te bewegen. Druk op Escape om de details te verbergen.",
         displayType: "Weergave",
         timeRange: "Periode",
         legend: "Legenda",
+        cumulativeTable: "Cumulatieve aanwezigheid per groepslid",
+        periodicTable: "Aanwezigheid per groepslid en datum",
       },
       invite: {
         actions: "Acties",

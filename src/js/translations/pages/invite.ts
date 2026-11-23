@@ -31,6 +31,7 @@ export default {
         succes: "Link copied to clipboard!",
       },
       duration: {
+        duration: "Duration",
         twelvehours: "12 hours",
         oneday: "1 day",
         twodays: "2 days",
@@ -72,6 +73,7 @@ export default {
         succes: "Link gekopieerd naar klembord!",
       },
       duration: {
+        duration: "Duur",
         twelvehours: "12 uur",
         oneday: "1 dag",
         twodays: "2 dagen",

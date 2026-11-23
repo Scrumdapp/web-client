@@ -23,10 +23,13 @@ export function RenderCumulativeGraph({
 
   return (
     <table className="text-sm md:text-base">
+      <caption className="sr-only">{t("a11y.trends.cumulativeTable")}</caption>
       <thead>
         <tr>
-          <th></th>
-          <th>
+          <th scope="col">
+            <span className="sr-only">{t("a11y.trends.name")}</span>
+          </th>
+          <th scope="col">
             <div
               className="relative"
               style={{
@@ -83,9 +86,9 @@ export function RenderCumulativeGraph({
       <tbody>
         {users.map((user) => (
           <tr key={user.user_id}>
-            <td className="w-24 md:w-48 pr-2">
+            <th scope="row" className="w-24 md:w-48 pr-2 text-left">
               {user.first_name} {user.last_name}
-            </td>
+            </th>
             <td className="py-1">
               <RenderCumulativeTrend
                 trend={data.trends.find((it) => it.userId == user.user_id)!}
@@ -142,7 +145,7 @@ function RenderCumulativeTrend({
     <div className="horizontal w-full flex-1">
       {map.map((item, i) => {
         let selfTotal = presenceData.get(item.id) ?? 0;
-        let selfCount = selfTotal;
+        const selfCount = selfTotal;
 
         for (const child of item.children) {
           if ((presenceData.get(child.id) ?? 0) == 0) {
@@ -155,8 +158,18 @@ function RenderCumulativeTrend({
           return null;
         }
 
+        const accessibleCounts = [item.id, ...item.children.map(({ id }) => id)]
+          .filter((id) => (presenceData.get(id) ?? 0) > 0)
+          .map(
+            (id) =>
+              `${t(getAttendanceLabelKeyTrends(id))}: ${presenceData.get(id)}`,
+          )
+          .join(", ");
+
         return (
           <div
+            role="img"
+            aria-label={accessibleCounts}
             className={`timeline-item dropdown relative ${item.color} hover:outline`}
             key={i}
             style={{
@@ -166,7 +179,10 @@ function RenderCumulativeTrend({
               paddingLeft: "4px",
             }}
           >
-            <div className="absolute bottom-0 top-0 left-0 right-0 flex">
+            <div
+              aria-hidden="true"
+              className="absolute bottom-0 top-0 left-0 right-0 flex"
+            >
               <div style={{ width: `${(selfCount / selfTotal) * 100}%` }}></div>
               {item.children
                 .filter((it) => (presenceData.get(it.id) ?? 0) != 0)
@@ -181,11 +197,13 @@ function RenderCumulativeTrend({
                 ))}
             </div>
             <HideIf condition={selfTotal == 0}>
-              <HideIfNotFullyVisible className="absolute text-bg_h">
-                {selfTotal}x
-              </HideIfNotFullyVisible>
+              <span aria-hidden="true">
+                <HideIfNotFullyVisible className="absolute text-bg_h">
+                  {selfTotal}x
+                </HideIfNotFullyVisible>
+              </span>
             </HideIf>
-            <div className="dropdown-content">
+            <div aria-hidden="true" className="dropdown-content">
               <HideIf condition={selfCount == 0}>
                 <div>
                   {t(getAttendanceLabelKeyTrends(item.id))}:{" "}

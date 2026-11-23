@@ -60,10 +60,15 @@ export default function Invites({ groupId }: InvitesProps) {
             <p>{t("invite.noinvites")}</p>
           ) : (
             <table className="table">
+              <caption className="sr-only">{t("invite.header")}</caption>
               <thead>
                 <tr>
-                  <th className="p-2 text-left">{t("invite.expire")}</th>
-                  <th />
+                  <th scope="col" className="p-2 text-left">
+                    {t("invite.expire")}
+                  </th>
+                  <th scope="col">
+                    <span className="sr-only">{t("a11y.invite.actions")}</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -71,11 +76,12 @@ export default function Invites({ groupId }: InvitesProps) {
                   const expired = new Date(invite.expiresAt) < new Date();
                   return (
                     <tr key={invite.id}>
-                      <td className="p-2">
+                      <th scope="row" className="p-2 text-left">
                         {new Date(invite.expiresAt).toLocaleString()}
-                      </td>
+                      </th>
                       <td>
                         <button
+                          type="button"
                           onClick={() => handleCopyInvite(invite)}
                           className="btn btn-secondary border my-1 float-right"
                           disabled={expired}
@@ -91,6 +97,11 @@ export default function Invites({ groupId }: InvitesProps) {
                               ? t("invite.expired")
                               : t("invite.modal.copy")}
                         </button>
+                        {copiedId === invite.id && (
+                          <span role="status" className="sr-only">
+                            {t("a11y.invite.copied")}
+                          </span>
+                        )}
                       </td>
                     </tr>
                   );

@@ -17,15 +17,16 @@ export default function HeaderMobileModal({ modal }: HeaderMobileModalProps) {
   return (
     <Modal
       state={modal}
+      ariaLabel={t("a11y.nav.main")}
       dialogClassName="fixed inset-0 z-10 m-0 h-dvh max-h-dvh pt-16 pb-2"
       className="mt-0 mb-auto w-full max-h-full overflow-y-auto overscroll-contain"
     >
-      <div className="flex flex-col">
+      <div id="mobile-navigation" className="flex flex-col">
         <div className="flex items-center justify-between gap-2 px-4 py-3">
           <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
           <img
             src={user.avatar ?? "/Scrumdaddy.png"}
-            alt={t("header.profileAlt")}
+            alt=""
             className="nav-icon max-w-full"
           />
         </div>

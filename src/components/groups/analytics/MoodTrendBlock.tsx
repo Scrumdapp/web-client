@@ -35,6 +35,18 @@ export function MoodTrendBlock({
     day: "numeric",
     month: "long",
   });
+  const chartSummary = [
+    ...points.map(
+      (point) =>
+        `${dateLabel.format(point.date)} ${point.sessionName}: ${t(
+          "analytics.moodTooltipScore",
+          { score: point.score },
+        )}`,
+    ),
+    ...(average == null
+      ? []
+      : [t("analytics.moodTooltipAverage", { score: average })]),
+  ].join("; ");
 
   const data = {
     labels: points.map((p) => dateLabel.format(p.date)),
@@ -108,7 +120,12 @@ export function MoodTrendBlock({
       ) : (
         // Grows with the card so the chart fills the height of the calendar next to it
         <div className="relative flex-1 min-h-72">
-          <Line data={data} options={options} />
+          <Line
+            data={data}
+            options={options}
+            role="img"
+            aria-label={`${t("analytics.mood")}: ${chartSummary}`}
+          />
         </div>
       )}
       <div className="horizontal flex-wrap gap-3 mt-4">

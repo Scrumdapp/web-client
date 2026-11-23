@@ -16,6 +16,10 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
   const { t } = useTranslation();
   const [name, setName] = useState("");
   const createGroupCommand = useApi(ScrumdappApi.createGroup());
+  const nameError = "create-group-name-error";
+  const hasNameError = createGroupCommand.error?.errors?.some(
+    (error) => error.field === "name",
+  );
 
   return (
     <Modal state={state}>
@@ -32,19 +36,25 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
           });
         }}
       >
+        <label className="sr-only" htmlFor="create-group-name">
+          {t("groups.creategroup")}
+        </label>
         <input
+          id="create-group-name"
           type="text"
           placeholder={t("groups.creategroup")}
-          alt={t("groups.creategroup")}
           className="write-section mb-4 w-full!"
           value={name}
           maxLength={30}
           onChange={(e) => setName(e.target.value)}
           required
+          aria-invalid={hasNameError || undefined}
+          aria-describedby={hasNameError ? nameError : undefined}
         />
         <FieldApiErrorMessage
           errors={createGroupCommand.error?.errors ?? null}
           field="name"
+          id={nameError}
         />
       </form>
 

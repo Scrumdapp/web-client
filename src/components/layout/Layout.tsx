@@ -11,19 +11,25 @@ import { useModalState } from "../../js/hooks/useModalState.ts";
 import ChangeLogModal from "../modals/ChangeLogModal.tsx";
 
 export default function Layout({ children }: PropsWithChildren) {
+  const { t } = useTranslation();
   const changelogModal = useModalState();
   useAutoOpenChangelog(changelogModal);
 
   return (
     <BackgroundProvider initialBackground={"1"}>
       <div className="min-h-dvh flex flex-col">
+        <a className="skip-link" href="#main-content">
+          {t("a11y.skipToContent")}
+        </a>
         <div className="hidden md:block">
           <Header />
         </div>
         <div className="block md:hidden">
           <HeaderMobile />
         </div>
-        <main className="flex-1 flex flex-col">{children}</main>
+        <main id="main-content" tabIndex={-1} className="flex-1 flex flex-col">
+          {children}
+        </main>
         <div className="hidden md:block">
           <Footer />
         </div>
@@ -39,12 +45,12 @@ export default function Layout({ children }: PropsWithChildren) {
 
 function BackgroundDisplayer() {
   const bg = useCurrentBackground();
-  const { t } = useTranslation();
   return (
     <img
       src={`/backgrounds/${bg ?? "1"}.webp`}
       className="fixed object-cover right-0 left-0 top-0 bottom-0 w-full max-w-full h-full -z-1 opacity-15"
-      alt={t("settings.background.header")}
+      alt=""
+      aria-hidden="true"
     />
   );
 }

@@ -13,9 +13,10 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export function GroupSidebar() {
   const group = useGroup();
+  const { t } = useTranslation();
 
   return (
-    <div className="card vertical gap-1">
+    <nav aria-label={t("a11y.nav.group")} className="card vertical gap-1">
       <SidebarLink
         to={`/groups/${group.id}`}
         translationKey="checkpoint.sidebar.today"
@@ -47,7 +48,7 @@ export function GroupSidebar() {
         icon={faGear}
         className="text-red"
       />
-    </div>
+    </nav>
   );
 }
 

@@ -15,6 +15,8 @@ import { useTranslation } from "react-i18next";
 import { useApi } from "../../js/hooks/api/useApi.ts";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import useTempState from "../../js/hooks/useTempState.ts";
+import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
+import { Input } from "../generic/Input.tsx";
 
 type InviteComponentModalProps = {
   modal: ModalState;
@@ -59,12 +61,13 @@ export default function InviteComponentModal({
     <Modal state={modal}>
       {step === 1 && (
         <>
-          <h1>{t("invite.createPassword")}</h1>
-          <div className="flex justify-between py-2">
-            <input
-              className="write-section w-full! mr-2 flex-5"
+          <ModalHeadText>{t("invite.createPassword")}</ModalHeadText>
+          <div className="flex justify-between items-end py-2">
+            <Input
+              label={t("invite.password")}
+              className="flex-5 mr-2"
+              inputClassName="write-section w-full! h-10.5!"
               placeholder={t("invite.password")}
-              alt={t("invite.password")}
               value={password}
               maxLength={32}
               onChange={(e) => {
@@ -77,6 +80,7 @@ export default function InviteComponentModal({
             />
             <div className="flex flex-3">
               <InviteTimeDurationDropdownMenu
+                label={t("invite.duration.duration")}
                 onChange={(v) => setExpireHours(v ?? 12)}
               />
             </div>
@@ -109,7 +113,7 @@ export default function InviteComponentModal({
       )}
       {step === 2 && (
         <div>
-          <h1>{t("invite.modal.header")}</h1>
+          <ModalHeadText>{t("invite.modal.header")}</ModalHeadText>
           <p>{t("invite.modal.text")}</p>
           <div className="py-5 gap-2 flex flex-nowrap justify-between items-center">
             <p>{t("invite.modal.link")}</p>
@@ -119,8 +123,11 @@ export default function InviteComponentModal({
           </div>
           <ModalActionRow>
             {copied && (
-              <p className="text-right text-green-dim mt-2 items-center my-auto mr-2">
-                {t("invite.modal.succes")}
+              <p
+                role="status"
+                className="text-right text-green-dim mt-2 items-center my-auto mr-2"
+              >
+                {t("a11y.invite.copied")}
               </p>
             )}
             <button onClick={handleCopy} className="btn border">

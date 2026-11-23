@@ -22,9 +22,9 @@ export function UsersTableUserRow({
 
   return (
     <tr>
-      <td className="p-2 border-r border-t border-dotted">
+      <th scope="row" className="p-2 border-r border-t border-dotted text-left">
         {groupUser.first_name} {groupUser.last_name}
-      </td>
+      </th>
       <td className="p-2 border-t border-dotted">
         {t(
           groupUser.is_ghost
@@ -33,7 +33,14 @@ export function UsersTableUserRow({
         )}
       </td>
       <td className="flex justify-end gap-1 p-2 border-t border-dotted">
-        <button className="btn border btn-secondary" onClick={updateState.open}>
+        <button
+          type="button"
+          className="btn border btn-secondary min-w-6 min-h-6"
+          onClick={updateState.open}
+          aria-label={t("a11y.users.edit", {
+            name: `${groupUser.first_name} ${groupUser.last_name}`,
+          })}
+        >
           <FontAwesomeIcon icon={faPencil} />
         </button>
         <UpdateGroupUserModal
@@ -46,7 +53,14 @@ export function UsersTableUserRow({
         />
         {hasRole(user, Role.Coach) && user.id != groupUser.user_id && (
           <>
-            <button className="btn border btn-red" onClick={deleteState.open}>
+            <button
+              type="button"
+              className="btn border btn-red min-w-6 min-h-6"
+              onClick={deleteState.open}
+              aria-label={t("a11y.users.delete", {
+                name: `${groupUser.first_name} ${groupUser.last_name}`,
+              })}
+            >
               <FontAwesomeIcon icon={faTrashCan} />
             </button>
             <DeleteGroupUserModal

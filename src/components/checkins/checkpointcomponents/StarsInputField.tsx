@@ -14,6 +14,7 @@ type StarsInputFieldProps = {
   max?: number;
   labelId?: string;
   describedBy?: string;
+  invalid?: boolean;
 };
 
 const POINTS_PER_STAR = 2;
@@ -24,6 +25,7 @@ export function StarsInputField({
   max = 5,
   labelId,
   describedBy,
+  invalid,
 }: StarsInputFieldProps) {
   const { t, i18n } = useTranslation();
   const [localValue, setLocalValue] = useState<number | null>(value);
@@ -104,6 +106,7 @@ export function StarsInputField({
       tabIndex={0}
       aria-labelledby={labelId}
       aria-describedby={describedBy}
+      aria-invalid={invalid || undefined}
       aria-valuemin={0}
       aria-valuemax={maxValue}
       aria-valuenow={localValue ?? 0}

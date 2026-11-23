@@ -17,14 +17,18 @@ export default function GroupSidebarModal({
   const { t } = useTranslation();
 
   return (
-    <Modal state={modal} className="mx-2 w-full">
+    <Modal
+      state={modal}
+      ariaLabel={`${t("a11y.nav.group")}: ${groupName}`}
+      className="mx-2 w-full"
+    >
       <div className="flex flex-col divide-y">
         <div className="p-2">
           <div className="flex justify-between">
             <h1 className="pl-2 p-1 text-xl md:text-2xl">{groupName}</h1>
             <button
               type="button"
-              className="pr-2 p-1"
+              className="pr-2 p-1 min-w-6 min-h-6"
               onClick={modal.close}
               aria-label={t("checkpoint.modal.menuClose")}
             >
