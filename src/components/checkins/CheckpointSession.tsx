@@ -1,27 +1,13 @@
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
-import Stars from "./checkpointcomponents/Stars.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowsRotate,
   faChevronDown,
-  faEye,
-  faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import { useModalState } from "../../js/hooks/useModalState.ts";
-import { LoadScreen } from "../generic/LoadScreen.tsx";
-import { ErrorScreen } from "../generic/ErrorScreen.tsx";
 import { GroupCheckpointSession } from "../../js/models/checkpoint.ts";
 import { useTranslation } from "react-i18next";
-import {
-  getStarsColor,
-  getAttendanceColor,
-  getAttendanceLabelKey,
-} from "../../js/utils/colorUtils.ts";
-import { useGroupUsers } from "../../utility/groupUsers/useGroupUsers.ts";
 import { CheckpointTimer } from "./CheckpointTimer.tsx";
-import { useUser } from "../../js/context/user/useUser.ts";
-import { Checkpoint } from "./Checkpoint.tsx";
 import { useCreateCheckpointUserMapper } from "./checkpointUserMapper.ts";
 import { useApi } from "../../js/hooks/api/useApi.ts";
 import { CheckpointTable } from "./CheckpointTable.tsx";
@@ -36,9 +22,6 @@ export function CheckpointSession({
 }) {
   const { t } = useTranslation();
 
-  const modal = useModalState();
-  const modalReadOnly = useModalState();
-
   const [locked, setLocked] = useState(
     () => Date.now() > new Date(session.startTime).getTime() + session.duration,
   );
@@ -48,26 +31,6 @@ export function CheckpointSession({
   });
 
   const [isExpanded, setIsExpanded] = useState(!locked || isMostRecent);
-
-  const [selectedUser, setSelectedUser] = useState<SessionCheckpointRow | null>(
-    null,
-  );
-  const [editSession, setEditSession] = useState(0);
-
-  const openEdit = (row: SessionCheckpointRow) => {
-    setSelectedUser(row);
-    setEditSession((n) => n + 1);
-    modal.open();
-  };
-
-  const openReadOnly = (row: SessionCheckpointRow) => {
-    setSelectedUser(row);
-    modalReadOnly.open();
-  };
-
-  useEffect(() => {
-    if (locked) modal.close();
-  }, [locked, modal]);
 
   useEffect(() => {
     if (isExpanded && !getCheckpointSessions.data) {
@@ -130,18 +93,6 @@ export function CheckpointSession({
           />
         </div>
       </div>
-
-      {/*
-      <EditCheckpointModal
-        key={editSession}
-        modal={modal}
-        groupId={groupId}
-        row={selectedUser}
-        onSaved={handleSaved}
-      />
-
-      <ReadOnlyCheckpointModal modal={modalReadOnly} row={selectedUser} />
-      */}
     </div>
   );
 }

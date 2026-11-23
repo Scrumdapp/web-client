@@ -18,62 +18,53 @@ import {
 const updateCheckpointProcessor = ScrumdappApi.updateGroupCheckpoint();
 
 type EditCheckpointModalProps = {
-  modal: ModalState;
+  state: ModalState;
   groupId: number;
-  row: SessionCheckpointRow | null;
-  onSaved: (
-    patch: Pick<
-      GroupCheckpoint,
-      "groupUser" | "presence" | "stars" | "comment" | "impediment"
-    >,
-  ) => void;
+  checkpoint: SessionCheckpointRow;
+  onSaved?: () => void;
 };
 
 export default function EditCheckpointModal({
-  modal,
+  state,
   groupId,
-  row,
+  checkpoint,
   onSaved,
 }: EditCheckpointModalProps) {
   const { t } = useTranslation();
 
   const [presence, setPresence] = useState<string | null>(
-    row?.presence ? String(row.presence) : null,
+    checkpoint.presence ?? null,
   );
-  const [stars, setStars] = useState<number | null>(row?.stars ?? null);
-  const [notes, setNotes] = useState(row?.comment ?? "");
-  const [obstacle, setObstacle] = useState(row?.impediment ?? "");
+  const [stars, setStars] = useState<number | null>(checkpoint.stars ?? null);
+  const [notes, setNotes] = useState(checkpoint.comment ?? "");
+  const [obstacle, setObstacle] = useState(checkpoint.impediment ?? "");
 
   const { runCommand, loading, error } = useApi(updateCheckpointProcessor);
 
-  const handleApply = async () => {
-    if (!row) return;
-    try {
-      await runCommand(groupId, {
-        userId: row.groupUser,
-        sessionId: row.sessionId,
-        presence,
-        stars,
-        comment: notes,
-        impediment: obstacle,
+  const handleApply = () => {
+    if (!checkpoint) return;
+    runCommand(groupId, {
+      userId: checkpoint.groupUser,
+      sessionId: checkpoint.sessionId,
+      presence,
+      stars,
+      comment: notes,
+      impediment: obstacle,
+    })
+      .then(() => {
+        onSaved?.();
+        state.close();
+      })
+      .catch((e) => {
+        console.error(e);
       });
-      onSaved({
-        groupUser: row.groupUser,
-        presence,
-        stars,
-        comment: notes,
-        impediment: obstacle,
-      });
-      modal.close();
-    } catch (e) {
-      console.error(e);
-    }
+    state.close();
   };
 
-  const userName = row ? `${row.first_name} ${row.last_name}` : "";
+  const userName = `${checkpoint.first_name} ${checkpoint.last_name}`;
 
   return (
-    <Modal state={modal}>
+    <Modal state={state}>
       <div className="space-y-5">
         <ModalHeadText>
           {t("checkpoint.modalheader", { name: userName })}
