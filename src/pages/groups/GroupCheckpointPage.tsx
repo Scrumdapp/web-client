@@ -39,20 +39,12 @@ export function GroupCheckpointPage({
   next.setDate(next.getDate() + 1);
   const nextDate = toScrumdappDate(next);
 
-  const getGroupUsers = useApi(ScrumdappApi.getGroupUsers(), {
-    fetchOnCreated: [group.id],
-  });
-
   const getCheckpointSessions = useApi(ScrumdappApi.getCheckpointSessions(), {
     fetchOnCreated: [group.id, { date }],
   });
 
-  if (getGroupUsers.loading || getCheckpointSessions.loading) {
+  if (getCheckpointSessions.loading) {
     return <LoadScreen />;
-  }
-
-  if (getGroupUsers.error != null) {
-    return <ErrorScreen error={getGroupUsers.error} />;
   }
 
   if (getCheckpointSessions.error != null) {
