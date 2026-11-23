@@ -34,6 +34,11 @@ export default {
           "Multiple localization, accessibility and UI changes/improvements",
         minorBugs: "Various other minor bugs fixed behind the scenes",
       },
+      v1_2_1: {
+        title: "v1.2.1",
+        betterDependencies: "Updated the server",
+        minorBugs: "Various minor bugs fixed behind the scenes",
+      },
     },
   },
   nl: {
@@ -72,6 +77,11 @@ export default {
         uiChanges:
           "Meerdere lokalisatie, toegankelijkheid en UI aanpassingen/verbeteringen",
         minorBugs: "Diverse andere kleine bugs opgelost achter de schermen",
+      },
+      v1_2_1: {
+        title: "v1.2.1",
+        betterDependencies: "Server geüpdated",
+        minorBugs: "Various minor bugs fixed behind the scenes",
       },
     },
   },

@@ -12,7 +12,7 @@ const items: ChangelogItem[] = [
   { type: "bugfix", key: "minorBugs" },
 ];
 
-export default function ChangelogV102() {
+export default function ChangelogV1_2() {
   const { t } = useTranslation();
   return (
     <div className="my-4">
