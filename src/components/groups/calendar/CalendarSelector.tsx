@@ -26,7 +26,7 @@ export const CalendarSelector = memo(
     );
 
     const monthLabel = (date: Date) => {
-      const key = parseMonthText(date.getUTCMonth());
+      const key = parseMonthText(date.getMonth());
       return key ? t(key) : "";
     };
 

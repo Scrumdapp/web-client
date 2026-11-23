@@ -16,7 +16,7 @@ interface ModalProps {
 
 export default function Modal({
   state,
-  backgroundClickClose = true,
+  backgroundClickClose = false,
   children,
   className,
   dialogClassName,
@@ -48,7 +48,7 @@ export default function Modal({
       <ModalTitleIdContext.Provider value={titleId}>
         <dialog
           className={cn(
-            "flex backdrop-blur-lg bg-[unset] w-full h-full max-w-screen max-h-screen",
+            "flex p-2 backdrop-blur-lg bg-[unset] w-full h-full max-w-screen max-h-screen",
             dialogClassName,
           )}
           aria-labelledby={ariaLabel ? undefined : titleId}
@@ -66,7 +66,7 @@ export default function Modal({
         >
           <div
             className={cn(
-              "m-auto bg-bg_h rounded-lg p-4 md:p-6 max-w-[calc(100%-1rem)] md:min-w-96 border",
+              "w-full m-auto bg-bg_h rounded-lg p-4 md:p-6 max-w-[calc(100%-1rem)] sm:max-w-xl md:min-w-96 border",
               className,
             )}
             onClick={(e) => e.stopPropagation()}
