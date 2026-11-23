@@ -41,20 +41,12 @@ export function GroupCheckpointPage({
 
   const currentUser = useUser();
 
-  const getGroupUsers = useApi(ScrumdappApi.getGroupUsers(), {
-    fetchOnCreated: [group.id],
-  });
-
   const getCheckpointSessions = useApi(ScrumdappApi.getCheckpointSessions(), {
     fetchOnCreated: [group.id, { date }],
   });
 
-  if (getGroupUsers.loading || getCheckpointSessions.loading) {
+  if (getCheckpointSessions.loading) {
     return <LoadScreen />;
-  }
-
-  if (getGroupUsers.error != null) {
-    return <ErrorScreen error={getGroupUsers.error} />;
   }
 
   if (getCheckpointSessions.error != null) {
@@ -62,7 +54,6 @@ export function GroupCheckpointPage({
   }
 
   const checkpointSessions = getCheckpointSessions.data!;
-  const groupUsers = getGroupUsers.data!.filter((it) => !it.is_ghost);
 
   const groupCreated = () => {
     getCheckpointSessions.runCommand(group.id, { date });
@@ -114,7 +105,6 @@ export function GroupCheckpointPage({
               startTime={new Date(session.startTime).getTime()}
               duration={session.duration * 60_000}
               sessionId={session.id}
-              users={groupUsers}
               currentUser={currentUser}
               ownerId={session.ownerId}
               isMostRecent={index === 0}
