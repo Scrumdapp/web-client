@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { GroupCheckpoint } from "../../js/models/checkpoint";
+import { useGroupUsers } from "../../utility/groupUsers/useGroupUsers";
 
 export type SessionCheckpointRow = GroupCheckpoint & {
   first_name: string;
