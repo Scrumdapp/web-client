@@ -83,7 +83,7 @@ export default {
       },
       v1_2_1: {
         title: "v1.2.1",
-        betterSecurity: "Improved security",
+        betterSecurity: "Beveiliging verbeterd",
         uiChanges:
           "Meerdere lokalisatie, toegankelijkheid en UI aanpassingen/verbeteringen",
         betterModal:
