@@ -1,4 +1,4 @@
-import Checkpoint from "../../components/checkins/Checkpoint.tsx";
+import { CheckpointSession } from "../../components/checkins/CheckpointSession.tsx";
 import { Link } from "react-router-dom";
 import {
   parseScrumdappDate,
@@ -39,8 +39,6 @@ export function GroupCheckpointPage({
   next.setDate(next.getDate() + 1);
   const nextDate = toScrumdappDate(next);
 
-  const currentUser = useUser();
-
   const getGroupUsers = useApi(ScrumdappApi.getGroupUsers(), {
     fetchOnCreated: [group.id],
   });
@@ -62,7 +60,6 @@ export function GroupCheckpointPage({
   }
 
   const checkpointSessions = getCheckpointSessions.data!;
-  const groupUsers = getGroupUsers.data!.filter((it) => !it.is_ghost);
 
   const groupCreated = () => {
     getCheckpointSessions.runCommand(group.id, { date });
@@ -107,16 +104,9 @@ export function GroupCheckpointPage({
       {checkpointSessions?.length > 0 ? (
         [...checkpointSessions].reverse().map((session, index) => (
           <div key={session.id} className="w-full">
-            <Checkpoint
-              groupId={group.id}
+            <CheckpointSession
               key={session.id}
-              name={session.name}
-              startTime={new Date(session.startTime).getTime()}
-              duration={session.duration * 60_000}
-              sessionId={session.id}
-              users={groupUsers}
-              currentUser={currentUser}
-              ownerId={session.ownerId}
+              session={session}
               isMostRecent={index === 0}
             />
           </div>
