@@ -1,9 +1,9 @@
 import { Group } from "./group";
 
 export enum SessionStatus {
-  NOT_STARTED,
-  OPEN,
-  CLOSED,
+  OPEN = "OPEN",
+  CLOSED = "CLOSED",
+  NOT_STARTED = "NOT_STARTED",
 }
 
 export interface Tribe extends PartialTribe {
