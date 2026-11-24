@@ -2,10 +2,10 @@ import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import { Link } from "react-router";
 import {
-    faChartLine,
-    faChartSimple,
-    faGear,
-    faHouse,
+  faChartLine,
+  faChartSimple,
+  faGear,
+  faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
