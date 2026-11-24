@@ -2,6 +2,7 @@ export default {
   en: {
     groups: {
       title: "Groups | Scrumdapp",
+      pageTitle: "Groups",
       newgroup: "New group",
       nogroups: "No groups have been found...",
       searchPlaceholder: "Search for groups",
@@ -9,11 +10,13 @@ export default {
       creategroup: "Create Name",
       image: "Group image for {{groupname}}",
       submit: "Submit",
+      memberCount: "{{count}} members",
     },
   },
   nl: {
     groups: {
       title: "Groepen | Scrumdapp",
+      pageTitle: "Groepen",
       newgroup: "Nieuwe groep",
       nogroups: "Geen groepen gevonden...",
       searchPlaceholder: "Zoek naar groepen",
@@ -21,6 +24,7 @@ export default {
       creategroup: "Groep Naam",
       image: "Groepsafbeelding voor {{groupname}}",
       submit: "Maak aan",
+      memberCount: "{{count}} leden",
     },
   },
 };

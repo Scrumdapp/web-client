@@ -1,3 +1,11 @@
+export type AttendanceOption = {
+  labelKey: string;
+  color: string;
+  background: string;
+  border?: string | null;
+  value?: string | null;
+};
+
 export const attendanceOptions = [
   {
     labelKey: "checkpoint.attendanceOptions.onTime",
@@ -45,15 +53,27 @@ export const attendanceOptions = [
     labelKey: "checkpoint.attendanceOptions.none",
     color: "text-gray",
     background: "bg-gray-dim",
+    border: "border-gray-dim",
     value: null,
   },
 ];
+export function getAttendanceOption(
+  value: string | null | undefined,
+): AttendanceOption {
+  return (
+    attendanceOptions.find((opt) => opt.value === value) ??
+    attendanceOptions.find((opt) => opt.value === null)!
+  );
+}
 
 export function getAttendanceLabelKey(
   value: string | null | undefined,
+  returnNoData = false,
 ): string {
   if (value == null) {
-    return "checkpoint.attendanceOptions.none";
+    return returnNoData
+      ? "checkpoint.attendanceOptions.noData"
+      : "checkpoint.attendanceOptions.none";
   }
   return (
     attendanceOptions.find((opt) => opt.value === value)?.labelKey ??
@@ -112,4 +132,9 @@ export const starsOptions = [
 
 export function getStarsColor(value: number | null | undefined): string {
   return starsOptions.find((opt) => opt.value === value)?.color ?? "text-gray";
+}
+
+export function getAverageStarsColor(average: string | null): string {
+  if (average === null) return "text-gray";
+  return getStarsColor(Math.round(parseFloat(average) * 2));
 }

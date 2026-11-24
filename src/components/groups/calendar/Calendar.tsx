@@ -23,7 +23,7 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
   const { t } = useTranslation();
   const group = useGroup();
   const GetCalendarDatesComponent = useApiComponent(
-    ScrumdappApi.getCheckpointDatesInMonth(),
+    ScrumdappApi.getGroupCheckpointDatesInMonth(),
   );
 
   const yearMonthDate = parseYearMonth(yearMonth);

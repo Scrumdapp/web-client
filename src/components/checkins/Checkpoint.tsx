@@ -273,7 +273,7 @@ function Checkpoint({
                   </td>
                   <td className="text-left p-2 border-t border-dotted border-current">
                     <div className={getAttendanceColor(item.presence)}>
-                      {t(getAttendanceLabelKey(item.presence))}
+                      {t(getAttendanceLabelKey(item.presence, true))}
                     </div>
                   </td>
                   <td className="p-2 border-t border-dotted border-current">

@@ -2,18 +2,19 @@ import { ModalState } from "../../js/hooks/useModalState.ts";
 import Modal from "../generic/modal/Modal.tsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { GroupSidebarMobile } from "../groups/GroupSidebarMobile.tsx";
 import { useTranslation } from "react-i18next";
 
-type GroupLayoutModalProps = {
+type NavigationLayoutModalProps = {
   modal: ModalState;
-  groupName: string;
+  title: string;
+  children: React.ReactNode;
 };
 
-export default function GroupSidebarModal({
+export default function NavigationSidebarModal({
   modal,
-  groupName,
-}: GroupLayoutModalProps) {
+  title,
+  children,
+}: NavigationLayoutModalProps) {
   const { t } = useTranslation();
 
   return (
@@ -21,7 +22,7 @@ export default function GroupSidebarModal({
       <div className="flex flex-col divide-y">
         <div className="p-2">
           <div className="flex justify-between">
-            <h1 className="pl-2 p-1 text-xl md:text-2xl">{groupName}</h1>
+            <h1 className="pl-2 p-1 text-xl md:text-2xl">{title}</h1>
             <button
               type="button"
               className="pr-2 p-1"
@@ -31,7 +32,7 @@ export default function GroupSidebarModal({
               <FontAwesomeIcon icon={faXmark} />
             </button>
           </div>
-          <GroupSidebarMobile onNavigate={modal.close} />
+          {children}
         </div>
       </div>
     </Modal>

@@ -113,9 +113,9 @@ export function createCheckpointSessions() {
   );
 }
 
-export function getRecentCheckpointDates() {
+export function getRecentGroupCheckpointDates() {
   return createProcessor(
-    "getRecentCheckpointDates",
+    "getRecentGroupCheckpointDates",
     (groupId: number, limit: number) => {
       return makeApiRequest<SessionDates>(
         "GET",
@@ -130,9 +130,9 @@ export function getRecentCheckpointDates() {
   );
 }
 
-export function getCheckpointDatesInMonth() {
+export function getGroupCheckpointDatesInMonth() {
   return createProcessor(
-    "getRecentCheckpointDates",
+    "getRecentGroupCheckpointDatesInMonth",
     (groupId: number, yearMonth: string) => {
       const isCurrentMonth = yearMonth === getYearMonth(new Date());
 

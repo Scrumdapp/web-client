@@ -3,6 +3,21 @@ export default {
     checkpoint: {
       create: "Create checkpoint",
       refresh: "Refresh",
+      tribe: {
+        name: "Groep",
+        status: "Status",
+        presence: "Presence",
+        average: "Avg. stars",
+        session: {
+          open: "Started",
+          closed: "Closed",
+          notStarted: "Not started",
+          unknown: "Unknown",
+        },
+      },
+      group: {
+        name: "Naam",
+      },
       name: "Name",
       edit: "Edit",
       actions: "Actions",
@@ -74,6 +89,21 @@ export default {
     checkpoint: {
       create: "Nieuw checkpoint",
       refresh: "Herlaad",
+      tribe: {
+        name: "Groep",
+        status: "Status",
+        presence: "Aanwezigheid",
+        average: "Gem. sterren",
+        session: {
+          open: "Gestart",
+          closed: "Gesloten",
+          notStarted: "Nog niet gestart",
+          unknown: "Onbekend",
+        },
+      },
+      group: {
+        name: "Naam",
+      },
       name: "Naam",
       attendance: "Aanwezigheid",
       stars: "Sterren",

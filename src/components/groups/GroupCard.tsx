@@ -12,13 +12,19 @@ export function GroupCard({ group }: GroupCardProps) {
     : "https://http.cat/images/404.jpg";
 
   return (
-    <div className="card hover:bg-bg2! p-2 md:p-4">
-      <p className="pb-1 md:pb-2">{group.name}</p>
+    <div className="card hover:bg-bg2! transition-colors p-2 md:p-4 flex gap-2">
       <img
         src={backgroundUrl}
-        alt={t("groups.image", { groupname: group.name })}
-        className="aspect-4/3 object-cover h-full rounded overflow-hidden max-w-full"
+        alt={t("group.image", { groupname: group.name })}
+        className="aspect-1/1 object-cover h-full rounded overflow-hidden max-w-20"
       />
+      <div>
+        <p className="text-lg">{group.name}</p>
+
+        <span className="text-sm text-fg3">
+          {t("groups.memberCount", { count: group.member_count })}
+        </span>
+      </div>
     </div>
   );
 }

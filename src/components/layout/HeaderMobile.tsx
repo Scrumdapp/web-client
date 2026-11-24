@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { LogoutButton } from "../generic/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import HeaderMobileModal from "../modals/HeaderMobileModal.tsx";
+import { hasRole, Role } from "../../js/utils/userPermissions.ts";
 
 export default function HeaderMobile() {
   const { t } = useTranslation();
@@ -18,7 +19,13 @@ export default function HeaderMobile() {
   const links = [
     { to: "/", label: t("header.home"), target: "_self" },
     { to: "/groups", label: t("header.groups"), target: "_self" },
-  ];
+    {
+      to: "/tribes",
+      coachOnly: true,
+      label: t("header.tribes"),
+      target: "_self",
+    },
+  ].filter((link) => !link.coachOnly || hasRole(user, Role.Coach));
 
   useEffect(() => {
     modal.close();
@@ -43,10 +50,18 @@ export default function HeaderMobile() {
           </div>
 
           <h2 className="hidden md:flex gap-4">
-            {links.map((link, i) => (
-              <Link key={i} to={link.to} className="btn py-1!">
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end
+                target={link.target}
+                className={({ isActive }) =>
+                  `btn py-1! ${isActive ? "bg-bg2" : ""}`
+                }
+              >
                 {link.label}
-              </Link>
+              </NavLink>
             ))}
           </h2>
 

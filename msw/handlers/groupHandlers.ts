@@ -8,6 +8,7 @@ export const groupData: Group[] = [
     name: "Final Space",
     background_preference: undefined,
     icon_preference: undefined,
+    member_count: 10,
     enabled_features: [
       "checkins",
       "checkins.presence",
@@ -22,6 +23,7 @@ export const groupData: Group[] = [
     name: "Outer Space",
     background_preference: "color_green",
     icon_preference: undefined,
+    member_count: 6,
     enabled_features: [
       "checkins",
       "checkins.presence",
@@ -35,6 +37,7 @@ export const groupData: Group[] = [
     name: "Inner Space",
     background_preference: "14_2",
     icon_preference: undefined,
+    member_count: 8,
     enabled_features: [
       "checkins",
       "checkins.presence",
@@ -46,6 +49,7 @@ export const groupData: Group[] = [
     name: "Observable Space",
     background_preference: "14_2",
     icon_preference: undefined,
+    member_count: 5,
     enabled_features: [
       "checkins",
       "checkins.presence",
