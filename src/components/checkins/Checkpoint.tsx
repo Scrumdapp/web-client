@@ -293,26 +293,26 @@ function Checkpoint({
                   </td>
                   <td className="border-t border-dotted py-2">
                     <div className="vertical md:horizontal gap-1 md:gap-2">
+                    <button
+                      className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
+                      onClick={() => openReadOnly(item)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faEye}
+                        className="icon text-blue"
+                      />
+                    </button>
+                    {canEdit(item) && (
                       <button
                         className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                        onClick={() => openReadOnly(item)}
+                        onClick={() => openEdit(item)}
                       >
                         <FontAwesomeIcon
-                          icon={faEye}
+                          icon={faPencil}
                           className="icon text-blue"
                         />
                       </button>
-                      {canEdit(item) && (
-                        <button
-                          className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                          onClick={() => openEdit(item)}
-                        >
-                          <FontAwesomeIcon
-                            icon={faPencil}
-                            className="icon text-blue"
-                          />
-                        </button>
-                      )}
+                    )}
                     </div>
                   </td>
                 </tr>
