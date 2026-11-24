@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useStomdapp } from "./stompdappContext";
+import { useStompdapp } from "./stompdappContext";
 import {
   StompdappListener,
   StompdappSubscriberProducerFactory,
@@ -9,11 +9,11 @@ export function useStompdappSubscription<TOutput>(
   producerFactory: StompdappSubscriberProducerFactory<TOutput>,
   callback: StompdappListener<TOutput>,
 ) {
-  const ctx = useStomdapp();
+  const client = useStompdapp();
 
   useEffect(() => {
     const subscriber = producerFactory(callback);
-    ctx.subscribe(subscriber);
-    return () => ctx.unsubscribe(subscriber);
+    client.subscribe(subscriber);
+    return () => client.unsubscribe(subscriber);
   }, [producerFactory.identity]);
 }
