@@ -113,6 +113,8 @@ export function parseMonthText(month: number) {
       return "date.nov";
     case 11:
       return "date.dec";
+    default:
+      return "date.unknown";
   }
 }
 
