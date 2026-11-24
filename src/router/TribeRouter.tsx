@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ErrorScreen } from "../components/generic/ErrorScreen.tsx";
 import { ApiError } from "../js/hooks/api/apiError.ts";
 import { TribeCheckpointPageWrapper } from "../pages/tribes/TribeCheckpointPageWrapper.tsx";
+import { TribeGroupManagementPage } from "../pages/tribes/TribeGroupManagementPage.tsx";
 
 export function TribeRouter() {
   return (
@@ -9,10 +10,10 @@ export function TribeRouter() {
       <Route index element={<TribeCheckpointPageWrapper />} />
       {/*<Route path="calendar" element={<GroupCalendarPage />} />
 
-      <Route path="trends" element={<TrendsPage />} />
-      <Route path="group-management" element={<SettingsPage />} />
+      <Route path="trends" element={<TrendsPage />} />*/}
+      <Route path="groups" element={<TribeGroupManagementPage />} />
 
-      <Route path="settings" element={<SettingsPage />} />*/}
+      {/*<Route path="settings" element={<SettingsPage />} />*/}
       <Route
         path="*"
         element={

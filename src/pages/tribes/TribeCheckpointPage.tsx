@@ -14,23 +14,19 @@ import { useApi } from "../../js/hooks/api/useApi.ts";
 import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { parseWeekDay, parseWeekDayMobile } from "../../js/utils/timeUtils.ts";
 import { Tribe } from "../../js/models/tribe.ts";
-import { ModalState } from "../../js/hooks/useModalState.ts";
 import { useTranslation } from "react-i18next";
 import TribeCheckpoint from "../../components/tribes/TribeCheckpoint.tsx";
 import { AttendanceLegend } from "../../components/generic/AttendanceComponents.tsx";
-import { useCallback } from "react";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
 
 export function TribeCheckpointPage({
   tribe,
   date,
   currentDate,
-  modal,
 }: {
   tribe: Tribe;
   date: string;
   currentDate: string;
-  modal: ModalState;
 }) {
   const { t } = useTranslation();
 

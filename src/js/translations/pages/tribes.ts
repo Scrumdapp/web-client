@@ -18,6 +18,25 @@ export default {
         checkpointTitleDescription:
           "{{activeGroupCount}} of {{groupCount}} groups · {{activeUserCount}} of {{memberCount}} members submitted",
       },
+      groups: {
+        title: "Group management | Scrumdapp",
+        header: "Group management", // or just "groups" ?
+        noResults: {
+          title: "No groups in this tribe yet",
+          description:
+            "There are no groups in this tribe yet. Create a new group or import existing groups using the buttons above.",
+        },
+        import: "Import group",
+        list: {
+          header: "Groups",
+          groupCount: "{{count}} groups",
+          group: "Group",
+          members: "Members",
+          actions: "Actions",
+          memberCount: "{{count}} members",
+          manage: "Manage",
+        },
+      },
     },
   },
   nl: {
@@ -38,6 +57,25 @@ export default {
       checkpoint: {
         checkpointTitleDescription:
           "{{activeGroupCount}} van de {{groupCount}} groepen · {{activeUserCount}} van de {{memberCount}} leden ingevuld",
+      },
+      groups: {
+        title: "Groepsbeheer | Scrumdapp",
+        header: "Groepsbeheer",
+        noResults: {
+          title: "Nog geen groepen in deze tribe",
+          description:
+            "Er zitten nog geen groepen in deze tribe. Maak een nieuwe groep of importeer bestaande groepen met bovenstaande knoppen.",
+        },
+        import: "Groep importeren",
+        list: {
+          header: "Groepen",
+          groupCount: "{{count}} groepen",
+          group: "Groep",
+          members: "Leden",
+          actions: "Acties",
+          memberCount: "{{count}} leden",
+          manage: "Beheren",
+        },
       },
     },
   },
