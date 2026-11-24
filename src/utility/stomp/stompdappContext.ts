@@ -64,6 +64,6 @@ export class StompdappClient {
 
 export const stompdappContext = createContext<StompdappClient | null>(null);
 
-export function useStomdapp() {
+export function useStompdapp() {
   return useContext(stompdappContext)!;
 }
