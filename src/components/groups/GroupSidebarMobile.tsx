@@ -2,6 +2,7 @@ import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { useGroup } from "../../js/context/group/useGroup.ts";
 import { Link } from "react-router";
 import {
+  faChartLine,
   faChartSimple,
   faGear,
   faHouse,
@@ -39,6 +40,13 @@ export function GroupSidebarMobile({
         translationKey="checkpoint.sidebar.trends"
         icon={faChartSimple}
         className="text-yellow"
+        onClick={onNavigate}
+      />
+      <SidebarLink
+        to={`/groups/${group.id}/my-trends`}
+        translationKey="checkpoint.sidebar.myTrends"
+        icon={faChartLine}
+        className="text-purple"
         onClick={onNavigate}
       />
       <SidebarLink
