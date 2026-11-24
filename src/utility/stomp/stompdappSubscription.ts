@@ -13,7 +13,7 @@ export class StompdappSubscriber {
   readonly callback: StompdappSubscribtionCallback;
 
   subscription: StompSubscription | null = null;
-  status: StompdappSubscriber = StompdappSubscriberStatus.Unsubscribed;
+  status: StompdappSubscriberStatus = StompdappSubscriberStatus.Unsubscribed;
 
   constructor(
     topic: string,
