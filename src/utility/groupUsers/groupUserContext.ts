@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import { GroupUser } from "../../js/models/group";
 import { EventChannel } from "../../js/events/eventChannel";
 
