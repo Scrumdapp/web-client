@@ -34,7 +34,7 @@ export default function Groups() {
 
   return (
     <div className="app-container vertical gap-4 px-2! md:px-4 pt-0! md:pt-4">
-      <title>{t("groups.title")}</title>
+      <title>{t("title.groups")}</title>
       <div className="vertical md:horizontal justify-between">
         <h1 className="hidden md:flex-1">Scrumdapp</h1>
         <div className="flex justify-between gap-2 md:grid md:grid-cols-3">

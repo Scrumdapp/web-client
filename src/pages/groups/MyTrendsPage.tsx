@@ -59,7 +59,7 @@ export function MyTrendsPage() {
 
   return (
     <div className="vertical gap-4">
-      <title>{t("analytics.title")}</title>
+      <title>{t("title.myTrends")}</title>
       <h2>{t("analytics.header")}</h2>
 
       {/* The 3 stat tiles at the top of the page */}

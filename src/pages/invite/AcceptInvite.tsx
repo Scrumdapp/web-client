@@ -32,7 +32,7 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
 
   return (
     <div className="app-container">
-      <title>{t("invite.title")}</title>
+      <title>{t("title.invite")}</title>
       <div className="card flex flex-col">
         <h1>
           {t("invite.accept.header")} {invite.groupId}!

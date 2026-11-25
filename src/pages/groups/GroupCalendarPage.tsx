@@ -12,7 +12,7 @@ export function GroupCalendarPage() {
 
   return (
     <div className="vertical gap-4">
-      <title>{t("calendar.title")}</title>
+      <title>{t("title.calendar")}</title>
       <div className="card">
         <h2>{t("calendar.header")}</h2>
       </div>

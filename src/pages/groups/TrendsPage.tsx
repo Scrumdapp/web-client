@@ -63,7 +63,7 @@ export function TimelineTrendsWrapper() {
 
   return (
     <div className="card">
-      <title>{t("trends.title")}</title>
+      <title>{t("title.trends")}</title>
       <div className="horizontal justify-between gap-2 items-center mb-4">
         <h2>{t("trends.header")}</h2>
         <div className="flex-1" />

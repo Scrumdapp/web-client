@@ -15,7 +15,7 @@ export function SettingsPage() {
 
   return (
     <div className="vertical gap-4">
-      <title>{t("settings.title")}</title>
+      <title>{t("title.settings")}</title>
       <div className="card">
         <h2>{t("settings.header")}</h2>
       </div>

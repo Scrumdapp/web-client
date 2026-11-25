@@ -12,7 +12,7 @@ export default function About() {
       <div className="hidden md:block">
         <div className="mx-0">
           <div className="app-container mx-auto card horizontal gap-3 mb-4">
-            <title>{t("about.title")}</title>
+            <title>{t("title.about")}</title>
             <div>
               <h2 className="pb-3">{t("about.header")}</h2>
               <h3 className="py-3">{t("about.text1")}</h3>
@@ -186,7 +186,7 @@ export default function About() {
       <div className="block md:hidden">
         <div className="mx-2">
           <div className="app-container mx-2 text-sm card vertical gap-3 mb-4">
-            <title>{t("about.title")}</title>
+            <title>{t("title.about")}</title>
             <div className="flex justify-between items-center">
               <h2 className="pb-3">{t("about.header")}</h2>
               <img
