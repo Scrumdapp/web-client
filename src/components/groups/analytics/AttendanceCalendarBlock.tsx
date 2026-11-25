@@ -1,13 +1,18 @@
-import { useId } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCheck, faChevronDown, faClock, faKitMedical, faXmark } from "@fortawesome/free-solid-svg-icons"
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core"
-import { useTranslation } from "react-i18next"
-import { calendarColors } from "../../../js/utils/analyticsColors.ts"
-import type { CalStatus } from "../../../js/utils/analyticsUtils.ts"
-import { Legend } from "./AnalyticsCard.tsx"
+import { useId } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+  faChevronDown,
+  faClock,
+  faKitMedical,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { useTranslation } from "react-i18next";
+import { calendarColors } from "../../../js/utils/analyticsColors.ts";
+import type { CalStatus } from "../../../js/utils/analyticsUtils.ts";
+import { Legend } from "./AnalyticsCard.tsx";
 import { Select } from "../../generic/Select.tsx";
-
 
 const statusIcon: Record<CalStatus, IconDefinition> = {
   present: faCheck,
