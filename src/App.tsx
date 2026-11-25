@@ -4,6 +4,7 @@ import AppRouter from "./router/AppRouter.tsx";
 import { UserProvider } from "./js/context/user/UserProvider.tsx";
 import { LoadScreen } from "./components/generic/LoadScreen.tsx";
 import { ErrorScreen } from "./components/generic/ErrorScreen.tsx";
+import { StompdappProvider } from "./utility/stomp/stompdappProvider.tsx";
 
 function App() {
   return (
@@ -12,9 +13,11 @@ function App() {
         loading={<LoadScreen />}
         error={(e) => <ErrorScreen error={e} />}
       >
-        <Layout>
-          <AppRouter />
-        </Layout>
+        <StompdappProvider>
+          <Layout>
+            <AppRouter />
+          </Layout>
+        </StompdappProvider>
       </UserProvider>
     </BrowserRouter>
   );
