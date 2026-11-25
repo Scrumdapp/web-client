@@ -10,10 +10,7 @@ import ModalCancelButton from "../generic/modal/components/ModalCancelButton.tsx
 import { ModalState } from "../../js/hooks/useModalState.ts";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { useApi } from "../../js/hooks/api/useApi.ts";
-import {
-  GroupCheckpoint,
-  SessionCheckpointRow,
-} from "../../js/models/checkpoint.ts";
+import { SessionCheckpointRow } from "../../js/models/checkpoint.ts";
 
 const updateCheckpointProcessor = ScrumdappApi.updateGroupCheckpoint();
 
