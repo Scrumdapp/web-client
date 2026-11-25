@@ -2,7 +2,7 @@ import { useModalState } from "../../../../js/hooks/useModalState.ts";
 import { useEffect, useState } from "react";
 import { ScrumdappApi } from "../../../../js/hooks/api/scrumdappApi.ts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { useApi } from "../../../../js/hooks/api/useApi.ts";
 import { InviteResponse } from "../../../../js/models/invites.tsx";
@@ -51,6 +51,7 @@ export default function Invites({ groupId }: InvitesProps) {
             onClick={handleOpenModal}
             className="btn btn-secondary border"
           >
+            <FontAwesomeIcon icon={faPlus} />
             {t("invite.create")}
           </button>
         </div>
@@ -59,10 +60,15 @@ export default function Invites({ groupId }: InvitesProps) {
             <p>{t("invite.noinvites")}</p>
           ) : (
             <table className="table">
+              <caption className="sr-only">{t("invite.header")}</caption>
               <thead>
                 <tr>
-                  <th className="p-2 text-left">{t("invite.expire")}</th>
-                  <th />
+                  <th scope="col" className="p-2 text-left">
+                    {t("invite.expire")}
+                  </th>
+                  <th scope="col">
+                    <span className="sr-only">{t("a11y.invite.actions")}</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -70,24 +76,32 @@ export default function Invites({ groupId }: InvitesProps) {
                   const expired = new Date(invite.expiresAt) < new Date();
                   return (
                     <tr key={invite.id}>
-                      <td className="p-2">
+                      <th scope="row" className="p-2 text-left">
                         {new Date(invite.expiresAt).toLocaleString()}
-                      </td>
+                      </th>
                       <td>
                         <button
+                          type="button"
                           onClick={() => handleCopyInvite(invite)}
                           className="btn btn-secondary border my-1 float-right"
                           disabled={expired}
                         >
-                          <FontAwesomeIcon
-                            icon={copiedId === invite.id ? faCheck : faCopy}
-                          />
+                          {!expired && (
+                            <FontAwesomeIcon
+                              icon={copiedId === invite.id ? faCheck : faCopy}
+                            />
+                          )}
                           {copiedId === invite.id
                             ? t("invite.modal.copied")
                             : expired
                               ? t("invite.expired")
                               : t("invite.modal.copy")}
                         </button>
+                        {copiedId === invite.id && (
+                          <span role="status" className="sr-only">
+                            {t("a11y.invite.copied")}
+                          </span>
+                        )}
                       </td>
                     </tr>
                   );

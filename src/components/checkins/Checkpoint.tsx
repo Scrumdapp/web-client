@@ -7,7 +7,7 @@ import {
   faEye,
   faPencil,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useId } from "react";
 import { useModalState } from "../../js/hooks/useModalState.ts";
 import { LoadScreen } from "../generic/LoadScreen.tsx";
 import { ErrorScreen } from "../generic/ErrorScreen.tsx";
@@ -112,6 +112,7 @@ function Checkpoint({
 }) {
   const modal = useModalState();
   const modalReadOnly = useModalState();
+  const contentId = useId();
 
   const { t } = useTranslation();
 
@@ -198,6 +199,7 @@ function Checkpoint({
           className="flex items-center gap-2 text-left cursor-pointer w-full"
           onClick={handleToggle}
           aria-expanded={isExpanded}
+          aria-controls={contentId}
         >
           <FontAwesomeIcon
             icon={faChevronDown}
@@ -233,6 +235,9 @@ function Checkpoint({
         )}
       </p>
       <div
+        id={contentId}
+        inert={!isExpanded}
+        aria-hidden={!isExpanded}
         className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
           isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
@@ -240,24 +245,42 @@ function Checkpoint({
         <div className="overflow-hidden">
           <hr className="my-2 mr-0" />
           <table className="table-fixed w-full">
+            <caption className="sr-only">
+              {t("a11y.checkpoint.table", { name })}
+            </caption>
             <thead>
               <tr>
-                <th className="p-1 md:p-2 text-left w-16 md:w-44">
+                <th scope="col" className="p-1 md:p-2 text-left w-16 md:w-44">
                   {t("checkpoint.name")}
                 </th>
-                <th className="p-1 md:p-2 text-left border-l border-dotted w-16 md:w-28 truncate">
+                <th
+                  scope="col"
+                  className="p-1 md:p-2 text-left border-l border-dotted w-16 md:w-28 truncate"
+                >
                   {t("checkpoint.attendance")}
                 </th>
-                <th className="p-2 items-center w-20 md:w-28 truncate">
+                <th
+                  scope="col"
+                  className="p-2 items-center w-20 md:w-28 truncate"
+                >
                   {t("checkpoint.stars")}
                 </th>
-                <th className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate">
+                <th
+                  scope="col"
+                  className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate"
+                >
                   {t("checkpoint.notes")}
                 </th>
-                <th className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate">
+                <th
+                  scope="col"
+                  className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate"
+                >
                   {t("checkpoint.obstacle")}
                 </th>
-                <th className="p-1 md:p-2 pl-0 text-right w-12 md:w-20 truncate">
+                <th
+                  scope="col"
+                  className="p-1 md:p-2 pl-0 text-right w-12 md:w-20 truncate"
+                >
                   {t("checkpoint.actions")}
                 </th>
               </tr>
@@ -268,9 +291,12 @@ function Checkpoint({
                   key={`${item.groupUser === item.id ? "u" : "cp"}-${item.id}`}
                   className="align-top"
                 >
-                  <td className="p-2 text-left name-field border-r border-t border-dotted border-current! max-h-14">
+                  <th
+                    scope="row"
+                    className="p-2 text-left name-field border-r border-t border-dotted border-current! max-h-14"
+                  >
                     {item.first_name} {item.last_name}
-                  </td>
+                  </th>
                   <td className="text-left p-2 border-t border-dotted border-current">
                     <div className={getAttendanceColor(item.presence)}>
                       {t(getAttendanceLabelKey(item.presence))}
@@ -293,26 +319,34 @@ function Checkpoint({
                   </td>
                   <td className="border-t border-dotted py-2">
                     <div className="vertical md:horizontal gap-1 md:gap-2">
-                    <button
-                      className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                      onClick={() => openReadOnly(item)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faEye}
-                        className="icon text-blue"
-                      />
-                    </button>
-                    {canEdit(item) && (
                       <button
-                        className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
-                        onClick={() => openEdit(item)}
+                        type="button"
+                        className="btn min-w-6 min-h-6 p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
+                        onClick={() => openReadOnly(item)}
+                        aria-label={t("a11y.checkpoint.view", {
+                          name: `${item.first_name} ${item.last_name}`,
+                        })}
                       >
                         <FontAwesomeIcon
-                          icon={faPencil}
+                          icon={faEye}
                           className="icon text-blue"
                         />
                       </button>
-                    )}
+                      {canEdit(item) && (
+                        <button
+                          type="button"
+                          className="btn min-w-6 min-h-6 p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
+                          onClick={() => openEdit(item)}
+                          aria-label={t("a11y.checkpoint.edit", {
+                            name: `${item.first_name} ${item.last_name}`,
+                          })}
+                        >
+                          <FontAwesomeIcon
+                            icon={faPencil}
+                            className="icon text-blue"
+                          />
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>

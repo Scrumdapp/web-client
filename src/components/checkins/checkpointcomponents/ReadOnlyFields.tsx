@@ -41,6 +41,7 @@ export function StarsReadOnlyField({
   value = 0,
   max = 5,
 }: StarsReadOnlyFieldProps) {
+  const { t, i18n } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const colorEmpty = useThemeColor("--color-fg4");
 
@@ -52,18 +53,21 @@ export function StarsReadOnlyField({
   };
 
   return (
-    <div ref={containerRef} className="flex items-center w-fit">
+    <div
+      ref={containerRef}
+      role="img"
+      aria-label={t("a11y.checkpoint.rating", {
+        value: (value / POINTS_PER_STAR).toLocaleString(i18n.language),
+        max,
+      })}
+      className="flex items-center w-fit"
+    >
       {Array.from({ length: max }, (_, i) => i).map((starIndex) => {
         const starFullValue = (starIndex + 1) * POINTS_PER_STAR;
         const isFilled = value >= starFullValue - 1;
 
         return (
-          <button
-            key={starIndex}
-            type="button"
-            className="outline-none"
-            aria-label={`Rate ${starIndex + 1} out of ${max}`}
-          >
+          <span key={starIndex} aria-hidden="true">
             <span
               className={cn(
                 "inline-block transition-transform",
@@ -72,7 +76,7 @@ export function StarsReadOnlyField({
             >
               <FontAwesomeIcon icon={getStarIcon(starIndex)} />
             </span>
-          </button>
+          </span>
         );
       })}
     </div>

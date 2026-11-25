@@ -8,9 +8,11 @@ export default function ErrorPage() {
   return (
     <div className="app-container vertical gap-4">
       <title>{t("errors.generic.notFound.title")}</title>
+      <h1>{t("errors.generic.notFound.title")}</h1>
       <img
         src="https://http.cat/images/404.jpg"
-        alt={t("errors.generic.notFound.description")}
+        alt=""
+        aria-hidden="true"
         className="border rounded-2xl mx-auto max-w-full"
       />
       <a

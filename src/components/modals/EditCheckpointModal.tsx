@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "../generic/modal/Modal.tsx";
 import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
@@ -14,6 +14,8 @@ import {
   GroupCheckpoint,
   SessionCheckpointRow,
 } from "../../js/models/checkpoint.ts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const updateCheckpointProcessor = ScrumdappApi.updateGroupCheckpoint();
 
@@ -36,6 +38,24 @@ export default function EditCheckpointModal({
   onSaved,
 }: EditCheckpointModalProps) {
   const { t } = useTranslation();
+  const notesId = useId();
+  const obstacleId = useId();
+  const starsLabelId = useId();
+  const { runCommand, loading, error } = useApi(updateCheckpointProcessor);
+  const notesErrorId = `${notesId}-error`;
+  const obstacleErrorId = `${obstacleId}-error`;
+  const presenceErrorId = `${notesId}-presence-error`;
+  const starsErrorId = `${notesId}-stars-error`;
+  const hasPresenceError = error?.errors?.some(
+    (field) => field.field === "presence",
+  );
+  const hasStarsError = error?.errors?.some((field) => field.field === "stars");
+  const hasNotesError = error?.errors?.some(
+    (field) => field.field === "comment",
+  );
+  const hasObstacleError = error?.errors?.some(
+    (field) => field.field === "impediment",
+  );
 
   const [presence, setPresence] = useState<string | null>(
     row?.presence ? String(row.presence) : null,
@@ -43,8 +63,6 @@ export default function EditCheckpointModal({
   const [stars, setStars] = useState<number | null>(row?.stars ?? null);
   const [notes, setNotes] = useState(row?.comment ?? "");
   const [obstacle, setObstacle] = useState(row?.impediment ?? "");
-
-  const { runCommand, loading, error } = useApi(updateCheckpointProcessor);
 
   const handleApply = async () => {
     if (!row) return;
@@ -79,41 +97,65 @@ export default function EditCheckpointModal({
           {t("checkpoint.modalheader", { name: userName })}
         </ModalHeadText>
         <div className="flex flex-col space-y-2 w-full">
-          <label>{t("checkpoint.attendance")}</label>
-          <AttendanceDropDownMenu value={presence} onChange={setPresence} />
+          <AttendanceDropDownMenu
+            label={t("checkpoint.attendance")}
+            value={presence}
+            onChange={setPresence}
+            invalid={hasPresenceError}
+            describedBy={hasPresenceError ? presenceErrorId : undefined}
+          />
           <FieldApiErrorMessage
             errors={error?.errors ?? null}
             field="presence"
+            id={presenceErrorId}
           />
 
-          <label>{t("checkpoint.stars")}</label>
-          <StarsInputField value={stars} onChange={setStars} />
-          <FieldApiErrorMessage errors={error?.errors ?? null} field="stars" />
+          <label id={starsLabelId}>{t("checkpoint.stars")}</label>
+          <StarsInputField
+            value={stars}
+            onChange={setStars}
+            labelId={starsLabelId}
+            describedBy={hasStarsError ? starsErrorId : undefined}
+            invalid={hasStarsError}
+          />
+          <FieldApiErrorMessage
+            errors={error?.errors ?? null}
+            field="stars"
+            id={starsErrorId}
+          />
 
-          <label>{t("checkpoint.notes")}</label>
+          <label htmlFor={notesId}>{t("checkpoint.notes")}</label>
           <input
+            id={notesId}
             className="write-section"
             placeholder={t("checkpoint.notes")}
             value={notes}
             maxLength={2000}
             onChange={(e) => setNotes(e.target.value)}
+            aria-invalid={hasNotesError || undefined}
+            aria-describedby={hasNotesError ? notesErrorId : undefined}
           />
           <FieldApiErrorMessage
             errors={error?.errors ?? null}
             field="comment"
+            id={notesErrorId}
           />
 
-          <label>{t("checkpoint.obstacle")}</label>
+          <label htmlFor={obstacleId}>{t("checkpoint.obstacle")}</label>
           <input
+            id={obstacleId}
             className="write-section"
             placeholder={t("checkpoint.obstacle")}
             value={obstacle}
             maxLength={2000}
             onChange={(e) => setObstacle(e.target.value)}
+            aria-invalid={hasObstacleError || undefined}
+            aria-describedby={hasObstacleError ? obstacleErrorId : undefined}
           />
           <FieldApiErrorMessage
             errors={error?.errors ?? null}
             field="impediment"
+            id={obstacleErrorId}
           />
         </div>
         <ModalActionRow>
@@ -124,6 +166,10 @@ export default function EditCheckpointModal({
             type="button"
             disabled={loading}
           >
+            <FontAwesomeIcon
+              icon={loading ? faSpinner : faCheck}
+              spin={loading}
+            />
             {loading ? t("checkpoint.saving") : t("checkpoint.apply")}
           </button>
         </ModalActionRow>

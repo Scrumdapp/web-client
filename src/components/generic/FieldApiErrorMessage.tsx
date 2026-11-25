@@ -7,12 +7,20 @@ type FieldError = {
 };
 
 const FieldApiErrorMessage = memo(
-  ({ errors, field }: { errors: FieldError[] | null; field: string }) => {
+  ({
+    errors,
+    field,
+    id,
+  }: {
+    errors: FieldError[] | null;
+    field: string;
+    id?: string;
+  }) => {
     const { t } = useTranslation();
 
     return (
       errors?.some((err) => err.field === field) && (
-        <p className="text-red text-sm -mt-1 mb-2">
+        <p id={id} role="alert" className="text-red text-sm -mt-1 mb-2">
           {t(errors.find((err) => err.field === field)!.translationKey)}
         </p>
       )
@@ -24,7 +32,7 @@ const FieldApiErrorMessageList = memo(
     const { t } = useTranslation();
 
     return (
-      <ul className="text-red list-disc list-inside text-sm mb-2">
+      <ul role="alert" className="text-red list-disc list-inside text-sm mb-2">
         {errors?.map((err, idx) => (
           <li key={idx}>{t(err.translationKey)}</li>
         ))}
@@ -32,5 +40,12 @@ const FieldApiErrorMessageList = memo(
     );
   },
 );
+
+export function hasFieldError(
+  errors: FieldError[] | null | undefined,
+  field: string,
+) {
+  return errors?.some((err) => err.field === field) ?? false;
+}
 
 export { FieldApiErrorMessage, FieldApiErrorMessageList };

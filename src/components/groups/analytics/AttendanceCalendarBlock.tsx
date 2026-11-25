@@ -1,9 +1,7 @@
 import { useId } from "react";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
-  faChevronDown,
   faClock,
   faKitMedical,
   faXmark,
@@ -13,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { calendarColors } from "../../../js/utils/analyticsColors.ts";
 import type { CalStatus } from "../../../js/utils/analyticsUtils.ts";
 import { Legend } from "./AnalyticsCard.tsx";
+import { Select } from "../../generic/Select.tsx";
 
 const statusIcon: Record<CalStatus, IconDefinition> = {
   present: faCheck,
@@ -45,6 +44,7 @@ export function AttendanceCalendarBlock({ weeks, checkpoint, empty }: Props) {
     day: "numeric",
     month: "long",
   });
+
   const statusLabel = (status: CalStatus | null) =>
     status == null
       ? t("analytics.calendarNoStatus")
@@ -174,32 +174,23 @@ export function CheckpointNameSelector({
 }) {
   const { t } = useTranslation();
   return (
-    <Menu as="div" className="relative min-w-0 max-w-full">
-      {/* Long checkpoint names are truncated so the button never grows wider than the card */}
-      <MenuButton
-        className="btn border min-w-32 max-w-full"
-        aria-label={t("analytics.calendarCheckpointAriaLabel")}
-        title={value}
-      >
-        <span className="min-w-0 truncate">{value}</span>
-        <FontAwesomeIcon icon={faChevronDown} className="shrink-0" />
-      </MenuButton>
-      <MenuItems
-        transition
-        className="absolute z-30 mt-2 border rounded-md bg-bg w-full"
-      >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            as="button"
-            className="btn w-full"
-            title={option}
-            onClick={() => onChange(option)}
-          >
-            <span className="min-w-0 truncate">{option}</span>
-          </MenuItem>
-        ))}
-      </MenuItems>
-    </Menu>
+    <Select
+      label={t("analytics.calendarCheckpointAriaLabel")}
+      hideLabel
+      value={value}
+      onChange={(v) => {
+        if (v != null) onChange(v);
+      }}
+      buttonContent={
+        // Long checkpoint names are truncated so the button never grows wider than the card
+        <span className="min-w-0 truncate" title={value}>
+          {value}
+        </span>
+      }
+      options={options.map((option) => ({
+        value: option,
+        label: option,
+      }))}
+    />
   );
 }

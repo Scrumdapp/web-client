@@ -68,9 +68,10 @@ export default function CheckpointNamesModal({
     <Modal state={modal}>
       <ModalHeadText>{t("settings.checkpointNames.editHeader")}</ModalHeadText>
       <div className="flex vertical my-3">
-        {fields.map((field) => (
+        {fields.map((field, index) => (
           <CheckpointNamesField
             key={field.id}
+            index={index + 1}
             value={field.value}
             onChange={(value) => handleChange(field.id, value)}
             onRemove={() => handleRemove(field.id)}

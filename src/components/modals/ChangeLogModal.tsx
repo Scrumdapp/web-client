@@ -7,6 +7,7 @@ import {
   faBug,
   faHandSparkles,
   faPlus,
+  faRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import ModalHeadText from "../generic/modal/components/ModalHeadText.tsx";
 import { CHANGELOGS } from "../../js/context/changelogLogic.ts";
@@ -42,8 +43,9 @@ export default function ChangeLogModal({ modal }: { modal: ModalState }) {
             {t("changelogs.bugfix")}
           </div>
         </div>
+
         <button onClick={modal.close} className="btn border">
-          {t("changelogs.close")}
+          <FontAwesomeIcon icon={faRotateLeft} /> {t("changelogs.close")}
         </button>
       </ModalActionRow>
     </Modal>

@@ -4,7 +4,7 @@ import {
   parseScrumdappDate,
   toScrumdappDate,
 } from "../../js/utils/scrumdappDate.ts";
-import { faAdd, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
@@ -68,12 +68,18 @@ export function GroupCheckpointPage({
     getCheckpointSessions.runCommand(group.id, { date });
   };
 
+  const isCurrent = date === currentDate;
+
   return (
     <div className="space-y-3">
       <title>{group.name ? `${group.name} | Scrumdapp` : "Scrumdapp"}</title>
       <div className="flex justify-between card w-full md:h-20 bg-bg_h border rounded-lg p-1 md:p-2 items-center">
         <div className="horizontal items-center">
-          <Link to={`/groups/${group.id}?date=${prevDate}`} className="btn">
+          <Link
+            to={`/groups/${group.id}?date=${prevDate}`}
+            className="btn min-w-6 min-h-6"
+            aria-label={`${t("a11y.checkpoint.previousDay")}: ${prevDate}`}
+          >
             <FontAwesomeIcon icon={faChevronDown} className="rotate-90" />
           </Link>
           <h2 className="text-xl md:text-2xl w-fit md:w-3xs flex justify-center px-0 md:px-2">
@@ -85,21 +91,32 @@ export function GroupCheckpointPage({
             </span>
             &nbsp;{date}
           </h2>
-          <Link
-            to={`/groups/${group.id}?date=${nextDate}`}
-            className={`btn ${date === currentDate ? "opacity-50 pointer-events-none" : ""}`}
-            aria-disabled={date === currentDate}
-            tabIndex={date === currentDate ? -1 : undefined}
-            onClick={(e) => {
-              if (date === currentDate) e.preventDefault();
-            }}
+          <span
+            className={
+              isCurrent ? "cursor-not-allowed inline-block" : "contents"
+            }
           >
-            <FontAwesomeIcon icon={faChevronDown} className="rotate-270" />
-          </Link>
+            <Link
+              to={`/groups/${group.id}?date=${nextDate}`}
+              className={`btn ${isCurrent ? "opacity-50 pointer-events-none" : ""}`}
+              aria-disabled={isCurrent}
+              aria-label={`${t("a11y.checkpoint.nextDay")}: ${nextDate}`}
+              tabIndex={isCurrent ? -1 : undefined}
+              onClick={(e) => {
+                if (isCurrent) e.preventDefault();
+              }}
+            >
+              <FontAwesomeIcon icon={faChevronDown} className="rotate-270" />
+            </Link>
+          </span>
         </div>
         <ShowIf condition={currentDate == date}>
-          <button className="btn border p-1! md:p-2" onClick={modal.open}>
-            <FontAwesomeIcon icon={faAdd} className="text-blue" />{" "}
+          <button
+            type="button"
+            className="btn border p-1 md:p-2"
+            onClick={modal.open}
+          >
+            <FontAwesomeIcon icon={faPlus} className="text-blue" />{" "}
             {t("checkpoint.create")}
           </button>
         </ShowIf>

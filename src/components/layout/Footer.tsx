@@ -26,14 +26,20 @@ export default function Footer() {
   const modal = useModalState();
 
   return (
-    <footer className="mb-2 mx-2 card horizontal items-center justify-between gap-2">
+    <footer className="m-2 mt-4 card horizontal items-center justify-between gap-2">
       <span className="flex-1">{t("footer.rights")}</span>
-      <div className="horizontal flex gap-4">
+      <nav aria-label={t("a11y.nav.footer")} className="horizontal flex gap-4">
         {links.map((link, i) => (
           <Link
             key={i}
             to={link.to}
             target={link.target}
+            rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
+            aria-label={
+              link.target === "_blank"
+                ? `${link.text} ${t("a11y.opensInNewTab")}`
+                : undefined
+            }
             className="btn justify-start"
           >
             {link.text}
@@ -43,11 +49,16 @@ export default function Footer() {
           {t("changelogs.title")}
         </button>
         <ChangeLogModal modal={modal} />
-      </div>
-      <div className="flex-1 grid grid-rows-1 grid-flow-col gap-2 items-center justify-end">
+      </nav>
+      <nav
+        aria-label={t("a11y.nav.social")}
+        className="flex-1 grid grid-rows-1 grid-flow-col gap-2 items-center justify-end"
+      >
         <Link
           to="https://www.linkedin.com/company/scrumdapp"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t("a11y.social.linkedin")} ${t("a11y.opensInNewTab")}`}
           className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faLinkedinIn} />
@@ -55,6 +66,8 @@ export default function Footer() {
         <Link
           to="https://x.com/scrumdapp"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t("a11y.social.x")} ${t("a11y.opensInNewTab")}`}
           className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faXTwitter} />
@@ -62,6 +75,8 @@ export default function Footer() {
         <Link
           to="https://www.instagram.com/scrumdapp/"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t("a11y.social.instagram")} ${t("a11y.opensInNewTab")}`}
           className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faInstagram} />
@@ -69,6 +84,8 @@ export default function Footer() {
         <Link
           to="https://www.youtube.com/@Scrumdapp"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t("a11y.social.youtube")} ${t("a11y.opensInNewTab")}`}
           className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faYoutube} />
@@ -76,11 +93,13 @@ export default function Footer() {
         <Link
           to="https://github.com/Scrumdapp"
           target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t("a11y.social.github")} ${t("a11y.opensInNewTab")}`}
           className="border btn aspect-square text-xl"
         >
           <FontAwesomeIcon icon={faGithub} />
         </Link>
-      </div>
+      </nav>
     </footer>
   );
 }

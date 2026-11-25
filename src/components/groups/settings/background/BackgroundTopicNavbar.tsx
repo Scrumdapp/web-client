@@ -17,6 +17,7 @@ export function BackgroundTopicNavbar({
         <li key={topic.labelKey} className="my-2">
           <button
             className={`btn ${selectedTopicId === topic.labelKey ? "bg-bg3" : ""}`}
+            aria-pressed={selectedTopicId === topic.labelKey}
             onClick={() => handleSelected(topic)}
           >
             {t(topic.labelKey)}

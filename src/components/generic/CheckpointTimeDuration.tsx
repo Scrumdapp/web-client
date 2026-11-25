@@ -1,12 +1,12 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTranslation } from "react-i18next";
+import { Select } from "./Select.tsx";
 
 type CheckpointTimeDurationDropdownMenuProps = {
   value?: number | null;
   onChange?: (value: number | null) => void;
+  label?: string;
+  hideLabel?: boolean;
 };
 
 export const CheckpointTimeDuration = [
@@ -21,47 +21,34 @@ export const CheckpointTimeDuration = [
 export function CheckpointTimeDurationDropdownMenu({
   value,
   onChange,
+  label,
+  hideLabel,
 }: CheckpointTimeDurationDropdownMenuProps) {
   const { t } = useTranslation();
-  const [localValue, setLocalValue] = useState<number | null>(value ?? null);
+  const [localValue, setLocalValue] = useState<number>(
+    value ?? CheckpointTimeDuration[0].minutes,
+  );
 
-  const updateValue = (value: number | null) => {
+  const updateValue = (value: number) => {
     setLocalValue(value);
     onChange?.(value);
   };
 
   useEffect(() => {
-    setLocalValue(value ?? null);
+    setLocalValue(value ?? CheckpointTimeDuration[0].minutes);
   }, [value]);
 
-  const currentOption =
-    CheckpointTimeDuration.find((opt) => opt.minutes === localValue) ??
-    CheckpointTimeDuration[0];
-
   return (
-    <Menu as="div" className="relative w-full">
-      <MenuButton className="btn-attendance border cursor-pointer h-10.5!">
-        <span className="text-left">{t(currentOption.labelKey)}</span>
-        <FontAwesomeIcon icon={faChevronDown} className="shrink-0" />
-      </MenuButton>
-      <MenuItems
-        transition
-        className="absolute z-10 mt-2 border rounded-md bg-bg w-full py-1"
-      >
-        <div>
-          {CheckpointTimeDuration.map((opt) => (
-            <MenuItem
-              key={opt.labelKey}
-              as="button"
-              type="button"
-              onClick={() => updateValue(opt.minutes)}
-              className="btn-attendance-dropdown py-1"
-            >
-              {t(opt.labelKey)}
-            </MenuItem>
-          ))}
-        </div>
-      </MenuItems>
-    </Menu>
+    <Select
+      label={label ?? t("a11y.checkpointModal.duration")}
+      hideLabel={hideLabel}
+      value={localValue}
+      onChange={updateValue}
+      buttonClassName="h-10.5!"
+      options={CheckpointTimeDuration.map((opt) => ({
+        value: opt.minutes,
+        label: t(opt.labelKey),
+      }))}
+    />
   );
 }

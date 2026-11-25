@@ -20,13 +20,18 @@ export interface CalendarProps {
 }
 
 export const Calendar = memo(({ yearMonth }: CalendarProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const group = useGroup();
   const GetCalendarDatesComponent = useApiComponent(
     ScrumdappApi.getCheckpointDatesInMonth(),
   );
 
   const yearMonthDate = parseYearMonth(yearMonth);
+  const monthLabel = new Intl.DateTimeFormat(i18n.resolvedLanguage ?? "en", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(yearMonthDate);
   const monthStart = firstDayOfMonth(yearMonthDate);
   const firstDay = getWeekStart(firstDayOfMonth(monthStart));
   const lastDay = getWeekEnd(lastDayOfMonth(yearMonthDate));
@@ -36,16 +41,21 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
     <GetCalendarDatesComponent input={[group.id, yearMonth]}>
       {(dates) => (
         <table className="calendar-table">
+          <caption className="sr-only">
+            {t("calendar.tableCaption", { month: monthLabel })}
+          </caption>
           <thead>
             <tr>
-              <th></th>
-              <th>{t("calendar.mon")}</th>
-              <th>{t("calendar.tue")}</th>
-              <th>{t("calendar.wed")}</th>
-              <th>{t("calendar.thu")}</th>
-              <th>{t("calendar.fri")}</th>
-              <th>{t("calendar.sat")}</th>
-              <th>{t("calendar.sun")}</th>
+              <th scope="col">
+                <span className="sr-only">{t("calendar.week")}</span>
+              </th>
+              <th scope="col">{t("calendar.mon")}</th>
+              <th scope="col">{t("calendar.tue")}</th>
+              <th scope="col">{t("calendar.wed")}</th>
+              <th scope="col">{t("calendar.thu")}</th>
+              <th scope="col">{t("calendar.fri")}</th>
+              <th scope="col">{t("calendar.sat")}</th>
+              <th scope="col">{t("calendar.sun")}</th>
             </tr>
           </thead>
           <tbody>
@@ -53,9 +63,14 @@ export const Calendar = memo(({ yearMonth }: CalendarProps) => {
               .map((_, w) => new Date(firstDay.getTime() + w * WEEK))
               .map((weekStart) => (
                 <tr key={weekStart.getTime()}>
-                  <td className="text-gray max-w-6">
-                    W{getWeekNumber(weekStart)}
-                  </td>
+                  <th scope="row" className="text-gray max-w-6">
+                    <span aria-hidden="true">W{getWeekNumber(weekStart)}</span>
+                    <span className="sr-only">
+                      {t("calendar.weekNumber", {
+                        number: getWeekNumber(weekStart),
+                      })}
+                    </span>
+                  </th>
                   <CalendarDate
                     weekStart={weekStart}
                     offsetDays={0}

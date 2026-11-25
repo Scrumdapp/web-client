@@ -86,6 +86,10 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
   const [name, setName] = useState("");
   const { t } = useTranslation();
   const fullName = `${user.first_name} ${user.last_name}`;
+  const inputId = "delete-group-user-name";
+  const hasNameError = deleteGroupUser.error?.errors?.some(
+    (field) => field.field === "name",
+  );
 
   const canDelete = name.toLowerCase() == user.first_name.toLowerCase();
 
@@ -108,15 +112,22 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
             target: user.first_name,
           })}
         </p>
+        <label className="sr-only" htmlFor={inputId}>
+          {t("settings.users.delete.confirm.placeholder")}
+        </label>
         <input
+          id={inputId}
           placeholder={t("settings.users.delete.confirm.placeholder")}
           className="write-section w-full"
           onChange={(e) => setName(e.target.value)}
+          aria-invalid={hasNameError || undefined}
+          aria-describedby={hasNameError ? `${inputId}-error` : undefined}
         />
       </div>
       <FieldApiErrorMessage
         errors={deleteGroupUser.error?.errors ?? null}
         field="name"
+        id={`${inputId}-error`}
       />
 
       <ModalActionRow>

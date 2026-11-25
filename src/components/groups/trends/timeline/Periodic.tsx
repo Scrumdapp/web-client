@@ -35,10 +35,13 @@ export function RenderTimelineGraph({
 
   return (
     <table className="text-sm md:text-base">
+      <caption className="sr-only">{t("a11y.trends.periodicTable")}</caption>
       <thead>
         <tr>
-          <th></th>
-          <th>
+          <th scope="col">
+            <span className="sr-only">{t("a11y.trends.name")}</span>
+          </th>
+          <th scope="col">
             <TimelineWeekDisplays trends={data.trends[0]} />
           </th>
         </tr>
@@ -46,9 +49,9 @@ export function RenderTimelineGraph({
       <tbody>
         {users.map((user) => (
           <tr key={user.user_id}>
-            <td className="w-24 md:w-48 pr-2">
+            <th scope="row" className="w-24 md:w-48 pr-2 text-left">
               {user.first_name} {user.last_name}
-            </td>
+            </th>
             <td className="py-1">
               <RenderTimelineTrend
                 trend={data.trends.find((it) => it.userId == user.user_id)!}
@@ -68,10 +71,17 @@ function RenderTimelineTrend({ trend: trends }: { trend: PresenceTrendItem }) {
     <div className="horizontal gap-0.5 w-full flex-1">
       {trends.days.map((trend, i) => (
         <div
+          role="img"
+          aria-label={`${t(parseWeekDay(parseScrumdappDate(trend.date).getUTCDay()))} ${trend.date}: ${trend.presences
+            .map(
+              (presence) =>
+                `${presence.name}: ${t(getAttendanceLabelKeyTrends(presence.presence))}`,
+            )
+            .join(", ")}`}
           className={`timeline-item flex-1 dropdown ${getAttendanceBackgroundColor(trend.presences[0].presence)} hover:outline`}
           key={i}
         >
-          <div className="dropdown-content">
+          <div aria-hidden="true" className="dropdown-content">
             <p>
               {t(parseWeekDay(parseScrumdappDate(trend.date).getUTCDay()))}{" "}
               {trend.date}

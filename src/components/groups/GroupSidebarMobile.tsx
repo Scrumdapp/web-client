@@ -18,8 +18,10 @@ export function GroupSidebarMobile({
 }) {
   const group = useGroup();
 
+  const { t } = useTranslation();
+
   return (
-    <div className="vertical gap-1">
+    <nav aria-label={t("a11y.nav.group")} className="vertical gap-1">
       <SidebarLink
         to={`/groups/${group.id}`}
         translationKey="checkpoint.sidebar.today"
@@ -56,7 +58,7 @@ export function GroupSidebarMobile({
         className="text-red"
         onClick={onNavigate}
       />
-    </div>
+    </nav>
   );
 }
 

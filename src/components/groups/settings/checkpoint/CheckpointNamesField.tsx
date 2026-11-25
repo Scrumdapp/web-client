@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { useId } from "react";
 
 export const CHECKPOINT_NAME_REGEX = /^[a-zA-Z0-9 \-]{1,32}$/;
 
@@ -9,6 +10,7 @@ type Props = {
   onChange: (value: string) => void;
   onRemove?: () => void;
   autoFocus?: boolean;
+  index: number;
 };
 
 export default function CheckpointNamesField({
@@ -16,8 +18,10 @@ export default function CheckpointNamesField({
   onChange,
   onRemove,
   autoFocus,
+  index,
 }: Props) {
   const { t } = useTranslation();
+  const id = useId();
   const showWarning = value !== "" && !CHECKPOINT_NAME_REGEX.test(value);
 
   return (
@@ -28,18 +32,28 @@ export default function CheckpointNamesField({
           value={value}
           maxLength={32}
           autoFocus={autoFocus}
+          aria-label={t("a11y.checkpointNames.field", { index })}
+          aria-invalid={showWarning || undefined}
+          aria-describedby={showWarning ? `${id}-error` : undefined}
           onChange={(e) => onChange(e.target.value)}
           placeholder={t("settings.checkpointNames.placeholder")}
           className="w-full write-section border-transparent!"
         />
         {onRemove && (
-          <button className="btn text-red" onClick={onRemove}>
+          <button
+            type="button"
+            className="btn text-red"
+            onClick={onRemove}
+            aria-label={t("a11y.checkpointNames.remove", { index })}
+          >
             <FontAwesomeIcon icon={faTrashCan} />
           </button>
         )}
       </div>
       {showWarning && (
-        <p className="text-red text-sm">{t("invite.modal.error")}</p>
+        <p id={`${id}-error`} className="text-red text-sm">
+          {t("invite.modal.error")}
+        </p>
       )}
     </div>
   );

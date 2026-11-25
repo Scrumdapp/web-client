@@ -37,6 +37,7 @@ export function GroupLayout() {
                     onClick={modal.open}
                     className="btn aspect-square md:hidden"
                     aria-label={t("header.menuToggle")}
+                    aria-expanded={modal.isOpen}
                   >
                     <FontAwesomeIcon icon={faBars} />
                   </button>
