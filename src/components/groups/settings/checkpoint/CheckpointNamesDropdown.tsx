@@ -22,7 +22,6 @@ export default function CheckpointNamesDropdown({
       value={value}
       onChange={onChange}
       disabled={disabled}
-      buttonClassName="h-10.5!"
       options={names.map((name) => ({ value: name, label: name }))}
       buttonContent={
         <span className={`truncate ${value ? "" : "text-fg4"}`}>

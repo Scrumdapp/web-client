@@ -44,7 +44,6 @@ export function CheckpointTimeDurationDropdownMenu({
       hideLabel={hideLabel}
       value={localValue}
       onChange={updateValue}
-      buttonClassName="h-10.5!"
       options={CheckpointTimeDuration.map((opt) => ({
         value: opt.minutes,
         label: t(opt.labelKey),
