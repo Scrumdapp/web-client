@@ -1,6 +1,6 @@
 import { IFrame, StompSubscription } from "@stomp/stompjs";
 
-export type StompdappSubscribtionCallback = (data: any) => void;
+export type StompdappSubscribtionCallback = (data: IFrame) => void;
 export enum StompdappSubscriberStatus {
   Subscribed,
   ClientDisconnected,
@@ -13,7 +13,7 @@ export class StompdappSubscriber {
   readonly callback: StompdappSubscribtionCallback;
 
   subscription: StompSubscription | null = null;
-  status: StompdappSubscriber = StompdappSubscriberStatus.Unsubscribed;
+  status: StompdappSubscriberStatus = StompdappSubscriberStatus.Unsubscribed;
 
   constructor(
     topic: string,

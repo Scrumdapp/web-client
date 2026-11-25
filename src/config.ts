@@ -9,4 +9,8 @@ export namespace WebConfig {
   export const apiUrl = (
     import.meta.env.VITE_SCRUMDAPP_API_URL ?? "/api"
   ).replace(/\/$/, "");
+
+  export const wsEndpoint = (
+    import.meta.env.VITE_SCRUMDAPP_WS_ENDPOINT ?? "/api/ws"
+  ).replace(/\/$/, "");
 }

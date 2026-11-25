@@ -3,7 +3,7 @@ import { StompdappClient, stompdappContext } from "./stompdappContext";
 import { WebConfig } from "../../config";
 
 export function StompdappProvider({ children }: { children: ReactNode }) {
-  const ref = useRef(new StompdappClient(`${WebConfig.apiUrl}/ws`, {}));
+  const ref = useRef(new StompdappClient(WebConfig.wsEndpoint, {}));
 
   useEffect(() => {
     ref.current.init();
