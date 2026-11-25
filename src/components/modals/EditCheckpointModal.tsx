@@ -115,7 +115,7 @@ export default function EditCheckpointModal({
             type="button"
             disabled={loading}
           >
-            {loading ? t("checkpoint.saving") : t("checkpoint.apply")}
+            {loading ? t("action.saving") : t("action.apply")}
           </button>
         </ModalActionRow>
       </div>

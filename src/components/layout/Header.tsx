@@ -9,8 +9,8 @@ export default function Header() {
   const user = useUser();
 
   const links = [
-    { to: "/", label: t("header.home"), target: "_self" },
-    { to: "/groups", label: t("header.groups"), target: "_self" },
+    { to: "/", label: t("action.home"), target: "_self" },
+    { to: "/groups", label: t("action.groups"), target: "_self" },
   ];
 
   return (

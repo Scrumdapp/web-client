@@ -16,8 +16,8 @@ export default function HeaderMobile() {
   const location = useLocation();
 
   const links = [
-    { to: "/", label: t("header.home"), target: "_self" },
-    { to: "/groups", label: t("header.groups"), target: "_self" },
+    { to: "/", label: t("action.home"), target: "_self" },
+    { to: "/groups", label: t("action.groups"), target: "_self" },
   ];
 
   useEffect(() => {

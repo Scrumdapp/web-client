@@ -19,6 +19,7 @@ import modal from "./pages/modal";
 import login from "./pages/login";
 import changelog from "./components/changelogs";
 import titles from "./components/titles";
+import actions from "./components/actions";
 
 type TranslationStrings = Record<string, unknown>;
 type PageModule = Record<string, TranslationStrings>;
@@ -42,6 +43,7 @@ const pages: PageModule[] = [
   login,
   changelog,
   titles,
+  actions,
 ];
 
 const resources = pages.reduce<Resources>((acc, page) => {

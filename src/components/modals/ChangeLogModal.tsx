@@ -43,7 +43,7 @@ export default function ChangeLogModal({ modal }: { modal: ModalState }) {
           </div>
         </div>
         <button onClick={modal.close} className="btn border">
-          {t("changelogs.close")}
+          {t("action.close")}
         </button>
       </ModalActionRow>
     </Modal>

@@ -15,7 +15,7 @@ export default function ModalCancelButton() {
   return (
     <button onClick={modal.close} className="btn border">
       <FontAwesomeIcon icon={faRotateLeft} className="text-gray" />
-      {t("modal.cancel")}
+      {t("action.cancel")}
     </button>
   );
 }

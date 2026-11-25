@@ -115,7 +115,7 @@ export function CreateGroupCheckpointSessionModal({
             {createCheckpointSession.loading ? (
               <LoadScreen />
             ) : (
-              t("checkpoint.modal.create")
+              t("action.create")
             )}
           </button>
         </ModalActionRow>

@@ -69,7 +69,7 @@ export function CheckpointSession({
             disabled={getCheckpointSessions.loading}
           >
             <FontAwesomeIcon icon={faArrowsRotate} className="text-blue" />{" "}
-            {t("checkpoint.refresh")}
+            {t("action.refresh")}
           </button>
         </div>
       </div>

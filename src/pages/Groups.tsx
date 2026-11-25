@@ -57,7 +57,7 @@ export default function Groups() {
                 className="btn btn-red border max-h-fit"
                 onClick={modal.open}
               >
-                {t("groups.newgroup")}
+                {t("action.newGroup")}
                 <FontAwesomeIcon icon={faPlus} />
               </button>
             </ShowIf>

@@ -51,7 +51,7 @@ export default function Invites({ groupId }: InvitesProps) {
             onClick={handleOpenModal}
             className="btn btn-secondary border"
           >
-            {t("invite.create")}
+            {t("action.newInvite")}
           </button>
         </div>
         <div className="w-full">
@@ -86,7 +86,7 @@ export default function Invites({ groupId }: InvitesProps) {
                             ? t("invite.modal.copied")
                             : expired
                               ? t("invite.expired")
-                              : t("invite.modal.copy")}
+                              : t("action.copy")}
                         </button>
                       </td>
                     </tr>

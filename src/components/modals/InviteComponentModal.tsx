@@ -101,7 +101,7 @@ export default function InviteComponentModal({
                 className="btn btn-secondary border"
                 disabled={!password.trim()}
               >
-                <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.create")}
+                <FontAwesomeIcon icon={faCheck} /> {t("action.create")}
               </button>
             </div>
           </ModalActionRow>
@@ -119,10 +119,10 @@ export default function InviteComponentModal({
           </div>
           <ModalActionRow>
             <button onClick={handleCopy} className="btn border">
-              <FontAwesomeIcon icon={faCopy} /> {t("invite.modal.copy")}
+              <FontAwesomeIcon icon={faCopy} /> {t("action.copy")}
             </button>
             <button onClick={handleDone} className="btn btn-secondary border">
-              <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.done")}
+              <FontAwesomeIcon icon={faCheck} /> {t("action.done")}
             </button>
           </ModalActionRow>
           {copied && (

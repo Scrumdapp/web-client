@@ -19,7 +19,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
 
   return (
     <Modal state={state}>
-      <ModalHeadText>{t("groups.newgroup")}</ModalHeadText>
+      <ModalHeadText>{t("action.newGroup")}</ModalHeadText>
       <form
         id="create-group-form"
         onSubmit={(e) => {
@@ -60,7 +60,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
             <LoadScreen />
           ) : (
             <>
-              <FontAwesomeIcon icon={faCheck} /> {t("groups.submit")}
+              <FontAwesomeIcon icon={faCheck} /> {t("action.submit")}
             </>
           )}
         </button>
