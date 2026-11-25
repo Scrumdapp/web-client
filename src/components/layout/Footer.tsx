@@ -26,7 +26,7 @@ export default function Footer() {
   const modal = useModalState();
 
   return (
-    <footer className="mb-2 mx-2 card horizontal items-center justify-between gap-2">
+    <footer className="m-2 mt-4 card horizontal items-center justify-between gap-2">
       <span className="flex-1">{t("footer.rights")}</span>
       <nav aria-label={t("a11y.nav.footer")} className="horizontal flex gap-4">
         {links.map((link, i) => (
