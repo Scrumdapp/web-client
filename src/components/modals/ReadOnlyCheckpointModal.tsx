@@ -10,24 +10,24 @@ import { SessionCheckpointRow } from "../../js/models/checkpoint.ts";
 import { useTranslation } from "react-i18next";
 
 type ReadOnlyCheckpointModalProps = {
-  modal: ModalState;
-  row: SessionCheckpointRow | null;
+  state: ModalState;
+  checkpoint: SessionCheckpointRow;
 };
 
 export default function ReadOnlyCheckpointModal({
-  modal,
-  row,
+  state,
+  checkpoint,
 }: ReadOnlyCheckpointModalProps) {
   const { t } = useTranslation();
 
-  const userName = row ? `${row.first_name} ${row.last_name}` : "";
-  const presence = row?.presence ? String(row.presence) : null;
-  const stars = row?.stars ?? 0;
-  const notes = row?.comment ?? "";
-  const obstacle = row?.impediment ?? "";
+  const userName = `${checkpoint.first_name} ${checkpoint.last_name}`;
+  const presence = checkpoint.presence ? String(checkpoint.presence) : null;
+  const stars = checkpoint.stars ?? 0;
+  const notes = checkpoint.comment ?? "";
+  const obstacle = checkpoint.impediment ?? "";
 
   return (
-    <Modal state={modal}>
+    <Modal state={state}>
       <div className="space-y-5">
         <ModalHeadText>
           {t("checkpoint.modalheaderreadonly", { name: userName })}
@@ -62,7 +62,7 @@ export default function ReadOnlyCheckpointModal({
         <ModalActionRow>
           <button
             className="btn border"
-            onClick={() => modal.close()}
+            onClick={() => state.close()}
             type="button"
           >
             {t("checkpoint.modal.close")}

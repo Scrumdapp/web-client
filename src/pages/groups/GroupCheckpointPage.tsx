@@ -1,4 +1,4 @@
-import Checkpoint from "../../components/checkins/Checkpoint.tsx";
+import { CheckpointSession } from "../../components/checkins/CheckpointSession.tsx";
 import { Link } from "react-router-dom";
 import {
   parseScrumdappDate,
@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi.ts";
 import { LoadScreen } from "../../components/generic/LoadScreen.tsx";
 import { useApi } from "../../js/hooks/api/useApi.ts";
-import { useUser } from "../../js/context/user/useUser.ts";
 import { ErrorScreen } from "../../components/generic/ErrorScreen.tsx";
 import { CreateGroupCheckpointSessionModal } from "../../components/modals/CreateGroupCheckpointSessionModal.tsx";
 import { ShowIf } from "../../components/utility/Conditional.tsx";
@@ -38,8 +37,6 @@ export function GroupCheckpointPage({
   const next = new Date(date);
   next.setDate(next.getDate() + 1);
   const nextDate = toScrumdappDate(next);
-
-  const currentUser = useUser();
 
   const getCheckpointSessions = useApi(ScrumdappApi.getCheckpointSessions(), {
     fetchOnCreated: [group.id, { date }],
@@ -98,15 +95,9 @@ export function GroupCheckpointPage({
       {checkpointSessions?.length > 0 ? (
         [...checkpointSessions].reverse().map((session, index) => (
           <div key={session.id} className="w-full">
-            <Checkpoint
-              groupId={group.id}
+            <CheckpointSession
               key={session.id}
-              name={session.name}
-              startTime={new Date(session.startTime).getTime()}
-              duration={session.duration * 60_000}
-              sessionId={session.id}
-              currentUser={currentUser}
-              ownerId={session.ownerId}
+              session={session}
               isMostRecent={index === 0}
             />
           </div>
