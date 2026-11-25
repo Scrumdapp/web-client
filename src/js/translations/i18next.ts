@@ -17,7 +17,7 @@ import footer from "./pages/footer";
 import date from "./pages/date";
 import modal from "./pages/modal";
 import login from "./pages/login";
-import changelog from "./pages/changelog";
+import changelog from "./components/changelogs";
 import titles from "./components/titles";
 
 type TranslationStrings = Record<string, unknown>;
