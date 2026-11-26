@@ -16,8 +16,8 @@ export default function HeaderMobile() {
   const location = useLocation();
 
   const links = [
-    { to: "/", label: t("header.home"), target: "_self" },
-    { to: "/groups", label: t("header.groups"), target: "_self" },
+    { to: "/", label: t("action.navigation.home"), target: "_self" },
+    { to: "/groups", label: t("action.navigation.groups"), target: "_self" },
   ];
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function HeaderMobile() {
                 <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
                 <img
                   src={user.avatar ?? "/Scrumdaddy.png"}
-                  alt={t("header.profileAlt")}
+                  alt={t("generic.profileAlt")}
                   className="nav-icon max-w-full"
                 />
               </div>
@@ -73,7 +73,7 @@ export default function HeaderMobile() {
             type="button"
             onClick={modal.isOpen ? modal.close : modal.open}
             className="btn aspect-square md:hidden"
-            aria-label={t("header.menuToggle")}
+            aria-label={t("action.menuToggle")}
             aria-expanded={modal.isOpen}
           >
             <FontAwesomeIcon icon={modal.isOpen ? faXmark : faBars} />

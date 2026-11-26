@@ -2,68 +2,35 @@ export default {
   en: {
     checkpoint: {
       create: "Create checkpoint",
-      refresh: "Refresh",
       name: "Name",
-      edit: "Edit",
       actions: "Actions",
-      modalheader: "Edit Checkpoint for {{name}}",
-      modalheaderreadonly: "View Checkpoint for {{name}}",
+      modalHeader: "Edit Checkpoint for {{name}}",
+      modalHeaderReadOnly: "View Checkpoint for {{name}}",
       attendance: "Attendance",
       stars: "Stars",
       notes: "Notes",
-      nonotes: "No notes available",
+      noNotes: "No notes available",
       obstacle: "Obstacle",
-      noobstacles: "No obstacles available",
-      saving: "Saving...",
-      apply: "Apply",
+      noObstacles: "No obstacles available",
       closed: "Checkpoint closed",
-      closesin: "Checkpoint closes in",
-      nocheckpoint: {
+      closesIn: "Checkpoint closes in",
+      noCheckpoint: {
         today: "It's awfully quiet in here...",
-        todaydescription:
+        todayDescription:
           "Create your first checkpoint for today by clicking the button above.",
         past: "No checkpoints available",
-        pastdescription:
+        pastDescription:
           "There are no checkpoints available for this date. Please select a different date.",
       },
       modal: {
-        newcheckpoint: "New checkpoint",
+        newCheckpoint: "New checkpoint",
         error: "No names have been added to the list, add them ",
         errorLink: "here",
-        create: "Create",
         type: "Checkpoint type",
-        duration: {
-          fiveminutes: "5 minutes",
-          tenminutes: "10 minutes",
-          fifteenminutes: "15 minutes",
-          twentyminutes: "20 minutes",
-          thirtyminutes: "30 minutes",
-          onehour: "1 hour",
-        },
-        readmore: "Read more",
-        close: "Close",
+        readMore: "Read more",
         menuClose: "Close menu",
       },
-      sidebar: {
-        today: "Today",
-        calendar: "Calendar",
-        trends: "Trends",
-        myTrends: "My trends",
-        settings: "Settings",
-        recent: "Recent",
-      },
-      attendanceOptions: {
-        onTime: "On Time",
-        online: "Online",
-        late: "Late",
-        verifiedLate: "Verified Late",
-        absent: "Absent",
-        verifiedAbsent: "Verified Absent",
-        sick: "Sick",
-        none: "---",
-        noData: "No data",
-      },
-      invaliddate: {
+      invalidDate: {
         title: "Invalid date",
         description:
           "The selected date is invalid. Please select a different date.",
@@ -73,68 +40,35 @@ export default {
   nl: {
     checkpoint: {
       create: "Nieuw checkpoint",
-      refresh: "Herlaad",
       name: "Naam",
       attendance: "Aanwezigheid",
       stars: "Sterren",
       notes: "Opmerking",
-      nonotes: "Geen opmerkingen beschikbaar",
+      noNotes: "Geen opmerkingen beschikbaar",
       obstacle: "Obstakel",
-      noobstacles: "Geen obstakels beschikbaar",
-      edit: "Bewerk",
+      noObstacles: "Geen obstakels beschikbaar",
       actions: "Acties",
-      modalheader: "Bewerk checkpoint voor {{name}}",
-      modalheaderreadonly: "Bekijk checkpoint van {{name}}",
-      saving: "Opslaan...",
-      apply: "Opslaan",
+      modalHeader: "Bewerk checkpoint voor {{name}}",
+      modalHeaderReadOnly: "Bekijk checkpoint van {{name}}",
       closed: "Checkpoint gesloten",
-      closesin: "Checkpoint sluit over",
-      nocheckpoint: {
+      closesIn: "Checkpoint sluit over",
+      noCheckpoint: {
         today: "Het is hier erg stil...",
-        todaydescription:
+        todayDescription:
           "Maak je eerste checkpoint voor vandaag door op de knop hierboven te klikken.",
         past: "Geen checkpoints beschikbaar",
-        pastdescription:
+        pastDescription:
           "Er zijn geen checkpoints beschikbaar voor deze datum. Kies een andere datum.",
       },
       modal: {
-        newcheckpoint: "Nieuw checkpoint",
+        newCheckpoint: "Nieuw checkpoint",
         error: "Er zijn geen namen toegevoegd aan de lijst, bewerk deze ",
         errorLink: "hier",
-        create: "Maak aan",
         type: "Checkpoint soort",
-        duration: {
-          fiveminutes: "5 minuten",
-          tenminutes: "10 minuten",
-          fifteenminutes: "15 minuten",
-          twentyminutes: "20 minuten",
-          thirtyminutes: "30 minuten",
-          onehour: "1 uur",
-        },
-        readmore: "Lees meer",
-        close: "Sluiten",
+        readMore: "Lees meer",
         menuClose: "Sluit menu",
       },
-      sidebar: {
-        today: "Vandaag",
-        calendar: "Kalender",
-        trends: "Trends",
-        myTrends: "Mijn trends",
-        settings: "Instellingen",
-        recent: "Recent",
-      },
-      attendanceOptions: {
-        onTime: "Op Tijd",
-        online: "Online",
-        late: "Te Laat",
-        verifiedLate: "Te Laat met reden",
-        absent: "Absent",
-        verifiedAbsent: "Absent met reden",
-        sick: "Ziek",
-        none: "---",
-        noData: "Geen data",
-      },
-      invaliddate: {
+      invalidDate: {
         title: "Ongeldige datum",
         description:
           "De geselecteerde datum is ongeldig. Kies een andere datum.",

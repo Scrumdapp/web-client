@@ -16,9 +16,7 @@ export function UsersTable() {
             <th className="text-left p-2">
               {t("settings.users.ghost.labelTable")}
             </th>
-            <th className="text-right p-2">
-              {t("settings.users.actions")}
-            </th>
+            <th className="text-right p-2">{t("settings.users.actions")}</th>
           </tr>
         </thead>
         <tbody>

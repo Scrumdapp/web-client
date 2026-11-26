@@ -23,7 +23,7 @@ export function GroupRouter() {
               new ApiError(404, {
                 status: 404,
                 code: "PAGE_NOT_FOUND",
-                titleTranslationKey: "errors.generic.notFound.title",
+                titleTranslationKey: "title.noPage",
                 descriptionTranslationKey:
                   "errors.generic.notFound.description",
               })

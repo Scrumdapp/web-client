@@ -71,7 +71,7 @@ function ModalPage1({ onNextCalled, user }: ModalPageProps) {
         <ModalCancelButton />
         <button className="btn btn-red border" onClick={onNextCalled}>
           <FontAwesomeIcon icon={faArrowRight} />
-          {t("settings.users.delete.warn.next")}
+          {t("action.continue")}
         </button>
       </ModalActionRow>
       <p className="muted text-right">
@@ -127,7 +127,7 @@ function ModalPage2({ onNextCalled, user }: ModalPageProps) {
           disabled={!canDelete || deleteGroupUser.loading}
         >
           <FontAwesomeIcon icon={faTrashCan} />
-          {t("settings.users.delete.confirm.next")}
+          {t("action.delete")}
         </button>
       </ModalActionRow>
       <p className="muted text-right">
@@ -152,7 +152,7 @@ function ModalPage3({ onSucceedCalled, user }: ModalPageProps) {
       <ModalActionRow>
         <button className="btn btn-secondary border" onClick={onSucceedCalled}>
           <FontAwesomeIcon icon={faCheck} />
-          {t("settings.users.delete.deleted.close")}
+          {t("action.close")}
         </button>
       </ModalActionRow>
       <p className="muted text-right">

@@ -88,7 +88,7 @@ export function GroupCheckpointPage({
         <ShowIf condition={currentDate == date}>
           <button className="btn border p-1! md:p-2" onClick={modal.open}>
             <FontAwesomeIcon icon={faAdd} className="text-blue" />{" "}
-            {t("checkpoint.create")}
+            {t("action.newCheckpoint")}
           </button>
         </ShowIf>
       </div>

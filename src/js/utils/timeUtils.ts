@@ -48,73 +48,73 @@ export function nextMonth(date: Date) {
 export function parseWeekDay(day: number) {
   switch (day) {
     case 1:
-      return "date.mon";
+      return "calendar.date.mon";
     case 2:
-      return "date.tue";
+      return "calendar.date.tue";
     case 3:
-      return "date.wed";
+      return "calendar.date.wed";
     case 4:
-      return "date.thu";
+      return "calendar.date.thu";
     case 5:
-      return "date.fri";
+      return "calendar.date.fri";
     case 6:
-      return "date.sat";
+      return "calendar.date.sat";
     case 0:
-      return "date.sun";
+      return "calendar.date.sun";
     default:
-      return "date.unknown";
+      return "calendar.date.unknown";
   }
 }
 
 export function parseWeekDayMobile(day: number) {
   switch (day) {
     case 1:
-      return "calendar.mon";
+      return "calendar.date.short.mon";
     case 2:
-      return "calendar.tue";
+      return "calendar.date.short.tue";
     case 3:
-      return "calendar.wed";
+      return "calendar.date.short.wed";
     case 4:
-      return "calendar.thu";
+      return "calendar.date.short.thu";
     case 5:
-      return "calendar.fri";
+      return "calendar.date.short.fri";
     case 6:
-      return "calendar.sat";
+      return "calendar.date.short.sat";
     case 0:
-      return "calendar.sun";
+      return "calendar.date.short.sun";
     default:
-      return "date.unknown";
+      return "calendar.date.unknown";
   }
 }
 
 export function parseMonthText(month: number) {
   switch (month) {
     case 0:
-      return "date.jan";
+      return "calendar.date.jan";
     case 1:
-      return "date.feb";
+      return "calendar.date.feb";
     case 2:
-      return "date.mar";
+      return "calendar.date.mar";
     case 3:
-      return "date.apr";
+      return "calendar.date.apr";
     case 4:
-      return "date.may";
+      return "calendar.date.may";
     case 5:
-      return "date.jun";
+      return "calendar.date.jun";
     case 6:
-      return "date.jul";
+      return "calendar.date.jul";
     case 7:
-      return "date.aug";
+      return "calendar.date.aug";
     case 8:
-      return "date.sep";
+      return "calendar.date.sep";
     case 9:
-      return "date.oct";
+      return "calendar.date.oct";
     case 10:
-      return "date.nov";
+      return "calendar.date.nov";
     case 11:
-      return "date.dec";
+      return "calendar.date.dec";
     default:
-      return "date.unknown";
+      return "calendar.date.unknown";
   }
 }
 

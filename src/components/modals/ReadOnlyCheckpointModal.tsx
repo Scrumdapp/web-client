@@ -65,7 +65,7 @@ export default function ReadOnlyCheckpointModal({
             onClick={() => state.close()}
             type="button"
           >
-            {t("checkpoint.modal.close")}
+            {t("action.close")}
           </button>
         </ModalActionRow>
       </div>

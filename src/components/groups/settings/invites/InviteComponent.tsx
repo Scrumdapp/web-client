@@ -46,22 +46,24 @@ export default function Invites({ groupId }: InvitesProps) {
     <>
       <div className="card flex flex-col items-center gap-2">
         <div className="flex flex-row w-full justify-between items-center py-3">
-          <h3>{t("invite.header")}</h3>
+          <h3>{t("settings.invite.header")}</h3>
           <button
             onClick={handleOpenModal}
             className="btn btn-secondary border"
           >
-            {t("invite.create")}
+            {t("action.newInvite")}
           </button>
         </div>
         <div className="w-full">
           {invites.length === 0 ? (
-            <p>{t("invite.noinvites")}</p>
+            <p>{t("settings.invite.noinvites")}</p>
           ) : (
             <table className="table">
               <thead>
                 <tr>
-                  <th className="p-2 text-left">{t("invite.expire")}</th>
+                  <th className="p-2 text-left">
+                    {t("settings.invite.expire")}
+                  </th>
                   <th />
                 </tr>
               </thead>
@@ -83,10 +85,10 @@ export default function Invites({ groupId }: InvitesProps) {
                             icon={copiedId === invite.id ? faCheck : faCopy}
                           />
                           {copiedId === invite.id
-                            ? t("invite.modal.copied")
+                            ? t("settings.invite.modal.copied")
                             : expired
-                              ? t("invite.expired")
-                              : t("invite.modal.copy")}
+                              ? t("settings.invite.expired")
+                              : t("action.copy")}
                         </button>
                       </td>
                     </tr>

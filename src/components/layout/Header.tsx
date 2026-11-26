@@ -9,8 +9,8 @@ export default function Header() {
   const user = useUser();
 
   const links = [
-    { to: "/", label: t("header.home"), target: "_self" },
-    { to: "/groups", label: t("header.groups"), target: "_self" },
+    { to: "/", label: t("action.navigation.home"), target: "_self" },
+    { to: "/groups", label: t("action.navigation.groups"), target: "_self" },
   ];
 
   return (
@@ -50,7 +50,7 @@ export default function Header() {
                 <span className="text-right text-nowrap truncate break-words">{`${user.first_name} ${user.last_name}`}</span>
                 <img
                   src={user.avatar ?? "/Scrumdaddy.png"}
-                  alt={t("header.profileAlt")}
+                  alt={t("generic.profileAlt")}
                   className="nav-icon max-w-full"
                 />
               </div>

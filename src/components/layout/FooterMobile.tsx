@@ -15,11 +15,11 @@ export default function FooterMobile() {
   const { t } = useTranslation();
 
   const links = [
-    { to: "/about", text: t("footer.about"), target: "_self" },
-    { to: "/privacy", text: t("footer.privacy"), target: "_self" },
+    { to: "/about", text: t("action.navigation.about"), target: "_self" },
+    { to: "/privacy", text: t("action.navigation.privacy"), target: "_self" },
     {
       to: "https://scrumdapp.com/#Contact",
-      text: t("footer.support"),
+      text: t("action.navigation.support"),
       target: "_blank",
     },
   ];
@@ -81,7 +81,7 @@ export default function FooterMobile() {
           <FontAwesomeIcon icon={faGithub} />
         </Link>
       </div>
-      <span className="flex-1 text-sm mt-2">{t("footer.rights")}</span>
+      <span className="flex-1 text-sm mt-2">{t("generic.rights")}</span>
     </footer>
   );
 }

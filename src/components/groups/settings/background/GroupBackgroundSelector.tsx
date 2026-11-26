@@ -27,11 +27,11 @@ export function BackgroundSelector() {
       />
       <Button
         onClick={modalState.open}
-        aria-label={t("settings.background.change")}
+        aria-label={t("action.changeBackground")}
         className="mr-auto btn border"
       >
         <FontAwesomeIcon icon={faImages} className="text-green" />
-        {t("settings.background.change")}
+        {t("action.changeBackground")}
       </Button>
 
       <GroupBackgroundSelectorModal modal={modalState} />

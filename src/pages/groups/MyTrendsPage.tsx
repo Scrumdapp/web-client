@@ -59,13 +59,13 @@ export function MyTrendsPage() {
 
   return (
     <div className="vertical gap-4">
-      <title>{t("analytics.title")}</title>
+      <title>{t("title.myTrends")}</title>
       <h2>{t("analytics.header")}</h2>
 
       {/* The 3 stat tiles at the top of the page */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
         <StatTile
-          label={t("analytics.stats.onTimeRate")}
+          label={t("generic.attendance.onTime")}
           value={onTimeNow ?? "–"}
           unit={onTimeNow != null ? "%" : undefined}
           sublabel={t("analytics.stats.onTimeRateTrendSuffix")}
@@ -94,14 +94,14 @@ export function MyTrendsPage() {
               ? t("analytics.stats.selfReflectionSublabelLive", {
                   count: summary.data.starsCount,
                 })
-              : t("analytics.stats.noData"))
+              : t("generic.noData"))
           }
         />
       </div>
 
       {/* Donut charts */}
       <AnalyticsCard
-        title={t("analytics.onTimeComparison")}
+        title={t("generic.attendance.onTime")}
         subtitle={t("analytics.onTimeSubtitle")}
         state={summary}
       >
@@ -119,7 +119,7 @@ export function MyTrendsPage() {
                 className={monthNavBtn}
                 disabled={!month.canPrev}
                 onClick={month.prev}
-                aria-label={t("analytics.calendarPrevMonth")}
+                aria-label={t("calendar.prevMonth")}
               >
                 ‹
               </button>
@@ -143,7 +143,7 @@ export function MyTrendsPage() {
                 className={monthNavBtn}
                 disabled={!month.canNext}
                 onClick={month.next}
-                aria-label={t("analytics.calendarNextMonth")}
+                aria-label={t("calendar.nextMonth")}
               >
                 ›
               </button>

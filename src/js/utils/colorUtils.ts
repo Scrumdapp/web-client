@@ -1,48 +1,48 @@
 export const attendanceOptions = [
   {
-    labelKey: "checkpoint.attendanceOptions.onTime",
+    labelKey: "generic.attendance.onTime",
     color: "text-green",
     background: "bg-green",
     value: "ON_TIME",
   },
   {
-    labelKey: "checkpoint.attendanceOptions.online",
+    labelKey: "generic.attendance.online",
     color: "text-purple",
     background: "bg-purple",
     value: "ONLINE",
   },
   {
-    labelKey: "checkpoint.attendanceOptions.late",
+    labelKey: "generic.attendance.late",
     color: "text-orange-dim",
     background: "bg-orange-dim",
     value: "LATE",
   },
   {
-    labelKey: "checkpoint.attendanceOptions.verifiedLate",
+    labelKey: "generic.attendance.verifiedLate",
     color: "text-orange",
     background: "bg-orange",
     value: "VERIFIED_LATE",
   },
   {
-    labelKey: "checkpoint.attendanceOptions.absent",
+    labelKey: "generic.attendance.absent",
     color: "text-red-dim",
     background: "bg-red-dim",
     value: "ABSENT",
   },
   {
-    labelKey: "checkpoint.attendanceOptions.verifiedAbsent",
+    labelKey: "generic.attendance.verifiedAbsent",
     color: "text-red",
     background: "bg-red",
     value: "VERIFIED_ABSENT",
   },
   {
-    labelKey: "checkpoint.attendanceOptions.sick",
+    labelKey: "generic.attendance.sick",
     color: "text-blue",
     background: "bg-blue",
     value: "SICK",
   },
   {
-    labelKey: "checkpoint.attendanceOptions.none",
+    labelKey: "generic.attendance.none",
     color: "text-gray",
     background: "bg-gray-dim",
     value: null,
@@ -53,11 +53,11 @@ export function getAttendanceLabelKey(
   value: string | null | undefined,
 ): string {
   if (value == null) {
-    return "checkpoint.attendanceOptions.none";
+    return "generic.attendance.none";
   }
   return (
     attendanceOptions.find((opt) => opt.value === value)?.labelKey ??
-    "checkpoint.attendanceOptions.none"
+    "generic.attendance.none"
   );
 }
 
@@ -65,11 +65,11 @@ export function getAttendanceLabelKeyTrends(
   value: string | null | undefined,
 ): string {
   if (value == null) {
-    return "checkpoint.attendanceOptions.noData";
+    return "generic.noData";
   }
   return (
     attendanceOptions.find((opt) => opt.value === value)?.labelKey ??
-    "checkpoint.attendanceOptions.none"
+    "generic.attendance.none"
   );
 }
 

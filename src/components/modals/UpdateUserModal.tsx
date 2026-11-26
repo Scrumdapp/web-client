@@ -81,7 +81,7 @@ export function UpdateGroupUserModal({
             <LoadScreen />
           ) : (
             <>
-              <FontAwesomeIcon icon={faCheck} /> {t("settings.users.save")}
+              <FontAwesomeIcon icon={faCheck} /> {t("action.save")}
             </>
           )}
         </button>

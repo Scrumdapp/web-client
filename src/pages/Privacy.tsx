@@ -6,7 +6,7 @@ export default function Privacy() {
   return (
     <div className="mx-2 md:mx-0">
       <div className="app-container mx-2 md:mx-auto card horizontal gap-3 mb-4">
-        <title>{t("privacy.title")}</title>
+        <title>{t("title.privacy")}</title>
         <div>
           <h1>{t("privacy.header")}</h1>
           <br />

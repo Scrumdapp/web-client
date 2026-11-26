@@ -25,7 +25,7 @@ export default function HeaderMobileModal({ modal }: HeaderMobileModalProps) {
           <span className="text-nowrap">{`${user.first_name} ${user.last_name}`}</span>
           <img
             src={user.avatar ?? "/Scrumdaddy.png"}
-            alt={t("header.profileAlt")}
+            alt={t("generic.profileAlt")}
             className="nav-icon max-w-full"
           />
         </div>
@@ -35,31 +35,31 @@ export default function HeaderMobileModal({ modal }: HeaderMobileModalProps) {
           <NavbarLink
             to="/"
             target="_self"
-            translationKey="header.home"
+            translationKey="action.navigation.home"
             onClick={modal.close}
           />
           <NavbarLink
             to="/groups"
             target="_self"
-            translationKey="header.groups"
+            translationKey="action.navigation.groups"
             onClick={modal.close}
           />
           <NavbarLink
             to="/about"
             target="_self"
-            translationKey="footer.about"
+            translationKey="action.navigation.about"
             onClick={modal.close}
           />
           <NavbarLink
             to="/privacy"
             target="_self"
-            translationKey="footer.privacy"
+            translationKey="action.navigation.privacy"
             onClick={modal.close}
           />
           <NavbarLink
             to="https://scrumdapp.com/#Contact"
             target="_blank"
-            translationKey="footer.support"
+            translationKey="action.navigation.support"
             onClick={modal.close}
           />
           <hr className="text-gray" />
@@ -67,7 +67,7 @@ export default function HeaderMobileModal({ modal }: HeaderMobileModalProps) {
 
         <div className="flex flex-col items-start gap-2 mt-2 pt-2 pb-4 px-2 pl-4">
           <div className="horizontal gap-3">
-            {t("header.language")}: <LanguageSwitch />
+            {t("generic.language")}: <LanguageSwitch />
           </div>
           <LogoutButton />
         </div>

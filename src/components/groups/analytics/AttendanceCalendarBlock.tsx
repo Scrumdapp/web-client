@@ -46,9 +46,7 @@ export function AttendanceCalendarBlock({ weeks, checkpoint, empty }: Props) {
     month: "long",
   });
   const statusLabel = (status: CalStatus | null) =>
-    status == null
-      ? t("analytics.calendarNoStatus")
-      : t(`analytics.calendarLegend.${status}`);
+    status == null ? t("generic.noData") : t(`generic.attendance.${status}`);
 
   return (
     <>
@@ -124,9 +122,7 @@ export function AttendanceCalendarBlock({ weeks, checkpoint, empty }: Props) {
                 <p className="mb-1 font-bold text-fg first-letter:uppercase">
                   {dateFormat.format(cell.date)}
                 </p>
-                {cell.checkpoints.length === 0 && (
-                  <p>{t("analytics.calendarNoCheckpoint")}</p>
-                )}
+                {cell.checkpoints.length === 0 && <p>{t("generic.noData")}</p>}
                 <ul>
                   {cell.checkpoints.map((c, j) => (
                     <li key={j}>
@@ -154,7 +150,7 @@ export function AttendanceCalendarBlock({ weeks, checkpoint, empty }: Props) {
       <Legend
         className="mt-4"
         items={(Object.keys(calendarColors) as CalStatus[]).map((status) => ({
-          label: t(`analytics.calendarLegend.${status}`),
+          label: t(`generic.attendance.${status}`),
           color: calendarColors[status],
           icon: statusIcon[status],
         }))}

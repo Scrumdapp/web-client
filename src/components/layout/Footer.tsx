@@ -14,11 +14,11 @@ import { useModalState } from "../../js/hooks/useModalState.ts";
 export default function Footer() {
   const { t } = useTranslation();
   const links = [
-    { to: "/about", text: t("footer.about"), target: "_self" },
-    { to: "/privacy", text: t("footer.privacy"), target: "_self" },
+    { to: "/about", text: t("action.navigation.about"), target: "_self" },
+    { to: "/privacy", text: t("action.navigation.privacy"), target: "_self" },
     {
       to: "https://scrumdapp.com/#Contact",
-      text: t("footer.support"),
+      text: t("action.navigation.support"),
       target: "_blank",
     },
   ];
@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer className="mb-2 mx-2 card horizontal items-center justify-between gap-2">
-      <span className="flex-1">{t("footer.rights")}</span>
+      <span className="flex-1">{t("generic.rights")}</span>
       <div className="horizontal flex gap-4">
         {links.map((link, i) => (
           <Link

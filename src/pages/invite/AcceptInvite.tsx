@@ -32,18 +32,18 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
 
   return (
     <div className="app-container">
-      <title>{t("invite.title")}</title>
+      <title>{t("title.acceptInvite")}</title>
       <div className="card flex flex-col">
         <h1>
-          {t("invite.accept.header")} {invite.groupId}!
+          {t("settings.invite.accept.header")} {invite.groupId}!
         </h1>
-        <p>{t("invite.accept.text")}</p>
+        <p>{t("settings.invite.accept.text")}</p>
         <div>
           <div className="py-3">
             <input
               className="write-section w-full!"
-              placeholder={t("invite.password")}
-              alt={t("invite.password")}
+              placeholder={t("settings.invite.password")}
+              alt={t("settings.invite.password")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -54,7 +54,7 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
               className="btn btn-secondary border flex float-right"
             >
               <FontAwesomeIcon icon={faUserPlus} />
-              {t("invite.accept.join")}
+              {t("action.join")}
             </button>
             {acceptInviteRequest.error != null && (
               <p className="text-error">{acceptInviteRequest.error.message}</p>

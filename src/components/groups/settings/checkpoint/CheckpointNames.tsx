@@ -106,7 +106,7 @@ export function CheckpointNamesLayout({
             className="btn btn-secondary border"
           >
             <FontAwesomeIcon icon={faPencil} />
-            {t("settings.checkpointNames.edit")}
+            {t("action.edit")}
           </button>
         )}
       </div>

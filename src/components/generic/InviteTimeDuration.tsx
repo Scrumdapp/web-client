@@ -10,11 +10,11 @@ type TimeDurationDropdownMenuProps = {
 };
 
 export const InviteTimeDuration = [
-  { labelKey: "invite.duration.twelvehours", hours: 12 },
-  { labelKey: "invite.duration.oneday", hours: 24 },
-  { labelKey: "invite.duration.twodays", hours: 48 },
-  { labelKey: "invite.duration.threedays", hours: 72 },
-  { labelKey: "invite.duration.oneweek", hours: 168 },
+  { labelKey: "time.twelveHours", hours: 12 },
+  { labelKey: "time.oneDay", hours: 24 },
+  { labelKey: "time.twoDays", hours: 48 },
+  { labelKey: "time.threeDays", hours: 72 },
+  { labelKey: "time.oneWeek", hours: 168 },
 ];
 
 export function InviteTimeDurationDropdownMenu({

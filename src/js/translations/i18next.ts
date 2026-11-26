@@ -5,19 +5,17 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import privacy from "./pages/privacy";
 import about from "./pages/about";
 import settings from "./pages/settings";
-import invite from "./pages/invite";
 import groups from "./pages/groups";
 import checkpoint from "./pages/checkpoint";
-import calendar from "./pages/calendar";
+import timeAndCalendar from "./components/time-and-calendar.ts";
 import trends from "./pages/trends";
 import analytics from "./pages/analytics";
 import error from "./pages/error";
-import header from "./pages/header";
-import footer from "./pages/footer";
-import date from "./pages/date";
-import modal from "./pages/modal";
 import login from "./pages/login";
-import changelog from "./pages/changelog";
+import changelog from "./components/changelogs";
+import titles from "./components/titles";
+import actions from "./components/actions";
+import generic from "./components/generic";
 
 type TranslationStrings = Record<string, unknown>;
 type PageModule = Record<string, TranslationStrings>;
@@ -27,19 +25,17 @@ const pages: PageModule[] = [
   privacy,
   about,
   settings,
-  invite,
   groups,
   checkpoint,
-  calendar,
+  timeAndCalendar,
   trends,
   analytics,
   error,
-  header,
-  footer,
-  date,
-  modal,
   login,
   changelog,
+  titles,
+  actions,
+  generic,
 ];
 
 const resources = pages.reduce<Resources>((acc, page) => {

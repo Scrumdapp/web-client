@@ -18,7 +18,7 @@ export function RenderCumulativeGraph({
   const length = data.trends[0].days.length;
   const { t } = useTranslation();
   if (length == 0) {
-    return <div className="center">{t("trends.noData")}</div>;
+    return <div className="center">{t("generic.noData")}</div>;
   }
 
   return (

@@ -80,8 +80,7 @@ export default function CheckpointNamesModal({
 
         {fields.length < MAX_CHECKPOINT_NAMES && (
           <button className="btn border mt-2 m-1" onClick={handleAdd}>
-            <FontAwesomeIcon icon={faPlus} />{" "}
-            {t("settings.checkpointNames.add")}
+            <FontAwesomeIcon icon={faPlus} /> {t("action.addCheckpointName")}
           </button>
         )}
       </div>
@@ -93,7 +92,7 @@ export default function CheckpointNamesModal({
           disabled={updateNames.loading}
           className="btn border btn-secondary"
         >
-          <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.done")}
+          <FontAwesomeIcon icon={faCheck} /> {t("action.done")}
         </button>
       </ModalActionRow>
     </Modal>

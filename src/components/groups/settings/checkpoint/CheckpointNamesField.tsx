@@ -39,7 +39,7 @@ export default function CheckpointNamesField({
         )}
       </div>
       {showWarning && (
-        <p className="text-red text-sm">{t("invite.modal.error")}</p>
+        <p className="text-red text-sm">{t("settings.invite.modal.error")}</p>
       )}
     </div>
   );

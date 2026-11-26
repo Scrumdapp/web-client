@@ -1,0 +1,29 @@
+export default {
+  en: {
+    title: {
+      about: "About | Scrumdapp",
+      myTrends: "My Trends | Scrumdapp",
+      calendar: "Calendar | Scrumdapp",
+      groups: "Groups | Scrumdapp",
+      acceptInvite: "Accept Invite | Scrumdapp",
+      privacy: "Privacy | Scrumdapp",
+      settings: "Settings | Scrumdapp",
+      trends: "Trends | Scrumdapp",
+      noPage: "No page found | Scrumdapp",
+    },
+  },
+
+  nl: {
+    title: {
+      about: "Over | Scrumdapp",
+      myTrends: "Mijn Trends | Scrumdapp",
+      calendar: "Kalender | Scrumdapp",
+      groups: "Groepen | Scrumdapp",
+      acceptInvite: "Accepteer uitnodiging | Scrumdapp",
+      privacy: "Privacy | Scrumdapp",
+      settings: "Instellingen | Scrumdapp",
+      trends: "Trends | Scrumdapp",
+      noPage: "Geen pagina gevonden | Scrumdapp",
+    },
+  },
+};

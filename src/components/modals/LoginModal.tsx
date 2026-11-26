@@ -48,7 +48,7 @@ export function LoginModal({ state }: { state: ModalState }) {
       <ModalActionRow>
         <button onClick={handleLogin} className="btn border btn-secondary">
           <FontAwesomeIcon icon={faArrowRightToBracket} />
-          {t("login.modal.login")}
+          {t("action.login")}
         </button>
       </ModalActionRow>
     </Modal>

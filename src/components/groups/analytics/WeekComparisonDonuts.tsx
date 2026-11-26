@@ -39,17 +39,15 @@ interface Props {
 
 export function WeekComparisonDonuts({ weeks, previous, current }: Props) {
   const { t, i18n } = useTranslation();
-  const labels = ["yes", "no", "unknown"].map((key) =>
-    t(`analytics.onTimeLegend.${key}`),
-  );
+  const labels = ["yes", "no", "unknown"].map((key) => t(`generic.${key}`));
   const shortDate = new Intl.DateTimeFormat(i18n.language, {
     day: "numeric",
     month: "short",
   });
 
   const donuts = [
-    { key: "previous", range: weeks.previous, split: previous },
-    { key: "current", range: weeks.current, split: current },
+    { key: "prevWeek", range: weeks.previous, split: previous },
+    { key: "thisWeek", range: weeks.current, split: current },
   ];
 
   return (
@@ -63,7 +61,7 @@ export function WeekComparisonDonuts({ weeks, previous, current }: Props) {
               key={key}
             >
               <p className="text-xs font-semibold uppercase tracking-wide text-fg4">
-                {t(`analytics.week.${key}`)}
+                {t(`calendar.${key}`)}
               </p>
               <p className="muted -mt-1.5">
                 {shortDate.formatRange(range.start, range.end)}

@@ -59,12 +59,12 @@ export default function InviteComponentModal({
     <Modal state={modal}>
       {step === 1 && (
         <>
-          <h1>{t("invite.createPassword")}</h1>
+          <h1>{t("settings.invite.createPassword")}</h1>
           <div className="flex justify-between py-2">
             <input
               className="write-section w-full! mr-2 flex-5"
-              placeholder={t("invite.password")}
-              alt={t("invite.password")}
+              placeholder={t("settings.invite.password")}
+              alt={t("settings.invite.password")}
               value={password}
               maxLength={32}
               onChange={(e) => {
@@ -93,7 +93,9 @@ export default function InviteComponentModal({
           <ModalActionRow>
             <div className="py-2 flex gap-x-2">
               {showWarning && (
-                <p className="text-red text-sm">{t("invite.modal.error")}</p>
+                <p className="text-red text-sm">
+                  {t("settings.invite.modal.error")}
+                </p>
               )}
               <ModalCancelButton />
               <button
@@ -101,7 +103,7 @@ export default function InviteComponentModal({
                 className="btn btn-secondary border"
                 disabled={!password.trim()}
               >
-                <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.create")}
+                <FontAwesomeIcon icon={faCheck} /> {t("action.create")}
               </button>
             </div>
           </ModalActionRow>
@@ -109,25 +111,25 @@ export default function InviteComponentModal({
       )}
       {step === 2 && (
         <div>
-          <h1>{t("invite.modal.header")}</h1>
-          <p>{t("invite.modal.text")}</p>
+          <h1>{t("settings.invite.modal.header")}</h1>
+          <p>{t("settings.invite.modal.text")}</p>
           <div className="py-5 gap-2 flex flex-nowrap justify-between items-center">
-            <p>{t("invite.modal.link")}</p>
+            <p>{t("settings.invite.modal.link")}</p>
             <span className="write-section p-2! overflow-hidden">
               {generatedLink}
             </span>
           </div>
           <ModalActionRow>
             <button onClick={handleCopy} className="btn border">
-              <FontAwesomeIcon icon={faCopy} /> {t("invite.modal.copy")}
+              <FontAwesomeIcon icon={faCopy} /> {t("action.copy")}
             </button>
             <button onClick={handleDone} className="btn btn-secondary border">
-              <FontAwesomeIcon icon={faCheck} /> {t("invite.modal.done")}
+              <FontAwesomeIcon icon={faCheck} /> {t("action.done")}
             </button>
           </ModalActionRow>
           {copied && (
             <p className="text-right text-green-dim mt-2">
-              {t("invite.modal.succes")}
+              {t("settings.invite.modal.success")}
             </p>
           )}
         </div>

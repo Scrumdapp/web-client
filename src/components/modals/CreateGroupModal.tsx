@@ -19,7 +19,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
 
   return (
     <Modal state={state}>
-      <ModalHeadText>{t("groups.newgroup")}</ModalHeadText>
+      <ModalHeadText>{t("action.newGroup")}</ModalHeadText>
       <form
         id="create-group-form"
         onSubmit={(e) => {
@@ -34,8 +34,8 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
       >
         <input
           type="text"
-          placeholder={t("groups.creategroup")}
-          alt={t("groups.creategroup")}
+          placeholder={t("groups.createGroup")}
+          alt={t("groups.createGroup")}
           className="write-section mb-4 w-full!"
           value={name}
           maxLength={30}
@@ -60,7 +60,7 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
             <LoadScreen />
           ) : (
             <>
-              <FontAwesomeIcon icon={faCheck} /> {t("groups.submit")}
+              <FontAwesomeIcon icon={faCheck} /> {t("action.submit")}
             </>
           )}
         </button>
