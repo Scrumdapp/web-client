@@ -20,6 +20,7 @@ import login from "./pages/login";
 import changelog from "./components/changelogs";
 import titles from "./components/titles";
 import actions from "./components/actions";
+import generic from "./components/generic";
 
 type TranslationStrings = Record<string, unknown>;
 type PageModule = Record<string, TranslationStrings>;
@@ -44,6 +45,7 @@ const pages: PageModule[] = [
   changelog,
   titles,
   actions,
+  generic,
 ];
 
 const resources = pages.reduce<Resources>((acc, page) => {

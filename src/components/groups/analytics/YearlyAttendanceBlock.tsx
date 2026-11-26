@@ -40,7 +40,7 @@ export function YearlyAttendanceBlock({
     labels: bars.map((bar) => shortDate.formatRange(bar.start, bar.end)),
     // The border in the card color keeps stacked segments apart without relying on color
     datasets: series.map(({ key, color }) => ({
-      label: t(`analytics.calendarLegend.${key}`),
+      label: t(`generic.attendance.${key}`),
       data: bars.map((bar) => bar[key]),
       backgroundColor: color,
       borderColor: chartChrome.card,
@@ -80,7 +80,7 @@ export function YearlyAttendanceBlock({
       <Legend
         className="mb-4"
         items={series.map(({ key, color }) => ({
-          label: t(`analytics.calendarLegend.${key}`),
+          label: t(`generic.attendance.${key}`),
           color,
         }))}
       />

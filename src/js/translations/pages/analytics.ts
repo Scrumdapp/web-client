@@ -1,8 +1,7 @@
 export default {
   en: {
     analytics: {
-      header: "Personal analytics",
-      onTimeComparison: "On time",
+      header: "My trends",
       calendarTitlePrefix: "Attendance:",
       calendarCheckpointAriaLabel: "Choose which checkpoint to show",
       mood: "Self-reflection",
@@ -13,17 +12,12 @@ export default {
       calendarSubtitle: "Attendance: status per working day",
       moodSubtitle: "Stars per checkpoint, with the average",
       yearlySubtitle: "Attendance: number of days per status, per period",
-      calendarPrevMonth: "Previous month",
-      calendarNextMonth: "Next month",
       calendarEmpty: "No sessions this month.",
-      calendarNoCheckpoint: "No data",
-      calendarNoStatus: "No data",
       noCheckpoints: "No checkpoints",
       moodEmpty: "No self-reflection scores yet.",
       moodTooltipScore: "Score: {{score}}",
       moodTooltipAverage: "Average: {{score}}",
       yearlyEmpty: "No attendance data for this semester.",
-      retry: "Try again",
       stats: {
         onTimeRate: "On time",
         onTimeRateTrendSuffix: "vs. previous week",
@@ -34,21 +28,6 @@ export default {
         selfReflectionSublabelLive_other: "Average over {{count}} reflections",
         noData: "No data yet",
       },
-      week: {
-        previous: "Previous week",
-        current: "This week",
-      },
-      onTimeLegend: {
-        yes: "Yes",
-        no: "No",
-        unknown: "Unknown",
-      },
-      calendarLegend: {
-        present: "Present",
-        late: "Late",
-        sick: "Sick",
-        absent: "Absent",
-      },
       moodLegend: {
         score: "Reported score",
         average: "Average",
@@ -57,8 +36,7 @@ export default {
   },
   nl: {
     analytics: {
-      header: "Persoonlijke analyse",
-      onTimeComparison: "Op tijd",
+      header: "Mijn trends",
       calendarTitlePrefix: "Aanwezigheid:",
       calendarCheckpointAriaLabel: "Kies welk checkpoint je wilt zien",
       mood: "Gemoedstoestand",
@@ -69,41 +47,19 @@ export default {
       calendarSubtitle: "Aanwezigheid: status per werkdag",
       moodSubtitle: "Sterren per checkpoint, met het gemiddelde",
       yearlySubtitle: "Aanwezigheid: aantal dagen per status, per periode",
-      calendarPrevMonth: "Vorige maand",
-      calendarNextMonth: "Volgende maand",
       calendarEmpty: "Geen sessies deze maand.",
-      calendarNoCheckpoint: "Geen gegevens",
-      calendarNoStatus: "Geen gegevens",
       noCheckpoints: "Geen checkpoints",
       moodEmpty: "Nog geen zelfreflectiescores.",
       moodTooltipScore: "Score: {{score}}",
       moodTooltipAverage: "Gemiddelde: {{score}}",
       yearlyEmpty: "Geen aanwezigheidsgegevens voor dit semester.",
-      retry: "Opnieuw proberen",
       stats: {
-        onTimeRate: "Op tijd",
         onTimeRateTrendSuffix: "t.o.v. vorige week",
         presentThisMonth: "Aanwezig deze maand",
         presentThisMonthSublabelLive: "{{present}} van {{total}} checkpoints",
         selfReflection: "Zelfreflectie",
         selfReflectionSublabelLive_one: "Gemiddeld over {{count}} reflectie",
         selfReflectionSublabelLive_other: "Gemiddeld over {{count}} reflecties",
-        noData: "Nog geen gegevens",
-      },
-      week: {
-        previous: "Vorige week",
-        current: "Deze week",
-      },
-      onTimeLegend: {
-        yes: "Ja",
-        no: "Nee",
-        unknown: "Onbekend",
-      },
-      calendarLegend: {
-        present: "Aanwezig",
-        late: "Te laat",
-        sick: "Ziek",
-        absent: "Absent",
       },
       moodLegend: {
         score: "Gegeven stemscore",
