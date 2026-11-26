@@ -1,7 +1,6 @@
 export default {
   en: {
     invite: {
-      title: "Accept invite | Scrumdapp",
       accept: {
         header: "You have been invited to join",
         text: "Enter your given password underneath.",
@@ -41,7 +40,6 @@ export default {
   },
   nl: {
     invite: {
-      title: "Accepteer Uitnodiging | Scrumdapp",
       accept: {
         header: "Jij bent uitgenodigd voor",
         text: "Voer het gegeven wachtwoord in.",

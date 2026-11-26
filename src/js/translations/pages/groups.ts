@@ -1,7 +1,6 @@
 export default {
   en: {
     groups: {
-      title: "Groups | Scrumdapp",
       newgroup: "New group",
       nogroups: "No groups have been found...",
       searchPlaceholder: "Search for groups",
@@ -13,7 +12,6 @@ export default {
   },
   nl: {
     groups: {
-      title: "Groepen | Scrumdapp",
       newgroup: "Nieuwe groep",
       nogroups: "Geen groepen gevonden...",
       searchPlaceholder: "Zoek naar groepen",

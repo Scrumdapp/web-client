@@ -1,7 +1,6 @@
 export default {
   en: {
     privacy: {
-      title: "Privacy | Scrumdapp",
       header: "Privacy:",
       header1: "What personal information do we collect?",
       header2: "Why do we collect this information?",
@@ -52,7 +51,6 @@ export default {
   },
   nl: {
     privacy: {
-      title: "Privacy | Scrumdapp",
       header: "Privacy:",
       header1: "Welke persoonsgegevens verzamelen wij?",
       header2: "Waarom verzamelen wij deze informatie?",

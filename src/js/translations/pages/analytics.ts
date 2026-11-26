@@ -1,7 +1,6 @@
 export default {
   en: {
     analytics: {
-      title: "Analytics | Scrumdapp",
       header: "Personal analytics",
       onTimeComparison: "On time",
       calendarTitlePrefix: "Attendance:",
@@ -58,7 +57,6 @@ export default {
   },
   nl: {
     analytics: {
-      title: "Analytics | Scrumdapp",
       header: "Persoonlijke analyse",
       onTimeComparison: "Op tijd",
       calendarTitlePrefix: "Aanwezigheid:",

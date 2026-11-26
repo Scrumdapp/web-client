@@ -1,7 +1,6 @@
 export default {
   en: {
     settings: {
-      title: "Settings | Scrumdapp",
       header: "Settings",
       background: {
         header: "Background",
@@ -70,7 +69,6 @@ export default {
   },
   nl: {
     settings: {
-      title: "Instellingen | Scrumdapp",
       header: "Instellingen",
       background: {
         header: "Achtergrond",
