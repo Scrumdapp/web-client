@@ -1,10 +1,6 @@
 export default {
   en: {
     errors: {
-      title: "Page not found | Scrumdapp",
-      goback: "Go back",
-      notfound: "404 error, page not found",
-
       generic: {
         badRequest: {
           title: "Bad request",
@@ -34,9 +30,8 @@ export default {
             "The service is currently unavailable. Please try again later.",
         },
         notFound: {
-          title: "Page not found",
+          title: "Page not found | Scrumdapp",
           description: "The requested page could not be found.",
-          goback: "Go back",
         },
         unknown: {
           title: "Unknown error",
@@ -197,9 +192,8 @@ export default {
             "De service is momenteel niet beschikbaar. Probeer het later opnieuw.",
         },
         notFound: {
-          title: "Pagina niet gevonden",
+          title: "Pagina niet gevonden | Scrumdapp",
           description: "De gevraagde pagina is niet gevonden.",
-          goback: "Ga terug",
         },
         unknown: {
           title: "Onbekende fout",

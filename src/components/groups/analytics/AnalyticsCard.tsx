@@ -49,7 +49,7 @@ function CardBody<T>({
       <div className="center min-h-40 gap-3">
         <ErrorScreen error={error} />
         <button type="button" className="btn btn-secondary" onClick={retry}>
-          {t("generic.retry")}
+          {t("action.retry")}
         </button>
       </div>
     );

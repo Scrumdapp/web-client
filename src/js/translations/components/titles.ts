@@ -9,6 +9,7 @@ export default {
       privacy: "Privacy | Scrumdapp",
       settings: "Settings | Scrumdapp",
       trends: "Trends | Scrumdapp",
+      noPage: "No page found | Scrumdapp",
     },
   },
 
@@ -22,6 +23,7 @@ export default {
       privacy: "Privacy | Scrumdapp",
       settings: "Instellingen | Scrumdapp",
       trends: "Trends | Scrumdapp",
+      noPage: "Geen pagina gevonden | Scrumdapp",
     },
   },
 };

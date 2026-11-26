@@ -5,8 +5,6 @@ export default {
             no: "No",
             unknown: "Unknown",
             noData: "No data",
-            retry: "Try again",
-            edit: "Edit",
             attendance: {
                 present: "Present",
                 onTime: "On time",
@@ -28,8 +26,6 @@ export default {
             no: "Nee",
             unknown: "Onbekend",
             noData: "Geen gegevens",
-            retry: "Opnieuw proberen",
-            edit: "Bewerk",
             attendance: {
                 present: "Present",
                 onTime: "Op Tijd",
