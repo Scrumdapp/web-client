@@ -54,7 +54,7 @@ export default function AcceptInvite({ invite }: { invite: InviteResponse }) {
               className="btn btn-secondary border flex float-right"
             >
               <FontAwesomeIcon icon={faUserPlus} />
-              {t("invite.accept.join")}
+              {t("action.join")}
             </button>
             {acceptInviteRequest.error != null && (
               <p className="text-error">{acceptInviteRequest.error.message}</p>

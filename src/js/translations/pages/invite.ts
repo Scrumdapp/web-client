@@ -4,12 +4,10 @@ export default {
       accept: {
         header: "You have been invited to join",
         text: "Enter your given password underneath.",
-        join: "Join",
       },
       inGroup: {
         header: "Already in group",
         text: "You have already joined the group, {{group}}",
-        toGroup: "To Group",
       },
       createPassword: "Create a Password",
       password: "Password",
@@ -43,12 +41,10 @@ export default {
       accept: {
         header: "Jij bent uitgenodigd voor",
         text: "Voer het gegeven wachtwoord in.",
-        join: "Neem deel",
       },
       inGroup: {
         header: "Al in de groep",
         text: "Jij bent al toegevoegd aan de groep {{group}}",
-        toGroup: "Naar Groep",
       },
       createPassword: "Maak een wachtwoord aan",
       password: "Wachtwoord",

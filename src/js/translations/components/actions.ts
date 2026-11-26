@@ -14,6 +14,7 @@ export default {
       done: "Done",
       edit: "Edit",
       goBack: "Go back",
+      join: "Join",
       logout: "Logout",
       newCheckpoint: "New Checkpoint",
       newGroup: "New Group",
@@ -24,6 +25,7 @@ export default {
       save: "Save",
       saving: "Saving...",
       submit: "Submit",
+      toGroup: "To Group",
       navigation: {
         about: "About",
         home: "Home",
@@ -55,6 +57,7 @@ export default {
       done: "Klaar",
       edit: "Bewerk",
       goBack: "Ga terug",
+      join: "Neem deel",
       logout: "Uitloggen",
       menuToggle: "Menu",
       newCheckpoint: "Nieuw Checkpoint",
@@ -66,6 +69,7 @@ export default {
       save: "Opslaan",
       saving: "Opslaan...",
       submit: "Maak aan",
+      toGroup: "Naar Groep",
       navigation: {
         about: "Over",
         home: "Hoofdpagina",

@@ -15,7 +15,7 @@ export function InGroup({ group }: { group: PartialGroup }) {
         <div className="flex justify-end gap-md">
           <Link className="btn border" to={`/groups/${group.id}`}>
             <FontAwesomeIcon icon={faRotateLeft} className="text-gray" />
-            {t("invite.inGroup.toGroup")}
+            {t("action.toGroup")}
           </Link>
         </div>
       </div>
