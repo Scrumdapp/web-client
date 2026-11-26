@@ -1,7 +1,7 @@
 export default {
   en: {
     action: {
-      add: "Add",
+      addCheckpointName: "Add a new checkpoint name",
       apply: "Apply",
       cancel: "Cancel",
       change: "Change",
@@ -45,7 +45,7 @@ export default {
 
   nl: {
     action: {
-      add: "Toevoegen",
+      addCheckpointName: "Voeg een nieuwe checkpoint naam toe",
       apply: "Toepassen",
       cancel: "Annuleer",
       change: "Wijzig",

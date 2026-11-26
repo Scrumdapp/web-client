@@ -10,8 +10,8 @@ export function InGroup({ group }: { group: PartialGroup }) {
   return (
     <div className="app-container">
       <div className="card">
-        <h1>{t("invite.inGroup.header")}</h1>
-        <p>{t("invite.inGroup.text", { group: group.name })}</p>
+        <h1>{t("settings.invite.inGroup.header")}</h1>
+        <p>{t("settings.invite.inGroup.text", { group: group.name })}</p>
         <div className="flex justify-end gap-md">
           <Link className="btn border" to={`/groups/${group.id}`}>
             <FontAwesomeIcon icon={faRotateLeft} className="text-gray" />

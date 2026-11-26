@@ -5,14 +5,12 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import privacy from "./pages/privacy";
 import about from "./pages/about";
 import settings from "./pages/settings";
-import invite from "./pages/invite";
 import groups from "./pages/groups";
 import checkpoint from "./pages/checkpoint";
 import timeAndCalendar from "./components/time-and-calendar.ts";
 import trends from "./pages/trends";
 import analytics from "./pages/analytics";
 import error from "./pages/error";
-import modal from "./pages/modal";
 import login from "./pages/login";
 import changelog from "./components/changelogs";
 import titles from "./components/titles";
@@ -27,14 +25,12 @@ const pages: PageModule[] = [
   privacy,
   about,
   settings,
-  invite,
   groups,
   checkpoint,
   timeAndCalendar,
   trends,
   analytics,
   error,
-  modal,
   login,
   changelog,
   titles,
