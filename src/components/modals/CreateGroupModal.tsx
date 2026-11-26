@@ -34,8 +34,8 @@ export function CreateGroupModal({ state }: { state: ModalState }) {
       >
         <input
           type="text"
-          placeholder={t("groups.creategroup")}
-          alt={t("groups.creategroup")}
+          placeholder={t("groups.createGroup")}
+          alt={t("groups.createGroup")}
           className="write-section mb-4 w-full!"
           value={name}
           maxLength={30}

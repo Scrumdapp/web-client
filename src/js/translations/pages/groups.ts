@@ -1,24 +1,22 @@
 export default {
   en: {
     groups: {
-      newgroup: "New group",
-      nogroups: "No groups have been found...",
+      newGroup: "New group",
+      noGroups: "No groups have been found...",
       searchPlaceholder: "Search for groups",
       searchAlt: "Search here for groups",
-      creategroup: "Create Name",
+      createGroup: "Group Name",
       image: "Group image for {{groupname}}",
-      submit: "Submit",
     },
   },
   nl: {
     groups: {
-      newgroup: "Nieuwe groep",
-      nogroups: "Geen groepen gevonden...",
+      newGroup: "Nieuwe groep",
+      noGroups: "Geen groepen gevonden...",
       searchPlaceholder: "Zoek naar groepen",
       searchAlt: "Zoek hier naar groepen",
-      creategroup: "Groep Naam",
+      createGroup: "Groep Naam",
       image: "Groepsafbeelding voor {{groupname}}",
-      submit: "Maak aan",
     },
   },
 };

@@ -64,7 +64,7 @@ export default {
       retry: "Probeer opnieuw",
       save: "Opslaan",
       saving: "Opslaan...",
-      submit: "Verzenden",
+      submit: "Maak aan",
       navigation: {
         about: "Over",
         home: "Home",
