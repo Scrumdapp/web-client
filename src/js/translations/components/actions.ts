@@ -56,6 +56,7 @@ export default {
       edit: "Bewerk",
       goBack: "Ga terug",
       logout: "Uitloggen",
+      menuToggle: "Menu",
       newCheckpoint: "Nieuw Checkpoint",
       newGroup: "Nieuwe groep",
       newInvite: "Nieuwe Uitnodiging",
@@ -67,7 +68,7 @@ export default {
       submit: "Maak aan",
       navigation: {
         about: "Over",
-        home: "Home",
+        home: "Hoofdpagina",
         groups: "Groepen",
         support: "Ondersteuning",
         privacy: "Privacy",

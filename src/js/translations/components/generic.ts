@@ -6,6 +6,8 @@ export default {
             unknown: "Unknown",
             noData: "No data",
             rights: "© 2026 Scrumdapp | All rights reserved",
+            language: "Language",
+            profileAlt: "Profile photo",
             attendance: {
                 present: "Present",
                 onTime: "On time",
@@ -28,6 +30,8 @@ export default {
             unknown: "Onbekend",
             noData: "Geen gegevens",
             rights: "© 2026 Scrumdapp | Alle rechten voorbehouden",
+            language: "Taal",
+            profileAlt: "Profielfoto",
             attendance: {
                 present: "Present",
                 onTime: "Op Tijd",
