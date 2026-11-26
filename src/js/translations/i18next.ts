@@ -13,7 +13,6 @@ import trends from "./pages/trends";
 import analytics from "./pages/analytics";
 import error from "./pages/error";
 import header from "./pages/header";
-import footer from "./pages/footer";
 import modal from "./pages/modal";
 import login from "./pages/login";
 import changelog from "./components/changelogs";
@@ -37,7 +36,6 @@ const pages: PageModule[] = [
   analytics,
   error,
   header,
-  footer,
   modal,
   login,
   changelog,

@@ -81,7 +81,7 @@ export default function FooterMobile() {
           <FontAwesomeIcon icon={faGithub} />
         </Link>
       </div>
-      <span className="flex-1 text-sm mt-2">{t("footer.rights")}</span>
+      <span className="flex-1 text-sm mt-2">{t("generic.rights")}</span>
     </footer>
   );
 }

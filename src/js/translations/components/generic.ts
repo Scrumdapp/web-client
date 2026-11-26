@@ -5,6 +5,7 @@ export default {
             no: "No",
             unknown: "Unknown",
             noData: "No data",
+            rights: "© 2026 Scrumdapp | All rights reserved",
             attendance: {
                 present: "Present",
                 onTime: "On time",
@@ -26,6 +27,7 @@ export default {
             no: "Nee",
             unknown: "Onbekend",
             noData: "Geen gegevens",
+            rights: "© 2026 Scrumdapp | Alle rechten voorbehouden",
             attendance: {
                 present: "Present",
                 onTime: "Op Tijd",

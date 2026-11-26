@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer className="mb-2 mx-2 card horizontal items-center justify-between gap-2">
-      <span className="flex-1">{t("footer.rights")}</span>
+      <span className="flex-1">{t("generic.rights")}</span>
       <div className="horizontal flex gap-4">
         {links.map((link, i) => (
           <Link

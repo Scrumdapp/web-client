@@ -47,19 +47,19 @@ export default function HeaderMobileModal({ modal }: HeaderMobileModalProps) {
           <NavbarLink
             to="/about"
             target="_self"
-            translationKey="footer.about"
+            translationKey="action.about"
             onClick={modal.close}
           />
           <NavbarLink
             to="/privacy"
             target="_self"
-            translationKey="footer.privacy"
+            translationKey="action.privacy"
             onClick={modal.close}
           />
           <NavbarLink
             to="https://scrumdapp.com/#Contact"
             target="_blank"
-            translationKey="footer.support"
+            translationKey="action.support"
             onClick={modal.close}
           />
           <hr className="text-gray" />
