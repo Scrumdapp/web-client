@@ -67,7 +67,7 @@ export function CreateGroupCheckpointSessionModal({
   return (
     <Modal state={state}>
       <div className="space-y-5">
-        <ModalHeadText>{t("checkpoint.modal.newcheckpoint")}</ModalHeadText>
+        <ModalHeadText>{t("checkpoint.modal.newCheckpoint")}</ModalHeadText>
         <div className="horizontal flex-1 gap-2">
           <CheckpointNamesDropdown
             names={names}
