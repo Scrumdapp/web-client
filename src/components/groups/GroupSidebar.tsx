@@ -18,32 +18,32 @@ export function GroupSidebar() {
     <div className="card vertical gap-1">
       <SidebarLink
         to={`/groups/${group.id}`}
-        translationKey="checkpoint.sidebar.today"
+        translationKey="action.navigation.today"
         icon={faHouse}
         className="text-blue"
       />
       <hr className="text-gray" />
       <SidebarLink
         to={`/groups/${group.id}/calendar`}
-        translationKey="checkpoint.sidebar.calendar"
+        translationKey="action.navigation.calendar"
         icon={faCalendarDays}
         className="text-green"
       />
       <SidebarLink
         to={`/groups/${group.id}/trends`}
-        translationKey="checkpoint.sidebar.trends"
+        translationKey="action.navigation.trends"
         icon={faChartSimple}
         className="text-yellow"
       />
       <SidebarLink
         to={`/groups/${group.id}/my-trends`}
-        translationKey="checkpoint.sidebar.myTrends"
+        translationKey="action.navigation.myTrends"
         icon={faChartLine}
         className="text-purple"
       />
       <SidebarLink
         to={`/groups/${group.id}/settings`}
-        translationKey="checkpoint.sidebar.settings"
+        translationKey="action.navigation.settings"
         icon={faGear}
         className="text-red"
       />

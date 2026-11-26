@@ -14,11 +14,11 @@ import { useModalState } from "../../js/hooks/useModalState.ts";
 export default function Footer() {
   const { t } = useTranslation();
   const links = [
-    { to: "/about", text: t("action.about"), target: "_self" },
-    { to: "/privacy", text: t("action.privacy"), target: "_self" },
+    { to: "/about", text: t("action.navigation.about"), target: "_self" },
+    { to: "/privacy", text: t("action.navigation.privacy"), target: "_self" },
     {
       to: "https://scrumdapp.com/#Contact",
-      text: t("action.support"),
+      text: t("action.navigation.support"),
       target: "_blank",
     },
   ];

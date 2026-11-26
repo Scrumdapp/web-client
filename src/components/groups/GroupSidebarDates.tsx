@@ -13,7 +13,7 @@ export function GroupSidebarDates() {
 
   return (
     <div className="card vertical gap-1 text-center">
-      <span>{t("checkpoint.sidebar.recent")}</span>
+      <span>{t("action.navigation.recent")}</span>
       <hr className="text-gray my-2" />
       <GetDatesApiComponent input={[group.id, 5]}>
         {(dates) =>
