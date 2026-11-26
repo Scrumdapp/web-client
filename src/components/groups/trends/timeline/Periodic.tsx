@@ -30,7 +30,7 @@ export function RenderTimelineGraph({
   const { t } = useTranslation();
 
   if (length == 0) {
-    return <div className="center">{t("trends.noData")}</div>;
+    return <div className="center">{t("generic.noData")}</div>;
   }
 
   return (

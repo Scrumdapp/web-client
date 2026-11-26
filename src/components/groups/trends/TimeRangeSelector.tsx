@@ -17,13 +17,13 @@ export function TimeRangeSelector({
 
   const options = [
     {
-      name: t("trends.twoweeks"),
+      name: t("time.twoWeeks"),
       from: () =>
         getWeekStart(new Date(new Date().getTime() - 14 * 24 * 60 * 60 * 1000)),
       to: () => new Date(),
     },
     {
-      name: t("trends.sixmonths"),
+      name: t("time.sixMonths"),
       from: () =>
         getWeekStart(
           new Date(new Date().getTime() - 6 * 4 * 7 * 24 * 60 * 60 * 1000),

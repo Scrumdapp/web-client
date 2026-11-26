@@ -64,6 +64,8 @@ export default {
       twoDays: "2 days",
       threeDays: "3 days",
       oneWeek: "1 week",
+      twoWeeks: "2 weeks",
+      sixMonths: "6 months",
     },
   },
 
@@ -132,6 +134,8 @@ export default {
       twoDays: "2 dagen",
       threeDays: "3 dagen",
       oneWeek: "1 week",
+      twoWeeks: "2 weken",
+      sixMonths: "6 maanden",
     }
   },
 };
