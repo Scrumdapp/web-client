@@ -15,8 +15,8 @@ export default function About() {
             <title>{t("title.about")}</title>
             <div>
               <h2 className="pb-3">{t("about.header")}</h2>
-              <h3 className="py-3">{t("about.text1")}</h3>
-              <p className="py-3 wrap-break-word">{t("about.text2")}</p>
+              <h3 className="py-3">{t("about.subheader")}</h3>
+              <p className="py-3 wrap-break-word">{t("about.text")}</p>
               <h3 className="py-3">{t("about.contributers")}</h3>
               <div>
                 <Link
@@ -353,7 +353,7 @@ export default function About() {
                 <br />
                 Jasper
                 <br />
-                {t("about.more")}
+                {t("about.others")}
               </div>
             </div>
           </div>
