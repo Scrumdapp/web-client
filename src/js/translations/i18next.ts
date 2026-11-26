@@ -14,7 +14,6 @@ import analytics from "./pages/analytics";
 import error from "./pages/error";
 import header from "./pages/header";
 import footer from "./pages/footer";
-import date from "./pages/date";
 import modal from "./pages/modal";
 import login from "./pages/login";
 import changelog from "./components/changelogs";
@@ -39,7 +38,6 @@ const pages: PageModule[] = [
   error,
   header,
   footer,
-  date,
   modal,
   login,
   changelog,
