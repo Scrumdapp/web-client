@@ -7,23 +7,24 @@ import {
   TribeCheckpoint as TribeCheckpointInterface,
 } from "../../js/models/tribe";
 import TribeCheckpointTable from "./TribeCheckpointTable";
+import { Collapse } from "../generic/Collapse";
 
 function TribeCheckpoint({
   tribe,
   session,
   groupCount,
-  memberCount,
+  userCount,
   isMostRecent,
 }: {
   tribe: Tribe;
   session: TribeCheckpointInterface;
   groupCount: number;
-  memberCount: number;
+  userCount: number;
   isMostRecent?: boolean;
 }) {
   const { t } = useTranslation();
 
-  const [isExpanded, setIsExpanded] = useState(isMostRecent);
+  const [isExpanded, setIsExpanded] = useState(!!isMostRecent);
 
   const handleToggle = () => {
     setIsExpanded((prev) => !prev);
@@ -59,22 +60,16 @@ function TribeCheckpoint({
           )?.length,
           activeUserCount: filledInTotal,
           groupCount,
-          memberCount,
+          userCount,
         })}
       </p>
-      <div
-        className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
-          isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <hr className="mt-2 mr-0" />
-          <TribeCheckpointTable
-            tribe={tribe}
-            groupSessions={session.group_sessions}
-          />
-        </div>
-      </div>
+      <Collapse open={isExpanded}>
+        <hr className="mt-2 mr-0" />
+        <TribeCheckpointTable
+          tribe={tribe}
+          groupSessions={session.group_sessions}
+        />
+      </Collapse>
     </div>
   );
 }

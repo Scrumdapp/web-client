@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
-import { WebConfig } from "../../config";
+import { WebConfig } from "../../../config";
 import { useTranslation } from "react-i18next";
 
 export const handleLogout = () => {

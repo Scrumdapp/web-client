@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { LogoutButton } from "../generic/LogoutButton.tsx";
+import { LogoutButton } from "../generic/buttons/LogoutButton.tsx";
 import { useUser } from "../../js/context/user/useUser.ts";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
 import { useTranslation } from "react-i18next";

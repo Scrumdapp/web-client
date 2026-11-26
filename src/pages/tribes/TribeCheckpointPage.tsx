@@ -106,7 +106,7 @@ export function TribeCheckpointPage({
                 tribe={tribe}
                 session={session}
                 groupCount={tribe.group_count}
-                memberCount={tribe.member_count}
+                userCount={tribe.user_count}
                 isMostRecent={index === 0}
               />
             </div>

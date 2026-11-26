@@ -21,6 +21,7 @@ import {
 } from "../../js/utils/colorUtils.ts";
 import EditCheckpointModal from "../modals/EditCheckpointModal.tsx";
 import ReadOnlyCheckpointModal from "../modals/ReadOnlyCheckpointModal.tsx";
+import { Collapse } from "../generic/Collapse.tsx";
 
 type CheckpointUser = {
   user_id: number;
@@ -176,7 +177,7 @@ function Checkpoint({
 
   const myUserId = currentUser?.id ?? null;
 
-  const [isExpanded, setIsExpanded] = useState(!isLocked || isMostRecent);
+  const [isExpanded, setIsExpanded] = useState(!isLocked || !!isMostRecent);
 
   const handleToggle = () => {
     setIsExpanded((prev) => !prev);
@@ -232,67 +233,60 @@ function Checkpoint({
           </>
         )}
       </p>
-      <div
-        className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
-          isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <hr className="my-2 mr-0" />
-          <table className="table-fixed w-full">
-            <thead>
-              <tr>
-                <th className="p-1 md:p-2 text-left w-16 md:w-44">
-                  {t("checkpoint.name")}
-                </th>
-                <th className="p-1 md:p-2 text-left border-l border-dotted w-16 md:w-28 truncate">
-                  {t("checkpoint.attendance")}
-                </th>
-                <th className="p-2 items-center w-20 md:w-28 truncate">
-                  {t("checkpoint.stars")}
-                </th>
-                <th className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate">
-                  {t("checkpoint.notes")}
-                </th>
-                <th className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate">
-                  {t("checkpoint.obstacle")}
-                </th>
-                <th className="p-1 md:p-2 pl-0 text-right w-12 md:w-20 truncate">
-                  {t("checkpoint.actions")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((item) => (
-                <tr
-                  key={`${item.groupUser === item.id ? "u" : "cp"}-${item.id}`}
-                  className="align-top"
-                >
-                  <td className="p-2 text-left name-field border-r border-t border-dotted border-current! max-h-14">
-                    {item.first_name} {item.last_name}
-                  </td>
-                  <td className="text-left p-2 border-t border-dotted border-current">
-                    <div className={getAttendanceColor(item.presence)}>
-                      {t(getAttendanceLabelKey(item.presence, true))}
-                    </div>
-                  </td>
-                  <td className="p-2 border-t border-dotted border-current">
-                    <div
-                      className={`flex justify-center items-center ${getStarsColor(item.stars)}`}
-                    >
-                      <Stars amount={item.stars} />
-                    </div>
-                  </td>
-                  <td className="p-2 break-words border-t border-dotted hidden lg:table-cell">
-                    <p className="break-words line-clamp-2">{item.comment}</p>
-                  </td>
-                  <td className="p-2 break-words border-t border-dotted hidden lg:table-cell">
-                    <p className="break-words line-clamp-2">
-                      {item.impediment}
-                    </p>
-                  </td>
-                  <td className="border-t border-dotted py-2">
-                    <div className="vertical md:horizontal gap-1 md:gap-2">
+      <Collapse open={isExpanded}>
+        <hr className="my-2 mr-0" />
+        <table className="table-fixed w-full">
+          <thead>
+            <tr>
+              <th className="p-1 md:p-2 text-left w-16 md:w-44">
+                {t("checkpoint.name")}
+              </th>
+              <th className="p-1 md:p-2 text-left border-l border-dotted w-16 md:w-28 truncate">
+                {t("checkpoint.attendance")}
+              </th>
+              <th className="p-2 items-center w-20 md:w-28 truncate">
+                {t("checkpoint.stars")}
+              </th>
+              <th className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate">
+                {t("checkpoint.notes")}
+              </th>
+              <th className="p-1 md:p-2 text-left hidden lg:table-cell md:w-28 truncate">
+                {t("checkpoint.obstacle")}
+              </th>
+              <th className="p-1 md:p-2 pl-0 text-right w-12 md:w-20 truncate">
+                {t("checkpoint.actions")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((item) => (
+              <tr
+                key={`${item.groupUser === item.id ? "u" : "cp"}-${item.id}`}
+                className="align-top"
+              >
+                <td className="p-2 text-left name-field border-r border-t border-dotted border-current! max-h-14">
+                  {item.first_name} {item.last_name}
+                </td>
+                <td className="text-left p-2 border-t border-dotted border-current">
+                  <div className={getAttendanceColor(item.presence)}>
+                    {t(getAttendanceLabelKey(item.presence, true))}
+                  </div>
+                </td>
+                <td className="p-2 border-t border-dotted border-current">
+                  <div
+                    className={`flex justify-center items-center ${getStarsColor(item.stars)}`}
+                  >
+                    <Stars amount={item.stars} />
+                  </div>
+                </td>
+                <td className="p-2 break-words border-t border-dotted hidden lg:table-cell">
+                  <p className="break-words line-clamp-2">{item.comment}</p>
+                </td>
+                <td className="p-2 break-words border-t border-dotted hidden lg:table-cell">
+                  <p className="break-words line-clamp-2">{item.impediment}</p>
+                </td>
+                <td className="border-t border-dotted py-2">
+                  <div className="vertical md:horizontal gap-1 md:gap-2">
                     <button
                       className="btn p-1 md:p-2 border aspect-square ml-auto mr-0 mt-0"
                       onClick={() => openReadOnly(item)}
@@ -313,14 +307,13 @@ function Checkpoint({
                         />
                       </button>
                     )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Collapse>
 
       <EditCheckpointModal
         key={editSession}

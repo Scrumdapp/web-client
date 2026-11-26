@@ -22,7 +22,7 @@ export function GroupCard({ group }: GroupCardProps) {
         <p className="text-lg">{group.name}</p>
 
         <span className="text-sm text-fg3">
-          {t("groups.memberCount", { count: group.member_count })}
+          {t("groups.userCount", { count: group.user_count })}
         </span>
       </div>
     </div>

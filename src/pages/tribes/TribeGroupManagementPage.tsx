@@ -5,6 +5,13 @@ import { faFileImport, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useModalState } from "../../js/hooks/useModalState";
 import { CreateGroupModal } from "../../components/modals/CreateGroupModal";
 import TribeGroupList from "../../components/tribes/TribeGroupList";
+import ActionButton from "../../components/generic/buttons/ActionButton";
+
+/*
+
+Arialabels not done yet
+
+*/
 
 export function TribeGroupManagementPage() {
   const { t } = useTranslation();
@@ -21,20 +28,21 @@ export function TribeGroupManagementPage() {
       </div>
       <div>
         <div className="flex items-center gap-2 md:col-start-3 md:justify-self-end">
-          <button className="btn bg-bg_h border max-h-fit">
+          <button className="w-full sm:w-fit btn bg-bg_h border max-h-fit">
             <FontAwesomeIcon icon={faFileImport} />
 
             {t("tribes.groups.import")}
           </button>
-
-          <button className="btn btn-red border max-h-fit" onClick={modal.open}>
-            {t("groups.newgroup")}
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
+          <ActionButton
+            labelTranslationKey="groups.newgroup"
+            icon={faPlus}
+            onClick={modal.open}
+            className="w-full sm:w-fit"
+          />
         </div>
       </div>
       {groups.length > 0 ? (
-        <div className="card p-1 md:p-4">
+        <div className="card p-4">
           <div className="flex justify-between">
             <h2>{t("tribes.groups.list.header")}</h2>
             <span className="text-fg3 text-sm">
@@ -42,7 +50,7 @@ export function TribeGroupManagementPage() {
             </span>
           </div>
           <hr className="mt-2 mr-0" />
-          <TribeGroupList groups={groups} />
+          <TribeGroupList tribeId={tribe.id} groups={groups} />
         </div>
       ) : (
         <div className="py-4 flex flex-col items-center text-center justify-center gap-2">

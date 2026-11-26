@@ -1,7 +1,7 @@
-import { LogoutButton } from "../generic/LogoutButton.tsx";
+import { LogoutButton } from "../generic/buttons/LogoutButton.tsx";
 import Modal from "../generic/modal/Modal.tsx";
 import LanguageSwitch from "../translation/LanguageSwitch.tsx";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useUser } from "../../js/context/user/useUser.ts";
 import { ModalState } from "../../js/hooks/useModalState.ts";

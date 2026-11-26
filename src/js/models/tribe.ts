@@ -6,6 +6,16 @@ export enum SessionStatus {
   NOT_STARTED = "NOT_STARTED",
 }
 
+export interface TribeGroupUsers {
+  group_id: number;
+  users: TribeUser[];
+}
+export interface TribeUser {
+  user_id: number;
+  first_name: string;
+  last_name: string;
+}
+
 export interface Tribe extends PartialTribe {
   groups: Group[];
 }
@@ -15,7 +25,7 @@ export interface PartialTribe {
   name: string;
   background_preference?: string;
   group_count: number;
-  member_count: number;
+  user_count: number;
   is_active: boolean;
   owner_id: number;
 }

@@ -5,6 +5,7 @@ import {
   PartialTribe,
   TribeCheckpoint,
   TribeCheckpointDates,
+  TribeGroupUsers,
 } from "../../../models/tribe.ts";
 import { SessionDates } from "../../../models/checkpoint.ts";
 
@@ -33,6 +34,14 @@ export function createTribe() {
 export function getTribe() {
   return createProcessor("getTribe", (tribeId: number) => {
     return makeApiRequest<Tribe>("GET", "/tribes/{id}", {
+      params: { "{id}": tribeId.toString() },
+    });
+  });
+}
+
+export function getTribeUsers() {
+  return createProcessor("getTribeUsers", (tribeId: number) => {
+    return makeApiRequest<TribeGroupUsers[]>("GET", "/tribes/{id}/users", {
       params: { "{id}": tribeId.toString() },
     });
   });

@@ -1,70 +1,188 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Group } from "../../js/models/group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExternalLink,
   faChevronDown,
-  faUsers,
+  faArrowRightArrowLeft,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
+import { TribeUser } from "../../js/models/tribe";
+import { useApi } from "../../js/hooks/api/useApi";
+import { ScrumdappApi } from "../../js/hooks/api/scrumdappApi";
+import { LoadScreen } from "../generic/LoadScreen";
+import { ErrorScreen } from "../generic/ErrorScreen";
+import { Collapse } from "../generic/Collapse";
+import { cn } from "../../js/utils/tw";
+import IconButton from "../generic/buttons/IconButton";
+import ActionButton from "../generic/buttons/ActionButton";
 
-const TribeGroupListRow = memo(({ group }: { group: Group }) => {
-  const { t } = useTranslation();
+const TribeGroupListRow = memo(
+  ({
+    group,
+    groupUsers,
+    deleteUser,
+    moveUser,
+    addUsers,
+  }: {
+    group: Group;
+    groupUsers: TribeUser[];
+    deleteUser: () => void;
+    moveUser: () => void;
+    addUsers: () => void;
+  }) => {
+    const { t } = useTranslation();
 
-  return (
-    <tr className="align-center h-15">
-      <td className="p-2 text-left name-field border-r border-t border-dotted border-bg4">
-        {group.name}
-      </td>
-      <td className="text-left p-2 border-t border-dotted border-bg4 hidden sm:table-cell">
-        {t("tribes.groups.list.memberCount", {
-          count: group.member_count,
-        })}
-      </td>
-      <td className="border-t border-dotted border-bg4 py-2 horizontal gap-1 md:gap-2">
-        <button className="btn gap-2 p-1 md:p-2 border ml-auto mr-0 mt-0">
-          <FontAwesomeIcon
-            icon={faUsers}
-            className="icon text-purple text-xs"
-          />
+    const [isExpanded, setIsExpanded] = useState(false);
 
-          {t("tribes.groups.list.manage")}
-          <FontAwesomeIcon icon={faChevronDown} className="icon text-xs" />
-        </button>
-        <Link
-          to={`/groups/${group.id}`}
-          target="_blank"
-          className="btn p-1 md:p-2 border aspect-square "
+    return (
+      <>
+        <tr
+          onClick={() => setIsExpanded((prev) => !prev)}
+          className={cn(
+            "align-center h-15 hover:bg-bg cursor-pointer transition-colors duration-300 ",
+            isExpanded && "bg-bg",
+          )}
         >
-          <FontAwesomeIcon icon={faExternalLink} className="icon text-blue" />
-        </Link>
-      </td>
-    </tr>
-  );
-});
+          <td className="p-2 border-r border-t border-t-dotted border-bg4">
+            <Link
+              to={`/groups/${group.id}`}
+              target="_blank"
+              className="w-fit flex gap-2 items-center border-b border-b-transparent border-dotted hover:border-b-fg2 transition-colors duration-100"
+            >
+              {group.name}
+              <FontAwesomeIcon
+                icon={faExternalLink}
+                className="icon text-blue text-xs"
+              />
+            </Link>
+          </td>
+          <td className=" p-2 border-t border-dotted border-bg4">
+            <div className="py-auto h-full flex items-center justify-between">
+              {t("tribes.groups.list.userCount", {
+                count: group.user_count,
+              })}
 
-const TribeGroupList = ({ groups }: { groups: Group[] }) => {
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={cn(
+                  "icon transition-all",
+                  isExpanded ? "rotate-180" : "",
+                )}
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colSpan={3} className="p-0">
+            <Collapse open={isExpanded}>
+              <div className="bg-bg pt-2 p-4 mb-4 rounded-b-md border-l-2 border-l-bg3">
+                <div className="flex items-center justify-between py-2">
+                  <h3>{group.name}</h3>
+                  <ActionButton
+                    labelTranslationKey="tribes.groups.list.add"
+                    icon={faPlus}
+                    onClick={addUsers}
+                  />
+                </div>
+                <ul>
+                  {groupUsers.map((user, idx) => (
+                    <li
+                      key={user.user_id}
+                      className={cn(
+                        "flex items-center justify-between py-2",
+                        idx + 1 === groupUsers?.length
+                          ? ""
+                          : "border-b border-b-fg4",
+                      )}
+                    >
+                      <span>{`${user.first_name} ${user.last_name}`}</span>
+                      <div className="flex items-center gap-2">
+                        <IconButton
+                          icon={faArrowRightArrowLeft}
+                          onClick={moveUser}
+                          iconClassName="text-yellow"
+                        />
+                        <IconButton
+                          icon={faTrashCan}
+                          onClick={deleteUser}
+                          iconClassName="text-red"
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Collapse>
+          </td>
+        </tr>
+      </>
+    );
+  },
+);
+
+const TribeGroupList = ({
+  tribeId,
+  groups,
+}: {
+  tribeId: number;
+  groups: Group[];
+}) => {
   const { t } = useTranslation();
+
+  const getTribeUsersByGroup = useApi(ScrumdappApi.getTribeUsers(), {
+    fetchOnCreated: [tribeId],
+  });
+
+  const deleteUser = () => {
+    return true;
+  };
+
+  const moveUser = () => {
+    return true;
+  };
+
+  const addUsers = () => {
+    return true;
+  };
+
+  const tribeUsersByGroup = getTribeUsersByGroup.data ?? [];
+
+  if (getTribeUsersByGroup.error)
+    return <ErrorScreen error={getTribeUsersByGroup.error} />;
+
+  if (getTribeUsersByGroup.loading || getTribeUsersByGroup.data == null)
+    return <LoadScreen />;
+
   return (
     <table className="table-fixed w-full">
       <thead>
         <tr className="h-12">
-          <th className="p-1 md:p-2 text-left w-16 md:w-44">
+          <th className="w-2/3 sm:w-1/3 p-1 md:p-2 text-left">
             {t("tribes.groups.list.group")}
           </th>
-          <th className="p-1 md:p-2 text-left border-l hidden sm:table-cell border-dotted w-20 md:w-28 truncate">
-            {t("tribes.groups.list.members")}
-          </th>
-          <th className="p-2 text-right w-20 md:w-28 truncate">
-            {t("tribes.groups.list.actions")}
+          <th className="w-1/3 sm:w-2/3 p-1 md:p-2 text-left border-l border-dotted truncate">
+            {t("tribes.groups.list.users")}
           </th>
         </tr>
       </thead>
       <tbody>
         {groups.map((group) => {
+          const groupUsers =
+            tribeUsersByGroup.find((it) => it.group_id === group.id)?.users ??
+            [];
           return group ? (
-            <TribeGroupListRow key={group.id} group={group} />
+            <TribeGroupListRow
+              key={group.id}
+              group={group}
+              groupUsers={groupUsers}
+              moveUser={moveUser}
+              deleteUser={deleteUser}
+              addUsers={addUsers}
+            />
           ) : null;
         })}
       </tbody>

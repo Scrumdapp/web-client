@@ -23,7 +23,7 @@ export function TribeCard({ tribe }: TribeCardProps) {
 
         <span className="text-sm text-fg3">
           {t("tribes.groupCount", { count: tribe.group_count })} •{" "}
-          {t("tribes.memberCount", { count: tribe.member_count })}
+          {t("tribes.userCount", { count: tribe.user_count })}
         </span>
       </div>
     </div>
