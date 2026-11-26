@@ -52,7 +52,21 @@ export default {
         unknown: "",
       },
     },
+    time: {
+      fiveMinutes: "5 minutes",
+      tenMinutes: "10 minutes",
+      fifteenMinutes: "15 minutes",
+      twentyMinutes: "20 minutes",
+      thirtyMinutes: "30 minutes",
+      oneHour: "1 hour",
+      twelveHours: "12 hours",
+      oneDay: "1 day",
+      twoDays: "2 days",
+      threeDays: "3 days",
+      oneWeek: "1 week",
+    },
   },
+
   nl: {
     calendar: {
       header: "Kalender",
@@ -106,5 +120,18 @@ export default {
         unknown: "",
       },
     },
+    time: {
+      fiveMinutes: "5 minuten",
+      tenMinutes: "10 minuten",
+      fifteenMinutes: "15 minuten",
+      twentyMinutes: "20 minuten",
+      thirtyMinutes: "30 minuten",
+      oneHour: "1 uur",
+      twelveHours: "12 uur",
+      oneDay: "1 dag",
+      twoDays: "2 dagen",
+      threeDays: "3 dagen",
+      oneWeek: "1 week",
+    }
   },
 };

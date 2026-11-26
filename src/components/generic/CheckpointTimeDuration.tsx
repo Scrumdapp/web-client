@@ -10,12 +10,12 @@ type CheckpointTimeDurationDropdownMenuProps = {
 };
 
 export const CheckpointTimeDuration = [
-  { labelKey: "checkpoint.modal.duration.fiveminutes", minutes: 5 },
-  { labelKey: "checkpoint.modal.duration.tenminutes", minutes: 10 },
-  { labelKey: "checkpoint.modal.duration.fifteenminutes", minutes: 15 },
-  { labelKey: "checkpoint.modal.duration.twentyminutes", minutes: 20 },
-  { labelKey: "checkpoint.modal.duration.thirtyminutes", minutes: 30 },
-  { labelKey: "checkpoint.modal.duration.onehour", minutes: 60 },
+  { labelKey: "time.fiveMinutes", minutes: 5 },
+  { labelKey: "time.tenMinutes", minutes: 10 },
+  { labelKey: "time.fifteenMinutes", minutes: 15 },
+  { labelKey: "time.twentyMinutes", minutes: 20 },
+  { labelKey: "time.thirtyMinutes", minutes: 30 },
+  { labelKey: "time.oneHour", minutes: 60 },
 ];
 
 export function CheckpointTimeDurationDropdownMenu({

@@ -8,7 +8,7 @@ import settings from "./pages/settings";
 import invite from "./pages/invite";
 import groups from "./pages/groups";
 import checkpoint from "./pages/checkpoint";
-import calendar from "./pages/calendar";
+import timeAndCalendar from "./components/time-and-calendar.ts";
 import trends from "./pages/trends";
 import analytics from "./pages/analytics";
 import error from "./pages/error";
@@ -30,7 +30,7 @@ const pages: PageModule[] = [
   invite,
   groups,
   checkpoint,
-  calendar,
+  timeAndCalendar,
   trends,
   analytics,
   error,
