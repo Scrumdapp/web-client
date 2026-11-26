@@ -136,6 +136,6 @@ export default {
       oneWeek: "1 week",
       twoWeeks: "2 weken",
       sixMonths: "6 maanden",
-    }
+    },
   },
 };

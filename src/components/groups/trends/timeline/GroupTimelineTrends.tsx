@@ -48,7 +48,9 @@ export const GroupTimelineTrends = memo(
     } else if (getGroupTimelineTrends.data == null) {
       component = <LoadScreen />;
     } else if (getGroupTimelineTrends.data.trends.length == 0) {
-      component = <ErrorScreen error={new ApiError(999, t("generic.noData"))} />;
+      component = (
+        <ErrorScreen error={new ApiError(999, t("generic.noData"))} />
+      );
     } else if (display == GroupTimelineDisplayType.Cumulative) {
       component = (
         <RenderCumulativeGraph
@@ -76,7 +78,7 @@ export const GroupTimelineTrends = memo(
               <div className={`w-4 h-4 rounded-sm ${it.background}`}></div>
               <p className="text-fg2 text-sm md:text-base">
                 {t(it.labelKey) === "---"
-                  ? t("generic.attendance.noData")
+                  ? t("generic.noData")
                   : t(it.labelKey)}
               </p>
             </div>

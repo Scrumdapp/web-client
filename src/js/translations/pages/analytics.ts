@@ -19,14 +19,12 @@ export default {
       moodTooltipAverage: "Average: {{score}}",
       yearlyEmpty: "No attendance data for this semester.",
       stats: {
-        onTimeRate: "On time",
         onTimeRateTrendSuffix: "vs. previous week",
         presentThisMonth: "Present this month",
         presentThisMonthSublabelLive: "{{present}} of {{total}} checkpoints",
         selfReflection: "Self-reflection",
         selfReflectionSublabelLive_one: "Average over {{count}} reflection",
         selfReflectionSublabelLive_other: "Average over {{count}} reflections",
-        noData: "No data yet",
       },
       moodLegend: {
         score: "Reported score",

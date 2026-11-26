@@ -35,12 +35,12 @@ export default {
         header: "Checkpoint Names",
         editHeader: "Edit checkpoint names",
         description:
-            "These are all the checkpoint names that are used in this group:",
+          "These are all the checkpoint names that are used in this group:",
         placeholder: "New checkpoint name",
         noNames: "No checkpoint names have been added yet...",
         saveErrorTitle: "Unable to save",
         saveErrorDescription:
-            "There was an error while saving, please try again",
+          "There was an error while saving, please try again",
       },
 
       invite: {
@@ -89,7 +89,6 @@ export default {
           },
         },
       },
-
     },
   },
 
@@ -129,12 +128,12 @@ export default {
         header: "Checkpoint namen",
         editHeader: "Pas checkpoint namen aan",
         description:
-            "Dit zijn alle checkpoint namen die gebruikt worden in deze groep:",
+          "Dit zijn alle checkpoint namen die gebruikt worden in deze groep:",
         placeholder: "Nieuwe checkpoint naam",
         noNames: "Er zijn nog geen checkpoint namen toegevoegd...",
         saveErrorTitle: "Opslaan mislukt",
         saveErrorDescription:
-            "Er was een fout bij het opslaan, probeer het later opnieuw",
+          "Er was een fout bij het opslaan, probeer het later opnieuw",
       },
 
       invite: {
@@ -155,7 +154,7 @@ export default {
         expired: "Verlopen",
         modal: {
           error:
-              "Alleen letters, nummer, spaties en de leestekens zijn toegestaan.",
+            "Alleen letters, nummer, spaties en de leestekens zijn toegestaan.",
           create: "Maak aan",
           header: "Nodig anderen uit om deel te nemen aan de groep.",
           text: "Kopieer en deel deze link met je team.",
@@ -184,7 +183,6 @@ export default {
           },
         },
       },
-
     },
   },
 };

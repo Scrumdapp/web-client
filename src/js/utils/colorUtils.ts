@@ -65,7 +65,7 @@ export function getAttendanceLabelKeyTrends(
   value: string | null | undefined,
 ): string {
   if (value == null) {
-    return "generic.attendance.noData";
+    return "generic.noData";
   }
   return (
     attendanceOptions.find((opt) => opt.value === value)?.labelKey ??

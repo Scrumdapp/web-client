@@ -39,9 +39,7 @@ interface Props {
 
 export function WeekComparisonDonuts({ weeks, previous, current }: Props) {
   const { t, i18n } = useTranslation();
-  const labels = ["yes", "no", "unknown"].map((key) =>
-    t(`generic.${key}`),
-  );
+  const labels = ["yes", "no", "unknown"].map((key) => t(`generic.${key}`));
   const shortDate = new Intl.DateTimeFormat(i18n.language, {
     day: "numeric",
     month: "short",

@@ -61,7 +61,9 @@ export default function Invites({ groupId }: InvitesProps) {
             <table className="table">
               <thead>
                 <tr>
-                  <th className="p-2 text-left">{t("settings.invite.expire")}</th>
+                  <th className="p-2 text-left">
+                    {t("settings.invite.expire")}
+                  </th>
                   <th />
                 </tr>
               </thead>

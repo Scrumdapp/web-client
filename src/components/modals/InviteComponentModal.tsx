@@ -93,7 +93,9 @@ export default function InviteComponentModal({
           <ModalActionRow>
             <div className="py-2 flex gap-x-2">
               {showWarning && (
-                <p className="text-red text-sm">{t("settings.invite.modal.error")}</p>
+                <p className="text-red text-sm">
+                  {t("settings.invite.modal.error")}
+                </p>
               )}
               <ModalCancelButton />
               <button
