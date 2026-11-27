@@ -64,7 +64,7 @@ export default function EditCheckpointModal({
   const userName = `${checkpoint.first_name} ${checkpoint.last_name}`;
 
   return (
-    <Modal state={state}>
+    <Modal state={state} backgroundClickClose={false}>
       <div className="space-y-5">
         <ModalHeadText>
           {t("checkpoint.modalheader", { name: userName })}
